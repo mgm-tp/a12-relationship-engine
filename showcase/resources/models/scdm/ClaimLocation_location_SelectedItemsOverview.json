@@ -1,0 +1,55 @@
+{
+	"header": {
+		"id": "ClaimLocation_location_SelectedItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ClaimLocation_location____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": false,
+			"pagingSize": 50
+		},
+		"columns": [
+			{
+				"id": "column-5787e",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_2fc9a",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {},
+		"subHeaderBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

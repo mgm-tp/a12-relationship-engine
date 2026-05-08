@@ -1,0 +1,257 @@
+{
+	"header": {
+		"id": "Category-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Category"
+			},
+			{
+				"locale": "de",
+				"text": "Kategorie"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"CategoryCategory-UiConfig-1\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CategoryCategory\",\"targetRole\":\"ParentCategory\",\"components\":[{\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Category_Category_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"Category_Parent_Category_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_7b217\"},{\"type\":\"relationship\",\"details\":{\"name\":\"Sub Categories\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CategoryCategory\",\"targetRole\":\"ChildCategory\",\"components\":[{\"id\":\"98af43\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":20,\"models\":[{\"name\":\"Category_Child_Category_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Category_Category_AvailableItemsOverview\",\"use\":\"candidate\"}]}]},\"elementId\":\"section-d67f6\"}]"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Category-document",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Category-document"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Category_Parent_Category_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Category_Category_AvailableItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Category_Child_Category_SelectedItemsOverview"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-e9fec",
+						"name": "Save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "CRUD::SAVE",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE",
+						"enablement": "DISABLED"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-50ad0",
+						"name": "Cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-dab0e",
+						"name": "Commit",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Commit"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern und Schließen"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_save",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "dualPane",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "Dual Pane"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-1ad37",
+						"name": "cg-1",
+						"layout": {
+							"lg": "12"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-f167b",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-d161c",
+										"elementRef": "F1"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "BOTTOM"
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "customscreenelement_7b217",
+						"name": "CategoryCategory-UiConfig-1",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "CategoryCategory-UiConfig-1"
+									},
+									{
+										"locale": "de",
+										"text": "CategoryCategory-UiConfig-1"
+									}
+								]
+							}
+						}
+					},
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid_fbe6c",
+						"name": "cg-2",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-a6d65",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-a3d5e",
+										"elementRef": "F1"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "BOTTOM"
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-d67f6",
+						"name": "Sub Categories",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Sub Categories"
+									},
+									{
+										"locale": "de",
+										"text": "Sub Categories"
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

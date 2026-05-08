@@ -1,0 +1,151 @@
+{
+	"header": {
+		"id": "DataEditorExamplePerson-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Person"
+			},
+			{
+				"locale": "de",
+				"text": "Person"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Person-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "custom_list",
+				"fields": [
+					{
+						"fieldId": "F3"
+					},
+					{
+						"fieldId": "F4"
+					},
+					{
+						"fieldId": "F8"
+					},
+					{
+						"fieldId": "F9"
+					}
+				]
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "search"
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-5bd25",
+				"label": [
+					{
+						"locale": "en",
+						"text": "First Name"
+					},
+					{
+						"locale": "de",
+						"text": "Vorname"
+					}
+				],
+				"icon": {
+					"name": "person",
+					"theme": "outlined"
+				},
+				"width": 1,
+				"elementRef": "F3",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-5847d",
+				"width": 1,
+				"alignment": {
+					"header": {
+						"horizontal": "left",
+						"vertical": "bottom"
+					},
+					"content": {
+						"horizontal": "left",
+						"vertical": "top"
+					}
+				},
+				"elementRef": "F4",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-3eb14",
+				"icon": {
+					"name": "date_range",
+					"theme": "outlined"
+				},
+				"width": 1,
+				"alignment": {
+					"header": {
+						"horizontal": "left",
+						"vertical": "middle"
+					},
+					"content": {
+						"horizontal": "left",
+						"vertical": "middle"
+					}
+				},
+				"elementRef": "F8",
+				"sortable": false
+			},
+			{
+				"id": "column-95cd5",
+				"width": 1,
+				"styles": {},
+				"elementRef": "F9",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		}
+	}
+}

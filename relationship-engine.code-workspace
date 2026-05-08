@@ -1,0 +1,50 @@
+{
+	"folders": [
+		{
+			"name": "relationship-engine",
+			"path": "."
+		},
+		{
+			"name": "core",
+			"path": "core"
+		},
+		{
+			"name": "crud",
+			"path": "crud"
+		},
+		{
+			"name": "showcase",
+			"path": "showcase"
+		},
+		{
+			"name": "e2e",
+			"path": "e2e"
+		},
+		{
+			"name": "documentation",
+			"path": "documentation"
+		},
+		{
+			"name": "docker",
+			"path": "docker"
+		},
+		{
+			"name": "server",
+			"path": "server"
+		},
+		{
+			"name": "services-utils",
+			"path": "services-utils"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"editor.codeActionsOnSave": ["source.organizeImports", "source.fixAll.eslint"]
+	}
+}

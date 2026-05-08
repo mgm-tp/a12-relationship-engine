@@ -1,0 +1,204 @@
+{
+	"header": {
+		"id": "CRUD-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "CRUD Formular"
+			},
+			{
+				"locale": "en",
+				"text": "CRUD Form"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "DM",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "CRUD-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-50ad0",
+						"name": "Cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										},
+										{
+											"locale": "en",
+											"text": "Cancel"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-dab0e",
+						"name": "Save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Speichern"
+										},
+										{
+											"locale": "en",
+											"text": "Save"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "CRUD::SAVE",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-dab0f",
+						"name": "Submit",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Absenden"
+										},
+										{
+											"locale": "en",
+											"text": "Submit"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE",
+						"enablement": "DISABLED"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "Section",
+						"id": "section-bf17a",
+						"name": "Field",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "de",
+										"text": "Feld"
+									},
+									{
+										"locale": "en",
+										"text": "Field"
+									}
+								]
+							}
+						},
+						"screenElements": [
+							{
+								"type": "ControlGrid",
+								"id": "controlgrid-9421e",
+								"name": "grid",
+								"layout": {
+									"lg": "12"
+								},
+								"row": [
+									{
+										"type": "Row",
+										"id": "row-66a48",
+										"name": "row",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-097f9",
+												"offset": {
+													"lg": 0
+												},
+												"elementRef": "F3"
+											}
+										]
+									},
+									{
+										"type": "Row",
+										"id": "row-de773",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-29ccd",
+												"elementRef": "field_cbf60"
+											}
+										]
+									}
+								],
+								"verticalAlignment": "BOTTOM"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

@@ -1,0 +1,181 @@
+{
+	"header": {
+		"id": "Address-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Adresse Übersicht"
+			},
+			{
+				"locale": "en",
+				"text": "Address Overview"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Address-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"initialSorting": [
+				{
+					"idref": "column-dfc07"
+				},
+				{
+					"idref": "column-e9f21"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"label": [
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						},
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"type": "button",
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "delete",
+					"confirmation": {
+						"message": [
+							{
+								"locale": "de",
+								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+							},
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this entry?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"description": [
+						{
+							"locale": "de",
+							"text": "Löschen"
+						},
+						{
+							"locale": "en",
+							"text": "Delete"
+						}
+					],
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"columns": [
+			{
+				"id": "column-86955",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_2fc9a",
+				"sortable": false
+			},
+			{
+				"id": "column-c9cb6",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_e9abb",
+				"sortable": false
+			},
+			{
+				"id": "column-e9f21",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_90cd2",
+				"sortable": true,
+				"preferredSorting": "DESC"
+			},
+			{
+				"id": "column-dfc07",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_dbbc9",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-69328",
+				"label": [
+					{
+						"locale": "de",
+						"text": "Aussicht"
+					},
+					{
+						"locale": "en",
+						"text": "View"
+					}
+				],
+				"icon": {
+					"name": "image"
+				},
+				"width": 1,
+				"styles": {},
+				"elementRef": "group_ecbda",
+				"sortable": false,
+				"attachmentDisplayMode": "preview"
+			}
+		],
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

@@ -1,0 +1,64 @@
+[
+	{
+		"jsonrpc": "2.0",
+		"id": "OverviewEngineDataProvider-1",
+		"result": {
+			"fullSize": 7,
+			"page": { "pageNumber": 0, "pageSize": 10 },
+			"entries": [
+				{
+					"docRef": "Category-document/3c085a31-1b9e-4e93-b996-42c607cfe71d",
+					"document": { "Properties": { "name": "Cat4SubCategory" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Category-document"
+				},
+				{
+					"docRef": "Category-document/c8fc7cfe-758c-4d7d-bc54-a9175211e0b4",
+					"document": { "Properties": { "name": "Cat 3" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Category-document"
+				},
+				{
+					"docRef": "Category-document/29d6b156-979c-47db-9915-389532c61cf1",
+					"document": { "Properties": { "name": "Cat3SubCategory" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Category-document"
+				},
+				{
+					"docRef": "Category-document/5c7c7b07-64f6-488c-be10-5d287fc5b12d",
+					"document": { "Properties": { "name": "Cat 2" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Category-document"
+				},
+				{
+					"docRef": "Category-document/5da7715c-e0ff-41bd-bb29-ca75ab1b3f62",
+					"document": { "Properties": { "name": "Cat 1" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Category-document"
+				},
+				{
+					"docRef": "Category-document/a771b742-2f25-460c-9c22-8a350536ce0c",
+					"document": { "Properties": { "name": "Cat 2" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Category-document"
+				},
+				{
+					"docRef": "Category-document/9f0bcd3c-18b2-4eb4-a2aa-832a2ac05c4c",
+					"document": { "Properties": { "name": "Cat 1" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Category-document"
+				}
+			],
+			"links": [],
+			"otherResults": {}
+		}
+	},
+	{ "jsonrpc": "2.0", "id": "ThumbnailUrls-1", "result": {} }
+]

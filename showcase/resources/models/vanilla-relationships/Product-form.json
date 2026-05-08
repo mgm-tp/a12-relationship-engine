@@ -1,0 +1,817 @@
+{
+	"header": {
+		"id": "Product-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Produkt"
+			},
+			{
+				"locale": "en",
+				"text": "Product"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"ProductBrand-UiConfig-1\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Brand\",\"components\":[{\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Product_Brand_SingleSelection_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"Brand_Product_SingleSelection_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_763b0\"},{\"type\":\"relationship\",\"name\":\"ProductBrand-UiConfig-2\",\"elementId\":\"section-c628f\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Brand\",\"components\":[{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":2,\"models\":[{\"name\":\"Brand_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Brand_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-f40bc\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Bundle\",\"components\":[{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":2,\"props\":{\"height\":250},\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Bundle_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-eb522\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Bundle\",\"components\":[{\"id\":\"fb34a1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"editDialogTitle\":{\"label\":[{\"locale\":\"de\",\"text\":\"Relationship Links bearbeiten\"},{\"locale\":\"en\",\"text\":\"Edit relationship links\"}]},\"editDialogCancelButtonLabel\":{\"label\":[{\"locale\":\"de\",\"text\":\"Änderungen abbrechen\"},{\"locale\":\"en\",\"text\":\"Cancel changes\"}]},\"editDialogCloseButtonLabel\":{\"label\":[{\"locale\":\"de\",\"text\":\"Dialog schließen\"},{\"locale\":\"en\",\"text\":\"Close dialog\"}]},\"editDialogWidth\":999},\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Bundle_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}}]"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Product-document",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Product-document"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Brand_Product_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Product_Brand_AvailableItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Brand_Product_SingleSelection_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Product_Brand_SingleSelection_AvailableItemsOverview"
+			},
+			{
+				"modelType": "form",
+				"purpose": "bindingReference",
+				"reference": "ProductBrand-LinkForm"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Bundle_Product_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Product_Bundle_AvailableItemsOverview"
+			},
+			{
+				"modelType": "form",
+				"purpose": "bindingReference",
+				"reference": "ProductBundle-LinkForm"
+			}
+		]
+	},
+	"content": {
+		"styles": [
+			{
+				"name": "h_leftAlign"
+			}
+		],
+		"subHeaderBox": {
+			"id": "subHeaderBox",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "NAVIGATION",
+						"id": "button-b8da0",
+						"name": "btnSingleSelection",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Marke (Single)"
+										},
+										{
+											"locale": "en",
+											"text": "Brand (Single)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen1",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "NAVIGATION",
+						"id": "button-956a9",
+						"name": "btnDualPaneBrand",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Marke (Dual)"
+										},
+										{
+											"locale": "en",
+											"text": "Brand (Dual)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen-8f15f",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "NAVIGATION",
+						"id": "button-52312",
+						"name": "btnDualPane",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Paket (Dual)"
+										},
+										{
+											"locale": "en",
+											"text": "Bundle (Dual)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen-5d63f",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "NAVIGATION",
+						"id": "button-d8e8c",
+						"name": "btnTableList",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Paket (List)"
+										},
+										{
+											"locale": "en",
+											"text": "Bundle (List)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen-ed9d5",
+						"scope": "ALWAYS"
+					}
+				]
+			}
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-74bd3",
+						"name": "Save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Speichern"
+										},
+										{
+											"locale": "en",
+											"text": "Save"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "CRUD::SAVE",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE",
+						"enablement": "DISABLED"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-50ad0",
+						"name": "Cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										},
+										{
+											"locale": "en",
+											"text": "Cancel"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-dab0e",
+						"name": "Commit",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "de",
+											"text": "Speichern und Schließen"
+										},
+										{
+											"locale": "en",
+											"text": "Commit"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_save",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "singleRelationship",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "de",
+								"text": "Einzelne Relationship"
+							},
+							{
+								"locale": "en",
+								"text": "Single Relationship"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-ec0d1",
+						"name": "cg-1",
+						"layout": {
+							"lg": "9-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row_5d5",
+								"cell": [
+									{
+										"type": "TextCell",
+										"id": "textcell_4e1",
+										"name": "text",
+										"content": {
+											"text": [
+												{
+													"locale": "de",
+													"text": "<font size=\"2\" color=\"blue\">Diese Ansicht zeigt die Anwendung einer DropdownSelection mit Expression-Spalten.</font>\n<br>\n<font size=\"2\" color=\"blue\">Eine DropdownSelection nutzt nur die erste Spalte des dazugehörigen Overview Models für seine Labels. Um trotzdem die Werte mehrerer Spalten anzuzeigen, können diese in einer Expression zusammengefasst werden.</font>"
+												},
+												{
+													"locale": "en",
+													"text": "<font size=\"2\" color=\"blue\">This view demonstrates the usage of a DropdownSelection in combination with expression columns.</font>\n<br>\n<font size=\"2\" color=\"blue\">A DropdownSelection uses the first column of the respective Overview Model for its labels. To display the values of multiple columns, they can be combined in an expression.</font>"
+												}
+											]
+										}
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-6d762",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-22e29",
+										"offset": {
+											"lg": 0
+										},
+										"elementRef": "F4"
+									},
+									{
+										"type": "Control",
+										"id": "control-33b2f",
+										"offset": {
+											"lg": 0
+										},
+										"style": [
+											{
+												"name": "h_leftAlign"
+											}
+										],
+										"elementRef": "F5"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-b09ca",
+								"name": "row-3",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-f83e5",
+										"label": {
+											"type": "Multilingual",
+											"multilingualText": {
+												"text": [
+													{
+														"locale": "de",
+														"text": "Bild"
+													},
+													{
+														"locale": "en",
+														"text": "Image"
+													}
+												]
+											}
+										},
+										"elementRef": "group_95309"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "BOTTOM"
+					},
+					{
+						"type": "MultiColumnSection",
+						"id": "multicolumnsection_c5614",
+						"name": "mcs-1",
+						"layout": {
+							"lg": "9-3"
+						},
+						"screenElements": [
+							{
+								"type": "CustomScreenElement",
+								"id": "customscreenelement_763b0",
+								"name": "ProductBrand-UiConfig-1",
+								"title": {
+									"type": "Multilingual",
+									"multilingualText": {
+										"text": [
+											{
+												"locale": "de",
+												"text": "ProductBrand-UiConfig-1"
+											},
+											{
+												"locale": "en",
+												"text": "ProductBrand-UiConfig-1"
+											}
+										]
+									}
+								}
+							},
+							{
+								"type": "ControlGrid",
+								"id": "controlgrid_12b3e",
+								"name": "cg-2",
+								"row": [
+									{
+										"type": "Row",
+										"id": "row-6d723",
+										"name": "row-2",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-6ef11",
+												"elementRef": "field_31308"
+											}
+										]
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "Section",
+						"id": "section_dfe2e",
+						"name": "secExportRestriction",
+						"screenElements": [
+							{
+								"type": "ControlGrid",
+								"id": "controlgrid_451c6",
+								"name": "cgExportRestriction",
+								"layout": {
+									"lg": "12"
+								},
+								"row": [
+									{
+										"type": "Row",
+										"id": "row_08fb2",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control_cb792",
+												"elementRef": "field_20c1c"
+											}
+										]
+									},
+									{
+										"type": "Row",
+										"id": "row_d414d",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control_0663a",
+												"elementRef": "field_7e876"
+											}
+										]
+									}
+								],
+								"verticalAlignment": "BOTTOM"
+							},
+							{
+								"type": "InlineRepeat",
+								"id": "inlinerepeat_2a4cb",
+								"name": "restrictedCountries_Repeat",
+								"title": {
+									"type": "Multilingual",
+									"multilingualText": {
+										"text": [
+											{
+												"locale": "de",
+												"text": "eingeschränkter Export nach"
+											},
+											{
+												"locale": "en",
+												"text": "restricted export to"
+											}
+										]
+									}
+								},
+								"repeatOverviewColumn": [
+									{
+										"type": "FieldBasedRepeatOverviewColumn",
+										"id": "fieldbasedrepeatoverviewcolumn_a81c7",
+										"width": 1,
+										"sortable": true,
+										"elementRef": "field_b74e8"
+									}
+								],
+								"groupRef": "group_3c0eb",
+								"enableAdd": true,
+								"enableRemove": true,
+								"enableReorder": true
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "screen-8f15f",
+				"name": "dualPaneBrand",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-5ef1c",
+						"name": "cg-1",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-86f29",
+								"cell": [
+									{
+										"type": "TextCell",
+										"id": "textcell-ccce3",
+										"offset": {
+											"lg": 0
+										},
+										"span": {
+											"lg": 1
+										},
+										"name": "text",
+										"content": {
+											"text": [
+												{
+													"locale": "de",
+													"text": "<font size=\"2\" color=\"blue\">Diese Ansicht ist zum Demonstrieren des Error-Handlings mit Relationships.</font>\n\n\n\n<br>\n\n\n\n<font size=\"2\" color=\"blue\">Aufgrund der Domain Definition ist es nicht möglich mehr als zwei Brands hinzuzufügen.</font>"
+												},
+												{
+													"locale": "en",
+													"text": "<font size=\"2\" color=\"blue\">This view is to demonstrate the error-handling with relationships.</font>\n\n\n\n<br>\n\n\n\n<font size=\"2\" color=\"blue\">Due to the definition of the domain it is not possible to add more than one Brand.</font>"
+												}
+											]
+										}
+									}
+								]
+							}
+						],
+						"verticalAlignment": "BOTTOM"
+					},
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-151ae",
+						"name": "cg-2",
+						"layout": {
+							"lg": "9-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-4a9e1",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-3eecd",
+										"offset": {
+											"lg": 0
+										},
+										"elementRef": "F4"
+									},
+									{
+										"type": "Control",
+										"id": "control-42043",
+										"offset": {
+											"lg": 0
+										},
+										"style": [
+											{
+												"name": "h_leftAlign"
+											}
+										],
+										"elementRef": "F5"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "BOTTOM"
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-c628f",
+						"name": "Relations",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "de",
+										"text": "Relations"
+									},
+									{
+										"locale": "en",
+										"text": "Relations"
+									}
+								]
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "screen-5d63f",
+				"name": "dualPaneBundle",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "de",
+								"text": "Bundle (Dual Pane)"
+							},
+							{
+								"locale": "en",
+								"text": "Bundle (Dual Pane)"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-c8647",
+						"name": "cg-1",
+						"layout": {
+							"lg": "9-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-6a2cb",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-5a3dc",
+										"offset": {
+											"lg": 0
+										},
+										"elementRef": "F4"
+									},
+									{
+										"type": "Control",
+										"id": "control-9a367",
+										"offset": {
+											"lg": 0
+										},
+										"style": [
+											{
+												"name": "h_leftAlign"
+											}
+										],
+										"elementRef": "F5"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "BOTTOM"
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-f40bc",
+						"name": "Relations",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "de",
+										"text": "Relations"
+									},
+									{
+										"locale": "en",
+										"text": "Relations"
+									}
+								]
+							}
+						},
+						"height": 250
+					}
+				]
+			},
+			{
+				"id": "screen-ed9d5",
+				"name": "tableList",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "de",
+								"text": "Table List"
+							},
+							{
+								"locale": "en",
+								"text": "Table List"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-a52b0",
+						"name": "cg-1",
+						"layout": {
+							"lg": "9-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-09ea4",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-1186b",
+										"offset": {
+											"lg": 0
+										},
+										"elementRef": "F4"
+									},
+									{
+										"type": "Control",
+										"id": "control-7446a",
+										"offset": {
+											"lg": 0
+										},
+										"style": [
+											{
+												"name": "h_leftAlign"
+											}
+										],
+										"elementRef": "F5"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "BOTTOM"
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-eb522",
+						"name": "Relations",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "de",
+										"text": "Relations"
+									},
+									{
+										"locale": "en",
+										"text": "Relations"
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {
+			"field": [
+				{
+					"dependentField": {
+						"masterField": "field_20c1c",
+						"case": [
+							{
+								"masterValue": null,
+								"notRelevant": true
+							}
+						]
+					},
+					"elementRef": "field_7e876"
+				}
+			]
+		},
+		"groupConfiguration": {
+			"group": [
+				{
+					"dependentGroup": {
+						"masterField": "field_20c1c",
+						"case": [
+							{
+								"masterValue": null,
+								"notRelevant": true
+							}
+						]
+					},
+					"groupRef": "group_3c0eb"
+				}
+			]
+		},
+		"defaults": {}
+	}
+}

@@ -1,0 +1,96 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+
+== Simple Composed Data Model
+
+[WARNING]
+====
+Customizing of Form Model elements (by way of the FormModelMap) does not work in combination with CDM. Trying to do so might result in errors.
+====
+
+=== Preparation
+
+The modeling of SCDM is based on
+
+* Multiple Document Models: Used for the individual entities (domain models) and the aggregate (CDM)
+* A single Form Model: Used to model the form UI
+* Multiple Bindings: Configuration of the relationship UI components and placement inside the form
+* Multiple Overview Models: Configuration of the links and candidate columns
+
+All models are regular A12 models. The CDM and the Form Model use annotations and existing features in a slightly extended way to allow the modeling of a CDM (form).
+
+Please refer to the Business Analyst documentation for a detailed description on how to create CDMs.
+
+=== View component
+
+The SCDM connected view via Form Engine is offered by default via the `CRUDViews.FormEngineView` component. However, in case CRUD is not used, a manual registration of `FormModelMap` and `cddAdapter` should be taken care.
+
+==== Registration
+
+[source,typescript,options="nowrap"]
+----
+include::assets/typescript/connectCDMToFormEngine.tsx[tag=main]
+----
+
+==== View Customization
+
+The SCDM exposes a `componentProvider` API as a way to customizing its components, e.g.: `DualPaneSelection`,  `TableList`. In order to make a customized component, instead of using `RelationshipFormModelMap`, the `createRelationshipFormModelMap` shall be called as follows
+
+[source,typescript,options="nowrap"]
+----
+const CustomFormModelMap: FormModelMap = {
+	...DefaultFormModelMap,
+	...createRelationshipFormModelMap({
+		componentProvider: config => {
+			if (config.name === "DualPaneSelection") {
+				return { type: "MultiSelection", component: CustomDualPane };
+			} else if (config.name === "TableList") {
+				return { type: "List", component: CustomTableList };
+			}
+			return undefined;
+		}
+	})
+};
+
+function CustomDualPane(props: RelationshipViews.MultiSelectionProps) {
+	const assignments = React.useMemo(() => {
+		if (props.assignments.loadingState !== "loaded") {
+			return props.assignments;
+		}
+		return { ...props.assignments, data: [...props.assignments.data].reverse() };
+	}, [props.assignments]);
+
+	return <DualPaneSelection {...props} assignments={assignments} />;
+}
+
+function CustomTableList(props: RelationshipViews.ListProps) {
+	const items = React.useMemo(() => {
+		if (!props.items || props.items.loadingState !== "loaded") {
+			return props.items;
+		}
+		return { ...props.items, data: [...props.items.data].reverse() };
+	}, [props.items]);
+	return <TableList {...props} items={items} />;
+}
+----
+
+WARNING: SCDM APIs are under experimental stage and subject to be changed even in a minor release. Therefore, customizations to the view components should be done in a cautious approach, e.g.: in the `CustomDualPane` example, a change to ordering of the `assignments` array are safe, but removing/adding an item from/to `assignments` are not recommended and should always be avoided.
+
+=== Fields projection
+
+Fields projection are not supported by CDM bindings. However, the candidates table which is re-used from the normal binding does have support for the fields projection hence can be customized.

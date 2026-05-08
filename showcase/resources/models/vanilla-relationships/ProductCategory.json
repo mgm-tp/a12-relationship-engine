@@ -1,0 +1,107 @@
+{
+	"header": {
+		"id": "ProductCategory",
+		"modelType": "relationship",
+		"modelVersion": "3.0.0",
+		"labels": [
+			{
+				"locale": "en",
+				"text": "ProductCategory"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "guest,anonymous"
+			}
+		],
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "Product",
+				"reference": "Product-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "Category",
+				"reference": "Category-document"
+			}
+		]
+	},
+	"content": {
+		"associationType": "SHARED",
+		"linkDocumentModel": null,
+		"duplicatesAllowed": true,
+		"storage": "EXTERNAL",
+		"embeddedGroupPath": "",
+		"labels": [
+			{
+				"locale": "en",
+				"text": "ProductCategory"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"role": "Product",
+				"documentModel": "Product-document",
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": true,
+						"upperLimit": null
+					}
+				},
+				"candidateConstraints": {
+					"population": "",
+					"populationParameters": []
+				},
+				"labels": [
+					{
+						"locale": "en",
+						"text": "offers"
+					},
+					{
+						"locale": "de",
+						"text": "enthält"
+					}
+				]
+			},
+			{
+				"role": "Category",
+				"documentModel": "Category-document",
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": true,
+						"upperLimit": null
+					}
+				},
+				"candidateConstraints": {
+					"population": "",
+					"populationParameters": []
+				},
+				"labels": [
+					{
+						"locale": "en",
+						"text": "is offered in"
+					},
+					{
+						"locale": "de",
+						"text": "ist enthalten in"
+					}
+				]
+			}
+		]
+	}
+}

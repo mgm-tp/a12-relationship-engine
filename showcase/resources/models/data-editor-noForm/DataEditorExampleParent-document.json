@@ -1,0 +1,90 @@
+{
+	"header": {
+		"id": "DataEditorExampleParent-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "DataEditorExampleParent-document",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_f05c9",
+					"name": "root",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_afd9c",
+								"name": "price",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Price without taxes"
+										},
+										{
+											"locale": "de",
+											"text": "Preis ohne Steuern"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_d83b1",
+								"name": "priceWithTaxes",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Price with taxes"
+										},
+										{
+											"locale": "de",
+											"text": "Preis mit Steuern"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,216 @@
+{
+	"header": {
+		"id": "BusinessPartnerCDM",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "BusinessParter CDM"
+			}
+		],
+		"annotations": [
+			{
+				"name": "cdm.queryRoot",
+				"value": "BusinessPartner-document"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "BusinessPartner-document",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "BusinessPartner-document"
+			},
+			{
+				"alias": "Address-document",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Address-document"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "BusinessPartnerCDM",
+			"immutable": false,
+			"joinedModelsInfo": "BusinessPartnerCDM-document-meta-data+Add"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "include_6ab0d",
+					"name": "businessPartner",
+					"Group": {
+						"repeatability": 1,
+						"modelAlias": "BusinessPartner-document"
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_f7a8d",
+					"name": "Location",
+					"annotations": [
+						{
+							"name": "cdm.targetDocumentModel",
+							"value": "Address-document"
+						},
+						{
+							"name": "cdm.targetRole",
+							"value": "address"
+						},
+						{
+							"name": "cdm.relationship",
+							"value": "Location"
+						},
+						{
+							"name": "cdm.sourceRole",
+							"value": "businessPartner"
+						}
+					],
+					"Group": {
+						"repeatability": 999,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "include_bfc66",
+								"name": "address",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "Address-document"
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_0548e",
+					"name": "PostAddress",
+					"annotations": [
+						{
+							"name": "cdm.targetDocumentModel",
+							"value": "Address-document"
+						},
+						{
+							"name": "cdm.targetRole",
+							"value": "address"
+						},
+						{
+							"name": "cdm.relationship",
+							"value": "PostAddress"
+						},
+						{
+							"name": "cdm.sourceRole",
+							"value": "businessPartner"
+						}
+					],
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "include_2e0af",
+								"name": "address",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "Address-document"
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_85dc0",
+								"name": "t_docRef",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"transient": true
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_fe62c",
+					"name": "cdm",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_8d767",
+								"name": "hasPostalAddress",
+								"Field": {
+									"fieldType": {
+										"type": "BooleanType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "has postal address"
+										},
+										{
+											"locale": "de",
+											"text": "hat Postanschrift"
+										}
+									],
+									"transient": true
+								}
+							},
+							{
+								"type": "Computation",
+								"id": "computation_108e1",
+								"name": "computeHasPostalAddress",
+								"Computation": {
+									"computedFieldRelPath": "../hasPostalAddress",
+									"computationAlternatives": [
+										{
+											"operation": "True",
+											"precondition": "FieldFilled(/PostAddress/t_docRef)"
+										},
+										{
+											"precondition": "FieldNotFilled(/PostAddress/t_docRef)",
+											"operation": "False"
+										}
+									],
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "error text for computation of computeHasPostalAddress"
+										},
+										{
+											"locale": "de",
+											"text": "error text for computation of computeHasPostalAddress"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

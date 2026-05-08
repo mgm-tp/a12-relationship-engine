@@ -1,0 +1,478 @@
+{
+	"header": {
+		"id": "LegalEntityCDM-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Legal Entity CDM"
+			},
+			{
+				"locale": "de",
+				"text": "Juristische Person CDM"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"details\":{\"name\":\"locations-repeat\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-8d146\"},{\"details\":{\"name\":\"postal-address-section\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"modificationConfiguration\":{\"addButtonLabel\":[{\"locale\":\"en\",\"text\":\"Add Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift hinzufügen\"}],\"editButtonLabel\":[{\"locale\":\"en\",\"text\":\"Edit Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift bearbeiten\"}],\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"post-address-select\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-7c29f\"}]"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "LegalEntityCDM",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "LegalEntityCDM"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "LocationLinks-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Address-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "PostAddressLinks-overview"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-f0799",
+						"name": "validate",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Validate"
+										},
+										{
+											"locale": "de",
+											"text": "Überprüfen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "validate",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-4ac8e",
+						"name": "cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-2e0fc",
+						"name": "save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-fb438",
+						"name": "le-cg",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Legal Entity"
+									},
+									{
+										"locale": "de",
+										"text": "Juristische Person"
+									}
+								]
+							}
+						},
+						"layout": {
+							"lg": "3-3-3-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-f91b5",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-1d2ae",
+										"elementRef": "include_6ab0d_field_2c40c"
+									},
+									{
+										"type": "Control",
+										"id": "control-198ec",
+										"elementRef": "include_6ab0d_field_f5f58"
+									},
+									{
+										"type": "Control",
+										"id": "control-248ea",
+										"elementRef": "include_6ab0d_field_debbf"
+									},
+									{
+										"type": "Control",
+										"id": "control-d896f",
+										"elementRef": "include_8b66c_field_de37b"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row_bb472",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_422f7",
+										"label": {
+											"type": "Multilingual",
+											"multilingualText": {
+												"text": [
+													{
+														"locale": "en",
+														"text": "Logo"
+													},
+													{
+														"locale": "de",
+														"text": "Logo"
+													}
+												]
+											}
+										},
+										"elementRef": "include_6ab0d_group_67bd2"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "DetachedRepeat",
+						"id": "detachedrepeat-8d146",
+						"name": "locations-repeat",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Locations"
+									},
+									{
+										"locale": "de",
+										"text": "Standorte"
+									}
+								]
+							}
+						},
+						"groupRef": "group_f7a8d",
+						"enableAdd": true,
+						"enableRemove": true,
+						"enableReorder": false,
+						"enableCopy": false,
+						"detailScreen": {
+							"id": "screen-b743a",
+							"name": "location-repeat-detail-screen",
+							"screenElements": [
+								{
+									"type": "ControlGrid",
+									"id": "controlgrid-d7f81",
+									"name": "cg",
+									"row": [
+										{
+											"type": "Row",
+											"id": "row-e8c9e",
+											"cell": [
+												{
+													"type": "Control",
+													"id": "control-03957",
+													"elementRef": "include_bfc66_field_dbbc9"
+												}
+											]
+										},
+										{
+											"type": "Row",
+											"id": "row-180cc",
+											"cell": [
+												{
+													"type": "Control",
+													"id": "control-be184",
+													"elementRef": "include_bfc66_field_90cd2"
+												}
+											]
+										},
+										{
+											"type": "Row",
+											"id": "row-218e4",
+											"cell": [
+												{
+													"type": "Control",
+													"id": "control-3c00b",
+													"elementRef": "include_bfc66_field_2fc9a"
+												}
+											]
+										},
+										{
+											"type": "Row",
+											"id": "row-b0237",
+											"cell": [
+												{
+													"type": "Control",
+													"id": "control-05a96",
+													"elementRef": "include_bfc66_field_e9abb"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-7c29f",
+						"name": "postal-address-section",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "postal-address-section"
+									},
+									{
+										"locale": "de",
+										"text": "postal-address-section"
+									}
+								]
+							}
+						}
+					},
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-e40b9",
+						"name": "postal-address-cg",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Postal Address"
+									},
+									{
+										"locale": "de",
+										"text": "Postanschrift"
+									}
+								]
+							}
+						},
+						"layout": {
+							"lg": "3-3-3-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-ae267",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-02495",
+										"elementRef": "include_2e0af_field_dbbc9"
+									},
+									{
+										"type": "Control",
+										"id": "control-6f4d6",
+										"elementRef": "include_2e0af_field_90cd2"
+									},
+									{
+										"type": "Control",
+										"id": "control-82cf3",
+										"elementRef": "include_2e0af_field_2fc9a"
+									},
+									{
+										"type": "Control",
+										"id": "control-09b58",
+										"elementRef": "include_2e0af_field_e9abb"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "InlineRepeat",
+						"id": "inlinerepeat-b96de",
+						"name": "notes-repeat",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Notes"
+									},
+									{
+										"locale": "de",
+										"text": "Notizen"
+									}
+								]
+							}
+						},
+						"repeatOverviewColumn": [
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-c9267",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "include_6ab0d_field_3b6ce"
+							},
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-5fd87",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "include_6ab0d_field_92ddc"
+							}
+						],
+						"groupRef": "include_6ab0d_group_4e814",
+						"enableAdd": true,
+						"enableRemove": true,
+						"enableReorder": false,
+						"enableCopy": false
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {
+			"field": [
+				{
+					"dependentField": {
+						"masterField": "field_6e810",
+						"case": [
+							{
+								"masterValue": "false",
+								"notRelevant": true
+							}
+						]
+					},
+					"elementRef": "include_8b66c_field_de37b"
+				},
+				{
+					"elementRef": "include_6ab0d_group_67bd2",
+					"attachmentConfig": {
+						"placeholderIcon": "image"
+					}
+				}
+			]
+		},
+		"groupConfiguration": {
+			"group": [
+				{
+					"dependentGroup": {
+						"masterField": "field_8d767",
+						"case": [
+							{
+								"masterValue": "false",
+								"notRelevant": true
+							}
+						]
+					},
+					"groupRef": "include_2e0af"
+				}
+			]
+		},
+		"defaults": {}
+	}
+}

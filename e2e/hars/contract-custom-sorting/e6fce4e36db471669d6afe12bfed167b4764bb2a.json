@@ -1,0 +1,15 @@
+[{"jsonrpc":"2.0","id":"QUERY-0","result":{"fullSize":1,"page":{"pageNumber":0,"pageSize":1},"entries":[{"docRef":"Contract-document/c3135528-bafb-4b13-bb16-035ff5c3ceee","document":{
+  "contract": {
+    "fee": 1200,
+    "type": "german"
+  },
+  "__meta": {
+    "createdAt": "2025-08-25T07:46:38",
+    "creator": "anonymous",
+    "docRef": "Contract-document/c3135528-bafb-4b13-bb16-035ff5c3ceee",
+    "modelReference": "Contract-document",
+    "modelVersion": null,
+    "modifiedAt": "2025-08-25T07:46:38",
+    "modifier": "anonymous"
+  }
+},"type":"ROOT","depth":0,"documentModelName":"Contract-document"}],"links":[],"otherResults":{}}},{"jsonrpc":"2.0","id":"LOAD_THUMBNAIL_URLS_INTERNAL-1","result":{}}]

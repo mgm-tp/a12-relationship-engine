@@ -1,0 +1,15 @@
+{
+	"name": "@com.mgmtp.a12.crud/crud-dev-docs",
+	"version": "2.3.0",
+	"type": "module",
+	"description": "CRUD documentations for developers",
+	"author": "mgm technology partners",
+	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
+	"files": [
+		"dist",
+		"licenses",
+		"LICENSE",
+		"NOTICE",
+		"THIRD_PARTY_NOTICES"
+	]
+}

@@ -1,0 +1,103 @@
+{
+	"header": {
+		"id": "AddressPerson-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			},
+			{
+				"name": "savedAt",
+				"value": "2021-03-04T09:43:31.186"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "AddressPerson-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				},
+				{
+					"destructive": false,
+					"icon": {
+						"name": "close"
+					},
+					"type": "button",
+					"event": "closeDetail",
+					"primary": false
+				}
+			],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"sortable": false,
+				"width": 1,
+				"styles": {},
+				"id": "column-c44c9",
+				"elementRef": "field_845c4"
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"styles": {},
+				"id": "column-de6ea",
+				"elementRef": "field_86b79"
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"styles": {},
+				"id": "column-5f190",
+				"elementRef": "field_35851"
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"styles": {},
+				"id": "column-0f06c",
+				"elementRef": "field_b0904"
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"configuration": {
+			"pagingSize": 10,
+			"showFullTextSearch": true,
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

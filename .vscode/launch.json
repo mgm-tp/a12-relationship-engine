@@ -1,0 +1,18 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "chrome",
+			"request": "launch",
+			"name": "Launch (chrome)",
+			"url": "http://localhost:17000",
+			"webRoot": "${workspaceFolder}/showcase",
+			"runtimeArgs": [
+				"--remote-debugging-port=9222",
+				"--new-window",
+				"--disable-background-networking",
+				"--user-data-dir=${userHome}/.vscode/chrome"
+			]
+		}
+	]
+}

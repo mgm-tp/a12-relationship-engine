@@ -1,0 +1,188 @@
+{
+	"header": {
+		"id": "TestModel",
+		"modelType": "document",
+		"modelVersion": "28.0.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "NewDataModel",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_36eee",
+					"name": "RegularTopLevelGroup",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "group_3571f",
+								"name": "RegularNestedGroup",
+								"Group": {
+									"repeatability": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_82c5d",
+					"name": "RelshTopLevelGroup",
+					"Group": {
+						"repeatability": 1,
+						"annotations": [
+							{
+								"name": "cdm.targetDocumentModel",
+								"value": "unused"
+							},
+							{
+								"name": "cdm.targetRole",
+								"value": "unused"
+							},
+							{
+								"name": "cdm.relationship",
+								"value": "RelshTopLevelGroup_Relsh"
+							},
+							{
+								"name": "cdm.sourceRole",
+								"value": "unused"
+							}
+						],
+						"elements": [
+							{
+								"type": "Group",
+								"id": "group_872c7",
+								"name": "RelshNestedGroup",
+								"Group": {
+									"repeatability": 1,
+									"annotations": [
+										{
+											"name": "cdm.targetDocumentModel",
+											"value": "unused"
+										},
+										{
+											"name": "cdm.targetRole",
+											"value": "unused"
+										},
+										{
+											"name": "cdm.relationship",
+											"value": "RelshNestedGroup_Relsh"
+										},
+										{
+											"name": "cdm.sourceRole",
+											"value": "unused"
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_11aeb",
+					"name": "MixedTopLevelGroup",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "group_a94e6",
+								"name": "RegularNestedGroup",
+								"Group": {
+									"repeatability": 1,
+									"elements": [
+										{
+											"type": "Group",
+											"id": "group_f1b96",
+											"name": "RelshNestedGroup",
+											"Group": {
+												"repeatability": 1,
+												"annotations": [
+													{
+														"name": "cdm.targetDocumentModel",
+														"value": "unused"
+													},
+													{
+														"name": "cdm.targetRole",
+														"value": "unused"
+													},
+													{
+														"name": "cdm.relationship",
+														"value": "RelshNestedGroup_Relsh"
+													},
+													{
+														"name": "cdm.sourceRole",
+														"value": "unused"
+													}
+												],
+												"elements": [
+													{
+														"type": "Group",
+														"id": "group_ec8ca",
+														"name": "RegularNestedGroup",
+														"Group": {
+															"repeatability": 1,
+															"elements": [
+																{
+																	"type": "Group",
+																	"id": "group_33588",
+																	"name": "RelshNestedGroup",
+																	"Group": {
+																		"repeatability": 1
+																	},
+																	"annotations": [
+																		{
+																			"name": "cdm.targetDocumentModel",
+																			"value": "unused"
+																		},
+																		{
+																			"name": "cdm.targetRole",
+																			"value": "unused"
+																		},
+																		{
+																			"name": "cdm.relationship",
+																			"value": "RelshNestedGroup_Relsh"
+																		},
+																		{
+																			"name": "cdm.sourceRole",
+																			"value": "unused"
+																		}
+																	]
+																}
+															]
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

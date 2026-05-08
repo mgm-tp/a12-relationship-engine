@@ -1,0 +1,100 @@
+{
+	"header": {
+		"id": "Coverage-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Coverage"
+			},
+			{
+				"locale": "de",
+				"text": "Deckung"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "Coverage-document",
+			"immutable": false,
+			"joinedModelsInfo": "Coverage-document-document-meta-data+Add"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_f0342",
+					"name": "coverage",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_08ae5",
+								"name": "id",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "id"
+										},
+										{
+											"locale": "de",
+											"text": "Id"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_c7715",
+								"name": "description",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "description"
+										},
+										{
+											"locale": "de",
+											"text": "Beschreibung"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

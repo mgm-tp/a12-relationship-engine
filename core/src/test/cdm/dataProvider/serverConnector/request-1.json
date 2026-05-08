@@ -1,0 +1,30 @@
+{
+	"request": [
+		{
+			"id": "ListLinks-PolicyHolder-1",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "Contract-document/24",
+					"role": "contract",
+					"relationshipModel": "PolicyHolder"
+				},
+				"page": {},
+				"sort": {}
+			}
+		},
+		{
+			"id": "ListLinks-CoInsurer-2",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "Contract-document/24",
+					"role": "contract",
+					"relationshipModel": "CoInsurer"
+				},
+				"page": {},
+				"sort": {}
+			}
+		}
+	]
+}

@@ -1,0 +1,121 @@
+{
+	"header": {
+		"id": "Product_Bundle_SelectedItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ProductBundle_Product____generated"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-7cda7",
+				"elementRef": "I4_F4",
+				"sortable": false,
+				"width": 1,
+				"label": [
+					{
+						"locale": "de",
+						"text": "Name"
+					}
+				]
+			},
+			{
+				"id": "column-8fb40",
+				"elementRef": "I4_F5",
+				"sortable": false,
+				"width": 1,
+				"label": [
+					{
+						"locale": "de",
+						"text": "Preis"
+					}
+				]
+			},
+			{
+				"id": "column-1583f",
+				"elementRef": "I5_F5",
+				"sortable": false,
+				"width": 1,
+				"label": [
+					{
+						"locale": "de",
+						"text": "Menge"
+					}
+				]
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"id": "column-44679",
+				"elementRef": "I4_field_31308"
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"styles": {},
+				"id": "column-983c2",
+				"elementRef": "I4_group_95309",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Image"
+					},
+					{
+						"locale": "de",
+						"text": "Bild"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"configuration": {
+			"pagingSize": 10,
+			"showFullTextSearch": true,
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		}
+	}
+}

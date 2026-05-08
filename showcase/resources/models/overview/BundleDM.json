@@ -1,0 +1,307 @@
+{
+	"header": {
+		"id": "BundleDM",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "DomainBundle",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G7",
+					"name": "bundle",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F1",
+								"name": "name",
+								"annotations": [
+									{
+										"name": "enable_approximate_match_search",
+										"value": "1"
+									}
+								],
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Name"
+										},
+										{
+											"locale": "de",
+											"text": "Name"
+										}
+									],
+									"requirednessConfig": {
+										"mode": "absoluteOrRelativeToNextRepAncestor"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F2",
+								"name": "price",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Preis"
+										},
+										{
+											"locale": "en",
+											"text": "Price"
+										}
+									],
+									"requirednessConfig": {
+										"mode": "absoluteOrRelativeToNextRepAncestor"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_d4c4b",
+								"name": "releaseDate",
+								"Field": {
+									"fieldType": {
+										"type": "DateFragmentType",
+										"DateFragmentType": {
+											"formatOfFragment": "MM-dd"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Erscheinungsdatum"
+										},
+										{
+											"locale": "en",
+											"text": "Release Date"
+										}
+									],
+									"requirednessConfig": {
+										"mode": "absoluteOrRelativeToNextRepAncestor"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_date_range",
+								"name": "onSaleInterval",
+								"Field": {
+									"fieldType": {
+										"type": "DateRangeType",
+										"DateRangeType": {
+											"format": "MM-dd",
+											"rangeSeparator": "/"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "On Sale Dates [de]"
+										},
+										{
+											"locale": "en",
+											"text": "On Sale Dates"
+										}
+									],
+									"requirednessConfig": {
+										"mode": "absoluteOrRelativeToNextRepAncestor"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F3",
+								"name": "bundleDescription",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Description"
+										},
+										{
+											"locale": "de",
+											"text": "Beschreibung"
+										}
+									],
+									"requirednessConfig": {
+										"mode": "absoluteOrRelativeToNextRepAncestor"
+									}
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_5ced8",
+								"name": "FeatureList",
+								"Group": {
+									"repeatability": 7,
+									"usageType": "multi-select",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_f4a07",
+											"name": "value",
+											"Field": {
+												"fieldType": {
+													"type": "EnumerationType",
+													"EnumerationType": {
+														"values": [
+															{
+																"value": "feature1",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Feature 1"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Funktion 1"
+																	}
+																]
+															},
+															{
+																"value": "feature2",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Feature 2"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Funktion 2"
+																	}
+																]
+															},
+															{
+																"value": "feature3",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Feature 3"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Funktion 3"
+																	}
+																]
+															},
+															{
+																"value": "feature4",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Feature 4"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Funktion 4"
+																	}
+																]
+															},
+															{
+																"value": "feature5",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Feature 5"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Funktion 5"
+																	}
+																]
+															},
+															{
+																"value": "feature6",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Feature 6"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Funktion 6"
+																	}
+																]
+															},
+															{
+																"value": "feature7",
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "Feature 7"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Funktion 7"
+																	}
+																]
+															}
+														]
+													}
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "Feature List"
+													},
+													{
+														"locale": "de",
+														"text": "Funktionsliste"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

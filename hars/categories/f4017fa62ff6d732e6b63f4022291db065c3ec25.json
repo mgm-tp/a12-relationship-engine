@@ -1,0 +1,27 @@
+[
+	{ "jsonrpc": "2.0", "id": "modifyDocumentOperation", "result": null },
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDED_LINK_1",
+		"result": {
+			"linkDescriptor": {
+				"relationshipModel": "CategoryCategory",
+				"entities": [
+					{
+						"role": "ParentCategory",
+						"modelName": "Category-document",
+						"docRef": "Category-document/aafb6a8f-1630-4721-9711-ca323671b742"
+					},
+					{
+						"role": "ChildCategory",
+						"modelName": "Category-document",
+						"docRef": "Category-document/3c085a31-1b9e-4e93-b996-42c607cfe71d"
+					}
+				],
+				"predecessorLinkRef": null,
+				"position": "TOP"
+			},
+			"id": "94a1c9ac-6b48-4aaf-a05b-5cc5e5a21d14"
+		}
+	}
+]

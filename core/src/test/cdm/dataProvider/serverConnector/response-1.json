@@ -1,0 +1,129 @@
+{
+	"results": [
+		{
+			"idRef": "ListLinks-PolicyHolder-1",
+			"result": {
+				"fullSize": 1,
+				"page": {
+					"offset": 0,
+					"limit": 1
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "PolicyHolder",
+								"entities": [
+									{
+										"role": "contract",
+										"docRef": "Contract-document/24",
+										"modelName": "Contract-document"
+									},
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/21",
+										"modelName": "BusinessPartner-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "1"
+						},
+						"document": {
+							"target": {
+								"businessPartner": {
+									"id": "mgm",
+									"name": "mgm technology partners GmbH"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
+			"idRef": "ListLinks-CoInsurer-2",
+			"result": {
+				"fullSize": 2,
+				"page": {
+					"offset": 0,
+					"limit": 2
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "CoInsurer",
+								"entities": [
+									{
+										"role": "contract",
+										"docRef": "Contract-document/24",
+										"modelName": "Contract-document"
+									},
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/22",
+										"modelName": "BusinessPartner-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "2"
+						},
+						"document": {
+							"target": {
+								"businessPartner": {
+									"id": "amazon",
+									"name": "Amazon.com"
+								}
+							},
+							"relationship": {
+								"additionalFields": {
+									"since": "1994-07-05"
+								}
+							}
+						}
+					},
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "CoInsurer",
+								"entities": [
+									{
+										"role": "contract",
+										"docRef": "Contract-document/24",
+										"modelName": "Contract-document"
+									},
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/23",
+										"modelName": "BusinessPartner-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "3"
+						},
+						"document": {
+							"target": {
+								"businessPartner": {
+									"id": "google",
+									"name": "Google LLC"
+								}
+							},
+							"relationship": {
+								"additionalFields": {
+									"since": "1998-09-04"
+								}
+							}
+						}
+					}
+				]
+			}
+		}
+	],
+	"exceptions": {
+		"global": [],
+		"operationScoped": []
+	}
+}

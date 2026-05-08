@@ -1,0 +1,243 @@
+{
+	"header": {
+		"id": "DataEditorExampleChild-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "DataEditorExampleChild-document",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_57909",
+					"name": "root",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_52fa9",
+								"name": "country",
+								"Field": {
+									"fieldType": {
+										"type": "EnumerationType",
+										"EnumerationType": {
+											"values": [
+												{
+													"value": "germany",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Germany"
+														},
+														{
+															"locale": "de",
+															"text": "Deutschland"
+														}
+													]
+												},
+												{
+													"value": "switzerland",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Switzerland"
+														},
+														{
+															"locale": "de",
+															"text": "Schweiz"
+														}
+													]
+												},
+												{
+													"value": "austria",
+													"label": [
+														{
+															"locale": "en",
+															"text": "Austria"
+														},
+														{
+															"locale": "de",
+															"text": "Österreich"
+														}
+													]
+												}
+											],
+											"alphabeticalSorting": true
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Country"
+										},
+										{
+											"locale": "de",
+											"text": "Land"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_10597",
+								"name": "price",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"minFractionalDigits": 2,
+											"maxFractionalDigits": 2
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Price without taxes"
+										},
+										{
+											"locale": "de",
+											"text": "Preis ohne Steuern"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_21fcf",
+								"name": "taxes",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"minFractionalDigits": 2,
+											"maxFractionalDigits": 2,
+											"trait": "percent"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Taxes"
+										},
+										{
+											"locale": "de",
+											"text": "Steuern"
+										}
+									]
+								}
+							},
+							{
+								"type": "Computation",
+								"id": "computation_d91d9",
+								"name": "Computation_1",
+								"Computation": {
+									"computedFieldRelPath": "../taxes",
+									"computationAlternatives": [
+										{
+											"operation": "19",
+											"precondition": "[country] == \"germany\""
+										},
+										{
+											"operation": "20",
+											"precondition": "[country] == \"austria\""
+										},
+										{
+											"operation": "7.7",
+											"precondition": "[country] == \"switzerland\""
+										}
+									],
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "error text for computation of Computation_1"
+										},
+										{
+											"locale": "de",
+											"text": "error text for computation of Computation_1"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_ea818",
+								"name": "priceWithTaxes",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"minFractionalDigits": 2,
+											"maxFractionalDigits": 2
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Price with taxes"
+										},
+										{
+											"locale": "de",
+											"text": "Preis mit Steuern"
+										}
+									]
+								}
+							},
+							{
+								"type": "Computation",
+								"id": "computation_baf37",
+								"name": "Computation_2",
+								"Computation": {
+									"computedFieldRelPath": "../priceWithTaxes",
+									"computationAlternatives": [
+										{
+											"operation": "RoundUp([taxes] * [price] / 100, 2) + [price]",
+											"precondition": "FieldFilled(taxes)"
+										}
+									],
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "error text for computation of Computation_2"
+										},
+										{
+											"locale": "de",
+											"text": "error text for computation of Computation_2"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

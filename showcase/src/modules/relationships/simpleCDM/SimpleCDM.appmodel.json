@@ -1,0 +1,1108 @@
+{
+	"header": {
+		"id": "SimpleCDM.appmodel",
+		"modelType": "application",
+		"modelVersion": "6.0.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "admin"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"region": {
+			"name": "APP",
+			"layout": {
+				"name": "ApplicationFrame"
+			},
+			"subRegions": [
+				{
+					"layout": {
+						"name": "MasterDetail"
+					},
+					"name": "CONTENT"
+				}
+			]
+		},
+		"modules": [
+			{
+				"name": "relationships.scdm",
+				"menu": {
+					"name": "relationships.scdm",
+					"label": [
+						{
+							"locale": "de",
+							"text": "Simple CDM"
+						},
+						{
+							"locale": "en",
+							"text": "Simple CDM"
+						}
+					],
+					"children": [
+						{
+							"name": "Contract",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Vertrag - Custom Sorting"
+								},
+								{
+									"locale": "en",
+									"text": "Contract - Custom Sorting"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "Contract-document",
+									"module": "Contract"
+								}
+							}
+						},
+						{
+							"name": "Address",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Adresse"
+								},
+								{
+									"locale": "en",
+									"text": "Address"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "Address-document",
+									"module": "Address"
+								}
+							}
+						},
+						{
+							"name": "Claim",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Anspruch"
+								},
+								{
+									"locale": "en",
+									"text": "Claim"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "Claim-document",
+									"module": "Claims"
+								}
+							}
+						},
+						{
+							"name": "Coverage",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Deckung"
+								},
+								{
+									"locale": "en",
+									"text": "Coverage"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "Coverage-document",
+									"module": "Coverage"
+								}
+							}
+						},
+						{
+							"name": "BusinessPartner",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Geschäftspartner"
+								},
+								{
+									"locale": "en",
+									"text": "Business Partner"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "BusinessPartner-document",
+									"module": "BusinessPartner"
+								}
+							}
+						},
+						{
+							"name": "BusinessPartnerCDM",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Geschäftspartner CDM"
+								},
+								{
+									"locale": "en",
+									"text": "Business Partner CDM"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "BusinessPartnerCDM",
+									"module": "BusinessPartnerCDM"
+								}
+							}
+						},
+						{
+							"name": "ContractCDM",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Vertrag CDM"
+								},
+								{
+									"locale": "en",
+									"text": "Contract CDM"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "ContractCDM",
+									"module": "ContractCDM"
+								}
+							}
+						},
+						{
+							"name": "PersonCDM",
+							"label": [
+								{
+									"locale": "de",
+									"text": "Person CDM"
+								},
+								{
+									"locale": "en",
+									"text": "Person CDM"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"model": "NaturalPersonCDMNoRepeatable",
+									"module": "PersonCDM"
+								}
+							}
+						}
+					]
+				},
+				"flows": [
+					{
+						"name": "ContractFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"constraints": {
+												"type": "MasterDetail"
+											},
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Contract-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "ContractOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Contract-document"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "Contract"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "SortedRelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Contract-form",
+													"documentModel": "Contract-document"
+												}
+											]
+										}
+									]
+								},
+								"name": "ContractForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Contract-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "Contract"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "AddressFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Address-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "AddressOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Address-document"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "Address"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "FormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Address-form",
+													"documentModel": "Address-document"
+												}
+											]
+										}
+									]
+								},
+								"name": "AddressForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Address-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "Address"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "CoverageFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Coverage-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "CoverageOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Coverage-document"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "Coverage"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "FormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Coverage-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "CoverageForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Coverage-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "Coverage"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "ClaimsFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Claim-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "ClaimsOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Claim-document"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "Claims"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "FormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Claim-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "ClaimForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Claim-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "Claims"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "BusinessPartnerFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "BusinessPartner-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "BusinessPartnerOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "BusinessPartner-document"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "BusinessPartner"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "NaturalPerson-form",
+													"documentModel": "NaturalPerson-document"
+												},
+												{
+													"modelType": "form",
+													"name": "LegalEntity-form",
+													"documentModel": "LegalEntity-document"
+												}
+											]
+										}
+									]
+								},
+								"name": "BusinessPartnerForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"isSet": true
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "BusinessPartner"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "BusinessPartnerCDMFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "BusinessPartnerCDM-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "BusinessPartnerCDMOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "BusinessPartnerCDM"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "BusinessPartnerCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "LegalEntityCDM-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "LegalEntityCDMForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "LegalEntity-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "BusinessPartnerCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "NaturalPersonCDM-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "NaturalPersonCDMForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "NaturalPerson-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "BusinessPartnerCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Address-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "AddressForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Address-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "BusinessPartnerCDM"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "NaturalPersonCDMNoRepeatableFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "NaturalPersonCDMNoRepeatable-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "NaturalPersonCDMNoRepeatableOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "NaturalPersonCDMNoRepeatable"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "PersonCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "NaturalPersonCDMNoRepeatable-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "NaturalPersonCDMNoRepeatableForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "NaturalPerson-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "PersonCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Address-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "AddressForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Address-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "PersonCDM"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "ContractCDMFlow",
+						"scenes": [
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"constraints": {
+												"type": "MasterDetail"
+											},
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "ContractCDM-overview"
+												}
+											]
+										}
+									]
+								},
+								"name": "ContractCDMOverview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									},
+									{
+										"key": "module",
+										"mustEqual": "ContractCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "ContractCDM-form"
+												},
+												{
+													"modelType": "document",
+													"name": "NaturalPerson-document"
+												},
+												{
+													"modelType": "document",
+													"name": "LegalEntity-document"
+												}
+											]
+										}
+									]
+								},
+								"name": "ContractCDMForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Contract-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "ContractCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "LegalEntityCDM-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "LegalEntityCDMForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "LegalEntity-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "ContractCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "NaturalPersonCDM-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "NaturalPersonCDMForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "NaturalPerson-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "ContractCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Address-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "AddressForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Address-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "module",
+										"mustEqual": "ContractCDM"
+									}
+								]
+							},
+							{
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Coverage-form"
+												}
+											]
+										}
+									]
+								},
+								"name": "CoverageForm",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Coverage-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									},
+									{
+										"key": "ContractCDM",
+										"mustEqual": "ContractCDM"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		],
+		"defaultRegion": ["CONTENT"]
+	}
+}

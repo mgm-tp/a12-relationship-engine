@@ -1,0 +1,39 @@
+{
+	"name": "documentation",
+	"private": true,
+	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
+	"type": "module",
+	"version": "2.3.0",
+	"scripts": {
+		"clean": "rimraf build/** ./**/generated/**",
+		"compile": "pnpm \"/compile:/\"",
+		"compile:typedoc": "pnpm -F \"*-core\" -r exec typedoc",
+		"compile:typescript": "tsc",
+		"compile:doc": "node scripts/compile",
+		"start": "node scripts/start"
+	},
+	"devDependencies": {
+		"@com.mgmtp.a12.client/client-core": "catalog:a12Libs",
+		"@com.mgmtp.a12.crud/crud-core": "workspace:*",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
+		"@com.mgmtp.a12.formengine/formengine-core": "catalog:a12Libs",
+		"@com.mgmtp.a12.relationshipengine/relationshipengine-core": "workspace:*",
+		"@com.mgmtp.a12.widgets/widgets-core": "catalog:a12Libs",
+		"@types/node": "catalog:devLibs",
+		"@types/react": "catalog:libs",
+		"@types/react-dom": "catalog:libs",
+		"@types/react-redux": "catalog:libs",
+		"asciidoctor": "2.2.6",
+		"asciidoctor-highlight.js": "0.4.0",
+		"browser-sync": "^3.0.2",
+		"highlight.js": "11.5.1",
+		"react": "catalog:libs",
+		"react-dnd": "catalog:libs",
+		"react-dom": "catalog:libs",
+		"react-redux": "catalog:libs",
+		"redux": "catalog:libs",
+		"redux-saga": "catalog:libs",
+		"styled-components": "catalog:libs",
+		"typescript": "catalog:libs"
+	}
+}

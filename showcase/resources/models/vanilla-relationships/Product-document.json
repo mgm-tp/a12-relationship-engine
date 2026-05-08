@@ -1,0 +1,452 @@
+{
+	"header": {
+		"id": "Product-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Produkt"
+			},
+			{
+				"locale": "en",
+				"text": "Product"
+			}
+		],
+		"annotations": [
+			{
+				"name": "subTypes",
+				"value": "Bundle-document"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "Product-document",
+			"immutable": false,
+			"comment": "Product",
+			"joinedModelsInfo": "Product-document-document-meta-data+Add"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G7",
+					"name": "Properties",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F4",
+								"name": "name",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Name"
+										},
+										{
+											"locale": "en",
+											"text": "Name"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F5",
+								"name": "price",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Preis"
+										},
+										{
+											"locale": "en",
+											"text": "Price"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_31308",
+								"name": "releaseDate",
+								"Field": {
+									"fieldType": {
+										"type": "DateType",
+										"DateType": {
+											"format": "yyyy-MM-dd"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Erscheinungsdatum"
+										},
+										{
+											"locale": "en",
+											"text": "Release Date"
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_95309",
+								"name": "image",
+								"Group": {
+									"repeatability": 1,
+									"usageType": "attachment",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_d00bc",
+											"name": "original_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_7fcb1",
+											"name": "internal_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_d959a",
+											"name": "content",
+											"Field": {
+												"fieldType": {
+													"type": "StringType",
+													"StringType": {
+														"lineBreaksPermitted": true,
+														"noValueValidation": true
+													}
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_0502a",
+											"name": "attachment_id",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_b03a9",
+											"name": "size",
+											"Field": {
+												"fieldType": {
+													"type": "NumberType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_c2455",
+											"name": "mime_type",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_3205e",
+											"name": "category",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_2fe83",
+											"name": "description",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_c776c",
+											"name": "AttachmentInternalFilenameRequired",
+											"Rule": {
+												"errorEntityRelPath": "../internal_filename",
+												"errorCode": "Errorrule_c776c",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "de",
+														"text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
+													},
+													{
+														"locale": "en",
+														"text": "Internal Error: Field $internal_filename$ of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_d18b4",
+											"name": "AttachmentMimeTypeRequired",
+											"Rule": {
+												"errorEntityRelPath": "../mime_type",
+												"errorCode": "Errorrule_d18b4",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "de",
+														"text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
+													},
+													{
+														"locale": "en",
+														"text": "Internal Error: Field $mime_type$ of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_03694",
+											"name": "AttachmentIdOrContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Errorrule_03694",
+												"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "de",
+														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+													},
+													{
+														"locale": "en",
+														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_fe031",
+											"name": "SizeOfContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Errorrule_fe031",
+												"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "de",
+														"text": "Internal Error: If the content is filled, the size must be also filled."
+													},
+													{
+														"locale": "en",
+														"text": "Internal Error: If the content is filled, the size must be also filled."
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_20c1c",
+								"name": "exportRestricted",
+								"Field": {
+									"fieldType": {
+										"type": "ConfirmType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Exportbeschränkung"
+										},
+										{
+											"locale": "en",
+											"text": "export restricted"
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_3c0eb",
+								"name": "restrictedCountries",
+								"Group": {
+									"repeatability": 999,
+									"indexFieldName": "country",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_b74e8",
+											"name": "country",
+											"Field": {
+												"fieldType": {
+													"type": "EnumerationType",
+													"EnumerationType": {
+														"values": [
+															{
+																"value": "usa",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "USA"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "USA"
+																	}
+																]
+															},
+															{
+																"value": "russia",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Russland"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Russia"
+																	}
+																]
+															},
+															{
+																"value": "saudiArabia",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Saudi-Arabien"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Saudi Arabia"
+																	}
+																]
+															}
+														]
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "Land"
+													},
+													{
+														"locale": "en",
+														"text": "country"
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_7e876",
+								"name": "responsibleDepartmentOfGovernment",
+								"Field": {
+									"fieldType": {
+										"type": "EnumerationType",
+										"EnumerationType": {
+											"values": [
+												{
+													"value": "state",
+													"label": [
+														{
+															"locale": "de",
+															"text": "Außenministerium"
+														},
+														{
+															"locale": "en",
+															"text": "department of state"
+														}
+													]
+												},
+												{
+													"value": "commerce",
+													"label": [
+														{
+															"locale": "de",
+															"text": "Wirtschaftsministerium"
+														},
+														{
+															"locale": "en",
+															"text": "department of commerce"
+														}
+													]
+												}
+											],
+											"categories": []
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "verantwortliche Bundesbehörde"
+										},
+										{
+											"locale": "en",
+											"text": "responsible department of government"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

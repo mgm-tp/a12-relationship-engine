@@ -1,0 +1,70 @@
+{
+	"header": {
+		"id": "PolicyHolder_contract____generated",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "application",
+				"value": ""
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Contract-document",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Contract-document"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "PolicyHolder_contract____generated",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "target",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "I4",
+								"name": "contract",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "Contract-document"
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

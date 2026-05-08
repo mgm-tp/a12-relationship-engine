@@ -1,0 +1,191 @@
+{
+	"header": {
+		"id": "BusinessPartnerCDM-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Geschäftspartner-CDM-Übersicht"
+			},
+			{
+				"locale": "en",
+				"text": "Business Partner CDM Overview"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "BusinessPartnerCDM"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"label": [
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						},
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"type": "button",
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"rowActionGroup": {
+			"actions": [
+				{
+					"icon": {
+						"name": "launch",
+						"theme": "outlined"
+					},
+					"label": [
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						},
+						{
+							"locale": "en",
+							"text": "open readonly"
+						}
+					],
+					"description": [
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						},
+						{
+							"locale": "en",
+							"text": "open readonly"
+						}
+					],
+					"event": "open-readonly",
+					"labelHidden": true,
+					"destructive": false,
+					"primary": false
+				},
+				{
+					"event": "delete",
+					"confirmation": {
+						"message": [
+							{
+								"locale": "de",
+								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+							},
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this entry?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"description": [
+						{
+							"locale": "de",
+							"text": "Löschen"
+						},
+						{
+							"locale": "en",
+							"text": "Delete"
+						}
+					],
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"columns": [
+			{
+				"id": "column-6203b",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ab0d_field_4e3fe",
+				"sortable": false
+			},
+			{
+				"id": "column-d8cb9",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ab0d_field_6268b",
+				"sortable": false
+			},
+			{
+				"id": "column-d323d",
+				"label": [
+					{
+						"locale": "de",
+						"text": "Logo"
+					},
+					{
+						"locale": "en",
+						"text": "Logo"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ab0d_group_d1772",
+				"sortable": false,
+				"attachmentDisplayMode": "preview"
+			},
+			{
+				"id": "column-1b487",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_2e0af_field_dbbc9",
+				"sortable": false
+			}
+		],
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

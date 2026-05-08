@@ -1,0 +1,91 @@
+{
+	"header": {
+		"id": "Brand-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "Brand-document",
+			"immutable": false,
+			"comment": "Brand"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G7",
+					"name": "Properties",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F1",
+								"name": "name",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Name"
+										},
+										{
+											"locale": "en",
+											"text": "Name"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F2",
+								"name": "taxId",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Steuernummer"
+										},
+										{
+											"locale": "en",
+											"text": "Tax ID"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

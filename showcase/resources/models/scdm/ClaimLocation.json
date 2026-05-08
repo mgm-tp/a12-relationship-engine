@@ -1,0 +1,95 @@
+{
+	"header": {
+		"id": "ClaimLocation",
+		"modelType": "relationship",
+		"modelVersion": "3.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "claim",
+				"reference": "Claim-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "location",
+				"reference": "Address-document"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"associationType": "SHARED",
+		"storage": "EXTERNAL",
+		"labels": [
+			{
+				"locale": "en"
+			},
+			{
+				"locale": "de"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				},
+				"candidateConstraints": {},
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "claim",
+				"documentModel": "Claim-document"
+			},
+			{
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": true,
+						"upperLimit": null
+					}
+				},
+				"candidateConstraints": {},
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "location",
+				"documentModel": "Address-document"
+			}
+		]
+	}
+}

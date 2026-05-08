@@ -1,0 +1,396 @@
+{
+	"header": {
+		"id": "BundleOM",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "List of bundles"
+			},
+			{
+				"locale": "de",
+				"text": "Paketliste"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "BundleDM"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"event": "add_event",
+					"destructive": false,
+					"icon": {
+						"name": "add"
+					},
+					"primary": true
+				}
+			]
+		},
+		"columns": [
+			{
+				"id": "column-752d19",
+				"name": "Availability",
+				"expression": "kontext(bundle) { [price] \" -- \" [releaseDate] \" -- \" [onSaleInterval] }",
+				"width": 1,
+				"label": [
+					{
+						"locale": "en",
+						"text": "Expression"
+					},
+					{
+						"locale": "de",
+						"text": "Expression"
+					}
+				]
+			},
+			{
+				"id": "column-3e781",
+				"elementRef": "F1",
+				"sortable": true,
+				"preferredSorting": "ASC",
+				"width": 0.8,
+				"pinDirection": "LEFT"
+			},
+			{
+				"id": "column-ab01f",
+				"elementRef": "F2",
+				"sortable": true,
+				"preferredSorting": "ASC",
+				"width": 1,
+				"fixedWidth": true,
+				"summary": [
+					{
+						"operation": "sum"
+					}
+				],
+				"suffix": [
+					{
+						"locale": "en",
+						"text": "USD"
+					},
+					{
+						"locale": "de",
+						"text": "EUR"
+					}
+				]
+			},
+			{
+				"id": "column-3acff",
+				"elementRef": "F3",
+				"sortable": false,
+				"width": 1.5
+			},
+			{
+				"sortable": false,
+				"width": 0.4,
+				"id": "column-041eb",
+				"elementRef": "group_5ced8",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Feature List"
+					},
+					{
+						"locale": "de",
+						"text": "Funktionsliste"
+					}
+				]
+			},
+			{
+				"sortable": true,
+				"width": 1.2,
+				"id": "column-87510",
+				"elementRef": "field_d4c4b",
+				"preferredSorting": "ASC"
+			},
+			{
+				"sortable": true,
+				"width": 1.2,
+				"id": "column-87510",
+				"elementRef": "field_date_range",
+				"preferredSorting": "ASC"
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "delete",
+					"confirmation": {
+						"title": [
+							{
+								"locale": "en",
+								"text": "Deletion Row"
+							},
+							{
+								"locale": "de",
+								"text": "Löschzeile"
+							}
+						],
+						"message": [
+							{
+								"locale": "en",
+								"text": "Do you want to delete this row?"
+							},
+							{
+								"locale": "de",
+								"text": "Möchten Sie diese Zeile löschen?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"destructive": true,
+					"primary": true,
+					"description": [
+						{
+							"locale": "en",
+							"text": "Delete"
+						},
+						{
+							"locale": "de",
+							"text": "Löschen"
+						}
+					]
+				},
+				{
+					"icon": {
+						"name": "edit_outline",
+						"theme": "custom"
+					},
+					"event": "edit",
+					"description": [
+						{
+							"locale": "en",
+							"text": "Edit Title"
+						},
+						{
+							"locale": "de",
+							"text": "Titel bearbeiten"
+						}
+					]
+				}
+			]
+		},
+		"contextMenu": {
+			"groups": [
+				{
+					"name": "insertGroup",
+					"title": [
+						{
+							"locale": "en",
+							"text": "Insert"
+						},
+						{
+							"locale": "de",
+							"text": "Einfügen"
+						}
+					],
+					"actions": [
+						{
+							"label": [
+								{
+									"locale": "en",
+									"text": "Insert Above"
+								},
+								{
+									"locale": "de",
+									"text": "Oben einfügen"
+								}
+							],
+							"confirmation": {
+								"title": [
+									{
+										"locale": "en",
+										"text": "Above Insertion"
+									},
+									{
+										"locale": "de",
+										"text": "Über der Einfügung"
+									}
+								]
+							},
+							"icon": {
+								"name": "insert_above",
+								"theme": "custom"
+							},
+							"event": "insert_above"
+						},
+						{
+							"label": [
+								{
+									"locale": "en",
+									"text": "Insert Below"
+								},
+								{
+									"locale": "de",
+									"text": "Unten einfügen"
+								}
+							],
+							"confirmation": {
+								"message": [
+									{
+										"locale": "en",
+										"text": "Do you want to insert below this row?"
+									},
+									{
+										"locale": "de",
+										"text": "Möchten Sie unterhalb dieser Zeile einfügen?"
+									}
+								]
+							},
+							"icon": {
+								"name": "insert_below",
+								"theme": "custom"
+							},
+							"event": "insert_below"
+						}
+					]
+				}
+			]
+		},
+		"configuration": {
+			"rowTitle": [
+				{
+					"locale": "en",
+					"text": "Click to select this bundle"
+				},
+				{
+					"locale": "de",
+					"text": "Klicken Sie, um dieses Paket auszuwählen"
+				}
+			],
+			"pagingSize": 10,
+			"showFullTextSearch": true,
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_collapsed",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Save"
+							},
+							{
+								"locale": "de",
+								"text": "Sparen"
+							}
+						],
+						"destructive": false,
+						"icon": {
+							"name": "save"
+						},
+						"event": "save_event",
+						"primary": false
+					},
+					{
+						"label": [
+							{
+								"locale": "en",
+								"text": "Share"
+							},
+							{
+								"locale": "de",
+								"text": "Teilen"
+							}
+						],
+						"destructive": true,
+						"icon": {
+							"name": "share"
+						},
+						"event": "share_event",
+						"confirmation": {
+							"title": [
+								{
+									"locale": "en",
+									"text": "Warning"
+								},
+								{
+									"locale": "de",
+									"text": "Warnung"
+								}
+							],
+							"message": [
+								{
+									"locale": "en",
+									"text": "Do you want to share all selected bundle?"
+								},
+								{
+									"locale": "de",
+									"text": "Möchten Sie alle ausgewählten Bundles freigeben?"
+								}
+							]
+						},
+						"primary": false
+					}
+				],
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"rowHeight": 80,
+			"actionColumnWidth": 1,
+			"showRowCount": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns",
+				"enumeratedStringFilter": {
+					"fields": [
+						{
+							"fieldId": "F1"
+						}
+					]
+				}
+			}
+		},
+		"footerBox": {}
+	}
+}

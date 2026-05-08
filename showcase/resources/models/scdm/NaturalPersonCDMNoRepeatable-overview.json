@@ -1,0 +1,224 @@
+{
+	"header": {
+		"id": "NaturalPersonCDMNoRepeatable-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "NaturalPersonCDMNoRepeatable"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_collapsed",
+				"counterOption": "simple",
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"columns": [
+			{
+				"id": "column-26e31",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ab0d_field_f2483",
+				"sortable": false
+			},
+			{
+				"id": "column-0d0c7",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_2e0af_field_dbbc9",
+				"sortable": false
+			},
+			{
+				"id": "column-f7271",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_2e0af_field_90cd2",
+				"sortable": false
+			},
+			{
+				"id": "column-dde3b",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_7b4ef_field_0beef",
+				"sortable": false
+			},
+			{
+				"id": "column-fef80",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_7759c",
+				"sortable": false
+			}
+		],
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "multi_selection"
+				}
+			]
+		},
+		"rowActionGroup": {
+			"actions": [
+				{
+					"icon": {
+						"name": "launch",
+						"theme": "outlined"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "open readonly"
+						},
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						}
+					],
+					"description": [
+						{
+							"locale": "en",
+							"text": "open readonly"
+						},
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						}
+					],
+					"event": "open-readonly",
+					"labelHidden": true,
+					"destructive": false,
+					"primary": false
+				},
+				{
+					"confirmation": {
+						"message": [
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this entry?"
+							},
+							{
+								"locale": "de",
+								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete",
+						"theme": "filled"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "delete"
+						},
+						{
+							"locale": "de",
+							"text": "löschen"
+						}
+					],
+					"description": [
+						{
+							"locale": "en",
+							"text": "delete"
+						},
+						{
+							"locale": "de",
+							"text": "löschen"
+						}
+					],
+					"event": "delete",
+					"labelHidden": true,
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Export"
+						},
+						{
+							"locale": "de",
+							"text": "Export [DE]"
+						}
+					],
+					"event": "export_excel",
+					"icon": {
+						"name": "star",
+						"theme": "filled"
+					},
+					"confirmation": {
+						"title": [
+							{
+								"locale": "en",
+								"text": "Warning"
+							},
+							{
+								"locale": "de",
+								"text": "Warnung"
+							}
+						],
+						"message": [
+							{
+								"locale": "en",
+								"text": "Do you want to continue?"
+							},
+							{
+								"locale": "de",
+								"text": "Wollen Sie fortfahren?"
+							}
+						]
+					},
+					"destructive": false,
+					"primary": true
+				}
+			],
+			"minorElements": []
+		}
+	}
+}

@@ -1,0 +1,14 @@
+[{"jsonrpc":"2.0","id":"QUERY-0","result":{"fullSize":1,"page":{"pageNumber":0,"pageSize":1},"entries":[{"docRef":"Category-document/832addae-abb9-4c7e-a8ab-3813e1eba647","document":{
+  "Properties": {
+    "name": "Cat 1"
+  },
+  "__meta": {
+    "createdAt": "2025-08-25T07:46:39",
+    "creator": "anonymous",
+    "docRef": "Category-document/832addae-abb9-4c7e-a8ab-3813e1eba647",
+    "modelReference": "Category-document",
+    "modelVersion": null,
+    "modifiedAt": "2025-08-25T07:46:39",
+    "modifier": "anonymous"
+  }
+},"type":"ROOT","depth":0,"documentModelName":"Category-document"}],"links":[],"otherResults":{}}},{"jsonrpc":"2.0","id":"LOAD_THUMBNAIL_URLS_INTERNAL-1","result":{}}]

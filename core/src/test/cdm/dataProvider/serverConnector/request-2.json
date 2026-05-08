@@ -1,0 +1,82 @@
+{
+	"request": [
+		{
+			"id": "ListLinks-Location-3",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/21",
+					"role": "businessPartner",
+					"relationshipModel": "Location"
+				},
+				"page": {},
+				"sort": {}
+			}
+		},
+		{
+			"id": "ListLinks-Location-4",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/22",
+					"role": "businessPartner",
+					"relationshipModel": "Location"
+				},
+				"page": {},
+				"sort": {}
+			}
+		},
+		{
+			"id": "ListLinks-Location-5",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/23",
+					"role": "businessPartner",
+					"relationshipModel": "Location"
+				},
+				"page": {},
+				"sort": {}
+			}
+		},
+		{
+			"id": "ListLinks-PostAddress-6",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/21",
+					"role": "businessPartner",
+					"relationshipModel": "PostAddress"
+				},
+				"page": {},
+				"sort": {}
+			}
+		},
+		{
+			"id": "ListLinks-PostAddress-7",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/22",
+					"role": "businessPartner",
+					"relationshipModel": "PostAddress"
+				},
+				"page": {},
+				"sort": {}
+			}
+		},
+		{
+			"id": "ListLinks-PostAddress-8",
+			"operation": "LIST_LINKS",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/23",
+					"role": "businessPartner",
+					"relationshipModel": "PostAddress"
+				},
+				"page": {},
+				"sort": {}
+			}
+		}
+	]
+}

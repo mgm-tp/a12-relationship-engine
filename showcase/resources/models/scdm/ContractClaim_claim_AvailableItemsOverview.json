@@ -1,0 +1,64 @@
+{
+	"header": {
+		"id": "ContractClaim_claim_AvailableItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Claim-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": false,
+			"pagingSize": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"columns": [
+			{
+				"id": "column-5a640",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_3dddf",
+				"sortable": false
+			}
+		],
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"rowActionGroup": {},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

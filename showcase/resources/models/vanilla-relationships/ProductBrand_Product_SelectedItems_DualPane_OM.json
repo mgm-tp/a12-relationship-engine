@@ -1,0 +1,79 @@
+{
+	"header": {
+		"id": "ProductBrand_Product_SelectedItems_DualPane_OM",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ProductBrand_Product____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": false,
+			"pagingSize": 50,
+			"showFullTextSearch": false
+		},
+		"columns": [
+			{
+				"id": "column-c2942",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_F4",
+				"sortable": false
+			},
+			{
+				"id": "column-649a5",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_F5",
+				"sortable": false
+			},
+			{
+				"id": "column-e530d",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_31308",
+				"sortable": false
+			},
+			{
+				"id": "column-a61e8",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I5_F5",
+				"sortable": false
+			},
+			{
+				"id": "column-be004",
+				"width": 1,
+				"styles": {},
+				"elementRef": "G2_field_cfb40",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"subHeaderBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

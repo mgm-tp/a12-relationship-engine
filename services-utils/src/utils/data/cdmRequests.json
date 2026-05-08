@@ -1,0 +1,568 @@
+[
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress1",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "Germany",
+					"city": "Munich",
+					"street": "Taunusstrasse",
+					"number": "23"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress2",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "Germany",
+					"city": "Munich",
+					"street": "Machtlfinger",
+					"number": "15"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress3",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "Germany",
+					"city": "Aachen",
+					"street": "Markt",
+					"number": "45"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress4",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "Germany",
+					"city": "Hamburg",
+					"street": "Holländischer Brook",
+					"number": "2"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress5",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "Tschechien",
+					"city": "Prag",
+					"street": "Letenske nam",
+					"number": "157"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress6",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "Frankreich",
+					"city": "Grenoble",
+					"street": "Allee Aloyzi Kospicki",
+					"number": "26"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress7",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "USA",
+					"city": "Seattle",
+					"street": "Terry Ave. North",
+					"number": "410"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress8",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "USA",
+					"city": "Mountain View",
+					"street": "Amphitheatre Pkwy",
+					"number": "1600"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAddress9",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Address-document",
+			"document": {
+				"address": {
+					"country": "USA",
+					"city": "Menlo Park",
+					"street": "Hacker Way",
+					"number": "1"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDContract1",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Contract-document",
+			"document": {
+				"contract": {
+					"type": "german",
+					"fee": 1200.0
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDContract2",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "Contract-document",
+			"document": {
+				"contract": {
+					"type": "shallow",
+					"fee": 958.0
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDLegalEntity1",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "LegalEntity-document",
+			"document": {
+				"businessPartner": {
+					"register": 23,
+					"id": "mgm",
+					"name": "mgm technology partners GmbH"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDLegalEntity2",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "LegalEntity-document",
+			"document": {
+				"businessPartner": {
+					"register": 24,
+					"id": "amazon",
+					"name": "Amazon.com"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDNaturalPerson1",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "NaturalPerson-document",
+			"document": {
+				"businessPartner": {
+					"id": "google",
+					"name": "Sundar Pichai",
+					"firstName": "Sundar",
+					"lastName": "Pichai"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDNaturalPerson2",
+		"method": "ADD_DOCUMENT",
+		"params": {
+			"documentModelName": "NaturalPerson-document",
+			"document": {
+				"businessPartner": {
+					"id": "facebook",
+					"name": "Mark Zuckerberg",
+					"firstName": "Mark",
+					"lastName": "Zuckerberg"
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_PolicyHolder",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "PolicyHolder",
+				"entities": [
+					{
+						"role": "contract",
+						"docRef": "#{#ADDContract1.metadata.docRef}"
+					},
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDCoInsurer-1",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "CoInsurer",
+				"entities": [
+					{
+						"role": "contract",
+						"docRef": "#{#ADDContract1.metadata.docRef}"
+					},
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity2.metadata.docRef}"
+					}
+				]
+			},
+			"linkDocument": {
+				"id": "__NEW__",
+				"additionalFields": {
+					"since": null
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDCoInsurer-2",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "CoInsurer",
+				"entities": [
+					{
+						"role": "contract",
+						"docRef": "#{#ADDContract1.metadata.docRef}"
+					},
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDNaturalPerson1.metadata.docRef}"
+					}
+				]
+			},
+			"linkDocument": {
+				"id": "__NEW__",
+				"additionalFields": {
+					"since": null
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_MGMPostAddress",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "PostAddress",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress1.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_MGMLocation-1",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress1.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_MGMLocation-2",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress2.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_MGMLocation-3",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress3.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_MGMLocation-4",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress4.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_MGMLocation-5",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress5.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_MGMLocation-6",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress6.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAmazonPostAddress",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "PostAddress",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity2.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress7.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDAmazonLocation-1",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDLegalEntity2.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress7.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_GooglePostAddress",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "PostAddress",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDNaturalPerson1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress8.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_GoogleLocation-1",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDNaturalPerson1.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress8.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_FacebookPostAddress",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "PostAddress",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDNaturalPerson2.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress9.metadata.docRef}"
+					}
+				]
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADD_FacebookLocation-1",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "Location",
+				"entities": [
+					{
+						"role": "businessPartner",
+						"docRef": "#{#ADDNaturalPerson2.metadata.docRef}"
+					},
+					{
+						"role": "address",
+						"docRef": "#{#ADDAddress9.metadata.docRef}"
+					}
+				]
+			}
+		}
+	}
+]

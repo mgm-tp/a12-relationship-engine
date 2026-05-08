@@ -1,0 +1,452 @@
+{
+	"header": {
+		"id": "Bundle-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Bundle"
+			},
+			{
+				"locale": "de",
+				"text": "Paket"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"type\":\"relationship\",\"elementId\":\"section-41059\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"95facc\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"linkPageSize\":2,\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Bundle_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-ae2a3\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"def5a7\",\"linkPageSize\":2,\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Bundle_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}}]"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Bundle-document",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Bundle-document"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Product_Bundle_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Bundle_Product_AvailableItemsOverview"
+			},
+			{
+				"modelType": "form",
+				"purpose": "bindingReference",
+				"reference": "ProductBundle-LinkForm"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "NAVIGATION",
+						"id": "button-52312",
+						"name": "btnDualPane",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Product (Dual)"
+										},
+										{
+											"locale": "de",
+											"text": "Produkt (Dual)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen1",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "NAVIGATION",
+						"id": "button-d8e8c",
+						"name": "btnTableList",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Product (List)"
+										},
+										{
+											"locale": "de",
+											"text": "Produkt (List)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen-e14e8",
+						"scope": "ALWAYS"
+					}
+				]
+			}
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-01393",
+						"name": "Save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "CRUD::SAVE",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE",
+						"enablement": "DISABLED"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-50ad0",
+						"name": "Cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-dab0e",
+						"name": "Commit",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Commit"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern und Schließen"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_save",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "dualPane",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "Dual Pane"
+							},
+							{
+								"locale": "de",
+								"text": "Dual Pane"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "Section",
+						"id": "section-f5f97",
+						"name": "Bundle Details",
+						"screenElements": [
+							{
+								"type": "ControlGrid",
+								"id": "controlgrid-ec0d1",
+								"name": "cg-1",
+								"layout": {
+									"lg": "9-3"
+								},
+								"row": [
+									{
+										"type": "Row",
+										"id": "row-6d762",
+										"name": "row-1",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-22e29",
+												"offset": {
+													"lg": 0
+												},
+												"elementRef": "F1"
+											},
+											{
+												"type": "Control",
+												"id": "control-33b2f",
+												"offset": {
+													"lg": 0
+												},
+												"elementRef": "F2"
+											}
+										]
+									},
+									{
+										"type": "Row",
+										"id": "row-2d95e",
+										"name": "row-2",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-23fd6",
+												"offset": {
+													"lg": 0
+												},
+												"elementRef": "F3"
+											},
+											{
+												"type": "Control",
+												"id": "control-1ad89",
+												"elementRef": "field_d4c4b"
+											}
+										]
+									}
+								],
+								"verticalAlignment": "BOTTOM"
+							}
+						]
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-41059",
+						"name": "Relations",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Relations"
+									},
+									{
+										"locale": "de",
+										"text": "Relations"
+									}
+								]
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "screen-e14e8",
+				"name": "tableList",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "Product (Table List)"
+							},
+							{
+								"locale": "de",
+								"text": "Produkt (Table List)"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "Section",
+						"id": "section-19ea0",
+						"name": "Bundle Details",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Bundle Details"
+									}
+								]
+							}
+						},
+						"screenElements": [
+							{
+								"type": "ControlGrid",
+								"id": "controlgrid-550a4",
+								"name": "cg-1",
+								"layout": {
+									"lg": "9-3"
+								},
+								"row": [
+									{
+										"type": "Row",
+										"id": "row-d4627",
+										"name": "row-1",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-706be",
+												"label": {
+													"type": "Multilingual",
+													"multilingualText": {
+														"text": [
+															{
+																"locale": "en",
+																"text": "Name"
+															}
+														]
+													}
+												},
+												"elementRef": "F1"
+											},
+											{
+												"type": "Control",
+												"id": "control-890a1",
+												"label": {
+													"type": "Multilingual",
+													"multilingualText": {
+														"text": [
+															{
+																"locale": "en",
+																"text": "Price"
+															}
+														]
+													}
+												},
+												"elementRef": "F2"
+											}
+										]
+									},
+									{
+										"type": "Row",
+										"id": "row-c85db",
+										"name": "row-2",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-62e28",
+												"offset": {
+													"lg": 0
+												},
+												"span": {
+													"lg": 2
+												},
+												"label": {
+													"type": "Multilingual",
+													"multilingualText": {
+														"text": [
+															{
+																"locale": "en",
+																"text": "Description"
+															}
+														]
+													}
+												},
+												"elementRef": "F3"
+											}
+										]
+									}
+								],
+								"verticalAlignment": "BOTTOM"
+							}
+						]
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-ae2a3",
+						"name": "Relations",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Relations"
+									},
+									{
+										"locale": "de",
+										"text": "Relations"
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

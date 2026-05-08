@@ -1,0 +1,479 @@
+{
+	"header": {
+		"id": "NaturalPersonCDMNoRepeatable-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Natural Person CDM"
+			},
+			{
+				"locale": "de",
+				"text": "Natürliche Person CDM"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"details\":{\"name\":\"postal-address-section\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"modificationConfiguration\":{\"addButtonLabel\":[{\"locale\":\"en\",\"text\":\"Add Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift hinzufügen\"}],\"editButtonLabel\":[{\"locale\":\"en\",\"text\":\"Edit Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift bearbeiten\"}],\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"post-address-select\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-62cf2\"}]"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "NaturalPersonCDMNoRepeatable",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "NaturalPersonCDMNoRepeatable"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Address-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "PostAddressLinks-overview"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-25ac1",
+						"name": "validate",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Validate"
+										},
+										{
+											"locale": "de",
+											"text": "Überprüfen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "validate",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-80a2b",
+						"name": "cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-4735f",
+						"name": "save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-a8412",
+						"name": "natural-person-cg",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Natural Person"
+									},
+									{
+										"locale": "de",
+										"text": "Natürliche Person"
+									}
+								]
+							}
+						},
+						"layout": {
+							"lg": "4-4-4"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-66dcd",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-0105e",
+										"elementRef": "include_6ab0d_field_9bd36"
+									},
+									{
+										"type": "Control",
+										"id": "control-8bd18",
+										"elementRef": "include_6ab0d_field_6a289"
+									},
+									{
+										"type": "Control",
+										"id": "control-ac6da",
+										"elementRef": "include_6ab0d_field_8d262"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-5ab1e",
+								"name": "row-2",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-d4ae5",
+										"label": {
+											"type": "Multilingual",
+											"multilingualText": {
+												"text": [
+													{
+														"locale": "en",
+														"text": "Full Name"
+													},
+													{
+														"locale": "de",
+														"text": "Name"
+													}
+												]
+											}
+										},
+										"elementRef": "include_6ab0d_field_f2483"
+									},
+									{
+										"type": "Control",
+										"id": "control-7df49",
+										"offset": {
+											"lg": 1
+										},
+										"datePickerConfig": {
+											"absolute": false,
+											"preselectionYear": 0
+										},
+										"elementRef": "include_8035d_field_de37b"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row_45570",
+								"name": "row-3",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_d7743",
+										"readonly": true,
+										"elementRef": "include_6ab0d_field_524fd"
+									},
+									{
+										"type": "Control",
+										"id": "control_32d77",
+										"readonly": true,
+										"elementRef": "include_6ab0d_field_b1de5"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-62cf2",
+						"name": "postal-address-section",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "postal-address-section"
+									},
+									{
+										"locale": "de",
+										"text": "postal-address-section"
+									}
+								]
+							}
+						}
+					},
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-be123",
+						"name": "postal-address-cg",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Postal Address"
+									},
+									{
+										"locale": "de",
+										"text": "Postanschrift"
+									}
+								]
+							}
+						},
+						"layout": {
+							"lg": "3-3-3-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-16727",
+								"name": "row-1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-e8f70",
+										"elementRef": "include_2e0af_field_dbbc9"
+									},
+									{
+										"type": "Control",
+										"id": "control-05093",
+										"elementRef": "include_2e0af_field_90cd2"
+									},
+									{
+										"type": "Control",
+										"id": "control-3e747",
+										"elementRef": "include_2e0af_field_2fc9a"
+									},
+									{
+										"type": "Control",
+										"id": "control-29364",
+										"elementRef": "include_2e0af_field_e9abb"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "InlineRepeat",
+						"id": "inlinerepeat-cf154",
+						"name": "notes-repeat",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Notes"
+									},
+									{
+										"locale": "de",
+										"text": "Notizen"
+									}
+								]
+							}
+						},
+						"repeatOverviewColumn": [
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-962cf",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "include_6ab0d_field_344e8"
+							},
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-02a58",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "include_6ab0d_field_9e04a"
+							}
+						],
+						"groupRef": "include_6ab0d_group_3e280",
+						"enableAdd": true,
+						"enableRemove": true,
+						"enableReorder": false,
+						"enableCopy": false
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {
+			"field": [
+				{
+					"dependentField": {
+						"masterField": "field_7759c",
+						"case": [
+							{
+								"masterValue": "false",
+								"notRelevant": true
+							}
+						]
+					},
+					"elementRef": "include_8035d_field_de37b"
+				},
+				{
+					"initialValue": "initial note",
+					"elementRef": "include_6ab0d_field_9e04a"
+				},
+				{
+					"initialValue": "Germany",
+					"elementRef": "include_2e0af_field_dbbc9"
+				},
+				{
+					"dependentEnumeration": {
+						"masterField": "include_6ab0d_field_524fd",
+						"constraint": [
+							{
+								"masterValue": "1",
+								"valueForMasterChange": "1",
+								"constraintValues": [
+									{
+										"value": "1"
+									},
+									{
+										"value": "2"
+									},
+									{
+										"value": "3"
+									}
+								]
+							},
+							{
+								"masterValue": "2",
+								"valueForMasterChange": "2",
+								"constraintValues": [
+									{
+										"value": "1"
+									},
+									{
+										"value": "2"
+									},
+									{
+										"value": "3"
+									}
+								]
+							},
+							{
+								"masterValue": "3",
+								"valueForMasterChange": "3",
+								"constraintValues": [
+									{
+										"value": "1"
+									},
+									{
+										"value": "2"
+									},
+									{
+										"value": "3"
+									}
+								]
+							}
+						]
+					},
+					"elementRef": "include_6ab0d_field_b1de5"
+				}
+			]
+		},
+		"groupConfiguration": {
+			"group": [
+				{
+					"groupRef": "include_6ab0d_group_3e280",
+					"numberOfInitialRows": 1
+				},
+				{
+					"dependentGroup": {
+						"masterField": "field_8d767",
+						"case": [
+							{
+								"masterValue": "false",
+								"notRelevant": true
+							}
+						]
+					},
+					"groupRef": "include_2e0af"
+				}
+			]
+		},
+		"defaults": {},
+		"openNewDocumentPreProcessing": "COMPUTATIONS_AND_DEPENDENCIES",
+		"openExistingDocumentPreProcessing": "COMPUTATIONS_AND_DEPENDENCIES"
+	}
+}

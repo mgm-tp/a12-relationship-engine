@@ -1,0 +1,11 @@
+diff --git a/dist/types/connectors.d.ts b/dist/types/connectors.d.ts
+index 42f461976f057aae6e6ebcebf0b8dccffb15d12c..c166b698bf8aa9a2445f7290c6af19e69142c503 100644
+--- a/dist/types/connectors.d.ts
++++ b/dist/types/connectors.d.ts
+@@ -1,5 +1,5 @@
+ import type { ReactElement, RefObject } from 'react';
+-import type { DragPreviewOptions, DragSourceOptions } from './options';
++import type { DragPreviewOptions, DragSourceOptions } from './options.js';
+ export declare type ConnectableElement = RefObject<any> | ReactElement | Element | null;
+ export declare type DragElementWrapper<Options> = (elementOrNode: ConnectableElement, options?: Options) => ReactElement | null;
+ export declare type ConnectDragSource = DragElementWrapper<DragSourceOptions>;

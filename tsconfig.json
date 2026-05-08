@@ -1,0 +1,9 @@
+{
+	"extends": "@com.mgmtp.a12.devtools/tsconfig",
+	"exclude": ["**/node_modules", "**/.*/"],
+	"compilerOptions": {
+		"incremental": true,
+		"preserveWatchOutput": true,
+		"noEmitOnError": false
+	}
+}

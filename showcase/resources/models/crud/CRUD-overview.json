@@ -1,0 +1,194 @@
+{
+	"header": {
+		"id": "CRUD-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "CRUD Übersicht"
+			},
+			{
+				"locale": "en",
+				"text": "CRUD Overview"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "CRUD-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_collapsed",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"confirmation": {
+							"title": [
+								{
+									"locale": "de",
+									"text": "Warnung"
+								},
+								{
+									"locale": "en",
+									"text": "Warning"
+								}
+							],
+							"message": [
+								{
+									"locale": "de",
+									"text": "Wollen Sie fortfahren?"
+								},
+								{
+									"locale": "en",
+									"text": "Do you want to continue?"
+								}
+							]
+						},
+						"destructive": false,
+						"icon": {
+							"name": "delete",
+							"theme": "filled"
+						},
+						"label": [
+							{
+								"locale": "de",
+								"text": "Loschen"
+							},
+							{
+								"locale": "en",
+								"text": "Delete"
+							}
+						],
+						"event": "delete_selected",
+						"primary": false
+					}
+				],
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 5,
+			"initialSorting": [
+				{
+					"idref": "column-1949c"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						},
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"event": "event_add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				},
+				{
+					"type": "multi_selection"
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-1949c",
+				"width": 1,
+				"elementRef": "F3",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-1949d",
+				"width": 1,
+				"elementRef": "field_cbf60",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "delete",
+					"confirmation": {
+						"message": [
+							{
+								"locale": "de",
+								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+							},
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this entry?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"description": [
+						{
+							"locale": "de",
+							"text": "Löschen"
+						},
+						{
+							"locale": "en",
+							"text": "Delete"
+						}
+					],
+					"destructive": false,
+					"primary": false
+				}
+			]
+		}
+	}
+}

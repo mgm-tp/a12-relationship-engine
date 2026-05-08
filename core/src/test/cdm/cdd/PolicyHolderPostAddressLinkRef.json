@@ -1,0 +1,19 @@
+{
+	"linkDescriptor": {
+		"relationshipModel": "PostAddress",
+		"entities": [
+			{
+				"role": "businessPartner",
+				"modelName": "BusinessPartner-document",
+				"docRef": "BusinessPartner-document/21"
+			},
+			{
+				"role": "address",
+				"modelName": "Address",
+				"docRef": "Address/13"
+			}
+		],
+		"predecessorLinkRef": null
+	},
+	"id": "4"
+}

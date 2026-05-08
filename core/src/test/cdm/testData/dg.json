@@ -1,0 +1,343 @@
+{
+	"documents": {
+		"byDocRef": {
+			"cddDocument/0": {
+				"docRef": "cddDocument/0",
+				"document": {},
+				"documentModelName": "ContractCDM",
+				"loadingState": "loaded"
+			},
+			"Contract-document/24": {
+				"docRef": "Contract-document/24",
+				"documentModelName": "Contract-document",
+				"document": {
+					"contract": {
+						"type": "german"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"BusinessPartner-document/21": {
+				"docRef": "BusinessPartner-document/21",
+				"documentModelName": "BusinessPartner-document",
+				"document": {
+					"businessPartner": {
+						"id": "mgm",
+						"name": "mgm technology partners GmbH"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"Address-document/13": {
+				"docRef": "Address-document/13",
+				"documentModelName": "Address-document",
+				"document": {
+					"address": {
+						"country": "Germany",
+						"city": "Munich",
+						"street": "Taunusstrasse",
+						"number": "23"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"Address-document/14": {
+				"docRef": "Address-document/14",
+				"documentModelName": "Address-document",
+				"document": {
+					"address": {
+						"country": "Germany",
+						"city": "Munich",
+						"street": "Machtlfinger",
+						"number": "15"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"BusinessPartner-document/22": {
+				"docRef": "BusinessPartner-document/22",
+				"documentModelName": "BusinessPartner-document",
+				"document": {
+					"businessPartner": {
+						"id": "amazon",
+						"name": "Amazon.com"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"Address-document/19": {
+				"docRef": "Address-document/19",
+				"documentModelName": "Address-document",
+				"document": {
+					"address": {
+						"country": "USA",
+						"city": "Seattle",
+						"street": "Terry Ave. North",
+						"number": "410"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"BusinessPartner-document/23": {
+				"docRef": "BusinessPartner-document/23",
+				"documentModelName": "BusinessPartner-document",
+				"document": {
+					"businessPartner": {
+						"id": "google",
+						"name": "Google LLC"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"Address-document/20": {
+				"docRef": "Address-document/20",
+				"documentModelName": "Address-document",
+				"document": {
+					"address": {
+						"country": "USA",
+						"city": "Mountain View",
+						"street": "Amphitheatre Pkwy",
+						"number": "1600"
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"CoInsurerAdditionalFields/1": {
+				"docRef": "CoInsurerAdditionalFields/1",
+				"documentModelName": "CoInsurerAdditionalFields",
+				"document": {
+					"additionalFields": {
+						"since": {}
+					}
+				},
+				"loadingState": "loaded"
+			},
+			"CoInsurerAdditionalFields/2": {
+				"docRef": "CoInsurerAdditionalFields/2",
+				"documentModelName": "CoInsurerAdditionalFields",
+				"document": {
+					"additionalFields": {
+						"since": {}
+					}
+				},
+				"loadingState": "loaded"
+			}
+		}
+	},
+	"links": {
+		"byId": {
+			"1": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "PolicyHolder",
+						"entities": [
+							{
+								"role": "contract",
+								"docRef": "Contract-document/24"
+							},
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/21"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "1"
+				},
+				"rank": 0
+			},
+			"2": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "CoInsurer",
+						"entities": [
+							{
+								"role": "contract",
+								"docRef": "Contract-document/24"
+							},
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/22"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "2"
+				},
+				"rank": 1,
+				"linkDocRef": "CoInsurerAdditionalFields/1"
+			},
+			"3": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "CoInsurer",
+						"entities": [
+							{
+								"role": "contract",
+								"docRef": "Contract-document/24"
+							},
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/23"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "3"
+				},
+				"rank": 2,
+				"linkDocRef": "CoInsurerAdditionalFields/2"
+			},
+			"4": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "PostAddress",
+						"entities": [
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/21"
+							},
+							{
+								"role": "address",
+								"docRef": "Address-document/13"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "4"
+				},
+				"rank": 7
+			},
+			"5": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "Location",
+						"entities": [
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/21"
+							},
+							{
+								"role": "address",
+								"docRef": "Address-document/13"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "5"
+				},
+				"rank": 3
+			},
+			"6": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "Location",
+						"entities": [
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/21"
+							},
+							{
+								"role": "address",
+								"docRef": "Address-document/14"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "6"
+				},
+				"rank": 4
+			},
+			"7": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "PostAddress",
+						"entities": [
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/22"
+							},
+							{
+								"role": "address",
+								"docRef": "Address-document/19"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "7"
+				},
+				"rank": 8
+			},
+			"8": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "Location",
+						"entities": [
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/22"
+							},
+							{
+								"role": "address",
+								"docRef": "Address-document/19"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "8"
+				},
+				"rank": 5
+			},
+			"9": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "PostAddress",
+						"entities": [
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/23"
+							},
+							{
+								"role": "address",
+								"docRef": "Address-document/20"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "9"
+				},
+				"rank": 9
+			},
+			"10": {
+				"linkRef": {
+					"linkDescriptor": {
+						"relationshipModel": "Location",
+						"entities": [
+							{
+								"role": "businessPartner",
+								"docRef": "BusinessPartner-document/23"
+							},
+							{
+								"role": "address",
+								"docRef": "Address-document/20"
+							}
+						],
+						"predecessorLinkRef": null
+					},
+					"id": "10"
+				},
+				"rank": 6
+			}
+		},
+		"linkIdsByDocId": {
+			"Contract-document/24": ["1", "2", "3"],
+			"BusinessPartner-document/21": ["1", "5", "6", "4"],
+			"BusinessPartner-document/22": ["2", "8", "7"],
+			"BusinessPartner-document/23": ["3", "10", "9"],
+			"Address-document/13": ["5", "4"],
+			"Address-document/14": ["6"],
+			"Address-document/19": ["8", "7"],
+			"Address-document/20": ["10", "9"]
+		}
+	}
+}

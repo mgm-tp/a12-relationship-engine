@@ -1,0 +1,7 @@
+[
+	{
+		"jsonrpc": "2.0",
+		"id": "addDocumentOperation",
+		"result": { "docRef": "Category-document/29d6b156-979c-47db-9915-389532c61cf1" }
+	}
+]

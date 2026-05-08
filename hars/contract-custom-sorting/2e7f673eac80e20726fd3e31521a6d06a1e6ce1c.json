@@ -1,0 +1,509 @@
+[
+	{
+		"jsonrpc": "2.0",
+		"id": "listModels-0",
+		"result": {
+			"models": {
+				"Contract-document": {
+					"header": {
+						"id": "Contract-document",
+						"modelType": "document",
+						"modelVersion": "28.4.0",
+						"locales": [
+							{
+								"code": "en"
+							},
+							{
+								"code": "de"
+							}
+						],
+						"labels": [
+							{
+								"locale": "de",
+								"text": "Vertrag"
+							},
+							{
+								"locale": "en",
+								"text": "Contract"
+							}
+						],
+						"annotations": [
+							{
+								"name": "roles",
+								"value": "anonymous"
+							}
+						],
+						"modelReferences": []
+					},
+					"content": {
+						"modelInfo": {
+							"name": "Contract-document",
+							"immutable": false,
+							"joinedModelsInfo": "Contract-document-document-meta-data+Add"
+						},
+						"modelConfig": {
+							"decimalSeparator": ".",
+							"timeZone": "UTC",
+							"conditionLanguage": {
+								"code": "en_US"
+							}
+						},
+						"modelRoot": {
+							"rootGroups": [
+								{
+									"type": "Group",
+									"id": "group_41512",
+									"name": "contract",
+									"Group": {
+										"repeatability": 1,
+										"elements": [
+											{
+												"type": "Field",
+												"id": "field_0beef",
+												"name": "type",
+												"annotations": [
+													{
+														"name": "enable_approximate_match_search",
+														"value": "true"
+													}
+												],
+												"Field": {
+													"fieldType": {
+														"type": "StringType"
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Type"
+														},
+														{
+															"locale": "de",
+															"text": "Typ"
+														}
+													]
+												}
+											},
+											{
+												"type": "Field",
+												"id": "field_6d25e",
+												"name": "fee",
+												"Field": {
+													"fieldType": {
+														"type": "NumberType",
+														"NumberType": {
+															"minFractionalDigits": 2,
+															"maxFractionalDigits": 2,
+															"trait": "amount"
+														}
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Fee"
+														},
+														{
+															"locale": "de",
+															"text": "Gebühr"
+														}
+													]
+												}
+											},
+											{
+												"type": "Group",
+												"id": "group_4486e",
+												"name": "limitations",
+												"Group": {
+													"repeatability": 1,
+													"elements": [
+														{
+															"type": "Field",
+															"id": "field_f87fe",
+															"name": "onlyBilateral",
+															"Field": {
+																"fieldType": {
+																	"type": "ConfirmType"
+																},
+																"label": [
+																	{
+																		"locale": "en",
+																		"text": "bilateral only"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "nur bilateral"
+																	}
+																]
+															}
+														}
+													]
+												}
+											}
+										]
+									}
+								},
+								{
+									"type": "Group",
+									"id": "abc6a6767a60488754aace2accb73824_group_8f4b1",
+									"name": "__meta",
+									"Group": {
+										"repeatability": 1,
+										"label": [
+											{
+												"locale": "en",
+												"text": "Meta"
+											},
+											{
+												"locale": "de",
+												"text": "Meta"
+											}
+										],
+										"usageType": "metadata",
+										"elements": [
+											{
+												"type": "Field",
+												"id": "abc6a6767a60488754aace2accb73824_field_1169c",
+												"name": "docRef",
+												"Field": {
+													"fieldType": {
+														"type": "StringType"
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Document Reference"
+														},
+														{
+															"locale": "de",
+															"text": "Dokumentreferenz"
+														}
+													]
+												}
+											},
+											{
+												"type": "Field",
+												"id": "abc6a6767a60488754aace2accb73824_field_cfb40",
+												"name": "modelReference",
+												"Field": {
+													"fieldType": {
+														"type": "StringType"
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Document Model Reference"
+														},
+														{
+															"locale": "de",
+															"text": "Document Model-Referenz"
+														}
+													]
+												}
+											},
+											{
+												"type": "Field",
+												"id": "abc6a6767a60488754aace2accb73824_field_17e3b",
+												"name": "modelVersion",
+												"Field": {
+													"fieldType": {
+														"type": "StringType"
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Model Version"
+														},
+														{
+															"locale": "de",
+															"text": "Model-Version"
+														}
+													]
+												}
+											},
+											{
+												"type": "Field",
+												"id": "abc6a6767a60488754aace2accb73824_field_cdaf9",
+												"name": "creator",
+												"Field": {
+													"fieldType": {
+														"type": "StringType"
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Creator"
+														},
+														{
+															"locale": "de",
+															"text": "Erstellt von"
+														}
+													]
+												}
+											},
+											{
+												"type": "Field",
+												"id": "abc6a6767a60488754aace2accb73824_field_65672",
+												"name": "createdAt",
+												"Field": {
+													"fieldType": {
+														"type": "DateTimeType",
+														"DateTimeType": {
+															"format": "yyyy-MM-dd'T'HH:mm:ss"
+														}
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Created At"
+														},
+														{
+															"locale": "de",
+															"text": "Erstellt am"
+														}
+													]
+												}
+											},
+											{
+												"type": "Field",
+												"id": "abc6a6767a60488754aace2accb73824_field_1fa32",
+												"name": "modifier",
+												"Field": {
+													"fieldType": {
+														"type": "StringType"
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Modifier"
+														},
+														{
+															"locale": "de",
+															"text": "Bearbeitet von"
+														}
+													]
+												}
+											},
+											{
+												"type": "Field",
+												"id": "abc6a6767a60488754aace2accb73824_field_5cd66",
+												"name": "modifiedAt",
+												"Field": {
+													"fieldType": {
+														"type": "DateTimeType",
+														"DateTimeType": {
+															"format": "yyyy-MM-dd'T'HH:mm:ss"
+														}
+													},
+													"label": [
+														{
+															"locale": "en",
+															"text": "Modified At"
+														},
+														{
+															"locale": "de",
+															"text": "Bearbeitet am"
+														}
+													]
+												}
+											},
+											{
+												"type": "Group",
+												"id": "abc6a6767a60488754aace2accb73824_group_4c9a1",
+												"name": "extensions",
+												"Group": {
+													"repeatability": 1,
+													"label": [
+														{
+															"locale": "en",
+															"text": "Extensions"
+														},
+														{
+															"locale": "de",
+															"text": "Erweiterungen"
+														}
+													]
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					}
+				},
+				"Contract-overview": {
+					"header": {
+						"id": "Contract-overview",
+						"modelType": "overview",
+						"modelVersion": "38.1.0",
+						"locales": [
+							{
+								"code": "de"
+							},
+							{
+								"code": "en"
+							}
+						],
+						"labels": [
+							{
+								"locale": "de",
+								"text": "Vertragsübersicht"
+							},
+							{
+								"locale": "en",
+								"text": "Contract Overview"
+							}
+						],
+						"annotations": [
+							{
+								"name": "roles",
+								"value": "anonymous"
+							}
+						],
+						"modelReferences": [
+							{
+								"purpose": "document-model-for-overview",
+								"modelType": "document",
+								"alias": "DM",
+								"reference": "Contract-document"
+							}
+						]
+					},
+					"content": {
+						"configuration": {
+							"enableFilter": true,
+							"showFullTextSearch": true,
+							"pagingSize": 5,
+							"initialSorting": [
+								{
+									"idref": "column-1949c"
+								}
+							],
+							"filterConfiguration": {
+								"showFilterButton": true,
+								"showFilterBar": true,
+								"filterMode": "all"
+							}
+						},
+						"subHeaderBox": {
+							"majorElements": [
+								{
+									"type": "search"
+								},
+								{
+									"type": "filter"
+								}
+							],
+							"minorElements": [
+								{
+									"label": [
+										{
+											"locale": "de",
+											"text": "Hinzufügen"
+										},
+										{
+											"locale": "en",
+											"text": "Add"
+										}
+									],
+									"type": "button",
+									"event": "add",
+									"icon": {
+										"name": "add"
+									},
+									"destructive": false,
+									"primary": false
+								}
+							]
+						},
+						"footerBox": {
+							"majorElements": [],
+							"minorElements": []
+						},
+						"columns": [
+							{
+								"id": "column-1949c",
+								"width": 1,
+								"elementRef": "field_0beef",
+								"sortable": true,
+								"preferredSorting": "ASC"
+							}
+						],
+						"rowActionGroup": {
+							"actions": [
+								{
+									"icon": {
+										"name": "launch",
+										"theme": "outlined"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "schreibgeschützt öffnen"
+										},
+										{
+											"locale": "en",
+											"text": "open readonly"
+										}
+									],
+									"description": [
+										{
+											"locale": "de",
+											"text": "schreibgeschützt öffnen"
+										},
+										{
+											"locale": "en",
+											"text": "open readonly"
+										}
+									],
+									"event": "open-readonly",
+									"labelHidden": true,
+									"destructive": false,
+									"primary": false
+								},
+								{
+									"event": "delete",
+									"confirmation": {
+										"message": [
+											{
+												"locale": "de",
+												"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+											},
+											{
+												"locale": "en",
+												"text": "Do you really want to delete this entry?"
+											}
+										]
+									},
+									"icon": {
+										"name": "delete"
+									},
+									"description": [
+										{
+											"locale": "de",
+											"text": "Löschen"
+										},
+										{
+											"locale": "en",
+											"text": "Delete"
+										}
+									],
+									"destructive": false,
+									"primary": false
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "listCodes-1",
+		"result": {
+			"documentValidationCodes": {
+				"Contract-document": "/**\n**/\nvar Pair = ValidationRuntimeApi.Pair;\nvar MapBuilder = ValidationRuntime.MapBuilder;\nvar Feld_t = ValidationRuntime.Feld_t;\nvar IFormatDefinition = ValidationRuntime.IFormatDefinition;\nvar FeldFormatEnumType = ValidationRuntime.FeldFormatEnumType;\nvar FormatDefinitionString = ValidationRuntime.FormatDefinitionString;\nvar FormatDefinitionJa = ValidationRuntime.FormatDefinitionJa;\nvar FormatDefinitionJaNein = ValidationRuntime.FormatDefinitionJaNein;\nvar FormatDefinitionZahl = ValidationRuntime.FormatDefinitionZahl;\nvar FormatDefinitionDatum = ValidationRuntime.FormatDefinitionDatum;\nvar FormatDefinitionDatumBereich = ValidationRuntime.FormatDefinitionDatumBereich;\nvar Jahresinterpretation = ValidationRuntime.Jahresinterpretation;\nvar FormatDefinitionVordefiniert = ValidationRuntime.FormatDefinitionVordefiniert;\nvar DatumTeilbekanntArt = ValidationRuntime.DatumTeilbekanntArt;\nvar MetaFeldUtil = ValidationRuntime.MetaFeldUtil;\nvar IIdentifier = ValidationRuntimeApi.IIdentifier;\nvar Regel_t = ValidationRuntime.Regel_t;\nvar Identifier_t = ValidationRuntime.Identifier_t;\nvar ReferenzTyp = ValidationRuntime.ReferenzTyp;\nvar MetaLokalePflichtInfo = ValidationRuntime.MetaLokalePflichtInfo;\nvar MetaModelImpl = ValidationRuntime.MetaModelImpl;\nvar IMetaKeysInternal = ValidationRuntime.IMetaKeysInternal;\nvar Constants = ValidationRuntime.Constants;\nvar Container_t = ValidationRuntime.Container_t;\nvar MetaIdentifier = ValidationRuntime.MetaIdentifier;\nvar MetaDataHelper = ValidationRuntime.MetaDataHelper;\nvar Model_t = ValidationRuntime.Model_t;\nvar HashSet = ValidationRuntimeApi.HashSet;\nvar TrieNode = ValidationRuntime.TrieNode;var RuntimeController = ValidationRuntime.RuntimeController;\nvar ArraySet = ValidationRuntimeApi.ArraySet;\nvar RuleType = ValidationRuntimeApi.RuleType;\nvar IResult = ValidationRuntimeApi.IResult;\nvar ErrorType = ValidationRuntimeApi.ErrorType;\nvar RuntimeFormalErrorEnum = ValidationRuntimeApiPublic.RuntimeFormalErrorEnum;\nvar MainValidatorController = ValidationRuntime.MainValidatorController;\nvar PruefErgebnisTyp = ValidationRuntime.PruefErgebnisTyp;\nvar RtIdentifierTemplate = ValidationRuntime.RtIdentifierTemplate;\nvar RtInternalIdentifier = ValidationRuntime.RtInternalIdentifier;\nvar EbenenIterator = ValidationRuntime.EbenenIterator;\nvar FilterPredicate = ValidationRuntime.FilterPredicate;\nvar ArrayUtils = ValidationRuntime.ArrayUtils;\nvar BedingungsOperatorHelper = ValidationRuntime.BedingungsOperatorHelper;\nvar VglOp = ValidationRuntime.VglOp;\nvar IFormaleFehlerConstants = ValidationRuntime.IFormaleFehlerConstants;\nvar ListBuilder = ValidationRuntime.ListBuilder;\nvar VkString = ValidationRuntime.VkString;\nvar RepetitionNotUniqueErrorCache = ValidationRuntime.RepetitionNotUniqueErrorCache;\nvar ValidationCommand = ValidationRuntime.ValidationCommand;\nvar CalculationCommand = ValidationRuntime.CalculationCommand;\nvar IterationState = ValidationRuntime.IterationState;\nvar ValidatorException = ValidationRuntimeApi.ValidatorException;\nvar Meta_Felder_contract_002ddocument = (function () {\n\tfunction Meta_Felder_contract_002ddocument() {\n\t\tthis._felder = new Array();\n\t\tthis._metaFormate = new Map();\n\t\tthis._mehrsprachigeFehlertexte = new Map();\n\t\tthis._errorTexts4Req = new Map();\n\t\tthis._enumerationOberflaechenWerte = new Map();\n\t\tthis._enumerationCategoryValues = new Map();\n\t\tthis._stringHintLists = new Map();\n\t\tthis._initFeldtypen();\n\t\tthis._initFelder();\n\t}\n\tMeta_Felder_contract_002ddocument.prototype.getFelder = function () {\n\t\treturn this._felder;\n\t};\n\n\tMeta_Felder_contract_002ddocument.prototype._initFeldtypen = function () {\n\tthis._metaFormate.set(\n\t\t0,\n\t\tnew FormatDefinitionString(\n\t\t\t-1, // minLaenge\n\t\t\t99999, // maxLaenge\n\t\t\t1, // minLaengePrintable\n\t\t\t99999, // maxLaengePrintable\n\t\t\t\"\", // muster\n\t\t\tthis._mehrsprachigeFehlertexte.get(0), // fehlertexte\n\t\t\tfalse, // zeilenUmbruch\n\t\t\tfalse, // noValueValidation\n\t\t\tthis._stringHintLists.get(0)\n\t\t)\n\t);\n\tthis._metaFormate.set(\n\t\t1,\n\t\tnew FormatDefinitionZahl(\n\t\t\ttrue, // Vorzeichen\n\t\t\ttrue, // nullErlaubt\n\t\t\tfalse, // fuehrendeNullenErlaubt\n\t\t\t13, // Vorkomma\n\t\t\t2, // Nachkomma\n\t\t\t2, // NachkommaBis\n\t\t\t-1, // minLaenge\n\t\t\t4, // minLaengeDisp\n\t\t\t-1, // maxLaenge\n\t\t\t17, // maxLaengeDisp\n\t\t\ttrue, // Geldbetrag\n\t\t\t\"\", // MinWert\n\t\t\t\"\" // MaxWert\n\n\t\t)\n\t);\n\tthis._metaFormate.set(\n\t\t2,\n\t\tnew FormatDefinitionJa(\n\t\t\t\"true\"\n\n\t\t)\n\t);\n\tthis._metaFormate.set(\n\t\t3,\n\t\tnew FormatDefinitionDatum(\n\t\t\t\"yyyy-MM-dd'T'HH:mm:ss\", // Datumsformat\n\t\t\tfalse, // Zusatzprüfung\n\t\t\tDatumTeilbekanntArt.BEKANNT // TeilbekanntArt\n\t\t)\n\t);\n\t};\n\n\t/*\n\t * Die übergebenen Parameter bedeuten (in aufsteigender Reihenfolge):\n\t * interne Nummer, eindeutiger name, voller Pfadname, pflichtFeld, mandatoryForRepeatableGroup, Format,\n\t * Formatdefinition, javaScriptName, vordruckPflichtfeld (lfd. Nummern), pflichtfeld\n\t * (lfd. Nummern), zusätzliche Schlüssel-Werte Paare, berechnungsUebertragServer\n\t */\n\tMeta_Felder_contract_002ddocument.prototype._initFelder = function () {\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t0,\n\t\t\t\"type\",\n\t\t\t\"/contract/type\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(0),\n\t\t\t\"contract_002ddocumenttypeValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Type\").put(\"de\", \"Typ\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false)\n\t\t\t\t.put(\"Annotation\", new MapBuilder()\n\t\t\t\t.put(\"enable_approximate_match_search\", \"true\").build()).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(0)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t1,\n\t\t\t\"fee\",\n\t\t\t\"/contract/fee\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(1),\n\t\t\t\"contract_002ddocumentfeeValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Fee\").put(\"de\", \"Gebühr\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(1)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t2,\n\t\t\t\"onlyBilateral\",\n\t\t\t\"/contract/limitations/onlyBilateral\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(2),\n\t\t\t\"contract_002ddocumentonlyBilateralValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"bilateral only\").put(\"de\", \"nur bilateral\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(2)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t3,\n\t\t\t\"docRef\",\n\t\t\t\"/__meta/docRef\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(0),\n\t\t\t\"contract_002ddocumentdocRefValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Document Reference\").put(\"de\", \"Dokumentreferenz\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(3)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t4,\n\t\t\t\"modelReference\",\n\t\t\t\"/__meta/modelReference\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(0),\n\t\t\t\"contract_002ddocumentmodelReferenceValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Document Model Reference\").put(\"de\", \"Document Model-Referenz\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(4)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t5,\n\t\t\t\"modelVersion\",\n\t\t\t\"/__meta/modelVersion\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(0),\n\t\t\t\"contract_002ddocumentmodelVersionValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Model Version\").put(\"de\", \"Model-Version\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(5)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t6,\n\t\t\t\"creator\",\n\t\t\t\"/__meta/creator\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(0),\n\t\t\t\"contract_002ddocumentcreatorValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Creator\").put(\"de\", \"Erstellt von\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(6)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t7,\n\t\t\t\"createdAt\",\n\t\t\t\"/__meta/createdAt\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(3),\n\t\t\t\"contract_002ddocumentcreatedAtValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Created At\").put(\"de\", \"Erstellt am\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(7)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t8,\n\t\t\t\"modifier\",\n\t\t\t\"/__meta/modifier\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(0),\n\t\t\t\"contract_002ddocumentmodifierValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Modifier\").put(\"de\", \"Bearbeitet von\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(8)\n\t\t)\n\t);\n\tthis._felder.push(\n\t\tnew Feld_t(\n\t\t\t9,\n\t\t\t\"modifiedAt\",\n\t\t\t\"/__meta/modifiedAt\",\n\t\t\tfalse,\n\t\t\tfalse,\n\t\t\tthis._metaFormate.get(3),\n\t\t\t\"contract_002ddocumentmodifiedAtValidate\",\n\t\t\t[],\n\t\t\t[],\n\t\t\tnew MapBuilder()\n\t\t\t\t.put(\"DruckText\", new MapBuilder().put(\"en\", \"Modified At\").put(\"de\", \"Bearbeitet am\").build())\n\t\t\t\t.put(\"GlobalesFeld\", false)\n\t\t\t\t.put(\"ExplicitlyMandatory\", false)\n\t\t\t\t.put(\"TransientField\", false)\n\t\t\t\t.put(\"IndexField\", false).build(),\n\t\t\tnew Set(),\n\t\t\tfalse,\n\t\t\tthis._errorTexts4Req.get(9)\n\t\t)\n\t);\n\t};\n\n\n\treturn Meta_Felder_contract_002ddocument;\n}());\nvar Meta_Regel_contract_002ddocument = (function () {\n\tfunction Meta_Regel_contract_002ddocument() {\n\t\tvar _this = this;\n\t\tthis._regeln = new Array();\n\t\t// speichert pro Regel die referenzierten Identifier\n\t\tthis._refIdentifier = new Array(Meta_Regel_contract_002ddocument.ANZAHL_REGELN);\n\t\t// speichert pro Regel die referenzierten Identifier, die Auslassungsfehler erzeugen können\n\t\tthis._refAuslassungsIdentifier = new Array(Meta_Regel_contract_002ddocument.ANZAHL_REGELN);\n\t\t// speichert pro Regel die Vordrucke, die einen Auslassungsfehler erzeugen können\n\t\tthis._refAuslassungsVordrucke = new Array(Meta_Regel_contract_002ddocument.ANZAHL_REGELN);\n\t\tthis._mehrsprachigeFehlertexte = new Map();\n\t\tthis._fehlertexteParameterMapping = new Map();\n\t\tthis._constructor = (function () {\n\t\t\tfor (var i = 0; i < Meta_Regel_contract_002ddocument.ANZAHL_REGELN; i++) {\n\t\t\t\t_this._mehrsprachigeFehlertexte.set(i, new Map());\n\t\t\t}\n\t\t})();\n\t}\n\tMeta_Regel_contract_002ddocument.prototype.getRegeln = function () {\n\t\treturn this._regeln;\n\t};\n\tMeta_Regel_contract_002ddocument.ANZAHL_REGELN = 0;\n\n\n\n\t/*\n\t * Die übergebenen Parameter:\n\t * name, voller pfad, nummer, fehlercode, fehlertexte, regelArt, refIdentifier,\n\t * refAuslassungsIdentifier, refAuslassungsVordrucke, fehlerFeld, serverBerechnungsRegel\n\t */\n\n\treturn Meta_Regel_contract_002ddocument;\n}());\nvar Meta_PfFeld_contract_002ddocument = (function () {\n\tfunction Meta_PfFeld_contract_002ddocument(metaDataValidierung) {\n\t\tthis._metaDataValidierung = metaDataValidierung;\n\t}\n\tMeta_PfFeld_contract_002ddocument.prototype.addLokalePflichtFeldInfos = function (additivUndPflichtfelder) {\n\t\tvar _this = this;\n\t\tvar infos = [];\n\t\tinfos.forEach(function (info) {\n\t\t\t_this._addLokalePflichtFeldInfo(additivUndPflichtfelder, getMetaFSMenge(info[0]), getMetaFSMenge(info[1]));\n\t\t});\n\t};\n\n\n\tMeta_PfFeld_contract_002ddocument.prototype._addLokalePflichtFeldInfo = function (additivUndPflichtfelder, additiv, pflichtfelder) {\n\t\tvar info = MetaLokalePflichtInfo.createLokalePflichtFeldInfo(this._metaDataValidierung, additiv, pflichtfelder);\n\t\tadditivUndPflichtfelder.push(info);\n\t};\n\treturn Meta_PfFeld_contract_002ddocument;\n}());\nvar getMetaFSMenge = function (beschreibung) {\n\t\tvar result = new HashSet();\n\t\tvar felder = beschreibung.split(\";\");\n\t\tfor (var i = 0; i < felder.length; i++) {\n\t\t\tif (felder[i].length > 0) {\n\t\t\t\tresult.add(MetaIdentifier.parse(felder[i]));\n\t\t\t}\n\t\t}\n\t\treturn result;\n};\n\nvar Meta_contract_002ddocument = (function () {\n\tfunction Meta_contract_002ddocument() {\n\t\tthis._metaFelder = new Meta_Felder_contract_002ddocument();\n\t\tthis._metaRegeln = new Meta_Regel_contract_002ddocument();\n\t\tthis._unterstuetzteSprachen = [\"en\", \"de\"];\n\t\tthis._da = new Model_t(\n\t\t\t\t\"28.4.0\", // Produkt-Version\n\t\t\t\t\".\", // dezimaltrenner\n\t\t\t\t[\"en\", \"de\"], // unterstuetzte Sprachen\n\t\t\t\tMetaDataHelper.createSetOfStrings(), //  Namen der Applikationsbedingungen\n\t\t\t\tMetaDataHelper.createSetOfStrings(), // Names of custom field types\n\t\t\t\t// additional Values\n\t\t\t\tnew MapBuilder()\n\t\t\t\t\t.put(\"BaseYear\", null)\n\t\t\t\t\t.put(\"TimeZone\", \"UTC\")\n\t\t\t\t\t.put(\"ModelId\", \"Contract-document\")\n\t\t\t\t\t.put(\"Annotation\", new MapBuilder()\n\t\t\t\t\t.put(\"roles\", \"anonymous\").build()).build(),\n\t\t\t\tnew Set([\"TimeZone\", \"BaseYear\", \"ModelId\"])\n\t\t\t);\n\t\tif (Meta_contract_002ddocument._instance) {\n\t\t\tthrow new Error(\"Error: Instantiation failed: Use Meta_contract_002ddocument.getInstance() instead of new.\");\n\t\t}\n\t\tMeta_contract_002ddocument._instance = this;\n\t\tvar container = Meta_contract_002ddocument._initContainer();\n\t\tthis._meta = new MetaModelImpl(\n\t\t\tthis._da,\n\t\t\tthis._metaFelder.getFelder(),\n\t\t\tthis._metaRegeln.getRegeln(),\n\t\t\tcontainer,\n\t\t\tMeta_contract_002ddocument.LEGAL_CHARACTERS,\n\t\t\tMeta_contract_002ddocument.LEGAL_GRAPHEME_TRIE,\n\t\t\t() => E_contract_002ddocument.getInstance()\n        );\n\t\tvar metaPlfFeldInfo = new Meta_PfFeld_contract_002ddocument(this._meta.getMetaDataValidierung());\n\t\tmetaPlfFeldInfo\n\t\t\t.addLokalePflichtFeldInfos(this._meta.getValue(IMetaKeysInternal.MODEL_ADDITIV_PFLICHTFELD));\n\t}\n\tObject.defineProperty(Meta_contract_002ddocument, \"RUNTIME_VERSION\", { get: function () { return \"30.6\"; },\n\t\tenumerable: true,\n\t\tconfigurable: true\n\t});\n\tObject.defineProperty(Meta_contract_002ddocument, \"LEGAL_CHARACTERS_START\", {\n\t\tget: function () {\n\t\t\treturn undefined;\n\t\t},\n\t\tenumerable: true,\n\t\tconfigurable: true\n\t});\n\tObject.defineProperty(Meta_contract_002ddocument, \"LEGAL_CHARACTERS_END\", {\n\t\tget: function () {\n\t\t\treturn undefined;\n\t\t},\n\t\tenumerable: true,\n\t\tconfigurable: true\n\t});\n\tObject.defineProperty(Meta_contract_002ddocument, \"LEGAL_CHARACTERS\", {\n\t\tget: function () {\n\t\t\treturn undefined;\n\t\t},\n\t\tenumerable: true,\n\t\tconfigurable: true\n\t});\n\tObject.defineProperty(Meta_contract_002ddocument, \"LEGAL_GRAPHEME_TRIE\", {\n    \t\tget: function () {\n    \t\t\treturn new TrieNode(new Map(), false);\n    \t\t},\n    \t\tenumerable: true,\n    \t\tconfigurable: true\n    \t});\n\n\tMeta_contract_002ddocument.getInstance = function () {\n\t\treturn Meta_contract_002ddocument._instance;\n\t};\n\tMeta_contract_002ddocument.prototype.getValue = function (key) {\n\t\tvar params = [];\n\t\tfor (var _i = 1; _i < arguments.length; _i++) {\n\t\t\tparams[_i - 1] = arguments[_i];\n\t\t}\n\n\t\treturn this._meta.getValue.apply(this._meta, [key].concat(params));\n\t};\n\tMeta_contract_002ddocument.prototype.getValidKeys = function () {\n\t\treturn this._meta.getValidKeys();\n\t};\n\tMeta_contract_002ddocument._initContainer = function () {\n\t\tvar result = new Array();\n\t\tresult.push(new Container_t(\"/contract\", 1, [], new MapBuilder().build(), new Set()));\n\n\t\tresult.push(new Container_t(\"/contract/limitations\", 1, [], new MapBuilder().build(), new Set()));\n\n\t\tresult.push(new Container_t(\"/__meta\", 1, [], new MapBuilder().build(), new Set()));\n\n\t\tresult.push(new Container_t(\"/__meta/extensions\", 1, [], new MapBuilder().build(), new Set()));\n\n\n\t\treturn result;\n\t};\n\tMeta_contract_002ddocument.prototype.getMetaDataValidierung = function () {\n\t\treturn this._meta.getMetaDataValidierung();\n\t};\n\n\tMeta_contract_002ddocument.prototype.isSpracheUnterstuetzt = function (sprache) {\n\t\treturn this._unterstuetzteSprachen.indexOf(sprache) !== -1;\n\t};\n\n\tMeta_contract_002ddocument._constructor = (function () {\n\t\tif (Meta_contract_002ddocument.RUNTIME_VERSION !== Constants.RUNTIME_VERSION) {\n\t\t\tthrow new Error(\"The version of the generated code [\" + Meta_contract_002ddocument.RUNTIME_VERSION + \"] does not match the version of the used runtime [\" + Constants.RUNTIME_VERSION + \"]!\");\n\t\t}\n\t\tMeta_contract_002ddocument._instance = new Meta_contract_002ddocument();\n\t})();\n\treturn Meta_contract_002ddocument;\n}());var E_contract_002ddocument = (function () {\n\tfunction E_contract_002ddocument() {\n\t\tif (E_contract_002ddocument._valueCalcObject) {\n\t\t\tthrow new Error(\"Instantiation failed: Use E_contract_002ddocument.getInstance() instead of new.\");\n\t\t}\n\t\tE_contract_002ddocument._valueCalcObject = this;\n\t\tthis._feldData = Meta_contract_002ddocument.getInstance();\n\t\tthis._metaDataValidierung = this._feldData.getMetaDataValidierung();\n\t}\t\n\tE_contract_002ddocument.getInstance = function () {\n\t\treturn this._valueCalcObject;\n\t};\n\n\n\tE_contract_002ddocument.prototype.calcEnumerationValues = function (field, controller) {\n\t\tvar startMesspunkt = controller.startMesspunkt();\n\t\tvar result = new Array();\n\t\tswitch (field.getName()) {\n\t\t}\n\t\treturn result;\n\t};\n\n\tE_contract_002ddocument._valueCalcObject = new E_contract_002ddocument();\n\treturn E_contract_002ddocument;\n}());\nvar C_contract_002ddocument = (function () {\n\tfunction C_contract_002ddocument() {\n\t\tif (C_contract_002ddocument._checkObject) {\n\t\t\tthrow new Error(\"Instantiation failed: Use C_contract_002ddocument.getInstance() instead of new.\");\n\t\t}\n\t\tC_contract_002ddocument._checkObject = this;\n\t\tthis._feldData = Meta_contract_002ddocument.getInstance();\n\t\tthis._metaDataValidierung = this._feldData.getMetaDataValidierung();\n\t}\n\tC_contract_002ddocument.getInstance = function () {\n\t\treturn this._checkObject;\n\t};\n\n\n\tC_contract_002ddocument.CALCULATED_FIELD_DEPENDENCIES = new Map();\n\n\tC_contract_002ddocument.EXPANDED_OPERAND_FIELDS_OF_CALCULATIONS = new Set();\n\n\tC_contract_002ddocument.CALC_FUNC_NAME_MAP = new Map();\n\n\tC_contract_002ddocument.CALCULATED_FIELD_FULL_NAMES_IN_ORDER = [];\n\n\tC_contract_002ddocument.prototype.executeCalculation = function(fullFieldName, controller) {\n\t    const startMesspunkt = controller.startMesspunkt();\n\t    const calcFuncName = C_contract_002ddocument.CALC_FUNC_NAME_MAP.get(fullFieldName);\n\t    this[calcFuncName](controller);\n\t    controller.logMessung(calcFuncName, startMesspunkt);\n    };\n\n    C_contract_002ddocument.prototype.hasCalculation = function(fullFieldName) {\n        return C_contract_002ddocument.CALC_FUNC_NAME_MAP.has(fullFieldName);\n    };\n\n    C_contract_002ddocument.prototype.getDependencyGraph = function() {\n        return C_contract_002ddocument.CALCULATED_FIELD_DEPENDENCIES;\n    };\n\n\tC_contract_002ddocument.prototype.getExpandedOperandFieldsOfCalculations = function() {\n        return C_contract_002ddocument.EXPANDED_OPERAND_FIELDS_OF_CALCULATIONS;\n    }\n\n    C_contract_002ddocument.prototype.getCalculatedFieldFullNamesInOrder = function() {\n        return C_contract_002ddocument.CALCULATED_FIELD_FULL_NAMES_IN_ORDER;\n    }\n\n\tC_contract_002ddocument._checkObject = new C_contract_002ddocument();\n\treturn C_contract_002ddocument;\n}());\nvar R_contract_002ddocument = (function () {\n\tfunction R_contract_002ddocument() {\n\t\tthis._feldData = Meta_contract_002ddocument.getInstance();\n\t\tthis._metaDataValidierung = this._feldData.getMetaDataValidierung();\n\t}\n\tR_contract_002ddocument.getInstance = function () {\n\t\treturn R_contract_002ddocument._checkObject;\n\t};\n\n\n\n\tR_contract_002ddocument.prototype.validatePreliminaryRulesForField = function(controller, uniqueFieldName) {\n\t\tconst validationFunc = R_contract_002ddocument[\"validatePreliminaryRulesForField__\" + uniqueFieldName];\n\t\tif (validationFunc != undefined) {\n\t\t\tvalidationFunc.call(R_contract_002ddocument, controller);\n\t\t}\n\t};\n\n\tR_contract_002ddocument.prototype.validatePreliminaryRules = function(controller) {\n};\n\n\tR_contract_002ddocument.prototype.validiereVoll = function (controller, modus) {\n\t\tswitch (modus.getRuleType()) {\n\t\t\tcase RuleType.ALL:\n\t\t\t\tthis.alleRegeln(controller);\n\t\t\t\tbreak;\n\t\t\tcase RuleType.INFO:\n                this.alleInfoRegeln(controller);\n                break;\n            case RuleType.HINT:\n\t\t\t\tthis.alleHinweisRegeln(controller);\n\t\t\t\tbreak;\n\t\t\tcase RuleType.ERROR:\n\t\t\t\tthis.alleFehlerRegeln(controller);\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\tthrow new Error(\"Regelart \" + modus.getRuleType() + \" wird nicht unterstützt.\");\n\t\t}\n\t};\n\tR_contract_002ddocument.prototype.validiereTeil = function (controller, modus, pruefungsFelderMap) {\n\t\tvar _this = this;\n\t\tvar checker;\n\t\tswitch (modus.getRuleType()) {\n\t\t\tcase RuleType.ALL:\n\t\t\t\tchecker = new TVCheckAlle_contract_002ddocument();\n\t\t\t\tbreak;\n\t\t\tcase RuleType.INFO:\n                checker = new TVCheckInfo_contract_002ddocument();\n                break;\n            case RuleType.HINT:\n\t\t\t\tchecker = new TVCheckHinweis_contract_002ddocument();\n\t\t\t\tbreak;\n\t\t\tcase RuleType.ERROR:\n\t\t\t\tchecker = new TVCheckFehler_contract_002ddocument();\n\t\t\t\tbreak;\n\t\t\tdefault:\n\t\t\t\tthrow new Error(\"Regelart \" + modus.getRuleType() + \" wird nicht unterstützt.\");\n\t\t}\n\t\tvar felder = Array.from(pruefungsFelderMap.values());\n\t\tif (controller.getValidationCache().isValidationPartWith3ValueLogic()) {\n\t\t\tvar preChecker = new TVCheckPreliminary_contract_002ddocument();\n\t\t\tfelder.forEach(function (id) {\n\t\t\t\tvar interneFeldNr = _this._metaDataValidierung.getInterneFeldNr(id.getName());\n\t\t\t\tpreChecker.fuehreAus(controller, interneFeldNr, id.getIndices());\n\t\t\t});\n\t\t}\n\t\tfelder.forEach(function (id) {\n\t\t\tvar interneFeldNr = _this._metaDataValidierung.getInterneFeldNr(id.getName());\n\t\t\tchecker.fuehreAus(controller, interneFeldNr, id.getIndices());\n\t\t});\n\t};\n\tR_contract_002ddocument.prototype.alleRegeln = function (controller) {\n\t\t// Aufruf aller Regeln\n};\n\tR_contract_002ddocument.prototype.alleFehlerRegeln = function (controller) {\n\t\t// Aufruf aller Fehler-Regeln\n};\n\tR_contract_002ddocument.prototype.alleHinweisRegeln = function (controller) {\n\t\t// Aufruf aller Hinweis-Regeln\n};\n\tR_contract_002ddocument.prototype.alleInfoRegeln = function (controller) {\n        // Aufruf aller Info-Regeln\n};\n\tR_contract_002ddocument._checkObject = new R_contract_002ddocument();\n\treturn R_contract_002ddocument;\n}());\n/**\n * Diese Klasse dient der Ausführung von Teilvalidierungen von Fehlern.\n *\n */\nvar TVCheckFehler_contract_002ddocument = (function () {\n\tfunction TVCheckFehler_contract_002ddocument() {\n\t\tthis._checkObject = R_contract_002ddocument.getInstance();\n\t}\n\tTVCheckFehler_contract_002ddocument.prototype.fuehreAus = function (controller, interneFeldNr, indices) {\n\t\t\t// The model does not contain any rules of severity 'ERROR'.\n\t};\n\n\n\treturn TVCheckFehler_contract_002ddocument;\n}());\nvar TVCheckHinweis_contract_002ddocument = (function () {\n\tfunction TVCheckHinweis_contract_002ddocument() {\n\t\tthis._checkObject = R_contract_002ddocument.getInstance();\n\t}\n\tTVCheckHinweis_contract_002ddocument.prototype.fuehreAus = function (controller, interneFeldNr, indices) {\n\t\t\t// The model does not contain any rules of severity 'WARNING'.\n\t};\n\treturn TVCheckHinweis_contract_002ddocument;\n}());\nvar TVCheckInfo_contract_002ddocument = (function () {\n\tfunction TVCheckInfo_contract_002ddocument() {\n\t\tthis._checkObject = R_contract_002ddocument.getInstance();\n\t}\n\tTVCheckInfo_contract_002ddocument.prototype.fuehreAus = function (controller, interneFeldNr, indices) {\n\t\t\t// The model does not contain any rules of severity 'INFO'.\n\t};\n\treturn TVCheckInfo_contract_002ddocument;\n}());\n/**\n * Diese Klasse dient der Ausführung von Teilvalidierungen von Infos, Hinweisen und Fehlern.\n *\n */\nvar TVCheckAlle_contract_002ddocument = (function () {\n\tfunction TVCheckAlle_contract_002ddocument() {\n\t\tthis._tvFehlerChecker = new TVCheckFehler_contract_002ddocument();\n\t\tthis._tvHinweisChecker = new TVCheckHinweis_contract_002ddocument();\n\t\tthis._tvInfoChecker = new TVCheckInfo_contract_002ddocument();\n\t}\n\tTVCheckAlle_contract_002ddocument.prototype.fuehreAus = function (controller, interneFeldNr, indices) {\n\t\tthis._tvFehlerChecker.fuehreAus(controller, interneFeldNr, indices);\n\t\tthis._tvHinweisChecker.fuehreAus(controller, interneFeldNr, indices);\n\t\tthis._tvInfoChecker.fuehreAus(controller, interneFeldNr, indices);\n\t};\n\treturn TVCheckAlle_contract_002ddocument;\n}());\nvar TVCheckPreliminary_contract_002ddocument = (function () {\n\tfunction TVCheckPreliminary_contract_002ddocument() {\n\t\tthis._checkObject = R_contract_002ddocument.getInstance();\n\t}\n\tTVCheckPreliminary_contract_002ddocument.prototype.fuehreAus = function (controller, interneFeldNr, indices) {\n\t\t\t// The model does not contain any preliminary rules.\n\t};\n\treturn TVCheckPreliminary_contract_002ddocument;\n}());\nvar ERValidator_contract_002ddocument = (function () {\n\tfunction ERValidator_contract_002ddocument() {\n\t\tif (ERValidator_contract_002ddocument._instance) {\n\t\t\tthrow new Error(\"Error: Instantiation failed: Use ERValidator_contract_002ddocument.getInstance() instead of new.\");\n\t\t}\n\t\tERValidator_contract_002ddocument._instance = this;\n\t}\n\tERValidator_contract_002ddocument.getInstance = function () {\n\t\treturn ERValidator_contract_002ddocument._instance;\n\t};\n\tERValidator_contract_002ddocument.prototype.pruefeParams = function (daten, ergebnis, logger, modus) {\n\t\tif (!daten) {\n\t\t\tthrow new Error(\"Übergebene Daten dürfen nicht null sein\");\n\t\t}\n\t\tif (!logger) {\n\t\t\tthrow new Error(\"Übergebener Logger darf nicht null sein\");\n\t\t}\n\t\tif (!ergebnis) {\n\t\t\tthrow new Error(\"Übergebenes Ergebnis darf nicht null sein\");\n\t\t}\n\t};\n\tERValidator_contract_002ddocument.prototype.validatePartlyWith3ValueLogic = function (daten, relevantEntities, ergebnis, modus, logger) {\n        this.pruefeParams(daten, ergebnis, logger, modus);\n        var c = new ValidationCommand(R_contract_002ddocument.getInstance(), modus, ERValidator_contract_002ddocument._metaData, logger);\n        c.processPartlyValidation(daten, relevantEntities, ergebnis);\n\t}\n\tERValidator_contract_002ddocument.prototype.validateAll = function (daten, ergebnis, modus, logger) {\n        this.pruefeParams(daten, ergebnis, logger, modus);\n        var c = new ValidationCommand(R_contract_002ddocument.getInstance(), modus, ERValidator_contract_002ddocument._metaData, logger);\n        c.processFullValidation(daten, ergebnis);\n\t};\n\tERValidator_contract_002ddocument.prototype.calculateAll = function (daten, modus, ergebnis, logger, externalCalculations, changedFieldInstances, forceCalculationSorting) {\n        this.pruefeParams(daten, ergebnis, logger, modus);\n        var c = new CalculationCommand(R_contract_002ddocument.getInstance(), modus, ERValidator_contract_002ddocument._metaData, logger, C_contract_002ddocument.getInstance(), externalCalculations, changedFieldInstances, forceCalculationSorting);\n        var result = c.processCalc(daten, ergebnis);\n        return result;\n\t};\n\tERValidator_contract_002ddocument._instance = new ERValidator_contract_002ddocument();\n\tERValidator_contract_002ddocument._metaData = Meta_contract_002ddocument.getInstance().getMetaDataValidierung();\n\t// typescript has no static initializer, so this is used\n\tERValidator_contract_002ddocument._constructor = (function () {\n\t})();\n\treturn ERValidator_contract_002ddocument;\n}());\n\nreturn {\n\tvalidator: ERValidator_contract_002ddocument,\n\tmeta: Meta_contract_002ddocument\n};\n"
+			}
+		}
+	}
+]

@@ -1,0 +1,73 @@
+{
+	"header": {
+		"id": "PolicyHolderLinks-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "PolicyHolder_businessPartner____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-dc0b7",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_4e3fe",
+				"sortable": false
+			},
+			{
+				"id": "column-e7762",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_6268b",
+				"sortable": false
+			}
+		],
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

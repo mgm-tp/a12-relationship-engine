@@ -1,0 +1,31 @@
+{
+	"name": "ProductBrand-UiConfig-1",
+	"metaInformation": {
+		"version": "1.0.0"
+	},
+	"relationshipName": "ProductBrand",
+	"targetRole": "Brand",
+	"components": [
+		{
+			"id": "1",
+			"name": "DropDownSelection",
+			"models": [
+				{
+					"modelType": "overview",
+					"name": "ProductBrand-Brand-LinkOverview",
+					"use": "link"
+				},
+				{
+					"modelType": "overview",
+					"name": "BrandLink-overview",
+					"use": "candidate"
+				},
+				{
+					"modelType": "form",
+					"name": "ProductBrand-LinkForm",
+					"use": "link"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,99 @@
+{
+	"header": {
+		"id": "ProductBundle_AdditionalFieldsModel",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "ProductBundle_AdditionalFieldsModel",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "AdditionalFields",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F5",
+								"name": "quantity",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"zeroNotAllowed": true
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Quantity"
+										},
+										{
+											"locale": "de",
+											"text": "Menge"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F6",
+								"name": "available",
+								"Field": {
+									"fieldType": {
+										"type": "DateType",
+										"DateType": {
+											"format": "yyyy-MM-dd"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Available from"
+										},
+										{
+											"locale": "de",
+											"text": "Verfügbar ab"
+										}
+									],
+									"requirednessConfig": {
+										"mode": "absoluteOrRelativeToNextRepAncestor"
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

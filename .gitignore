@@ -1,0 +1,52 @@
+# Node
+node_modules
+.npm
+*.log
+npm-debug.log*
+
+# IDE (including symlinks)
+.vscode/*
+!.vscode/launch.json
+.idea
+.classpath
+.settings
+.metadata
+.gradle
+.project
+*.iml
+*.launch
+
+# Other
+.DS_Store
+.nvmrc
+.envrc
+
+# Legal files copied into packages by copyLegalFiles task
+*/LICENSE
+*/NOTICE
+*/THIRD_PARTY_NOTICES
+
+# Build artifact
+com.mgmtp.a12-*.tgz
+*.tsbuildinfo
+*.validation.js
+schema.json
+*.gz
+cyclonedx.json
+atlas-archives
+mockModelGraph.json
+pnpm-lock.yaml
+
+# Maven
+.maven
+
+# Build folder
+build
+target
+lib
+dist
+generated
+server/bin
+server/src/main/resources/models
+server/src/main/resources/requests
+coverage

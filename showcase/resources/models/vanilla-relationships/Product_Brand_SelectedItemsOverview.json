@@ -1,0 +1,118 @@
+{
+	"header": {
+		"id": "Product_Brand_SelectedItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ProductBrand_Product____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": false,
+			"pagingSize": 10,
+			"showFullTextSearch": false
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-b8549",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Name"
+					},
+					{
+						"locale": "de",
+						"text": "Name"
+					}
+				],
+				"width": 1,
+				"elementRef": "I4_F4",
+				"sortable": false
+			},
+			{
+				"id": "column-21b4b",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Price"
+					},
+					{
+						"locale": "de",
+						"text": "Preis"
+					}
+				],
+				"width": 1,
+				"elementRef": "I4_F5",
+				"sortable": false
+			},
+			{
+				"id": "column-38ed3",
+				"width": 1,
+				"elementRef": "I5_F5",
+				"sortable": false
+			},
+			{
+				"id": "column-05916",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Image"
+					},
+					{
+						"locale": "de",
+						"text": "Bild"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_group_95309",
+				"sortable": false
+			},
+			{
+				"id": "column-c8600",
+				"width": 1,
+				"styles": {},
+				"elementRef": "G2_field_cdaf9",
+				"sortable": false
+			},
+			{
+				"id": "column-10966",
+				"width": 1,
+				"styles": {},
+				"elementRef": "G2_field_65672",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"subHeaderBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

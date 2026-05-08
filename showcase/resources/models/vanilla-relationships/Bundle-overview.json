@@ -1,0 +1,179 @@
+{
+	"header": {
+		"id": "Bundle-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "List of bundles"
+			},
+			{
+				"locale": "de",
+				"text": "Paketliste"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Bundle-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"event": "event_add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-3e781",
+				"width": 1,
+				"elementRef": "F1",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-ab01f",
+				"width": 1,
+				"elementRef": "F2",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-3acff",
+				"width": 1,
+				"elementRef": "F3",
+				"sortable": false
+			},
+			{
+				"id": "column-87510",
+				"width": 1,
+				"elementRef": "field_d4c4b",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"destructive": false,
+					"icon": {
+						"name": "launch",
+						"theme": "outlined"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "open readonly"
+						},
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						}
+					],
+					"description": [
+						{
+							"locale": "en",
+							"text": "open readonly"
+						},
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						}
+					],
+					"event": "open-readonly",
+					"labelHidden": true,
+					"primary": false
+				},
+				{
+					"event": "delete",
+					"confirmation": {
+						"message": [
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this item?"
+							},
+							{
+								"locale": "de",
+								"text": "Möchten Sie diese Zeile wirklich löschen?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"description": [
+						{
+							"locale": "en",
+							"text": "Delete"
+						},
+						{
+							"locale": "de",
+							"text": "Löschen"
+						}
+					],
+					"destructive": false,
+					"primary": false
+				}
+			]
+		}
+	}
+}

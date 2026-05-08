@@ -1,0 +1,140 @@
+{
+	"header": {
+		"id": "Claim-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Claims Overview"
+			},
+			{
+				"locale": "de",
+				"text": "Anspruchübersicht"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Claim-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"columns": [
+			{
+				"id": "column-0cec6",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_3dddf",
+				"sortable": false
+			}
+		],
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"icon": {
+						"name": "add",
+						"theme": "filled"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"description": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"type": "button",
+					"event": "add",
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"rowActionGroup": {
+			"actions": [
+				{
+					"icon": {
+						"name": "delete",
+						"theme": "filled"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Delete"
+						},
+						{
+							"locale": "de",
+							"text": "Löschen"
+						}
+					],
+					"description": [
+						{
+							"locale": "en",
+							"text": "Delete"
+						},
+						{
+							"locale": "de",
+							"text": "Löschen"
+						}
+					],
+					"event": "delete",
+					"labelHidden": true,
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

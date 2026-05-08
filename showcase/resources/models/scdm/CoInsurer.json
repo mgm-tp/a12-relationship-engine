@@ -1,0 +1,113 @@
+{
+	"header": {
+		"id": "CoInsurer",
+		"modelType": "relationship",
+		"modelVersion": "3.0.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "contract",
+				"reference": "Contract-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "businessPartner",
+				"reference": "BusinessPartner-document"
+			},
+			{
+				"purpose": "Link Document model",
+				"modelType": "document",
+				"alias": "Link Model",
+				"reference": "CoInsurerAdditionalFields"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": true,
+		"associationType": "SHARED",
+		"storage": "EXTERNAL",
+		"linkDocumentModel": "CoInsurerAdditionalFields",
+		"embeddedGroupPath": null,
+		"labels": [
+			{
+				"locale": "de"
+			},
+			{
+				"locale": "en"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"role": "contract",
+				"documentModel": "Contract-document",
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": true,
+						"upperLimit": null
+					}
+				},
+				"candidateConstraints": {
+					"population": null,
+					"populationParameters": []
+				},
+				"labels": [
+					{
+						"locale": "de",
+						"text": ""
+					},
+					{
+						"locale": "en",
+						"text": ""
+					}
+				]
+			},
+			{
+				"role": "businessPartner",
+				"documentModel": "BusinessPartner-document",
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": true,
+						"upperLimit": null
+					}
+				},
+				"candidateConstraints": {
+					"population": null,
+					"populationParameters": []
+				},
+				"labels": [
+					{
+						"locale": "de",
+						"text": ""
+					},
+					{
+						"locale": "en",
+						"text": ""
+					}
+				]
+			}
+		]
+	}
+}

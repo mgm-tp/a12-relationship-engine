@@ -1,0 +1,522 @@
+{
+	"header": {
+		"id": "ContractCDM",
+		"modelType": "document",
+		"modelVersion": "28.0.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "admin,systemAdmin"
+			},
+			{
+				"name": "cdm.queryRoot",
+				"value": "Contract-document"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Contract-document.json",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Contract-document"
+			},
+			{
+				"alias": "BusinessPartner-document.json",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "BusinessPartner-document"
+			},
+			{
+				"alias": "Address-document.json",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Address-document"
+			},
+			{
+				"alias": "CoInsurerAdditionalFields.json",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "CoInsurerAdditionalFields"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "NewDataModel",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_f8c0d",
+					"name": "PolicyHolder",
+					"annotations": [
+						{
+							"name": "cdm.targetDocumentModel",
+							"value": "BusinessPartner-document"
+						},
+						{
+							"name": "cdm.targetRole",
+							"value": "businessPartner"
+						},
+						{
+							"name": "cdm.relationship",
+							"value": "PolicyHolder"
+						},
+						{
+							"name": "cdm.sourceRole",
+							"value": "contract"
+						}
+					],
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "group_05abe",
+								"name": "Location",
+								"annotations": [
+									{
+										"name": "cdm.targetDocumentModel",
+										"value": "Address-document"
+									},
+									{
+										"name": "cdm.targetRole",
+										"value": "address"
+									},
+									{
+										"name": "cdm.relationship",
+										"value": "Location"
+									},
+									{
+										"name": "cdm.sourceRole",
+										"value": "businessPartner"
+									}
+								],
+								"Group": {
+									"repeatability": 99,
+									"elements": [
+										{
+											"type": "Group",
+											"id": "include_8202a",
+											"name": "address",
+											"Group": {
+												"repeatability": 1,
+												"modelAlias": "Address-document.json"
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_6406a",
+								"name": "PostAddress",
+								"annotations": [
+									{
+										"name": "cdm.targetDocumentModel",
+										"value": "Address-document"
+									},
+									{
+										"name": "cdm.targetRole",
+										"value": "address"
+									},
+									{
+										"name": "cdm.relationship",
+										"value": "PostAddress"
+									},
+									{
+										"name": "cdm.sourceRole",
+										"value": "businessPartner"
+									}
+								],
+								"Group": {
+									"repeatability": 1,
+									"elements": [
+										{
+											"type": "Group",
+											"id": "include_6ad2a",
+											"name": "address",
+											"Group": {
+												"repeatability": 1,
+												"modelAlias": "Address-document.json"
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_338a5",
+											"name": "t_docRef",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "t_docRef"
+													}
+												],
+												"transient": true
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_a09a6",
+								"name": "hasPostalAddress",
+								"Field": {
+									"fieldType": {
+										"type": "BooleanType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": ""
+										}
+									],
+									"transient": true
+								}
+							},
+							{
+								"type": "Group",
+								"id": "include_1b2a0",
+								"name": "businessPartner",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "BusinessPartner-document.json"
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_62859",
+								"name": "hasPolicyHolder",
+								"Field": {
+									"fieldType": {
+										"type": "BooleanType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": ""
+										}
+									],
+									"transient": true
+								}
+							},
+							{
+								"type": "Computation",
+								"id": "computation_e70a6",
+								"name": "Computation_hasPolicyHolder",
+								"Computation": {
+									"computedFieldId": "field_62859",
+									"computationAlternatives": [
+										{
+											"operation": "True",
+											"precondition": "GroupFilled(RuleGroup) and FieldFilled(t_docRef)"
+										},
+										{
+											"operation": "False",
+											"precondition": "GroupFilled(RuleGroup) and FieldNotFilled(t_docRef)"
+										}
+									],
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "error text for computation of Computation_hasPolicyHolder"
+										}
+									]
+								}
+							},
+							{
+								"type": "Computation",
+								"id": "computation_eaebe",
+								"name": "Computation_hasPostalAddress",
+								"Computation": {
+									"computedFieldId": "field_a09a6",
+									"computationAlternatives": [
+										{
+											"operation": "True",
+											"precondition": "GroupFilled(RuleGroup) and GroupFilled(PostAddress) and FieldFilled(PostAddress/t_docRef)"
+										},
+										{
+											"operation": "False",
+											"precondition": "GroupFilled(RuleGroup) and GroupFilled(PostAddress) and FieldNotFilled(PostAddress/t_docRef)"
+										}
+									],
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "error text for computation of Computation_hasPostalAddress"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_64215",
+								"name": "t_docRef",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "t_docRef"
+										}
+									],
+									"transient": true
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_051b0",
+					"name": "CoInsurer",
+					"annotations": [
+						{
+							"name": "cdm.targetDocumentModel",
+							"value": "BusinessPartner-document"
+						},
+						{
+							"name": "cdm.targetRole",
+							"value": "businessPartner"
+						},
+						{
+							"name": "cdm.relationship",
+							"value": "CoInsurer"
+						},
+						{
+							"name": "cdm.sourceRole",
+							"value": "contract"
+						}
+					],
+					"Group": {
+						"repeatability": 99,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "group_e3084",
+								"name": "relationship",
+								"Group": {
+									"repeatability": 1,
+									"elements": [
+										{
+											"type": "Group",
+											"id": "include_0fc69",
+											"name": "additionalFields",
+											"Group": {
+												"repeatability": 1,
+												"modelAlias": "CoInsurerAdditionalFields.json"
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_8f138",
+								"name": "Location",
+								"annotations": [
+									{
+										"name": "cdm.targetDocumentModel",
+										"value": "Address-document"
+									},
+									{
+										"name": "cdm.targetRole",
+										"value": "address"
+									},
+									{
+										"name": "cdm.relationship",
+										"value": "Location"
+									},
+									{
+										"name": "cdm.sourceRole",
+										"value": "businessPartner"
+									}
+								],
+								"Group": {
+									"repeatability": 99,
+									"elements": [
+										{
+											"type": "Group",
+											"id": "include_8e65f",
+											"name": "address",
+											"Group": {
+												"repeatability": 1,
+												"modelAlias": "Address-document.json"
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_9be25",
+								"name": "PostAddress",
+								"annotations": [
+									{
+										"name": "cdm.targetDocumentModel",
+										"value": "Address-document"
+									},
+									{
+										"name": "cdm.targetRole",
+										"value": "address"
+									},
+									{
+										"name": "cdm.relationship",
+										"value": "PostAddress"
+									},
+									{
+										"name": "cdm.sourceRole",
+										"value": "businessPartner"
+									}
+								],
+								"Group": {
+									"repeatability": 1,
+									"elements": [
+										{
+											"type": "Group",
+											"id": "include_edd92",
+											"name": "address",
+											"Group": {
+												"repeatability": 1,
+												"modelAlias": "Address-document.json"
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "include_c2e67",
+								"name": "businessPartner",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "BusinessPartner-document.json"
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_9ee41",
+					"name": "cdm",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Rule",
+								"id": "rule_f0943",
+								"name": "GermanContract",
+								"Rule": {
+									"errorEntityId": "include_ebe85_field_0beef",
+									"errorCode": "Error rule_84ca9",
+									"errorCondition": "GroupFilled(/contract) and\r\nGroupFilled(/PolicyHolder/PostAddress/address) and\r\nAllFieldsFilled(/contract/type, /PolicyHolder/PostAddress/address/country) and\r\n[/contract/type] == \"german\" and [/PolicyHolder/PostAddress/address/country] != \"Germany\"",
+									"severity": "ERROR",
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "The post address of the policy holder must be in germany in case of a \"german\" contract type."
+										}
+									]
+								}
+							},
+							{
+								"type": "Rule",
+								"id": "rule_bb9ae",
+								"name": "CoInsurer",
+								"Rule": {
+									"errorEntityId": "include_1b2a0_field_6268b",
+									"errorCode": "Error rule_bb9ae",
+									"errorCondition": "AtLeastOneFieldValueIncludedInValueList(\r\n/CoInsurer*/businessPartner/id IN /PolicyHolder/businessPartner/id \r\n)\r\n",
+									"severity": "ERROR",
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "The policy holder must not be part of the co-insurers."
+										}
+									]
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "include_ebe85",
+					"name": "contract",
+					"Group": {
+						"repeatability": 1,
+						"modelAlias": "Contract-document.json"
+					}
+				},
+				{
+					"type": "Group",
+					"id": "group_b8a72",
+					"name": "contractAdditionalFields",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_8e03f",
+								"name": "numOfCoInsurers",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Number of Co-Insurers"
+										}
+									],
+									"transient": true
+								}
+							},
+							{
+								"type": "Computation",
+								"id": "computation_c5848",
+								"name": "Computation_numOfCoInsurers",
+								"Computation": {
+									"computedFieldId": "field_8e03f",
+									"computationAlternatives": [
+										{
+											"operation": "NumberOfFilledGroups(/CoInsurer*/businessPartner)"
+										}
+									],
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "error text for computation of Computation_numOfCoInsurers"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

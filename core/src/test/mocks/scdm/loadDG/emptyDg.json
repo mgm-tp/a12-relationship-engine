@@ -1,0 +1,50 @@
+{
+	"documents": {
+		"byDocRef": {
+			"Contract-document/0815": {
+				"docRef": "Contract-document/0815",
+				"document": {
+					"contract": {
+						"type": "german"
+					}
+				},
+				"loadingState": "loaded",
+				"documentModelName": "Contract-document"
+			},
+			"Contract-document/38": {
+				"docRef": "Contract-document/38",
+				"document": {
+					"contract": {
+						"type": "german"
+					}
+				},
+				"loadingState": "loaded",
+				"documentModelName": "Contract-document"
+			},
+			"LegalEntity-document_NEW_1": {
+				"docRef": "LegalEntity-document_NEW_1",
+				"document": {
+					"r_CoInsurer": {
+						"contract": {
+							"type": "german"
+						},
+						"id": "Contract-document/38",
+						"modelId": "Contract-document",
+						"contractAdditionalFields": {
+							"numOfCoInsurers": 2
+						},
+						"meta-link-id": "CoInsurer_NEW_1",
+						"isCoInsured": true,
+						"t_docRef": "Contract-document/38"
+					}
+				},
+				"documentModelName": "LegalEntity-document",
+				"loadingState": "loaded"
+			}
+		}
+	},
+	"links": {
+		"byId": {},
+		"linkIdsByDocId": {}
+	}
+}

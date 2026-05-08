@@ -1,0 +1,123 @@
+{
+	"header": {
+		"id": "DataEditorExampleParent-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "DM",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "DataEditorExampleParent-document"
+			}
+		]
+	},
+	"content": {
+		"styles": [
+			{
+				"name": "h_leftAlign"
+			}
+		],
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1"
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-9d900",
+						"name": "cg",
+						"layout": {
+							"lg": "6-6"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-d3e91",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-82cb5",
+										"style": [
+											{
+												"name": "h_leftAlign"
+											}
+										],
+										"elementRef": "field_afd9c"
+									},
+									{
+										"type": "Control",
+										"id": "control-759ed",
+										"style": [
+											{
+												"name": "h_leftAlign"
+											}
+										],
+										"readonly": true,
+										"elementRef": "field_d83b1"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "ButtonPanel",
+						"id": "buttonpanel-77706",
+						"name": "bp",
+						"button": [
+							{
+								"type": "EVENT",
+								"id": "button-dacc9",
+								"name": "calculatePrice",
+								"buttonStyling": {
+									"label": {
+										"type": "Multilingual",
+										"multilingualText": {
+											"text": [
+												{
+													"locale": "en",
+													"text": "Calculate price with taxes"
+												},
+												{
+													"locale": "de",
+													"text": "Preis mit Steuern berechnen"
+												}
+											]
+										}
+									},
+									"priority": "SECONDARY"
+								},
+								"event": "calculate_price",
+								"scope": "HIDDEN_IN_READONLY_MODE"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"extends": "../tsconfig",
+	"include": ["src"],
+	"compilerOptions": {
+		"outDir": "lib",
+		"types": ["node"]
+	},
+	"typedocOptions": {
+		"name": "CRUD API Documentation",
+		"out": "../documentation/crud/src/assets/generated/typedoc",
+		"theme": "default",
+		"entryPoints": "./src/index.ts",
+		"entryPointStrategy": "expand"
+	}
+}

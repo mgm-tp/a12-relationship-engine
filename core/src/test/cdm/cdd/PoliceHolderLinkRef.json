@@ -1,0 +1,19 @@
+{
+	"linkDescriptor": {
+		"relationshipModel": "PolicyHolder",
+		"entities": [
+			{
+				"role": "contract",
+				"modelName": "Contract-document",
+				"docRef": "Contract-document/24"
+			},
+			{
+				"role": "businessPartner",
+				"modelName": "BusinessPartner-document",
+				"docRef": "BusinessPartner-document/21"
+			}
+		],
+		"predecessorLinkRef": null
+	},
+	"id": "1"
+}

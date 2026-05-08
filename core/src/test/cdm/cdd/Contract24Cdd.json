@@ -1,0 +1,144 @@
+{
+	"contract": {
+		"type": "german"
+	},
+	"t_docRef": "Contract-document/24",
+	"id": "Contract-document/24",
+	"modelId": "Contract-document",
+	"PolicyHolder": {
+		"businessPartner": {
+			"id": "mgm",
+			"name": "mgm technology partners GmbH"
+		},
+		"t_docRef": "BusinessPartner-document/21",
+		"id": "BusinessPartner-document/21",
+		"modelId": "BusinessPartner-document",
+		"Location": [
+			{
+				"address": {
+					"country": "Germany",
+					"city": "Munich",
+					"street": "Taunusstrasse",
+					"number": "23"
+				},
+				"t_docRef": "Address-document/13",
+				"id": "Address-document/13",
+				"modelId": "Address-document",
+				"meta-link-id": "5"
+			},
+			{
+				"address": {
+					"country": "Germany",
+					"city": "Munich",
+					"street": "Machtlfinger",
+					"number": "15"
+				},
+				"t_docRef": "Address-document/14",
+				"id": "Address-document/14",
+				"modelId": "Address-document",
+				"meta-link-id": "6"
+			}
+		],
+		"PostAddress": {
+			"address": {
+				"country": "Germany",
+				"city": "Munich",
+				"street": "Taunusstrasse",
+				"number": "23"
+			},
+			"t_docRef": "Address-document/13",
+			"id": "Address-document/13",
+			"modelId": "Address-document",
+			"meta-link-id": "4"
+		},
+		"meta-link-id": "1"
+	},
+	"CoInsurer": [
+		{
+			"businessPartner": {
+				"id": "amazon",
+				"name": "Amazon.com"
+			},
+			"t_docRef": "BusinessPartner-document/22",
+			"id": "BusinessPartner-document/22",
+			"modelId": "BusinessPartner-document",
+			"Location": [
+				{
+					"address": {
+						"country": "USA",
+						"city": "Seattle",
+						"street": "Terry Ave. North",
+						"number": "410"
+					},
+					"t_docRef": "Address-document/19",
+					"id": "Address-document/19",
+					"modelId": "Address-document",
+					"meta-link-id": "8"
+				}
+			],
+			"PostAddress": {
+				"address": {
+					"country": "USA",
+					"city": "Seattle",
+					"street": "Terry Ave. North",
+					"number": "410"
+				},
+				"t_docRef": "Address-document/19",
+				"id": "Address-document/19",
+				"modelId": "Address-document",
+				"meta-link-id": "7"
+			},
+			"meta-link-id": "2",
+			"relationship": {
+				"additionalFields": {
+					"since": {}
+				},
+				"t_docRef": "CoInsurerAdditionalFields/1",
+				"modelId": "CoInsurerAdditionalFields"
+			}
+		},
+		{
+			"businessPartner": {
+				"id": "google",
+				"name": "Google LLC"
+			},
+			"t_docRef": "BusinessPartner-document/23",
+			"id": "BusinessPartner-document/23",
+			"modelId": "BusinessPartner-document",
+			"Location": [
+				{
+					"address": {
+						"country": "USA",
+						"city": "Mountain View",
+						"street": "Amphitheatre Pkwy",
+						"number": "1600"
+					},
+					"t_docRef": "Address-document/20",
+					"id": "Address-document/20",
+					"modelId": "Address-document",
+					"meta-link-id": "10"
+				}
+			],
+			"PostAddress": {
+				"address": {
+					"country": "USA",
+					"city": "Mountain View",
+					"street": "Amphitheatre Pkwy",
+					"number": "1600"
+				},
+				"t_docRef": "Address-document/20",
+				"id": "Address-document/20",
+				"modelId": "Address-document",
+				"meta-link-id": "9"
+			},
+			"meta-link-id": "3",
+			"relationship": {
+				"additionalFields": {
+					"since": {}
+				},
+				"t_docRef": "CoInsurerAdditionalFields/2",
+				"modelId": "CoInsurerAdditionalFields"
+			}
+		}
+	]
+}

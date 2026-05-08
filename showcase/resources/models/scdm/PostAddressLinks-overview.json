@@ -1,0 +1,87 @@
+{
+	"header": {
+		"id": "PostAddressLinks-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "PostAddress_address____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-6f79c",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_2fc9a",
+				"sortable": false
+			},
+			{
+				"id": "column-74a22",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_dbbc9",
+				"sortable": false
+			},
+			{
+				"id": "column-77a9e",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_90cd2",
+				"sortable": false
+			},
+			{
+				"id": "column-fe986",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_e9abb",
+				"sortable": false
+			}
+		],
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

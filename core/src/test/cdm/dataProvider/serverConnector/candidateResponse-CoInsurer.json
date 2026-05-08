@@ -1,0 +1,144 @@
+{
+	"results": [
+		{
+			"idRef": "list-candidates-CoInsurer",
+			"result": {
+				"fullSize": 42,
+				"page": {
+					"offset": 0,
+					"limit": 3
+				},
+				"entries": [
+					{
+						"linkDescriptor": {
+							"relationshipModel": "CoInsurer",
+							"entities": [
+								{
+									"role": "contract",
+									"docRef": "Contract-document/24",
+									"modelName": "Contract-document"
+								},
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/24",
+									"modelName": "BusinessPartner-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"businessPartner": {
+									"id": "facebook",
+									"name": "Facebook Inc."
+								}
+							},
+							"relationship": {
+								"additionalFields": {
+									"since": "2001-07-05T00:00:00.000Z"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "CoInsurer",
+							"entities": [
+								{
+									"role": "contract",
+									"docRef": "Contract-document/24",
+									"modelName": "Contract-document"
+								},
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/23",
+									"modelName": "BusinessPartner-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"businessPartner": {
+									"id": "google",
+									"name": "Google LLC"
+								}
+							},
+							"relationship": {
+								"additionalFields": {
+									"since": "2002-07-05T00:00:00.000Z"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "CoInsurer",
+							"entities": [
+								{
+									"role": "contract",
+									"docRef": "Contract-document/24",
+									"modelName": "Contract-document"
+								},
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/22",
+									"modelName": "BusinessPartner-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"businessPartner": {
+									"id": "amazon",
+									"name": "Amazon.com"
+								}
+							},
+							"relationship": {
+								"additionalFields": {
+									"since": "2003-07-05T00:00:00.000Z"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "CoInsurer",
+							"entities": [
+								{
+									"role": "contract",
+									"docRef": "Contract-document/24",
+									"modelName": "Contract-document"
+								},
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"businessPartner": {
+									"id": "mgm",
+									"name": "mgm technology partners GmbH"
+								}
+							},
+							"relationship": {
+								"additionalFields": {
+									"since": "2004-07-05T00:00:00.000Z"
+								}
+							}
+						}
+					}
+				]
+			}
+		}
+	],
+	"exceptions": {
+		"global": [],
+		"operationScoped": []
+	}
+}

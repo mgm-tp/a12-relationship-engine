@@ -1,0 +1,95 @@
+{
+	"header": {
+		"id": "ProductBrand_Product____generated",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "application",
+				"value": ""
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Product-document",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Product-document"
+			},
+			{
+				"alias": "ProductBrand_AdditionalFieldsModel",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "ProductBrand_AdditionalFieldsModel"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "ProductBrand_Product____generated",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "target",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "I4",
+								"name": "Properties",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "Product-document"
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "G3",
+					"name": "relationship",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "I5",
+								"name": "AdditionalFields",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "ProductBrand_AdditionalFieldsModel"
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

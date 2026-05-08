@@ -1,0 +1,140 @@
+{
+	"header": {
+		"id": "Contract-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Vertrag"
+			},
+			{
+				"locale": "en",
+				"text": "Contract"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "Contract-document",
+			"immutable": false
+		},
+		"modelConfig": {
+			"timeZone": "UTC",
+			"decimalSeparator": ".",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_41512",
+					"name": "contract",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_0beef",
+								"name": "type",
+								"annotations": [
+									{
+										"name": "enable_approximate_match_search",
+										"value": "true"
+									}
+								],
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Type"
+										},
+										{
+											"locale": "de",
+											"text": "Typ"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_6d25e",
+								"name": "fee",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"minFractionalDigits": 2,
+											"maxFractionalDigits": 2,
+											"trait": "amount"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Fee"
+										},
+										{
+											"locale": "de",
+											"text": "Gebühr"
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_4486e",
+								"name": "limitations",
+								"Group": {
+									"repeatability": 1,
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_f87fe",
+											"name": "onlyBilateral",
+											"Field": {
+												"fieldType": {
+													"type": "ConfirmType"
+												},
+												"label": [
+													{
+														"locale": "en",
+														"text": "bilateral only"
+													},
+													{
+														"locale": "de",
+														"text": "nur bilateral"
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

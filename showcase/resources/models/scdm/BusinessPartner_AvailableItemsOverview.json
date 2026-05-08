@@ -1,0 +1,89 @@
+{
+	"header": {
+		"id": "BusinessPartner_AvailableItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "BusinessPartner-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": false,
+			"pagingSize": 50,
+			"initialSorting": [
+				{
+					"idref": "column-db60a"
+				},
+				{
+					"idref": "column-8da47"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"columns": [
+			{
+				"id": "column-db60a",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_4e3fe",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-8da47",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_6268b",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-3df11",
+				"width": 1,
+				"styles": {},
+				"elementRef": "group_d1772",
+				"sortable": false,
+				"attachmentDisplayMode": "preview"
+			}
+		],
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"rowActionGroup": {},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

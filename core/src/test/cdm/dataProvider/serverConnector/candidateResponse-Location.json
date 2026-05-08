@@ -1,0 +1,272 @@
+{
+	"results": [
+		{
+			"idRef": "list-candidates-Location",
+			"result": {
+				"fullSize": 42,
+				"page": {
+					"offset": 0,
+					"limit": 8
+				},
+				"entries": [
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/21",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "USA",
+									"city": "Menlo Park",
+									"street": "Hacker Way",
+									"number": "1"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/20",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "USA",
+									"city": "Mountain View",
+									"street": "Amphitheatre Pkwy",
+									"number": "1600"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/19",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "USA",
+									"city": "Seattle",
+									"street": "Terry Ave. North",
+									"number": "410"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/18",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Frankreich",
+									"city": "Grenoble",
+									"street": "Allee Aloyzi Kospicki",
+									"number": "26"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/17",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Tschechien",
+									"city": "Prag",
+									"street": "Letenske nam",
+									"number": "157"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/16",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Germany",
+									"city": "Hamburg",
+									"street": "Holländischer Brook",
+									"number": "2"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/15",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Germany",
+									"city": "Aachen",
+									"street": "Markt",
+									"number": "45"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/14",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Germany",
+									"city": "Munich",
+									"street": "Machtlfinger",
+									"number": "15"
+								}
+							}
+						}
+					},
+					{
+						"linkDescriptor": {
+							"relationshipModel": "Location",
+							"entities": [
+								{
+									"role": "businessPartner",
+									"docRef": "BusinessPartner-document/21",
+									"modelName": "BusinessPartner-document"
+								},
+								{
+									"role": "address",
+									"docRef": "Address/13",
+									"modelName": "Address-document"
+								}
+							],
+							"predecessorLinkRef": null
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Germany",
+									"city": "Munich",
+									"street": "Taunusstrasse",
+									"number": "23"
+								}
+							}
+						}
+					}
+				]
+			}
+		}
+	],
+	"exceptions": {
+		"global": [],
+		"operationScoped": []
+	}
+}

@@ -1,0 +1,232 @@
+{
+	"header": {
+		"id": "Address-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Address"
+			},
+			{
+				"locale": "de",
+				"text": "Adresse"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Address-document",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Address-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-c1bda",
+						"name": "CancelButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-0e304",
+						"name": "SaveButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-c0a10",
+						"name": "cg1",
+						"layout": {
+							"lg": "6-6"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-5edb8",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-fcc80",
+										"elementRef": "field_dbbc9"
+									},
+									{
+										"type": "Control",
+										"id": "control-31427",
+										"elementRef": "field_90cd2"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-c45f1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-9a758",
+										"elementRef": "field_2fc9a"
+									},
+									{
+										"type": "Control",
+										"id": "control-b6dd9",
+										"elementRef": "field_e9abb"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row_11dbe",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_4ee42",
+										"label": {
+											"type": "Multilingual",
+											"multilingualText": {
+												"text": [
+													{
+														"locale": "en",
+														"text": "View"
+													},
+													{
+														"locale": "de",
+														"text": "Aussicht"
+													}
+												]
+											}
+										},
+										"elementRef": "group_ecbda"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid_eeffe",
+						"name": "cg2",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row_303f6",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_cac06",
+										"elementRef": "field_83bc4"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row_4e642",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_19592",
+										"elementRef": "field_f3e27"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {
+			"field": [
+				{
+					"elementRef": "group_ecbda",
+					"attachmentConfig": {
+						"placeholderIcon": "image"
+					}
+				},
+				{
+					"dependentField": {
+						"masterField": "field_83bc4",
+						"case": [
+							{
+								"masterValue": null,
+								"notRelevant": true
+							}
+						]
+					},
+					"elementRef": "field_f3e27"
+				}
+			]
+		},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

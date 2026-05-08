@@ -1,0 +1,64 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+== Setup
+
+=== Relationship Engine
+
+Using basic relationships requires adapting your client application setup in the following way, adding the relationship data provider, sagas and reducers:
+
+[source,typescript,options="nowrap"]
+----
+include::assets/typescript/relationshipSetup.ts[tags=setup]
+----
+
+To easily enable displaying and editing relationships in the application ui, we recommend using the `CRUDViews.FormEngineView` which supports the integration of the Relationship Engine by default.
+
+Your viewProvider could look like the following, providing the CRUD views:
+
+[source,typescript,options="nowrap",title=src/main/viewFactory.tsx]
+----
+include::assets/typescript/viewFactory.tsx[tag=content]
+----
+
+[#/cdm/setup]
+=== SCDM
+
+SCDM requires some global application setup configuration for the following properties:
+
+* Middlewares / Sagas
+* Reducers
+* DataProvider
+
+Please see the following code for an example:
+[source,typescript,options="nowrap"]
+----
+include::assets/typescript/cdmSetup.ts[tags=setup]
+----
+
+[NOTE]
+====
+The scdm feature requires that the model graph is loaded during the initialization of your client application. Please refer to the link:/docs/CLIENT/client-documentation-bundle/index.html[Client Documentation] for more info.
+====
+
+[NOTE]
+====
+The CDM middlewares replace the ones provided by the Form Engine extension with `createFormEngineMiddlewares()`.
+Make sure that you either include one or the other, but not both!
+
+The same is true for the `cdmSagas`, which already incorporate the functionality of the `formEngineSagas` from the form engine package. So again, only include one of them!
+====

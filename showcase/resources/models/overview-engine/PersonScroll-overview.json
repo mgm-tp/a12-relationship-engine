@@ -1,0 +1,295 @@
+{
+	"header": {
+		"id": "PersonScroll-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Person"
+			},
+			{
+				"locale": "de",
+				"text": "Person"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Person-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"event": "add",
+					"destructive": false,
+					"icon": {
+						"name": "add"
+					},
+					"primary": false,
+					"description": [
+						{
+							"locale": "en",
+							"text": "Add a person"
+						},
+						{
+							"locale": "de",
+							"text": "Fügen Sie eine Person hinzu"
+						}
+					]
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-5bd25",
+				"elementRef": "F3",
+				"sortable": true,
+				"width": 1,
+				"label": [
+					{
+						"locale": "en",
+						"text": "First Name"
+					},
+					{
+						"locale": "de",
+						"text": "Vorname"
+					}
+				],
+				"icon": {
+					"name": "person",
+					"theme": "outlined"
+				},
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-5847d",
+				"elementRef": "F4",
+				"sortable": true,
+				"width": 1,
+				"alignment": {
+					"header": {
+						"horizontal": "left",
+						"vertical": "bottom"
+					},
+					"content": {
+						"horizontal": "left",
+						"vertical": "top"
+					}
+				},
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-3eb14",
+				"elementRef": "F8",
+				"sortable": false,
+				"width": 1,
+				"alignment": {
+					"header": {
+						"horizontal": "left",
+						"vertical": "middle"
+					},
+					"content": {
+						"horizontal": "left",
+						"vertical": "middle"
+					}
+				},
+				"icon": {
+					"name": "date_range",
+					"theme": "outlined"
+				}
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"styles": {},
+				"id": "column-95cd5",
+				"elementRef": "F9"
+			},
+			{
+				"id": "column-01563",
+				"elementRef": "field_971d5",
+				"sortable": false,
+				"pinDirection": "RIGHT",
+				"preferredSorting": "ASC",
+				"width": 1.4,
+				"summary": [
+					{
+						"operation": "sum"
+					}
+				],
+				"suffix": [
+					{
+						"locale": "en",
+						"text": "USD"
+					},
+					{
+						"locale": "de",
+						"text": "EUR"
+					}
+				],
+				"label": [
+					{
+						"locale": "en",
+						"text": "Salary"
+					},
+					{
+						"locale": "de",
+						"text": "Gehalt"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "delete",
+					"confirmation": {
+						"title": [
+							{
+								"locale": "en",
+								"text": "Confirmation"
+							},
+							{
+								"locale": "de",
+								"text": "Bestätigung"
+							}
+						],
+						"message": [
+							{
+								"locale": "de",
+								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+							},
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this person?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"primary": false,
+					"description": [
+						{
+							"locale": "de",
+							"text": "Löschen"
+						},
+						{
+							"locale": "en",
+							"text": "Delete"
+						}
+					]
+				}
+			]
+		},
+		"configuration": {
+			"showFullTextSearch": true,
+			"showRowCount": true,
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_expanded",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"destructive": false,
+						"icon": {
+							"name": "info",
+							"theme": "outlined"
+						},
+						"event": "selection-overview",
+						"primary": false,
+						"description": [
+							{
+								"locale": "de",
+								"text": "Ausgewählte Personen anzeigen"
+							},
+							{
+								"locale": "en",
+								"text": "Show selected persons"
+							}
+						]
+					},
+					{
+						"destructive": false,
+						"icon": {
+							"name": "compare_arrows"
+						},
+						"event": "compare",
+						"primary": false,
+						"description": [
+							{
+								"locale": "de",
+								"text": "Vergleiche selektierte Personen"
+							},
+							{
+								"locale": "en",
+								"text": "Compare selected persons"
+							}
+						]
+					}
+				],
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"enableInfiniteScroll": true,
+			"rowHeight": 300,
+			"actionColumnWidth": 1,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "custom_list",
+				"fields": [
+					{
+						"fieldId": "F3"
+					},
+					{
+						"fieldId": "F4"
+					},
+					{
+						"fieldId": "F8"
+					},
+					{
+						"fieldId": "F9"
+					}
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,229 @@
+{
+	"header": {
+		"id": "Person-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Personendetails"
+			},
+			{
+				"locale": "en",
+				"text": "Person Details"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "DM",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Person-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-ce78c",
+						"name": "Cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-68ff7",
+						"name": "Save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "CRUD::SAVE",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-fc58c",
+						"name": "Submit",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Submit"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "Section",
+						"id": "section-7ee3f",
+						"name": "Field",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Person Details"
+									}
+								]
+							}
+						},
+						"screenElements": [
+							{
+								"type": "ControlGrid",
+								"id": "controlgrid-87ed0",
+								"name": "grid",
+								"layout": {
+									"lg": "6-6"
+								},
+								"row": [
+									{
+										"type": "Row",
+										"id": "row-760a5",
+										"name": "names",
+										"title": {
+											"type": "Multilingual",
+											"multilingualText": {
+												"text": [
+													{
+														"locale": "en",
+														"text": "Name"
+													}
+												]
+											}
+										},
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-addac",
+												"elementRef": "F3"
+											},
+											{
+												"type": "Control",
+												"id": "control-f0792",
+												"elementRef": "F4"
+											}
+										]
+									},
+									{
+										"type": "Row",
+										"id": "row-3d05a",
+										"name": "extra-info",
+										"title": {
+											"type": "Multilingual",
+											"multilingualText": {
+												"text": [
+													{
+														"locale": "en",
+														"text": "Country"
+													}
+												]
+											}
+										},
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-e0865",
+												"elementRef": "F8"
+											},
+											{
+												"type": "Control",
+												"id": "control-07159",
+												"elementRef": "F9"
+											}
+										]
+									},
+									{
+										"type": "Row",
+										"id": "row_08b42",
+										"name": "extra-info-2",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control-g35bc",
+												"elementRef": "field_971d5"
+											}
+										]
+									}
+								],
+								"verticalAlignment": "TOP"
+							}
+						]
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

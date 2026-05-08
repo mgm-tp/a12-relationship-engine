@@ -1,0 +1,115 @@
+{
+	"header": {
+		"id": "CRUD-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "CRUD-document",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "root",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F3",
+								"name": "DummyField",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Dummy Feld"
+										},
+										{
+											"locale": "en",
+											"text": "Dummy Field"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_cbf60",
+								"name": "DummyNumberField",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "DummyNumberField"
+										},
+										{
+											"locale": "en",
+											"text": "DummyNumberField"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_97199",
+								"name": "DummyFloatField",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"minFractionalDigits": 1,
+											"maxFractionalDigits": 4,
+											"zeroNotAllowed": true
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "DummyFloatField"
+										},
+										{
+											"locale": "de",
+											"text": "DummyFloatField"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

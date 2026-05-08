@@ -1,0 +1,78 @@
+{
+	"header": {
+		"id": "Category_Child_Category_SelectedItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "CategoryCategory_ChildCategory____generated"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-b854a",
+				"elementRef": "I4_F1",
+				"sortable": false,
+				"width": 1,
+				"label": [
+					{
+						"locale": "en",
+						"text": "Name"
+					},
+					{
+						"locale": "de",
+						"text": "Name"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"configuration": {
+			"pagingSize": 10,
+			"showFullTextSearch": true,
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		}
+	}
+}

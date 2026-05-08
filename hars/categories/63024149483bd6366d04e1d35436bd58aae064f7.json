@@ -1,0 +1,28 @@
+[
+	{
+		"jsonrpc": "2.0",
+		"id": "listModels-2",
+		"method": "LIST_MODELS_INTERNAL",
+		"params": {
+			"modelNames": [
+				"Category-form",
+				"Category_Category_AvailableItemsOverview",
+				"Category_Child_Category_SelectedItemsOverview",
+				"CategoryCategory_ChildCategory____generated",
+				"Category_Parent_Category_SelectedItemsOverview",
+				"CategoryCategory_ParentCategory____generated"
+			]
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "listCodes-3",
+		"method": "LIST_DOCUMENT_VALIDATION_CODES_INTERNAL",
+		"params": {
+			"documentModelNames": [
+				"CategoryCategory_ChildCategory____generated",
+				"CategoryCategory_ParentCategory____generated"
+			]
+		}
+	}
+]

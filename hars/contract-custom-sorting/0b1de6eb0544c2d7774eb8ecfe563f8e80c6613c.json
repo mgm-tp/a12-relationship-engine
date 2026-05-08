@@ -1,0 +1,29 @@
+[
+	{
+		"jsonrpc": "2.0",
+		"id": "OverviewEngineDataProvider-0",
+		"result": {
+			"fullSize": 2,
+			"page": { "pageNumber": 0, "pageSize": 5 },
+			"entries": [
+				{
+					"docRef": "Contract-document/e2868bcd-fdeb-4bdd-bfe6-cbbb75c461c1",
+					"document": { "contract": { "type": "german" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Contract-document"
+				},
+				{
+					"docRef": "Contract-document/389ee18a-6cf9-4df0-81a8-da0918d5ca11",
+					"document": { "contract": { "type": "shallow" } },
+					"type": "ROOT",
+					"depth": 0,
+					"documentModelName": "Contract-document"
+				}
+			],
+			"links": [],
+			"otherResults": {}
+		}
+	},
+	{ "jsonrpc": "2.0", "id": "ThumbnailUrls-0", "result": {} }
+]

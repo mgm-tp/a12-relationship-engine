@@ -1,0 +1,17 @@
+{
+	"request": [
+		{
+			"id": "list-candidates-Location",
+			"operation": "LIST_CANDIDATES",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/21",
+					"role": "businessPartner",
+					"relationshipModel": "Location"
+				},
+				"page": {},
+				"sort": {}
+			}
+		}
+	]
+}

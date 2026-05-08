@@ -1,0 +1,17 @@
+{
+	"request": [
+		{
+			"id": "list-candidates-PolicyHolder",
+			"operation": "LIST_CANDIDATES",
+			"parameters": {
+				"source": {
+					"docRef": "Contract-document/24",
+					"role": "contract",
+					"relationshipModel": "PolicyHolder"
+				},
+				"page": {},
+				"sort": {}
+			}
+		}
+	]
+}

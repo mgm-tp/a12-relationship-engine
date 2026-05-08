@@ -1,0 +1,77 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+[#request-selector-map]
+== Custom RequestSelectorMap
+
+[NOTE]
+====
+This API is marked as experimental. Breaking changes *might* happen even in minor releases.
+====
+
+The `RequestSelectorMap` can be used to customize how the Relationship Engine & CDM produces Data Services Query API requests.
+A `DefaultRequestSelectorMap` is shipped, but it is possible to inject a custom map to tweak queries and mutations without involving internal logic.
+
+=== What it controls
+
+The map exposes selector factories that return JSON-RPC request objects. Relationship & CDM use these exclusively for server calls:
+
+- Queries
+	* `loadCandidates` – load candidate documents for a relationship
+	* `loadLinks` – load link documents for a relationship
+	* `loadDocumentGraph` – load the document graph for the CDM
+
+- Mutations
+	* `addDocument`, `modifyDocument`, `deleteDocument` – document CRUD 
+	* `addLink`, `modifyLink`, `deleteLink` – link CRUD 
+
+All mutation builders return selectors, so it is possible to access app state within each selector (e.g.: the locale can be derived via `LocaleSelectors.locale()(state)).
+
+=== Injecting a custom map
+
+You can inject a custom implementation into both providers:
+
+[source,typescript]
+----
+include::assets/typescript/features/custom-request-selector-map.ts[tags=injectRelationship]
+----
+
+[source,typescript]
+----
+include::assets/typescript/features/custom-request-selector-map.ts[tags=injectCdm]
+----
+
+=== Example: add a default sort for queries
+
+The following example adds a default sort to `loadCandidates`/`loadLinks` when none is provided, while delegating all other behavior to the default implementation.
+
+[source,typescript]
+----
+include::assets/typescript/features/custom-request-selector-map.ts[tags=requestSelectorMap]
+----
+
+[TIP]
+====
+Always spread `DefaultRequestSelectorMap` when customizing.
+====
+
+
+=== Request Filters
+
+This customization approach can also be used in combination with the RequestFilter API (described in the link:/docs/DATA_SERVICES/dataservices-documentation-src/index.html#json-rpc-modifying-requests[Data Services documentation]), for example to use your own operation methods.
+Customizing the `RequestFilter` alone would not be enough when the method replacement needs some context (e.g. only overriding methods in certain conditions). Using the `RequestSelectorMap` could then be used to provide this context down for the filter to use.
+

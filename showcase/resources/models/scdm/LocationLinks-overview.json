@@ -1,0 +1,87 @@
+{
+	"header": {
+		"id": "LocationLinks-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Location_address____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-68a5c",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_dbbc9",
+				"sortable": false
+			},
+			{
+				"id": "column-ecad8",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_90cd2",
+				"sortable": false
+			},
+			{
+				"id": "column-7a08c",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_2fc9a",
+				"sortable": false
+			},
+			{
+				"id": "column-e2de8",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_e9abb",
+				"sortable": false
+			}
+		],
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start All" type="CompoundRunConfigurationType">
+    <toRun name="Server" type="GradleRunConfiguration" />
+    <toRun name="Start - CRUD" type="js.build_tools.npm" />
+    <toRun name="Start - Core" type="js.build_tools.npm" />
+    <toRun name="Start - Showcase" type="js.build_tools.npm" />
+    <method v="2" />
+  </configuration>
+</component>

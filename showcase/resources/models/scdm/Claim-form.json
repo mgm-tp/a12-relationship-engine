@@ -1,0 +1,197 @@
+{
+	"header": {
+		"id": "Claim-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Claim-document",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Claim-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button_74235",
+						"name": "cancelButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"description": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Cancel"
+									},
+									{
+										"locale": "de",
+										"text": "Abbrechen"
+									}
+								]
+							},
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					},
+					{
+						"type": "EVENT",
+						"id": "button_5d604",
+						"name": "saveButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"description": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Save"
+									},
+									{
+										"locale": "de",
+										"text": "Speichern"
+									}
+								]
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen_2dbb2",
+				"name": "Screen 1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid_be806",
+						"name": "cg",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row_e99a9",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_c40b6",
+										"elementRef": "field_3dddf"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "InlineRepeat",
+						"id": "inlinerepeat_405f5",
+						"name": "repeat-attachments",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Attachments"
+									},
+									{
+										"locale": "de",
+										"text": "Anhänge"
+									}
+								]
+							}
+						},
+						"repeatOverviewColumn": [
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn_2f12d",
+								"label": {
+									"type": "Multilingual",
+									"multilingualText": {
+										"text": [
+											{
+												"locale": "en",
+												"text": "Attachment"
+											},
+											{
+												"locale": "de",
+												"text": "Anhang"
+											}
+										]
+									}
+								},
+								"width": 1,
+								"elementRef": "group_543b6"
+							}
+						],
+						"groupRef": "group_dbeda",
+						"enableAdd": false,
+						"enableRemove": true,
+						"enableReorder": true,
+						"enableCopy": true,
+						"multiFileUpload": true,
+						"multiFileUploadOptions": {
+							"elementRef": "group_543b6",
+							"enableDownload": true
+						}
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

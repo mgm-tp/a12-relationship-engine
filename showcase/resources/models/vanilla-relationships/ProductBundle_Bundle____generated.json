@@ -1,0 +1,95 @@
+{
+	"header": {
+		"id": "ProductBundle_Bundle____generated",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "application",
+				"value": ""
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Bundle-document",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Bundle-document"
+			},
+			{
+				"alias": "ProductBundle_AdditionalFieldsModel",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "ProductBundle_AdditionalFieldsModel"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "ProductBundle_Bundle____generated",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "target",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "I4",
+								"name": "Properties",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "Bundle-document"
+								}
+							}
+						]
+					}
+				},
+				{
+					"type": "Group",
+					"id": "G3",
+					"name": "relationship",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "I5",
+								"name": "AdditionalFields",
+								"Group": {
+									"repeatability": 1,
+									"modelAlias": "ProductBundle_AdditionalFieldsModel"
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

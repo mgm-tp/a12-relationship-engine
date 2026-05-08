@@ -1,0 +1,19 @@
+{
+	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-e2e",
+	"private": true,
+	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
+	"version": "2.3.0",
+	"description": "E2E Tests",
+	"scripts": {
+		"prepare": "playwright install chromium",
+		"testE2E": "playwright test",
+		"dev": "playwright test --ui"
+	},
+	"devDependencies": {
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@playwright/test": "^1.46.1",
+		"@types/node": "catalog:devLibs"
+	}
+}

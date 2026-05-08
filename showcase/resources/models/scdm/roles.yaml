@@ -1,0 +1,60 @@
+roles:
+  - name: guest
+    description: "Role, which can only read documents that have already been created\
+      \ in the end application."
+    accessRights:
+      - MODEL_READ
+      - DOCUMENT_READ
+      - DOCUMENT_LIST
+  - name: user
+    description: "Role, which can modify documents."
+    accessRights:
+      - MODEL_READ
+      - DOCUMENT_UPDATE
+      - DOCUMENT_CREATE
+      - DOCUMENT_READ
+      - DOCUMENT_LIST
+      - DOCUMENT_DELETE
+  - name: anonymous
+    description: "Anonymous role"
+    accessRights:
+      - DOCUMENT_READ
+      - DOCUMENT_LIST
+      - DOCUMENT_EXPORT
+      - DOCUMENT_CREATE
+      - DOCUMENT_UPDATE
+      - DOCUMENT_PARTIAL_UPDATE
+      - DOCUMENT_DELETE
+      - MODEL_READ
+      - MODEL_CREATE
+      - MODEL_UPDATE
+      - MODEL_DELETE
+      - ACCESS_ACTUATOR
+  - name: admin
+    description: "Role, which has a higher-level function and no restrictions."
+    accessRights:
+      - DOCUMENT_DELETE
+      - DOCUMENT_EXPORT
+      - MODEL_MANAGE
+      - MANAGE_CACHES
+      - DOCUMENT_UPDATE
+      - DOCUMENT_CREATE
+      - DOCUMENT_READ
+      - DOCUMENT_LIST
+      - MODEL_CREATE
+      - MODEL_MANAGE
+      - MODEL_READ
+      - MODEL_DELETE
+      - MODEL_UPDATE
+  - name: systemAdmin
+    description: "Role, which has a higher-level function on an application level."
+    accessRights:
+      - MODEL_MANAGE
+      - MANAGE_CACHES
+      - DOCUMENT_READ
+      - DOCUMENT_LIST
+      - MODEL_CREATE
+      - MODEL_MANAGE
+      - MODEL_READ
+      - MODEL_DELETE
+      - MODEL_UPDATE

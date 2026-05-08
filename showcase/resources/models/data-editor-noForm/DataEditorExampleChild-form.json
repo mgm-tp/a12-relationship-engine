@@ -1,0 +1,169 @@
+{
+	"header": {
+		"id": "DataEditorExampleChild-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "DM",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "DataEditorExampleChild-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-5bb06",
+						"name": "submit",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Submit"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "event_submit",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-6348e",
+						"name": "close",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Close"
+										},
+										{
+											"locale": "de",
+											"text": "Schließen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "event_cancel",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-1dc97",
+						"name": "cg",
+						"layout": {
+							"lg": "6-6"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-f1a77",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-33bc9",
+										"elementRef": "field_52fa9"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-03ed5",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-8ce26",
+										"elementRef": "field_10597"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-b09f6",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-0435c",
+										"elementRef": "field_21fcf"
+									},
+									{
+										"type": "Control",
+										"id": "control-46196",
+										"elementRef": "field_ea818"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {
+			"field": [
+				{
+					"suffix": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "%"
+							},
+							{
+								"locale": "de",
+								"text": "%"
+							}
+						]
+					},
+					"elementRef": "field_21fcf"
+				}
+			]
+		},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

@@ -1,0 +1,53 @@
+{
+	"name": "ProductBrand-UiConfig-1",
+	"metaInformation": {
+		"version": "1.0.0"
+	},
+	"relationshipName": "ProductBrand",
+	"targetRole": "Product",
+	"components": [
+		{
+			"id": "1",
+			"name": "TableList",
+			"linkPageSize": 2,
+			"candidatePageSize": 3,
+			"models": [
+				{
+					"modelType": "overview",
+					"name": "ProductBrand-Product-LinkOverview",
+					"use": "link"
+				},
+				{
+					"modelType": "overview",
+					"name": "ProductLink-overview",
+					"use": "candidate"
+				}
+			],
+			"props": {
+				"editComponent": "2"
+			}
+		},
+		{
+			"id": "2",
+			"name": "DualPaneSelection",
+			"models": [
+				{
+					"modelType": "overview",
+					"name": "ProductBrand-Product-LinkOverview",
+					"use": "link"
+				},
+				{
+					"modelType": "overview",
+					"name": "ProductLink-overview",
+					"use": "candidate"
+				},
+				{
+					"modelType": "form",
+					"name": "ProductBrand-LinkForm",
+					"use": "link"
+				}
+			],
+			"candidatePageSize": 3
+		}
+	]
+}

@@ -1,0 +1,297 @@
+{
+	"results": [
+		{
+			"idRef": "ListLinks-Location-3",
+			"result": {
+				"fullSize": 2,
+				"page": {
+					"offset": 0,
+					"limit": 2
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "Location",
+								"entities": [
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/21",
+										"modelName": "BusinessPartner-document"
+									},
+									{
+										"role": "address",
+										"docRef": "Address/13",
+										"modelName": "Address-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "5"
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Germany",
+									"city": "Munich",
+									"street": "Taunusstrasse",
+									"number": "23"
+								}
+							}
+						}
+					},
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "Location",
+								"entities": [
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/21",
+										"modelName": "BusinessPartner-document"
+									},
+									{
+										"role": "address",
+										"docRef": "Address/14",
+										"modelName": "Address-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "6"
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Germany",
+									"city": "Munich",
+									"street": "Machtlfinger",
+									"number": "15"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
+			"idRef": "ListLinks-Location-4",
+			"result": {
+				"fullSize": 1,
+				"page": {
+					"offset": 0,
+					"limit": 1
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "Location",
+								"entities": [
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/22",
+										"modelName": "BusinessPartner-document"
+									},
+									{
+										"role": "address",
+										"docRef": "Address/19",
+										"modelName": "Address-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "8"
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "USA",
+									"city": "Seattle",
+									"street": "Terry Ave. North",
+									"number": "410"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
+			"idRef": "ListLinks-Location-5",
+			"result": {
+				"fullSize": 1,
+				"page": {
+					"offset": 0,
+					"limit": 1
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "Location",
+								"entities": [
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/23",
+										"modelName": "BusinessPartner-document"
+									},
+									{
+										"role": "address",
+										"docRef": "Address/20",
+										"modelName": "Address-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "10"
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "USA",
+									"city": "Mountain View",
+									"street": "Amphitheatre Pkwy",
+									"number": "1600"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
+			"idRef": "ListLinks-PostAddress-6",
+			"result": {
+				"fullSize": 1,
+				"page": {
+					"offset": 0,
+					"limit": 1
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "PostAddress",
+								"entities": [
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/21",
+										"modelName": "BusinessPartner-document"
+									},
+									{
+										"role": "address",
+										"docRef": "Address/13",
+										"modelName": "Address-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "4"
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "Germany",
+									"city": "Munich",
+									"street": "Taunusstrasse",
+									"number": "23"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
+			"idRef": "ListLinks-PostAddress-7",
+			"result": {
+				"fullSize": 1,
+				"page": {
+					"offset": 0,
+					"limit": 1
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "PostAddress",
+								"entities": [
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/22",
+										"modelName": "BusinessPartner-document"
+									},
+									{
+										"role": "address",
+										"docRef": "Address/19",
+										"modelName": "Address-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "7"
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "USA",
+									"city": "Seattle",
+									"street": "Terry Ave. North",
+									"number": "410"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
+			"idRef": "ListLinks-PostAddress-8",
+			"result": {
+				"fullSize": 1,
+				"page": {
+					"offset": 0,
+					"limit": 1
+				},
+				"entries": [
+					{
+						"linkRef": {
+							"linkDescriptor": {
+								"relationshipModel": "PostAddress",
+								"entities": [
+									{
+										"role": "businessPartner",
+										"docRef": "BusinessPartner-document/23",
+										"modelName": "BusinessPartner-document"
+									},
+									{
+										"role": "address",
+										"docRef": "Address/20",
+										"modelName": "Address-document"
+									}
+								],
+								"predecessorLinkRef": null
+							},
+							"id": "9"
+						},
+						"document": {
+							"target": {
+								"address": {
+									"country": "USA",
+									"city": "Mountain View",
+									"street": "Amphitheatre Pkwy",
+									"number": "1600"
+								}
+							}
+						}
+					}
+				]
+			}
+		}
+	],
+	"exceptions": {
+		"global": [],
+		"operationScoped": []
+	}
+}

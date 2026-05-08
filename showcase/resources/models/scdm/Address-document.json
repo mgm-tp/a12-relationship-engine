@@ -1,0 +1,359 @@
+{
+	"header": {
+		"id": "Address-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Addresse"
+			},
+			{
+				"locale": "en",
+				"text": "Address"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "Address-document",
+			"immutable": false,
+			"joinedModelsInfo": "Address-document-document-meta-data+Add"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_60e44",
+					"name": "address",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_dbbc9",
+								"name": "country",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Country"
+										},
+										{
+											"locale": "de",
+											"text": "Land"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_90cd2",
+								"name": "city",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "City"
+										},
+										{
+											"locale": "de",
+											"text": "Stadt"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_2fc9a",
+								"name": "street",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Street"
+										},
+										{
+											"locale": "de",
+											"text": "Straße"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_e9abb",
+								"name": "number",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "Number"
+										},
+										{
+											"locale": "de",
+											"text": "Hausnummer"
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_ecbda",
+								"name": "view",
+								"Group": {
+									"repeatability": 1,
+									"usageType": "attachment",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_138ef",
+											"name": "original_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_73578",
+											"name": "internal_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_d6938",
+											"name": "content",
+											"Field": {
+												"fieldType": {
+													"type": "StringType",
+													"StringType": {
+														"lineBreaksPermitted": true,
+														"noValueValidation": true
+													}
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_8f42d",
+											"name": "attachment_id",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_e76ad",
+											"name": "size",
+											"Field": {
+												"fieldType": {
+													"type": "NumberType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_3f89c",
+											"name": "mime_type",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_bbddb",
+											"name": "category",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "field_6408a",
+											"name": "description",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_f561c",
+											"name": "AttachmentInternalFilenameRequired",
+											"Rule": {
+												"errorEntityRelPath": "../internal_filename",
+												"errorCode": "Error rule_f561c",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Field internal_filename of customType attachment is not filled."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: Field internal_filename of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_7ff9b",
+											"name": "AttachmentMimeTypeRequired",
+											"Rule": {
+												"errorEntityRelPath": "../mime_type",
+												"errorCode": "Error rule_7ff9b",
+												"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Field mime_type of customType attachment is not filled."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: Field mime_type of customType attachment is not filled."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_3f635",
+											"name": "AttachmentIdOrContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Error rule_3f635",
+												"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+													}
+												]
+											}
+										},
+										{
+											"type": "Rule",
+											"id": "rule_598b2",
+											"name": "SizeOfContentFilled",
+											"Rule": {
+												"errorEntityRelPath": "../content",
+												"errorCode": "Error rule_598b2",
+												"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+												"severity": "ERROR",
+												"errorMessage": [
+													{
+														"locale": "en",
+														"text": "Internal Error: If the content is filled, the size must be also filled."
+													},
+													{
+														"locale": "de",
+														"text": "Internal Error: If the content is filled, the size must be also filled."
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_83bc4",
+								"name": "hasAdditionalAttributes",
+								"Field": {
+									"fieldType": {
+										"type": "ConfirmType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "further information"
+										},
+										{
+											"locale": "de",
+											"text": "weitere Eigenschaften"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_f3e27",
+								"name": "floor",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "floor"
+										},
+										{
+											"locale": "de",
+											"text": "Stockwerk"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

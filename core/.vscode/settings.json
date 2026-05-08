@@ -1,0 +1,6 @@
+{
+	"testExplorer.mergeSuites": true,
+	"mochaExplorer.files": "./lib/test/**/*.@(js|jsx)",
+	"mochaExplorer.multiFileSuites": true,
+	"mochaExplorer.watch": "./lib/test/**/*.@(js|jsx)"
+}

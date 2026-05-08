@@ -1,0 +1,130 @@
+//// 
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+= Migration Instructions
+
+== 2025.06
+
+CAUTION: Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
+for an explanation of general steps.
+
+=== Migration to ESM
+
+The npm artifact `@com.mgmtp.a12.relationshipengine/relationshipengine-core` was migrated
+from CommonJS to link:https://nodejs.org/api/esm.html#modules-ecmascript-modules[ESM].
+When using Node `22.12+` and modern build tools, there should be no changes necessary to your bundler setup.
+
+[NOTE]
+====
+If your tests depend on mocking/stubbing Relationship Engine API, consult the documentation of your test runner on how to work with ES modules.
+====
+
+Migrating your own application to ESM is not required, but recommended. Consult the documentation of your bundler for specifics.
+
+=== Updating to ES2024
+
+The javascript output of the npm artifacts was updated from `ES2020` to `ES2024` to be able to use latest language features.
+When using supported browsers, there is no change necessary. If support for older browsers is required, make sure to include necessary polyfills.
+
+=== React 19 upgrade
+
+We dropped the support for React 18 and older and now require React 19 as our peerDependency.
+This means you have to perform the React 19 migration, which is described in great detail in the official
+link:https://react.dev/blog/2024/04/25/react-19-upgrade-guide[React 19 Upgrade Guide]. They have codemods that should make the transition straightforward.
+
+Additionally, we have decided to not also include a Redux update, to minimize the migration effort.
+The "react-redux" library does not have React 19 as a peerDependency, but still works fine with it.
+One solution is to override the dependency in your package.json. You also have to update the corresponding "@types/react-redux" typings to at least 7.1.34.
+
+[source,json]
+----
+{
+	"overrides": {
+		"react-redux": {
+			"react": "^19"
+		}
+	},
+	"devDependencies": {
+		"@types/react-redux": "^7.1.34"
+	}
+}
+----
+
+=== Remove the option to enable Query API
+
+Since the Data Services Query API is integrated by default, the option to enable Query API have been removed.
+
+[source,typescript, title="Register Relationship Engine 2.0.0"]
+----
+import { RelationshipFactories, createCddDataProvider } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+
+// appsetup.ts
+const dataHandlers: DataHandler[] = [
+    ...otherDataHandlers,
+    createCddDataProvider(),
+    RelationshipFactories.createRelationshipDataProvider(),
+];
+----
+
+=== Replace `cddDataProvider` by `createCddDataProvider()`
+
+The `cddDataProvider` has been moved to internal. Use `createCddDataProvider()` instead.
+
+=== Removal of Quadro Pane
+
+In 2025.06, the *Quadro Pane* is completely removed.
+For more details, refer to 2024.06 documentation.
+
+=== Customizing the Progress Indicator After Client Container API Removal
+
+Since the Client Container API has been removed in this release,
+customizing the progress indicators requires wrapping the desired React component with the `ProgressIndicatorContextProvider`, as shown below:
+
+[source,typescript, title="Customizing the Progress Indicator After Client Container API Removal"]
+----
+
+// Before
+import { Container } from "@com.mgmtp.a12.client/client-core/lib/core/configuration/index.js";
+
+Container.config.rebind(Container.identifier.UISettings).toConstantValue({
+	progressIndicatorDelay: 500,
+	progressIndicatorDisableFastAppear: true,
+	progressIndicatorLabelKey: "a12.progressIndicator.label"
+});
+
+// After
+import { type Container } from "@com.mgmtp.a12.widgets/widgets-core/lib/common/main/base-props.js";
+import { ProgressIndicatorContextProvider } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+
+export const RelationshipComponent: React.FC<Container> = (props) => {
+	return (
+		<ProgressIndicatorContextProvider
+			progressIndicatorDelay={500}
+			progressIndicatorDisableFastAppear={true}
+			progressIndicatorLabelKey={"a12.progressIndicator.label"}>
+			{props.children}
+		</ProgressIndicatorContextProvider>
+	);
+};
+----
+
+=== Sorting behavior
+
+From 2025.06 version, sorting behavior for the candidate list is changed.
+
+* Case is ignored during sorting (`ignoreCase` is set to true).
+* If no default sorting is specified, the candidate list is sorted by `__meta/createdAt` in descending order.

@@ -1,0 +1,317 @@
+{
+	"header": {
+		"id": "ContractCDM-overview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Vertrag CDM Übersicht"
+			},
+			{
+				"locale": "en",
+				"text": "ContractCDM Overview"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ContractCDM"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all",
+				"sectionData": [
+					{
+						"id": "section-3c8ba",
+						"label": [
+							{
+								"locale": "de",
+								"text": "String Field with Multi-select"
+							},
+							{
+								"locale": "en",
+								"text": "String Field with Multi-select"
+							}
+						],
+						"fields": [
+							{
+								"fieldId": "include_ebe85_field_0beef"
+							},
+							{
+								"fieldId": "include_1b2a0_field_4e3fe"
+							}
+						]
+					}
+				],
+				"enumeratedStringFilter": {
+					"fields": [
+						{
+							"fieldId": "include_ebe85_field_0beef"
+						},
+						{
+							"fieldId": "include_1b2a0_field_4e3fe"
+						}
+					],
+					"pagingSize": 10
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 5,
+			"initialSorting": [
+				{
+					"idref": "column-1949c"
+				}
+			]
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": [
+				{
+					"label": [
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						},
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"type": "button",
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-1949c",
+				"width": 1,
+				"elementRef": "include_ebe85_field_0beef",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-00c01",
+				"label": [
+					{
+						"locale": "de",
+						"text": "Policy Holder Name"
+					},
+					{
+						"locale": "en",
+						"text": "Policy Holder Name"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_1b2a0_field_4e3fe",
+				"sortable": false
+			},
+			{
+				"id": "column-660c0",
+				"label": [
+					{
+						"locale": "de",
+						"text": "Policy Holder Country of post adress"
+					},
+					{
+						"locale": "en",
+						"text": "Policy Holder Country of post adress"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ad2a_field_dbbc9",
+				"sortable": false
+			},
+			{
+				"id": "column-c7399",
+				"label": [
+					{
+						"locale": "de",
+						"text": "PolicyHolder City of post adress"
+					},
+					{
+						"locale": "en",
+						"text": "PolicyHolder City of post adress"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ad2a_field_90cd2",
+				"sortable": false
+			},
+			{
+				"id": "column-1137e",
+				"label": [
+					{
+						"locale": "de",
+						"text": "Policy Holder Street of post adress"
+					},
+					{
+						"locale": "en",
+						"text": "Policy Holder Street of post adress"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ad2a_field_2fc9a",
+				"sortable": false
+			},
+			{
+				"id": "column-55376",
+				"label": [
+					{
+						"locale": "de",
+						"text": "Policy Holder Street number of post adress"
+					},
+					{
+						"locale": "en",
+						"text": "Policy Holder Street number of post adress"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_6ad2a_field_e9abb",
+				"sortable": false
+			},
+			{
+				"id": "column-befdb",
+				"width": 1,
+				"styles": {},
+				"elementRef": "include_ebe85_field_6d25e",
+				"sortable": false,
+				"suffix": [
+					{
+						"locale": "de",
+						"text": "EUR"
+					},
+					{
+						"locale": "en",
+						"text": "EUR"
+					}
+				],
+				"summary": [
+					{
+						"operation": "sum"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"icon": {
+						"name": "launch",
+						"theme": "outlined"
+					},
+					"label": [
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						},
+						{
+							"locale": "en",
+							"text": "open readonly"
+						}
+					],
+					"description": [
+						{
+							"locale": "de",
+							"text": "schreibgeschützt öffnen"
+						},
+						{
+							"locale": "en",
+							"text": "open readonly"
+						}
+					],
+					"event": "open-readonly",
+					"labelHidden": true,
+					"destructive": false,
+					"primary": false
+				},
+				{
+					"confirmation": {
+						"message": [
+							{
+								"locale": "de",
+								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+							},
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this entry?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete",
+						"theme": "filled"
+					},
+					"label": [
+						{
+							"locale": "de",
+							"text": "löschen"
+						},
+						{
+							"locale": "en",
+							"text": "delete"
+						}
+					],
+					"description": [
+						{
+							"locale": "de",
+							"text": "löschen"
+						},
+						{
+							"locale": "en",
+							"text": "delete"
+						}
+					],
+					"event": "delete",
+					"labelHidden": true,
+					"destructive": false,
+					"primary": false
+				}
+			]
+		}
+	}
+}

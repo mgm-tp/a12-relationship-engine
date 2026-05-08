@@ -1,0 +1,143 @@
+{
+	"header": {
+		"id": "Bundle-document",
+		"modelType": "document",
+		"modelVersion": "28.4.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Paket"
+			},
+			{
+				"locale": "en",
+				"text": "Bundle"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "Bundle-document",
+			"immutable": false,
+			"comment": "Bundle"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G7",
+					"name": "Properties",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F1",
+								"name": "name",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Name"
+										},
+										{
+											"locale": "en",
+											"text": "Name"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F2",
+								"name": "price",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Preis"
+										},
+										{
+											"locale": "en",
+											"text": "Price"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_d4c4b",
+								"name": "releaseDate",
+								"Field": {
+									"fieldType": {
+										"type": "DateType",
+										"DateType": {
+											"format": "yyyy-MM-dd"
+										}
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Erscheinungsdatum"
+										},
+										{
+											"locale": "en",
+											"text": "Release Date"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F3",
+								"name": "bundleDescription",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "de",
+											"text": "Beschreibung"
+										},
+										{
+											"locale": "en",
+											"text": "Description"
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"request": [
+		{
+			"id": "list-candidates-PostAddress",
+			"operation": "LIST_CANDIDATES",
+			"parameters": {
+				"source": {
+					"docRef": "BusinessPartner-document/21",
+					"role": "businessPartner",
+					"relationshipModel": "PostAddress"
+				},
+				"page": {},
+				"sort": {}
+			}
+		}
+	]
+}

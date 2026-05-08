@@ -1,0 +1,36 @@
+[
+	{
+		"jsonrpc": "2.0",
+		"method": "MODIFY_DOCUMENT",
+		"id": "modifyDocumentOperation",
+		"params": {
+			"docRef": "Category-document/23736314-3398-4920-aa4b-d7435fd6076b",
+			"document": { "Properties": { "name": "Cat 4" } },
+			"locale": "en"
+		}
+	},
+	{
+		"jsonrpc": "2.0",
+		"id": "ADDED_LINK_1",
+		"method": "ADD_LINK",
+		"params": {
+			"linkDescriptor": {
+				"relationshipModel": "CategoryCategory",
+				"entities": [
+					{
+						"role": "ParentCategory",
+						"docRef": "Category-document/23736314-3398-4920-aa4b-d7435fd6076b",
+						"modelName": "Category-document"
+					},
+					{
+						"role": "ChildCategory",
+						"docRef": "Category-document/56df1d09-b594-4f2d-a4ee-a9c6787105cb",
+						"modelName": "Category-document"
+					}
+				],
+				"predecessorLinkRef": null,
+				"position": "TOP"
+			}
+		}
+	}
+]

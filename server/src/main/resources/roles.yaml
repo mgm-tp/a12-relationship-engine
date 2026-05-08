@@ -1,0 +1,19 @@
+roles:
+  - name: anonymous
+    description: Anonymous role
+    accessRights:
+      - QUERY
+      - DOCUMENT_READ
+      - DOCUMENT_LIST
+      - DOCUMENT_EXPORT
+      - DOCUMENT_CREATE
+      - DOCUMENT_UPDATE
+      - DOCUMENT_PARTIAL_UPDATE
+      - DOCUMENT_DELETE
+      - DOCUMENT_MULTI_DELETE
+      - MODEL_READ
+      - MODEL_CREATE
+      - MODEL_UPDATE
+      - MODEL_DELETE
+      - ACCESS_ACTUATOR
+      - ATTACHMENT_UPLOAD

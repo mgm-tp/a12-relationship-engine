@@ -1,0 +1,57 @@
+{
+	"header": {
+		"id": "Brand_Product_SingleSelection_SelectedItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ProductBrand_Brand____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": false,
+			"pagingSize": 10
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-d92a5",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_F1",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		},
+		"subHeaderBox": {
+			"majorElements": [],
+			"minorElements": []
+		}
+	}
+}

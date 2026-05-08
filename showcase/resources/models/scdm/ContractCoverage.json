@@ -1,0 +1,94 @@
+{
+	"header": {
+		"id": "ContractCoverage",
+		"modelType": "relationship",
+		"modelVersion": "3.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "contract",
+				"reference": "Contract-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "coverage",
+				"reference": "Coverage-document"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"associationType": "SHARED",
+		"storage": "EXTERNAL",
+		"labels": [
+			{
+				"locale": "en"
+			},
+			{
+				"locale": "de"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": true
+					}
+				},
+				"candidateConstraints": {},
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "contract",
+				"documentModel": "Contract-document"
+			},
+			{
+				"ordered": false,
+				"navigable": true,
+				"linkConstraints": {
+					"multiplicity": {
+						"lowerLimit": 0,
+						"unbounded": false,
+						"upperLimit": 3
+					}
+				},
+				"candidateConstraints": {},
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "coverage",
+				"documentModel": "Coverage-document"
+			}
+		]
+	}
+}

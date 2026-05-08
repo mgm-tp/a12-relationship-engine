@@ -1,0 +1,165 @@
+{
+	"header": {
+		"id": "Coverage-form",
+		"modelType": "form",
+		"modelVersion": "37.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Coverage"
+			},
+			{
+				"locale": "de",
+				"text": "Deckung"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Coverage-document",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Coverage-document"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button_74235",
+						"name": "cancelButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"description": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Cancel"
+									},
+									{
+										"locale": "de",
+										"text": "Abbrechen"
+									}
+								]
+							},
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					},
+					{
+						"type": "EVENT",
+						"id": "button_5d604",
+						"name": "saveButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"description": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Save"
+									},
+									{
+										"locale": "de",
+										"text": "Speichern"
+									}
+								]
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen_2dbb2",
+				"name": "Screen 1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid_be806",
+						"name": "cg",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row_e99a9",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_5b277",
+										"elementRef": "field_08ae5"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row_512c3",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_ccffb",
+										"elementRef": "field_c7715"
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

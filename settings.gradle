@@ -1,0 +1,83 @@
+import groovy.json.JsonSlurper
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.yaml:snakeyaml:2.2"
+    }
+}
+
+dependencyResolutionManagement {
+    def springBootVersion = '3.4.1'
+    def a12Version = getA12Versions()
+    versionCatalogs {
+        gradlePluginLibs {
+            version('spring-boot', springBootVersion)
+            version('node-gradle', '7.0.1')
+            version('docker-remote-api', '9.3.7')
+            version('devtools-deployment', '0.4.8')
+            version('git-version', '3.0.0')
+            version('artifact-publish', '0.4.0-rc.1')
+
+            plugin('git-version', "com.palantir.git-version").versionRef('git-version')
+            plugin('artifact-publish', "com.mgmtp.a12.bd.artifact-publish").versionRef('artifact-publish')
+            plugin('devtools-deployment', "com.mgmtp.a12.devtools.plugins.deployment").versionRef('devtools-deployment')
+            plugin('docker-remote-api', "com.bmuschko.docker-remote-api").versionRef('docker-remote-api')
+            plugin('spring-boot', 'org.springframework.boot').versionRef('spring-boot')
+            plugin('node-gradle', 'com.github.node-gradle.node').versionRef('node-gradle')
+        }
+
+        a12Libs {
+            version('base', a12Version.base)
+            version('build-utilities', '0.1.0')
+            version('kernel', a12Version.kernel)
+            version('dataservices', a12Version.dataservices)
+
+            library('build-utilities', 'com.mgmtp.a12.devtools.plugins', 'build-utilities').versionRef('build-utilities')
+
+            library('dataservices-server-app', 'com.mgmtp.a12.dataservices', 'dataservices-server-app').versionRef('dataservices')
+            library('dataservices-server-init-app', 'com.mgmtp.a12.dataservices', 'dataservices-server-init-app').versionRef('dataservices')
+
+            library('base-bom', 'com.mgmtp.a12.base', 'base-bom').versionRef('base')
+            library('kernel-bom', 'com.mgmtp.a12.kernel', 'kernel-bom').versionRef('kernel')
+            library('dataservices-bom', 'com.mgmtp.a12.dataservices', 'dataservices-parent').versionRef('dataservices')
+        }
+
+        libs {
+            version('spring-boot', springBootVersion)
+            version('logstash','7.4')
+            version('logback-classic','1.5.6')
+
+            library('spring-boot-configuration-processor', 'org.springframework.boot', 'spring-boot-configuration-processor').versionRef('spring-boot')
+            library('spring-boot-devtools', 'org.springframework.boot', 'spring-boot-devtools').versionRef('spring-boot')
+            library('logstash', 'net.logstash.logback', 'logstash-logback-encoder').versionRef('logstash')
+            library('logback-classic', 'ch.qos.logback', 'logback-classic').versionRef('logback-classic')
+        }
+    }
+}
+
+HashMap<String, String> getA12Versions() {
+    def yaml = new org.yaml.snakeyaml.Yaml(new org.yaml.snakeyaml.LoaderOptions())
+
+    def getVersion = { String packageName ->
+        def catalogVersion = yaml.load(file("pnpm-workspace.yaml").newInputStream())["catalogs"]["a12Libs"][packageName].replaceAll(/^[~^]/, '') as String
+        def overrideVersion = new JsonSlurper().parse(file("package.json"))["pnpm"]["overrides"][packageName]?.replaceAll(/^[~^]/, '')
+
+        return overrideVersion ?: catalogVersion
+    }
+
+    return [
+            base        : getVersion('@com.mgmtp.a12.base/base-model-api'),
+            kernel      : getVersion('@com.mgmtp.a12.kernel/kernel-md-facade'),
+            dataservices: getVersion('@com.mgmtp.a12.dataservices/dataservices-access')
+    ]
+}
+gradle.ext.a12Versions = getA12Versions()
+gradle.ext.workspaces = ["core", "crud", "documentation/relationship", "documentation/crud", "services-utils", "showcase"]
+
+rootProject.name = "relationship-engine"
+
+include "server"
+include "showcase"

@@ -1,0 +1,523 @@
+{
+	"header": {
+		"annotations": [
+			{
+				"name": "comment",
+				"value": "The scene 'product-detail' uses two Form Models for heterogeneity."
+			},
+			{
+				"name": "roles",
+				"value": "admin"
+			}
+		],
+		"id": "form.appmodel",
+		"modelType": "application",
+		"modelVersion": "6.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		]
+	},
+	"content": {
+		"region": {
+			"name": "APP",
+			"layout": {
+				"name": "ApplicationFrame"
+			},
+			"subRegions": [
+				{
+					"name": "CONTENT",
+					"layout": {
+						"name": "MasterDetail"
+					}
+				}
+			]
+		},
+		"defaultRegion": ["CONTENT"],
+		"modules": [
+			{
+				"name": "relationships.form",
+				"menu": {
+					"name": "relationships.form",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Form"
+						},
+						{
+							"locale": "de",
+							"text": "Form"
+						}
+					],
+					"children": [
+						{
+							"name": "product",
+							"label": [
+								{
+									"locale": "en",
+									"text": "Product"
+								},
+								{
+									"locale": "de",
+									"text": "Produkt"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"feature": "Form",
+									"model": "Product"
+								}
+							}
+						},
+						{
+							"name": "brand",
+							"label": [
+								{
+									"locale": "en",
+									"text": "Brand"
+								},
+								{
+									"locale": "de",
+									"text": "Marke"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"feature": "Form",
+									"model": "Brand"
+								}
+							}
+						},
+						{
+							"name": "bundle",
+							"label": [
+								{
+									"locale": "en",
+									"text": "Bundle"
+								},
+								{
+									"locale": "de",
+									"text": "Paket"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"feature": "Form",
+									"model": "Bundle"
+								}
+							}
+						},
+						{
+							"name": "category",
+							"label": [
+								{
+									"locale": "en",
+									"text": "Category"
+								},
+								{
+									"locale": "de",
+									"text": "Kategorie"
+								}
+							],
+							"initialActivity": {
+								"descriptor": {
+									"section": "Relationships",
+									"feature": "Form",
+									"model": "Category"
+								}
+							}
+						}
+					]
+				},
+				"flows": [
+					{
+						"name": "Relationship Product",
+						"scenes": [
+							{
+								"name": "product-overview",
+								"description": "Entity Relationships Overview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Product"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"constraints": {
+												"type": "MasterDetail"
+											},
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Product-overview"
+												}
+											]
+										}
+									]
+								}
+							},
+							{
+								"name": "product-detail",
+								"description": "Entity Relationships Detail",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Product-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"constraints": {
+												"type": "MasterDetail",
+												"preferredWidth": 8
+											},
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Product-form"
+												},
+												{
+													"modelType": "form",
+													"name": "Bundle-form"
+												}
+											]
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"name": "Relationship Brand",
+						"scenes": [
+							{
+								"name": "brand-overview",
+								"description": "Entity Relationships Overview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Brand"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"constraints": {
+												"label": [
+													{
+														"locale": "en",
+														"text": "Brand Overview"
+													},
+													{
+														"locale": "de",
+														"text": "Brand Übersicht"
+													}
+												]
+											},
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Brand-overview"
+												}
+											]
+										}
+									]
+								}
+							},
+							{
+								"name": "brand-detail",
+								"description": "Entity Relationships Detail",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Brand-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"constraints": {
+												"type": "MasterDetail",
+												"preferredWidth": 8
+											},
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Brand-form"
+												}
+											]
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"name": "Relationship Bundle",
+						"scenes": [
+							{
+								"name": "bundle-overview",
+								"description": "Entity Relationships Overview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Bundle"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"constraints": {
+												"label": [
+													{
+														"locale": "en",
+														"text": "Bundle Overview"
+													},
+													{
+														"locale": "de",
+														"text": "Bundle Übersicht"
+													}
+												]
+											},
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Bundle-overview"
+												}
+											]
+										}
+									]
+								}
+							},
+							{
+								"name": "bundle-detail",
+								"description": "Entity Relationships Detail",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Bundle-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"constraints": {
+												"type": "MasterDetail",
+												"preferredWidth": 8
+											},
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Bundle-form"
+												}
+											]
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"name": "Relationship Category",
+						"scenes": [
+							{
+								"name": "category-overview",
+								"description": "Entity Relationships Overview",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Category"
+									},
+									{
+										"key": "instance",
+										"isSet": false
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "REGION_CLEAR"
+										},
+										{
+											"type": "VIEW_ADD",
+											"name": "ShowcaseOverview",
+											"constraints": {
+												"label": [
+													{
+														"locale": "en",
+														"text": "Category Overview"
+													},
+													{
+														"locale": "de",
+														"text": "Kategorie Übersicht"
+													}
+												]
+											},
+											"models": [
+												{
+													"modelType": "overview",
+													"name": "Category-overview"
+												}
+											]
+										}
+									]
+								}
+							},
+							{
+								"name": "category-detail",
+								"description": "Entity Relationships Detail",
+								"matchConditions": [
+									{
+										"key": "section",
+										"mustEqual": "Relationships"
+									},
+									{
+										"key": "feature",
+										"mustEqual": "Form"
+									},
+									{
+										"key": "model",
+										"mustEqual": "Category-document"
+									},
+									{
+										"key": "instance",
+										"isSet": true
+									}
+								],
+								"sceneChange": {
+									"onEnter": [
+										{
+											"type": "VIEW_ADD",
+											"name": "RelationshipFormEngine",
+											"constraints": {
+												"type": "MasterDetail",
+												"preferredWidth": 8
+											},
+											"models": [
+												{
+													"modelType": "form",
+													"name": "Category-form"
+												}
+											]
+										}
+									]
+								}
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

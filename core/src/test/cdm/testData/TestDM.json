@@ -1,0 +1,62 @@
+{
+	"header": {
+		"id": "TestDM",
+		"modelType": "document",
+		"modelVersion": "28.0.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "NewDocumentModel",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_6453f",
+					"name": "base",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_8f83d",
+								"name": "stringField",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_8aa64",
+								"name": "dateField",
+								"Field": {
+									"fieldType": {
+										"type": "DateType",
+										"DateType": {
+											"format": "yyyy-MM-dd"
+										}
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,75 @@
+{
+	"header": {
+		"id": "Product_Brand_SingleSelection_AvailableItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "38.3.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "List all brands"
+			},
+			{
+				"locale": "de",
+				"text": "Produktliste"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Brand-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": false,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		},
+		"subHeaderBox": {
+			"majorElements": [
+				{
+					"type": "filter"
+				}
+			],
+			"minorElements": []
+		},
+		"footerBox": {
+			"majorElements": [],
+			"minorElements": []
+		},
+		"columns": [
+			{
+				"id": "column-2a329",
+				"width": 1,
+				"styles": {},
+				"elementRef": "F1",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": []
+		}
+	}
+}
