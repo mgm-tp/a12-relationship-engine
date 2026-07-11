@@ -1,0 +1,1309 @@
+{
+	"header": {
+		"id": "ContractCDM-form",
+		"modelType": "form",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Simple CDM Prototype"
+			},
+			{
+				"locale": "de",
+				"text": "Simple CDM Prototyp"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"details\":{\"name\":\"detached-repeat-r_coInsurer\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CoInsurer\",\"targetRole\":\"businessPartner\",\"modificationConfiguration\":{\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"unused\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"buttonLabels\":{\"add\":[{\"locale\":\"en\",\"text\":\"Add CoInsurer\"},{\"locale\":\"de\",\"text\":\"Mitversicherten hinzufügen\"}],\"edit\":[{\"locale\":\"en\",\"text\":\"Edit CoInsurer\"},{\"locale\":\"de\",\"text\":\"Mitversicherten bearbeiten\"}]}},\"models\":[{\"name\":\"CoInsurerLinks-overview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"BusinessPartner_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"CoInsurerLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-53225\"},{\"details\":{\"name\":\"coInsured-postalAddress-select\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"customscreenelement_e968c\"},{\"details\":{\"name\":\"detached-repeat-r_location\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-bdba7\"},{\"details\":{\"name\":\"binding-ContractClaim\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ContractClaim\",\"targetRole\":\"claim\",\"components\":[{\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"buttonLabels\":{\"add\":[{\"locale\":\"en\",\"text\":\"New\"},{\"locale\":\"de\",\"text\":\"New\"}],\"edit\":[{\"locale\":\"en\",\"text\":\"Modify List\"},{\"locale\":\"de\",\"text\":\"Modify List\"}]}},\"models\":[{\"name\":\"ContractClaim_claim_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"ContractClaim_claim_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ContractClaim_claim_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat_7ab01\"},{\"details\":{\"name\":\"binding-ClaimLocation\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ClaimLocation\",\"targetRole\":\"location\",\"components\":[{\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"ClaimLocation_location_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"ClaimLocation_location_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat_c5080\"},{\"details\":{\"name\":\"ContractCoverage_Binding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ContractCoverage\",\"targetRole\":\"coverage\",\"modificationConfiguration\":{\"extendParentActivityDescriptor\":true},\"components\":[{\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"ContractCoverage_coverage_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"ContractCoverage_coverage_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ContractCoverage_coverage_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat_576fc\"},{\"type\":\"relationship\",\"details\":{\"name\":\"policy-holder-selection\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PolicyHolder\",\"targetRole\":\"businessPartner\",\"modificationConfiguration\":{\"addButtonLabel\":[{\"locale\":\"en\",\"text\":\"Add Policy Holder\"},{\"locale\":\"de\",\"text\":\"Versicherungsnehmer hinzufügen\"}],\"editButtonLabel\":[{\"locale\":\"en\",\"text\":\"Edit Policy Holder\"},{\"locale\":\"de\",\"text\":\"Versicherungsnehmer bearbeiten\"}],\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"candidatePageSize\":2,\"models\":[{\"name\":\"BusinessPartner_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"PolicyHolderLinks-overview\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_4a7bd\"},{\"type\":\"relationship\",\"details\":{\"name\":\"postal-address-selection\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_4bec2\"},{\"details\":{\"name\":\"detached-repeat-r_location\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"candidatePageSize\":4,\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-004cb\"}]"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "ContractCDM",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "ContractCDM"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "CoInsurerLinks-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Address-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "PostAddressLinks-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "LocationLinks-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "PolicyHolderLinks-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "ContractClaim_claim_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "ContractClaim_claim_AvailableItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "ClaimLocation_location_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "ContractCoverage_coverage_SelectedItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "ContractCoverage_coverage_AvailableItemsOverview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "BusinessPartner_AvailableItemsOverview"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "NAVIGATION",
+						"id": "button-d93c1",
+						"name": "contract-navigation",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Contract"
+										},
+										{
+											"locale": "de",
+											"text": "Vertag"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen1",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "NAVIGATION",
+						"id": "button-b29a3",
+						"name": "policy-holder-navigation",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Policy Holder"
+										},
+										{
+											"locale": "de",
+											"text": "Policeninhaber"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen-32bbf",
+						"scope": "ALWAYS"
+					}
+				]
+			}
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"minorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-000c9",
+						"name": "validate",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Validate"
+										},
+										{
+											"locale": "de",
+											"text": "Validieren"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"event": "validate",
+						"validation": "full",
+						"scope": "ALWAYS"
+					}
+				]
+			},
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-e6800",
+						"name": "cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-a287b",
+						"name": "submit",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Submit"
+										},
+										{
+											"locale": "de",
+											"text": "Absenden"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY",
+							"destructive": true
+						},
+						"event": "event_submit",
+						"validation": "full",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-ba53c",
+						"name": "save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "CRUD::SAVE",
+						"validation": "full",
+						"scope": "ALWAYS"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "contract",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "Contract"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-4d281",
+						"name": "contract-grid",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-2ae6e",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-a3a6c",
+										"elementRef": "include_ebe85_field_0beef"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-73b30",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-4c08b",
+										"elementRef": "field_8e03f"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row_0e6a1",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control_882d4",
+										"elementRef": "include_ebe85_field_6d25e"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "ButtonPanel",
+						"id": "buttonpanel-e28c5",
+						"name": "policy-holder-actions",
+						"button": [
+							{
+								"type": "NAVIGATION",
+								"id": "button-d37eb",
+								"name": "edit-policy-holder",
+								"buttonStyling": {
+									"label": {
+										"type": "Multilingual",
+										"multilingualText": {
+											"text": [
+												{
+													"locale": "en",
+													"text": "Edit Policy Holder"
+												},
+												{
+													"locale": "de",
+													"text": "Edit Policeninhaber"
+												}
+											]
+										}
+									},
+									"priority": "SECONDARY"
+								},
+								"target": "screen-32bbf",
+								"scope": "HIDDEN_IN_READONLY_MODE"
+							}
+						]
+					},
+					{
+						"type": "Section",
+						"id": "section_488",
+						"name": "secCoInsurer",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Co-Insured"
+									},
+									{
+										"locale": "de",
+										"text": "Mitversicherte"
+									}
+								]
+							}
+						},
+						"screenElements": [
+							{
+								"type": "ControlGrid",
+								"id": "controlgrid_240ae",
+								"name": "cgCoInsurer",
+								"layout": {
+									"lg": "4-4-4"
+								},
+								"row": [
+									{
+										"type": "Row",
+										"id": "row_a3327",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control_4bfd7",
+												"elementRef": "field_799fd"
+											},
+											{
+												"type": "Control",
+												"id": "control_1fdd1",
+												"elementRef": "field_5dc7a"
+											}
+										]
+									}
+								]
+							},
+							{
+								"type": "DetachedRepeat",
+								"id": "detachedrepeat-53225",
+								"name": "detached-repeat-r_coInsurer",
+								"title": {
+									"type": "Multilingual",
+									"multilingualText": {
+										"text": [
+											{
+												"locale": "en",
+												"text": "Co-Insured"
+											},
+											{
+												"locale": "de",
+												"text": "Mitversicherte"
+											}
+										]
+									}
+								},
+								"hideCondition": {
+									"masterField": "field_5dc7a",
+									"cases": [
+										{
+											"masterValue": "true"
+										}
+									]
+								},
+								"groupRef": "group_051b0",
+								"enableAdd": true,
+								"enableRemove": true,
+								"enableReorder": false,
+								"enableCopy": false,
+								"detailScreen": {
+									"id": "screen-90dbb",
+									"name": "detached-repeat-r_coInsurer-detail-screen",
+									"screenElements": [
+										{
+											"type": "ControlGrid",
+											"id": "controlgrid-9cbf9",
+											"name": "cg",
+											"layout": {
+												"lg": "3-3-3-3"
+											},
+											"row": [
+												{
+													"type": "Row",
+													"id": "row-30902",
+													"title": {
+														"type": "Multilingual",
+														"multilingualText": {
+															"text": [
+																{
+																	"locale": "en",
+																	"text": "Name"
+																},
+																{
+																	"locale": "de",
+																	"text": "Name"
+																}
+															]
+														}
+													},
+													"cell": [
+														{
+															"type": "Control",
+															"id": "control-b7ffe",
+															"elementRef": "include_c2e67_field_4e3fe"
+														},
+														{
+															"type": "Control",
+															"id": "control-748ff",
+															"datePickerConfig": {
+																"absolute": false,
+																"preselectionYear": 0
+															},
+															"elementRef": "include_0fc69_field_de37b"
+														}
+													]
+												}
+											],
+											"verticalAlignment": "TOP"
+										},
+										{
+											"type": "CustomScreenElement",
+											"id": "customscreenelement_e968c",
+											"name": "coInsured-postalAddress-select",
+											"title": {
+												"type": "Multilingual",
+												"multilingualText": {
+													"text": [
+														{
+															"locale": "en",
+															"text": "coInsured-postalAddress-select"
+														},
+														{
+															"locale": "de",
+															"text": "coInsured-postalAddress-select"
+														}
+													]
+												}
+											}
+										},
+										{
+											"type": "ControlGrid",
+											"id": "controlgrid-0aafa",
+											"name": "cg-coinsured-postal-address",
+											"layout": {
+												"lg": "3-3-3-3"
+											},
+											"row": [
+												{
+													"type": "Row",
+													"id": "row-19fb3",
+													"cell": [
+														{
+															"type": "Control",
+															"id": "control-6f620",
+															"readonly": true,
+															"elementRef": "include_edd92_field_dbbc9"
+														},
+														{
+															"type": "Control",
+															"id": "control-ee11e",
+															"readonly": true,
+															"elementRef": "include_edd92_field_90cd2"
+														},
+														{
+															"type": "Control",
+															"id": "control-22a62",
+															"readonly": true,
+															"elementRef": "include_edd92_field_2fc9a"
+														},
+														{
+															"type": "Control",
+															"id": "control-38ed5",
+															"readonly": true,
+															"elementRef": "include_edd92_field_e9abb"
+														}
+													]
+												}
+											],
+											"verticalAlignment": "TOP"
+										},
+										{
+											"type": "DetachedRepeat",
+											"id": "detachedrepeat-bdba7",
+											"name": "detached-repeat-r_location",
+											"title": {
+												"type": "Multilingual",
+												"multilingualText": {
+													"text": [
+														{
+															"locale": "en",
+															"text": "Locations"
+														},
+														{
+															"locale": "de",
+															"text": "Adressen"
+														}
+													]
+												}
+											},
+											"groupRef": "group_8f138",
+											"enableAdd": true,
+											"enableRemove": true,
+											"enableReorder": false,
+											"enableCopy": false,
+											"detailScreen": {
+												"id": "screen-d5a50",
+												"name": "detached-repeat-r_location-detail-screen",
+												"screenElements": [
+													{
+														"type": "ControlGrid",
+														"id": "controlgrid-c7e50",
+														"name": "cg",
+														"title": {
+															"type": "Multilingual",
+															"multilingualText": {
+																"text": [
+																	{
+																		"locale": "en",
+																		"text": "Locations"
+																	},
+																	{
+																		"locale": "de",
+																		"text": "Adressen"
+																	}
+																]
+															}
+														},
+														"layout": {
+															"lg": "3-3-3-3"
+														},
+														"row": [
+															{
+																"type": "Row",
+																"id": "row-1d263",
+																"cell": [
+																	{
+																		"type": "Control",
+																		"id": "control-18fb7",
+																		"elementRef": "include_8e65f_field_2fc9a"
+																	},
+																	{
+																		"type": "Control",
+																		"id": "control-59c54",
+																		"elementRef": "include_8e65f_field_e9abb"
+																	},
+																	{
+																		"type": "Control",
+																		"id": "control-006e9",
+																		"elementRef": "include_8e65f_field_90cd2"
+																	},
+																	{
+																		"type": "Control",
+																		"id": "control-b65d7",
+																		"elementRef": "include_8e65f_field_dbbc9"
+																	}
+																]
+															}
+														],
+														"verticalAlignment": "TOP"
+													}
+												]
+											}
+										},
+										{
+											"type": "InlineRepeat",
+											"id": "inlinerepeat-69386",
+											"name": "inline-repeat-notes",
+											"title": {
+												"type": "Multilingual",
+												"multilingualText": {
+													"text": [
+														{
+															"locale": "en",
+															"text": "Notes"
+														},
+														{
+															"locale": "de",
+															"text": "Notizen"
+														}
+													]
+												}
+											},
+											"repeatOverviewColumn": [
+												{
+													"type": "FieldBasedRepeatOverviewColumn",
+													"id": "fieldbasedrepeatoverviewcolumn-eddde",
+													"width": 0.3,
+													"sortable": false,
+													"filterable": false,
+													"preferredSorting": "ASC",
+													"datePickerConfig": {
+														"absolute": false,
+														"preselectionYear": 0
+													},
+													"elementRef": "include_c2e67_field_37c52"
+												},
+												{
+													"type": "FieldBasedRepeatOverviewColumn",
+													"id": "fieldbasedrepeatoverviewcolumn-5b773",
+													"width": 1,
+													"sortable": false,
+													"filterable": false,
+													"preferredSorting": "ASC",
+													"elementRef": "include_c2e67_field_998c7"
+												}
+											],
+											"groupRef": "include_c2e67_group_f46c7",
+											"enableAdd": true,
+											"enableRemove": true,
+											"enableReorder": false,
+											"enableCopy": false
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"type": "Section",
+						"id": "section_bd906",
+						"name": "secClaim",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Claims"
+									},
+									{
+										"locale": "de",
+										"text": "Ansprüche"
+									}
+								]
+							}
+						},
+						"screenElements": [
+							{
+								"type": "DetachedRepeat",
+								"id": "detachedrepeat_7ab01",
+								"name": "binding-ContractClaim",
+								"groupRef": "group_74395",
+								"enableAdd": true,
+								"detailScreen": {
+									"id": "screen_0d345",
+									"name": "binding-ContractClaim-detail-screen",
+									"screenElements": [
+										{
+											"type": "ControlGrid",
+											"id": "controlgrid_1b952",
+											"name": "cgClaim",
+											"layout": {
+												"lg": "6-6"
+											},
+											"row": [
+												{
+													"type": "Row",
+													"id": "row_61e2a",
+													"cell": [
+														{
+															"type": "Control",
+															"id": "control_edcbf",
+															"span": {
+																"lg": 2
+															},
+															"elementRef": "include_e29f0_field_3dddf"
+														}
+													]
+												},
+												{
+													"type": "Row",
+													"id": "row_297e4",
+													"cell": [
+														{
+															"type": "Control",
+															"id": "control_7571c",
+															"elementRef": "field_33d20"
+														}
+													]
+												},
+												{
+													"type": "Row",
+													"id": "row_38b02",
+													"cell": [
+														{
+															"type": "Control",
+															"id": "control_e32dd",
+															"elementRef": "include_e29f0_field_ca9bf"
+														},
+														{
+															"type": "Control",
+															"id": "control_0558f",
+															"elementRef": "include_e29f0_field_c0084"
+														}
+													]
+												}
+											],
+											"verticalAlignment": "MIDDLE"
+										},
+										{
+											"type": "InlineRepeat",
+											"id": "inlinerepeat_f64c0",
+											"name": "repeat-attachments",
+											"title": {
+												"type": "Multilingual",
+												"multilingualText": {
+													"text": [
+														{
+															"locale": "en",
+															"text": "Attachments"
+														},
+														{
+															"locale": "de",
+															"text": "Anhänge"
+														}
+													]
+												}
+											},
+											"repeatOverviewColumn": [
+												{
+													"type": "FieldBasedRepeatOverviewColumn",
+													"id": "fieldbasedrepeatoverviewcolumn_1b862",
+													"label": {
+														"type": "Multilingual",
+														"multilingualText": {
+															"text": [
+																{
+																	"locale": "en",
+																	"text": "Attachment"
+																},
+																{
+																	"locale": "de",
+																	"text": "Anhang"
+																}
+															]
+														}
+													},
+													"width": 1,
+													"elementRef": "include_e29f0_group_543b6"
+												}
+											],
+											"groupRef": "include_e29f0_group_dbeda",
+											"enableAdd": false,
+											"enableRemove": true,
+											"enableReorder": true,
+											"enableCopy": true,
+											"multiFileUpload": true,
+											"multiFileUploadOptions": {
+												"elementRef": "include_e29f0_group_543b6",
+												"enableDownload": true
+											}
+										},
+										{
+											"type": "Section",
+											"id": "section_42a38",
+											"name": "secClaimLocation",
+											"title": {
+												"type": "Multilingual",
+												"multilingualText": {
+													"text": [
+														{
+															"locale": "en",
+															"text": "claim incident locations"
+														},
+														{
+															"locale": "de",
+															"text": "Schadensorte"
+														}
+													]
+												}
+											},
+											"screenElements": [
+												{
+													"type": "DetachedRepeat",
+													"id": "detachedrepeat_c5080",
+													"name": "binding-ClaimLocation",
+													"groupRef": "group_c0ae9",
+													"enableAdd": true,
+													"detailScreen": {
+														"id": "screen_d5b56",
+														"name": "binding-ClaimLocation-detail-screen",
+														"screenElements": [
+															{
+																"type": "ControlGrid",
+																"id": "controlgrid_68670",
+																"name": "cgLocation",
+																"layout": {
+																	"lg": "3-3-3-3"
+																},
+																"row": [
+																	{
+																		"type": "Row",
+																		"id": "row_367e3",
+																		"cell": [
+																			{
+																				"type": "Control",
+																				"id": "control_ce8e2",
+																				"elementRef": "include_cde67_field_dbbc9"
+																			},
+																			{
+																				"type": "Control",
+																				"id": "control_8b1fb",
+																				"elementRef": "include_cde67_field_90cd2"
+																			},
+																			{
+																				"type": "Control",
+																				"id": "control_8b7ad",
+																				"elementRef": "include_cde67_field_2fc9a"
+																			},
+																			{
+																				"type": "Control",
+																				"id": "control_785ad",
+																				"elementRef": "include_cde67_field_e9abb"
+																			}
+																		]
+																	},
+																	{
+																		"type": "Row",
+																		"id": "row_e116d",
+																		"cell": [
+																			{
+																				"type": "Control",
+																				"id": "control_8fb90",
+																				"elementRef": "include_cde67_group_ecbda"
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												}
+											]
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"type": "Section",
+						"id": "section_a8944",
+						"name": "secCoverage",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Coverage"
+									},
+									{
+										"locale": "de",
+										"text": "Deckung"
+									}
+								]
+							}
+						},
+						"screenElements": [
+							{
+								"type": "DetachedRepeat",
+								"id": "detachedrepeat_576fc",
+								"name": "ContractCoverage_Binding",
+								"groupRef": "group_5bfba",
+								"enableAdd": true,
+								"detailScreen": {
+									"id": "screen_f3208",
+									"name": "Details",
+									"screenElements": []
+								}
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "screen-32bbf",
+				"name": "policy-holder",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "Policy Holder"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "CustomScreenElement",
+						"id": "customscreenelement_4a7bd",
+						"name": "policy-holder-selection",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "policy-holder-selection"
+									},
+									{
+										"locale": "de",
+										"text": "policy-holder-selection"
+									}
+								]
+							}
+						}
+					},
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-7e89a",
+						"name": "policy-holder-grid",
+						"layout": {
+							"lg": "3-9"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-5eb2c",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-56938",
+										"readonly": true,
+										"elementRef": "include_1b2a0_field_6268b"
+									},
+									{
+										"type": "Control",
+										"id": "control-622db",
+										"readonly": true,
+										"elementRef": "include_1b2a0_field_4e3fe"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-fb87e",
+								"name": "row2",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-0783d",
+										"label": {
+											"type": "Multilingual",
+											"multilingualText": {
+												"text": [
+													{
+														"locale": "en",
+														"text": "Logo"
+													},
+													{
+														"locale": "de",
+														"text": "Logo"
+													}
+												]
+											}
+										},
+										"elementRef": "include_1b2a0_group_d1772"
+									},
+									{
+										"type": "ExpressionCell",
+										"id": "expressioncell_69784",
+										"name": "Info",
+										"expression": "kontext(PolicyHolder) {\n    kontext(Location) {\n                        \"\n\n-   \"\n        kontext(address) {\n            \"Country: \" [country] \", City \" [city]\n        }\n    }\n}"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "customscreenelement_4bec2",
+						"name": "postal-address-selection",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "postal-address-selection"
+									},
+									{
+										"locale": "de",
+										"text": "postal-address-selection"
+									}
+								]
+							}
+						}
+					},
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-b1bce",
+						"name": "postal-address-grid",
+						"layout": {
+							"lg": "3-3-3-3"
+						},
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-bae80",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-79875",
+										"readonly": true,
+										"elementRef": "include_6ad2a_field_dbbc9"
+									},
+									{
+										"type": "Control",
+										"id": "control-b6a84",
+										"readonly": true,
+										"elementRef": "include_6ad2a_field_90cd2"
+									},
+									{
+										"type": "Control",
+										"id": "control-32e82",
+										"readonly": true,
+										"elementRef": "include_6ad2a_field_2fc9a"
+									},
+									{
+										"type": "Control",
+										"id": "control-3ed5e",
+										"readonly": true,
+										"elementRef": "include_6ad2a_field_e9abb"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "DetachedRepeat",
+						"id": "detachedrepeat-004cb",
+						"name": "detached-repeat-r_location",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Locations"
+									},
+									{
+										"locale": "de",
+										"text": "Adressen"
+									}
+								]
+							}
+						},
+						"groupRef": "group_05abe",
+						"enableAdd": false,
+						"enableRemove": true,
+						"enableReorder": false,
+						"enableCopy": false,
+						"detailScreen": {
+							"id": "screen-bf9a5",
+							"name": "detached-repeat-r_location-detail-screen",
+							"screenElements": [
+								{
+									"type": "ControlGrid",
+									"id": "controlgrid-1dea0",
+									"name": "cg",
+									"layout": {
+										"lg": "3-3-3-3"
+									},
+									"row": [
+										{
+											"type": "Row",
+											"id": "row-7ea6d",
+											"cell": [
+												{
+													"type": "Control",
+													"id": "control-c1648",
+													"elementRef": "include_8202a_field_2fc9a"
+												},
+												{
+													"type": "Control",
+													"id": "control-0d187",
+													"elementRef": "include_8202a_field_e9abb"
+												},
+												{
+													"type": "Control",
+													"id": "control-030f5",
+													"elementRef": "include_8202a_field_90cd2"
+												},
+												{
+													"type": "Control",
+													"id": "control-0b0e8",
+													"elementRef": "include_8202a_field_dbbc9"
+												}
+											]
+										}
+									],
+									"verticalAlignment": "TOP"
+								}
+							]
+						}
+					},
+					{
+						"type": "InlineRepeat",
+						"id": "inlinerepeat-7fe15",
+						"name": "inline-repeat-notes",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "Notes"
+									},
+									{
+										"locale": "de",
+										"text": "Notizen"
+									}
+								]
+							}
+						},
+						"repeatOverviewColumn": [
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-925a2",
+								"width": 0.3,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"datePickerConfig": {
+									"absolute": false,
+									"preselectionYear": 0
+								},
+								"elementRef": "include_1b2a0_field_37c52"
+							},
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-05edf",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "include_1b2a0_field_998c7"
+							}
+						],
+						"groupRef": "include_1b2a0_group_f46c7",
+						"enableAdd": true,
+						"enableRemove": true,
+						"enableReorder": false,
+						"enableCopy": false
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {
+			"field": [
+				{
+					"suffix": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "EUR"
+							},
+							{
+								"locale": "de",
+								"text": "EUR"
+							}
+						]
+					},
+					"initialValue": "1000.00",
+					"elementRef": "include_ebe85_field_6d25e"
+				},
+				{
+					"dependentField": {
+						"masterField": "include_e29f0_field_ca9bf",
+						"case": [
+							{
+								"masterValue": null,
+								"notRelevant": true
+							}
+						]
+					},
+					"elementRef": "include_e29f0_field_c0084"
+				}
+			]
+		},
+		"groupConfiguration": {
+			"group": [
+				{
+					"dependentGroup": {
+						"masterField": "field_a09a6",
+						"case": [
+							{
+								"masterValue": "false",
+								"notRelevant": true
+							}
+						]
+					},
+					"groupRef": "include_6ad2a"
+				},
+				{
+					"dependentGroup": {
+						"masterField": "field_62859",
+						"case": [
+							{
+								"masterValue": "false",
+								"readonly": true
+							}
+						]
+					},
+					"groupRef": "include_1b2a0_group_d1772"
+				},
+				{
+					"dependentGroup": {
+						"masterField": "field_62859",
+						"case": [
+							{
+								"masterValue": "false",
+								"readonly": true
+							}
+						]
+					},
+					"groupRef": "include_1b2a0_group_f46c7"
+				},
+				{
+					"dependentGroup": {
+						"masterField": "field_799fd",
+						"case": [
+							{
+								"masterValue": "true",
+								"notRelevant": true
+							}
+						]
+					},
+					"groupRef": "group_051b0"
+				}
+			]
+		},
+		"defaults": {}
+	}
+}

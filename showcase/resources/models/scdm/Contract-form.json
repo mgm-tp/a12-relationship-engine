@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Contract-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "bindingConfiguration",
 				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"PolicyHolderBinding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PolicyHolder\",\"targetRole\":\"businessPartner\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"BusinessPartner_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"PolicyHolderLinks-overview\",\"use\":\"link\"}]}]},\"elementId\":\"section-1b282\"},{\"type\":\"relationship\",\"details\":{\"name\":\"CoInsurerBinding_DualPane\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CoInsurer\",\"targetRole\":\"businessPartner\",\"components\":[{\"id\":\"-1\",\"name\":\"DualPaneSelection\",\"props\":{\"availableItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Available Items\"},{\"locale\":\"de\",\"text\":\"Verfügbare Elemente\"}]},\"selectedItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Selected items\"},{\"locale\":\"de\",\"text\":\"Ausgewählte Elemente\"}]}},\"models\":[{\"name\":\"BusinessPartner_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"CoInsurerLinks-overview\",\"use\":\"link\"},{\"name\":\"CoInsurer-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"binding_909e2\"},{\"type\":\"relationship\",\"details\":{\"name\":\"CoInsurerBinding_TableList\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CoInsurer\",\"targetRole\":\"businessPartner\",\"components\":[{\"id\":\"-1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"CoInsurerLinks-overview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"props\":{\"availableItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Available Items\"},{\"locale\":\"de\",\"text\":\"Verfügbare Elemente\"}]},\"selectedItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Selected items\"},{\"locale\":\"de\",\"text\":\"Ausgewählte Elemente\"}]}},\"models\":[{\"name\":\"BusinessPartner_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"CoInsurerLinks-overview\",\"use\":\"link\"},{\"name\":\"CoInsurer-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"section-a5f52\"}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
@@ -57,6 +53,21 @@
 				"modelType": "overview",
 				"purpose": "bindingReference",
 				"reference": "BusinessPartner_AvailableItemsOverview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Contract-form-binding-PolicyHolderBinding_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Contract-form-binding-CoInsurerBinding-DualPane_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Contract-form-binding-CoInsurerBinding-TableList_RuM"
 			}
 		]
 	},
@@ -236,21 +247,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-1b282",
 						"name": "PolicyHolderBinding",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "PolicyHolderBinding"
-									},
-									{
-										"locale": "de",
-										"text": "PolicyHolderBinding"
-									}
-								]
-							}
-						}
+						"reference": "Contract-form-binding-PolicyHolderBinding_RuM"
 					}
 				]
 			},
@@ -321,21 +318,6 @@
 						"type": "CustomScreenElement",
 						"id": "binding_909e2",
 						"name": "CoInsurerBinding_DualPane",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "CoInsurerBinding_DualPane"
-									},
-									{
-										"locale": "de",
-										"text": "CoInsurerBinding_DualPane"
-									}
-								]
-							}
-						},
 						"hideCondition": {
 							"masterField": "field_f87fe",
 							"cases": [
@@ -343,7 +325,8 @@
 									"masterValue": "true"
 								}
 							]
-						}
+						},
+						"reference": "Contract-form-binding-CoInsurerBinding-DualPane_RuM"
 					}
 				]
 			},
@@ -366,21 +349,6 @@
 						"type": "CustomScreenElement",
 						"id": "section-a5f52",
 						"name": "CoInsurerBinding_TableList",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "CoInsurerBinding_TableList"
-									},
-									{
-										"locale": "de",
-										"text": "CoInsurerBinding_TableList"
-									}
-								]
-							}
-						},
 						"hideCondition": {
 							"masterField": "field_f87fe",
 							"cases": [
@@ -388,7 +356,8 @@
 									"masterValue": "true"
 								}
 							]
-						}
+						},
+						"reference": "Contract-form-binding-CoInsurerBinding-TableList_RuM"
 					}
 				]
 			}

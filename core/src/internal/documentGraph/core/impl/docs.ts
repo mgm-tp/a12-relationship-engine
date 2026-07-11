@@ -35,13 +35,12 @@
  * @module documentGraph/core
  * @experimental
  */
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertCondition, assertObject } from "../../../shared/assertion.js";
-
-import { type DocumentGraph } from "../documentGraph.js";
-import { type DgChange } from "../slices.js";
-import { type DeepReadonly, type DocRef } from "../utilityTypes.js";
+import type { DgChange } from "../slices.js";
+import type { DocumentGraph } from "../documentGraph.js";
+import type { DocRef, DeepReadonly } from "../utilityTypes.js";
+import { assertObject, assertCondition } from "../../../shared/assertion.js";
 
 export function addDocument(
 	document: GroupInstance,
@@ -54,6 +53,7 @@ export function addDocument(
 		kind: "docAdded",
 		docRef
 	};
+
 	return [newDg, [change]];
 }
 
@@ -70,6 +70,7 @@ export function changeDocument(
 		kind: "docChanged",
 		docRef
 	};
+
 	return [newDg, [change]];
 }
 

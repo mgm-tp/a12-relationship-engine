@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type Model } from "@com.mgmtp.a12.client/client-core";
+import type { Model } from "@com.mgmtp.a12.client/client-core";
 
 import { Relationship } from "../../../../internal/relationship/index.js";
 

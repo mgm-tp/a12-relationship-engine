@@ -36,7 +36,7 @@
  * @experimental
  */
 
-import { initializeKeys } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+import { initializeKeys } from "@com.mgmtp.a12.utils/utils-localization";
 
 /**
  * Resource keys for usage with the A12 localization API.

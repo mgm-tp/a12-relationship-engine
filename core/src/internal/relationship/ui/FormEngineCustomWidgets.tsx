@@ -35,31 +35,29 @@
  * @module relationship
  */
 
-import React, { useContext, useRef } from "react";
 import { useSelector } from "react-redux";
+import React, { useRef, useContext } from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { ActivitySelectors, ViewViews } from "@com.mgmtp.a12.client/client-core";
-import {
-	ModelSelectors,
-	UiStateSelectors,
-	type FormModel,
-	FormModelPath,
-	DefaultFormModelMap,
-	Enablements,
-	type FormModelMap
-} from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/facade.js";
 import { addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import { ViewViews, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
+import { type DocumentModel, DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import {
+	Enablements,
+	FormModelPath,
+	ModelSelectors,
+	type FormModel,
+	UiStateSelectors,
+	type FormModelMap,
+	DefaultFormModelMap
+} from "@com.mgmtp.a12.formengine/formengine-core";
 
-import { CddSelectors } from "../../cdm/cdd/redux/index.js";
-import { isRelationshipGroup } from "../../cdm/cdmCommons/relationshipGroup.js";
-import { getBindingConfiguration } from "../../shared/BindingConfiguration.js";
-
-import { type Relationship } from "../relationship.js";
+import type { RelationshipViews } from "../views.js";
+import type { Relationship } from "../relationship.js";
 import { RelationshipSelectors } from "../selectors.js";
-import { type RelationshipViews } from "../views.js";
+import { CddSelectors } from "../../cdm/cdd/redux/index.js";
+import { getBindingConfiguration } from "../../shared/BindingConfiguration.js";
+import { isRelationshipGroup } from "../../cdm/cdmCommons/relationshipGroup.js";
 
 import RelationshipEngineConnected, { DOCUMENT_GRAPH_ADAPTERS } from "./engine/RelationshipEngine.js";
 
@@ -110,8 +108,10 @@ export function createRelationshipFormModelMap(
  */
 export function useIsBoundModelElement(modelElementId: string): boolean {
 	const { activityId } = useContext(ViewViews.ActivityContext) ?? {};
+
 	return useSelector(
-		(state) => !!activityId && RelationshipSelectors.boundModelElement(state, activityId, modelElementId) !== undefined
+		(state: object) =>
+			!!activityId && RelationshipSelectors.boundModelElement(state, activityId, modelElementId) !== undefined
 	);
 }
 
@@ -122,10 +122,12 @@ export function useIsBoundModelElement(modelElementId: string): boolean {
  * of the previous render is used to prevent flickering in the UI.
  */
 function useBinding(modelElementId: string, activityId: string): Relationship.UiConfigurationBinding | undefined {
-	const binding = useSelector((state) => RelationshipSelectors.boundModelElement(state, activityId, modelElementId));
+	const binding = useSelector((state: object) =>
+		RelationshipSelectors.boundModelElement(state, activityId, modelElementId)
+	);
 	const bindingRef = useRef(binding);
 
-	const exists = useSelector((s) => ActivitySelectors.activityById(activityId)(s) !== undefined);
+	const exists = useSelector((s: object) => ActivitySelectors.activityById(activityId)(s) !== undefined);
 
 	return exists ? binding : bindingRef.current;
 }
@@ -141,7 +143,7 @@ function CustomScreenElement(
 
 	const formModel = ModelSelectors.formModel()(renderOptions.state);
 	const binding = useBinding(modelElement.id, activityId ?? "");
-	const isCddActivity = useSelector((state) => CddSelectors.isCddActivity(state, activityId ?? ""));
+	const isCddActivity = useSelector((state: object) => CddSelectors.isCddActivity(state, activityId ?? ""));
 
 	const dataContext = UiStateSelectors.currentScreenLocation()(renderOptions.state).path;
 	const isHidden = Enablements.isHidden({ state: renderOptions.state, formModelElement: modelElement, dataContext });
@@ -294,6 +296,7 @@ function CustomDetachedRepeat(
 			/>
 		);
 	}
+
 	return <DefaultFormModelMap.DetachedRepeat.component {...props} />;
 }
 
@@ -307,6 +310,7 @@ function findDocumentModelElement(path: ModelPath, documentModel: DocumentModel)
 	if (element === undefined) {
 		throw new Error("Can not find the document element with path: " + path.join("."));
 	}
+
 	return element;
 }
 

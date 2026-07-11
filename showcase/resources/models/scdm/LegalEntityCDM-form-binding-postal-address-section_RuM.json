@@ -1,0 +1,62 @@
+{
+	"header": {
+		"id": "LegalEntityCDM-form-binding-postal-address-section_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItemsQuery",
+				"modelType": "query",
+				"reference": "LegalEntityCDM-form-binding-postal-address-section-available-query"
+			},
+			{
+				"purpose": "selectedItemQuery",
+				"modelType": "query",
+				"reference": "LegalEntityCDM-form-binding-postal-address-section-selected-query"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Postal Address"
+			},
+			{
+				"locale": "de",
+				"text": "Postanschrift"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "PostAddress",
+		"targetRole": "address",
+		"component": {
+			"buttons": [
+				{
+					"event": "event_add_document",
+					"icon": {
+						"name": "add"
+					},
+					"labelHidden": true,
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add Postal Address"
+						},
+						{
+							"locale": "de",
+							"text": "Postanschrift hinzufügen"
+						}
+					]
+				}
+			],
+			"componentType": "DropDownSelection",
+			"availableItemsQueryModel": "LegalEntityCDM-form-binding-postal-address-section-available-query",
+			"selectedItemQueryModel": "LegalEntityCDM-form-binding-postal-address-section-selected-query",
+			"elementRef": "field_2fc9a"
+		},
+		"modificationConfiguration": {
+			"extendParentActivityDescriptor": true
+		}
+	}
+}

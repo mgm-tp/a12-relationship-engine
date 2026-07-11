@@ -1,0 +1,36 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#dbeafe","primaryTextColor":"#1e3a5f","primaryBorderColor":"#3b82f6","lineColor":"#64748b","secondaryColor":"#dcfce7","tertiaryColor":"#fef9c3"}}}%%
+flowchart TB
+    subgraph fmm["FormModelMap Overrides"]
+        direction TB
+        SCR["Screen"]
+        CSE["CustomScreenElement"]
+        DR["DetachRepeat"]
+    end
+
+    fmm --> TL["<b>TableList</b>\nselected items and edit dialog"]
+    fmm --> DP["<b>DualPane</b>\navailable and selected items"]
+    fmm --> DD["<b>DropDown</b>"]
+
+    TL & DP -->|render| OE["<b>Overview Engine</b>"]
+
+    DD -->|render| AT["<b>Autocomplete Widget</b>"]
+
+    TL -.->|on edit| DP
+
+    DP & DD -.->|on edit| LF["<b>Link Form Engine</b>\nowned activity via DynamicConfiguration"]
+
+    LF -->|render| FE["<b>Form Engine</b>"]
+
+    classDef hubNode fill:#1d4ed8,stroke:#1e40af,color:#ffffff
+    classDef fmmNode fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+    classDef compMapNode fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+
+    class CSE,DR hubNode
+    class SCR fmmNode
+    class DP,TL,DD compMapNode
+
+    style fmm fill:#eff6ff,stroke:#3b82f6,color:#1e40af
+    style OE fill:#fef9c3,stroke:#ca8a04,color:#713f12
+    style AT fill:#fef9c3,stroke:#ca8a04,color:#713f12
+    style FE fill:#fef9c3,stroke:#ca8a04,color:#713f12
+    style LF fill:#dcfce7,stroke:#16a34a,color:#14532d

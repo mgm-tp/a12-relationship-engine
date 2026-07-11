@@ -30,22 +30,22 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import type { Dispatch } from "redux";
 import { useDispatch, useSelector } from "react-redux";
-import { type Dispatch } from "redux";
+import React, { useMemo, useState, useContext, useCallback } from "react";
 
-import { ActivitySelectors, ModelSelectors, type View } from "@com.mgmtp.a12.client/client-core";
-import { defaultVariantSelectionMapper } from "@com.mgmtp.a12.client/client-core/heterogeneity";
 import { EventNames } from "@com.mgmtp.a12.crud/crud-core";
+import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { defaultVariantSelectionMapper } from "@com.mgmtp.a12.client/client-core/heterogeneity";
+import { type View, ModelSelectors, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import {
 	OverviewActivity,
+	type OverviewModel,
 	OverviewEngineActions,
 	OverviewEngineFactories,
-	defaultMapDispatchToEventHandlers,
-	type OverviewModel
+	defaultMapDispatchToEventHandlers
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
 
 import { CopiedCRUDActions } from "./copiedCrudActions.js";
 import { selectRowReadonly } from "./showcaseOverviewActions.js";
@@ -81,6 +81,7 @@ export function ShowcaseOverviewView(props: ShowcaseOverviewViewProps): React.Re
 	const engineDispatch: Dispatch = useCallback(
 		(action) => {
 			dispatch(OverviewEngineActions.event({ activityId: props.activityId, engineAction: action }));
+
 			return action;
 		},
 		[dispatch, props.activityId]
@@ -121,6 +122,7 @@ export function ShowcaseOverviewView(props: ShowcaseOverviewViewProps): React.Re
 				},
 				onRowClick(params: { documentId: string; customEvent?: string }) {
 					const { documentId, customEvent } = params;
+
 					if (customEvent) {
 						logger.warn(
 							`Event '${customEvent}' has been fired onDocumentClick, ` + `but cannot be handled by the CRUD extension.`
@@ -131,6 +133,7 @@ export function ShowcaseOverviewView(props: ShowcaseOverviewViewProps): React.Re
 				},
 				onRowButtonClick(params: { documentId: string; rowActionModel: OverviewModel.Button }) {
 					const { documentId: instance, rowActionModel: rowAction } = params;
+
 					if (rowAction?.event.endsWith(EventNames.OVERVIEW_DELETE)) {
 						logger.log("Overview CRUD event", rowAction.event, instance);
 						dispatch(
@@ -143,11 +146,13 @@ export function ShowcaseOverviewView(props: ShowcaseOverviewViewProps): React.Re
 						if (!OverviewActivity.Data.DocumentListData.isInstance(data)) {
 							throw new Error(`Invalid document list.`);
 						}
+
 						const document = data?.documents.find((d) => d?.id === instance);
 
 						if (document === undefined) {
 							throw new Error(`Could not find document with id ${instance}.`);
 						}
+
 						dispatch(
 							selectRowReadonly({
 								activityId: props.activityId,

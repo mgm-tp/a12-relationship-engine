@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ApplicationSaga, type Module, type DataLoader } from "@com.mgmtp.a12.client/client-core";
+import type { Module, DataLoader, ApplicationSaga } from "@com.mgmtp.a12.client/client-core";
 
 export interface SampleAppModule extends Module {
 	readonly dataLoaders?: DataLoader[];

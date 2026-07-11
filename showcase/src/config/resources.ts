@@ -30,13 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { cloneDeep } from "lodash-es";
-
 import {
 	initializeKeys,
 	type LocalizationTree,
 	type LocalizationTreeMap
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+} from "@com.mgmtp.a12.utils/utils-localization";
 
 const enResourceTree = {
 	application: {
@@ -73,6 +71,6 @@ const deResourceTree: LocalizationTree = {
 
 export const SHOWCASE_RESOURCES: LocalizationTreeMap = { en: enResourceTree, de: deResourceTree };
 
-const SHOWCASE_RESOURCE_KEYS = cloneDeep(enResourceTree);
+const SHOWCASE_RESOURCE_KEYS = structuredClone(enResourceTree);
 
 initializeKeys(SHOWCASE_RESOURCE_KEYS);

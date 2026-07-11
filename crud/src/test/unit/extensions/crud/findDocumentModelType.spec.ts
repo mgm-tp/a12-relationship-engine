@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { findDocumentModelType } from "../../../../internal/utils/use-document-model-type.js";
 

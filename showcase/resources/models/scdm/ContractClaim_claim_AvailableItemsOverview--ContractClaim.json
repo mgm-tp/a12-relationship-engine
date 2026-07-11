@@ -1,0 +1,80 @@
+{
+	"header": {
+		"id": "ContractClaim_claim_AvailableItemsOverview--ContractClaim",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Available Items"
+			},
+			{
+				"locale": "de",
+				"text": "Verfügbare Einträge"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "ContractClaim_claim_AvailableItemsOverview--ContractClaim-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-5a640",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_3dddf",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "event_add_link",
+					"icon": {
+						"name": "add"
+					}
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": [
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": false,
+			"pagingSize": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		},
+		"rowActivation": {
+			"type": "event",
+			"event": "event_add_link"
+		}
+	}
+}

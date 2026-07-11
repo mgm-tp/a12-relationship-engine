@@ -35,7 +35,7 @@
  * @module relationship
  */
 
-import { initializeKeys } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+import { initializeKeys } from "@com.mgmtp.a12.utils/utils-localization";
 
 /**
  * Resource keys for usage with the A12 localization API.
@@ -70,7 +70,14 @@ export const RESOURCE_KEYS = {
 					 * * `{resultCount}` - Number of result
 					 * * `{totalCount}` - Number of total results
 					 */
-					"result-count": ""
+					"result-count": "",
+					/**
+					 * Key of the text shown when the search input is below the minimum required length.
+					 * This value is usually derived from Data Services properties.
+					 * Available "placeholder":
+					 * * `{count}` - Minimum number of characters required
+					 */
+					"min-search-length": ""
 				},
 				"table-list": {
 					/** Key of the edit button */

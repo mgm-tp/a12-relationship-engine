@@ -36,7 +36,7 @@
  * @experimental
  */
 
-import { type Change } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { Change } from "@com.mgmtp.a12.formengine/formengine-core";
 
 /** @internal */
 export function flatten<T>(map: { [key: string]: T[] }): T[] {
@@ -48,7 +48,9 @@ export function addToMapOfArrays<T>(map: { [key: string]: T[] }, key: string, va
 	if (!(key in map)) {
 		map[key] = [];
 	}
+
 	map[key].push(value);
+
 	return map;
 }
 
@@ -57,7 +59,9 @@ export function addToMapOfSets<T>(map: { [key: string]: Set<T> }, key: string, v
 	if (!(key in map)) {
 		map[key] = new Set<T>();
 	}
+
 	map[key].add(value);
+
 	return map;
 }
 
@@ -68,6 +72,7 @@ export function toChangeMap(changes: readonly Change[]) {
 	return changes.reduce(
 		(changeMap, change, idx) => {
 			changeMap[idx] = change;
+
 			return changeMap;
 		},
 		{} as Record<number, Change>

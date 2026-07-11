@@ -2,7 +2,7 @@
 	"header": {
 		"id": "AddressPerson-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -13,10 +13,6 @@
 		],
 		"labels": [],
 		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			},
 			{
 				"name": "savedAt",
 				"value": "2021-03-04T09:43:31.186"
@@ -32,26 +28,6 @@
 		]
 	},
 	"content": {
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				},
-				{
-					"destructive": false,
-					"icon": {
-						"name": "close"
-					},
-					"type": "button",
-					"event": "closeDetail",
-					"primary": false
-				}
-			],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"sortable": false,
@@ -85,6 +61,30 @@
 		"rowActionGroup": {
 			"actions": []
 		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				},
+				{
+					"destructive": false,
+					"icon": {
+						"name": "close"
+					},
+					"type": "button",
+					"event": "closeDetail",
+					"primary": false
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
 		"configuration": {
 			"pagingSize": 10,
 			"showFullTextSearch": true,
@@ -94,10 +94,6 @@
 				"showFilterBar": true,
 				"filterMode": "all_columns"
 			}
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
 		}
 	}
 }

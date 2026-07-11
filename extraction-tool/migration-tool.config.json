@@ -1,0 +1,8 @@
+{
+	"$schema": "./node_modules/@com.mgmtp.a12.migrationtool/migrationtool-utils/config.schema.json",
+	"stepsDirPath": "./src/internal/steps",
+	"referenceModelPath": "../core/src/models/relationship-ui-model.ts",
+	"stepModelFileName": "relationship-ui-model.ts",
+	"modelInterfaceName": "RelationshipUiModel",
+	"persistentSchema": true
+}

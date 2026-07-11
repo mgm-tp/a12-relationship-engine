@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type SampleAppModule } from "../utils/SampleAppModule.js";
+import type { SampleAppModule } from "../utils/SampleAppModule.js";
 
 import { DataHandlingModules } from "./data_handling/index.js";
 import { RelationshipsModules } from "./relationships/index.js";

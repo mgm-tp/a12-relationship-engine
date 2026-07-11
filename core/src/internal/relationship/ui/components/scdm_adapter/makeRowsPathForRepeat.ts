@@ -35,8 +35,8 @@
  * @module relationship
  * @experimental
  */
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /**
  * @internal
@@ -56,5 +56,6 @@ export function makeRowsPathForRepeat(modelPath: ModelPath, context: EntityInsta
 function intersect(modelPath: ModelPath, context: EntityInstancePath): EntityInstancePath {
 	const contextPart = context.slice(0, modelPath.length);
 	const index = contextPart.findIndex((e, i) => e.elementName !== modelPath[i].elementName);
+
 	return index < 0 ? contextPart : context.slice(0, index);
 }

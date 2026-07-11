@@ -32,9 +32,9 @@
 
 import assert from "node:assert";
 
-import { describe, test } from "vitest";
+import { test, describe } from "vitest";
 
-import { type Multiplicity, type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Multiplicity, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { areMaxLinksAdded } from "../../../../../internal/relationship/ui/components/util.js";
 

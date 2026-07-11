@@ -1,0 +1,49 @@
+{
+	"header": {
+		"id": "ContractCoverage_coverage_SelectedItemsOverview-tableList",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "ContractCoverage_coverage_SelectedItemsOverview-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-c93ad",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_08ae5",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": false,
+			"pagingSize": 50
+		}
+	}
+}

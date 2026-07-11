@@ -29,23 +29,23 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module cdm/cdd
  * @experimental
  */
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { assertUnreachable } from "../../../../shared/assertion.js";
+import type { DgChangeLog } from "../../../../documentGraph/core/slices.js";
+import type { Relationship } from "../../../../relationship/relationship.js";
 import { extractLinkDocument } from "../../../../documentGraph/core/index.js";
-import { type ChangeLog, type LinkDeleted } from "../../../../documentGraph/core/changeLog/changeLog.js";
+import type { DeepReadonly } from "../../../../documentGraph/core/utilityTypes.js";
+import type { DocumentGraph } from "../../../../documentGraph/core/documentGraph.js";
 import { isLinkRelatedChange } from "../../../../documentGraph/core/changeLog/changeLogImpl.js";
-import { type DocumentGraph } from "../../../../documentGraph/core/documentGraph.js";
-import { type DgChangeLog } from "../../../../documentGraph/core/slices.js";
-import { type DeepReadonly } from "../../../../documentGraph/core/utilityTypes.js";
-import { type Relationship } from "../../../../relationship/relationship.js";
+import type { ChangeLog, LinkDeleted } from "../../../../documentGraph/core/changeLog/changeLog.js";
 
 /** @internal */
 export interface LinkWithMutationMetadataAndTime extends Relationship.LinkWithMutationMetadata {
@@ -135,6 +135,7 @@ function applyLinkAdded(
 	linkId: string
 ): Relationship.LinkMutationMetadata {
 	let mutationState: Relationship.LinkMutationState;
+
 	switch (currentMutationState) {
 		case undefined:
 			mutationState = "added";
@@ -152,6 +153,7 @@ function applyLinkAdded(
 		default:
 			assertUnreachable(currentMutationState);
 	}
+
 	return { mutationState, modified: false, relinked: false };
 }
 
@@ -161,6 +163,7 @@ function applyLinkDocChanged(
 ): Relationship.LinkMutationMetadata {
 	let mutationState: Relationship.LinkMutationState;
 	let modified = true;
+
 	switch (currentMutationState) {
 		case undefined:
 		case "existing":
@@ -177,6 +180,7 @@ function applyLinkDocChanged(
 		default:
 			assertUnreachable(currentMutationState);
 	}
+
 	return { mutationState, modified, relinked: false };
 }
 
@@ -185,6 +189,7 @@ function applyLinkDeleted(
 	linkId: string
 ): Relationship.LinkMutationMetadata {
 	let mutationState: Relationship.LinkMutationState;
+
 	switch (currentMutationState) {
 		case undefined:
 			mutationState = "removed";
@@ -202,5 +207,6 @@ function applyLinkDeleted(
 		default:
 			assertUnreachable(currentMutationState);
 	}
+
 	return { mutationState, modified: false, relinked: false };
 }

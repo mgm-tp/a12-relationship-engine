@@ -31,12 +31,11 @@
  */
 
 import { ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
-import { type DocumentDescriptor, FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-
-import { assertCondition } from "../../../shared/assertion.js";
+import type { EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { FormActivity, type DocumentDescriptor } from "@com.mgmtp.a12.formengine/formengine-core";
 
 import { isSetCdd } from "../redux/dhReducersImpl.js";
+import { assertCondition } from "../../../shared/assertion.js";
 
 import { getNearestDocumentDescriptor } from "./converter/docRefResolver.js";
 

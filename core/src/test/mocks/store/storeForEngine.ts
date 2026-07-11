@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type MockStore } from "redux-mock-store";
+import type { MockStore } from "redux-mock-store";
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Activity, NEW_INSTANCE_IDENTIFIER, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { createUIState, type EngineStore, type FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
+import { type Activity, type ApplicationModel, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
 
 import { createActivity, type DocumentListData } from "../../utils/activity.js";
 
@@ -61,6 +61,7 @@ export function createStoreForOverviewEngine({
 	const modelName = "CRUDOverviewModel";
 
 	const defaultDataHolder = createDefaultOverviewDataHolder(modelName, withOutDocuments, slices);
+
 	return createStoreForEngine(modelName, {
 		activity: { ...activity, dataHolders: [defaultDataHolder] },
 		models,

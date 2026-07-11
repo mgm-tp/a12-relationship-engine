@@ -36,8 +36,8 @@
  */
 
 import { Model, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type Models, type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Models, FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
 
 import { Relationship as RelationshipClientApi } from "../../relationship.js";
 
@@ -51,6 +51,7 @@ export namespace RelationshipDataProviderSelectors {
 			documentModelName,
 			Model.isDocumentAndValidationModel
 		)(state);
+
 		if (documentModelInformation === undefined) {
 			throw new Error(`The document model "${documentModelName}" cannot be found!"`);
 		}
@@ -60,6 +61,7 @@ export namespace RelationshipDataProviderSelectors {
 
 	export function selectLinkDocumentModel(state: object, relationshipModelName: string): DocumentModel | undefined {
 		const linkDocumentModelName = selectLinkDocumentModelName(state, relationshipModelName);
+
 		if (linkDocumentModelName === undefined) {
 			return undefined;
 		}
@@ -97,11 +99,13 @@ export namespace RelationshipDataProviderSelectors {
 		relationshipModelName: string
 	): Models | undefined {
 		const linkDocumentModel = selectLinkDocumentModel(state, relationshipModelName);
+
 		if (!linkDocumentModel) {
 			return undefined;
 		}
 
 		const linkFormModel = selectFormModelUsingDocumentModel(state, activityId, linkDocumentModel.header.id);
+
 		if (!linkFormModel) {
 			return undefined;
 		}
@@ -115,6 +119,7 @@ export namespace RelationshipDataProviderSelectors {
 		documentModel: DocumentModel
 	): Models | undefined {
 		const linkFormModel = selectFormModelUsingDocumentModel(state, activityId, documentModel.header.id);
+
 		if (!linkFormModel) {
 			return undefined;
 		}

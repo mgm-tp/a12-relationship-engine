@@ -35,12 +35,12 @@
  * @module relationship
  */
 
-import { ActivitySelectors, ModelSelectors, type Selector } from "@com.mgmtp.a12.client/client-core";
 import { isFormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import { type Selector, ModelSelectors, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { getBindingConfiguration } from "../shared/BindingConfiguration.js";
 
-import { type Relationship } from "./relationship.js";
+import type { Relationship } from "./relationship.js";
 
 /** @ignore */
 export namespace BindingsSelectors {
@@ -52,6 +52,7 @@ export namespace BindingsSelectors {
 	}): Selector<Relationship.UiConfigurationBinding[] | undefined> {
 		return (state) => {
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (activity === undefined) {
 				return undefined;
 			}
@@ -62,6 +63,7 @@ export namespace BindingsSelectors {
 				documentModel: activity.descriptor.model
 			};
 			const formModel = ModelSelectors.modelInScene(criteria, isFormModel)(state);
+
 			if (formModel === undefined) {
 				return undefined;
 			}

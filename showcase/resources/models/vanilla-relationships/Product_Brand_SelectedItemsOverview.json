@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Product_Brand_SelectedItemsOverview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -11,12 +11,7 @@
 				"code": "de"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -27,15 +22,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": false,
-			"pagingSize": 10,
-			"showFullTextSearch": false
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-b8549",
@@ -111,8 +97,17 @@
 			"actions": []
 		},
 		"subHeaderBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": false,
+			"pagingSize": 10,
+			"showFullTextSearch": false
 		}
 	}
 }

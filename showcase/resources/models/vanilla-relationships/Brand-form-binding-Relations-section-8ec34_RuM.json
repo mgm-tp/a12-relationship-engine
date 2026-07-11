@@ -1,0 +1,100 @@
+{
+	"header": {
+		"id": "Brand-form-binding-Relations-section-8ec34_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "Product_Brand_SelectedItemsOverview-tableList"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "ProductBrand-LinkForm"
+			},
+			{
+				"purpose": "availableItemsInEditModal",
+				"modelType": "overview",
+				"reference": "Brand_Product_AvailableItemsOverview--ProductBrand"
+			},
+			{
+				"purpose": "selectedItemsInEditModal",
+				"modelType": "overview",
+				"reference": "ProductBrand_Product_SelectedItems_DualPane_OM-edit"
+			}
+		],
+		"annotations": []
+	},
+	"content": {
+		"relationshipName": "ProductBrand",
+		"targetRole": "Product",
+		"component": {
+			"componentType": "TableList",
+			"selectedItemsOverviewModel": "Product_Brand_SelectedItemsOverview-tableList",
+			"linkFormModel": "ProductBrand-LinkForm",
+			"height": "40vh",
+			"editConfiguration": {
+				"availableItemsOverviewModel": "Brand_Product_AvailableItemsOverview--ProductBrand",
+				"selectedItemsOverviewModel": "ProductBrand_Product_SelectedItems_DualPane_OM-edit"
+			},
+			"buttons": [
+				{
+					"event": "event_open_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Edit"
+						},
+						{
+							"locale": "de",
+							"text": "Bearbeiten"
+						}
+					]
+				},
+				{
+					"event": "event_add_document",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					]
+				},
+				{
+					"event": "event_cancel_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Cancel"
+						},
+						{
+							"locale": "de",
+							"text": "Abbrechen"
+						}
+					],
+					"destructive": true
+				},
+				{
+					"event": "event_submit_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "OK"
+						},
+						{
+							"locale": "de",
+							"text": "OK"
+						}
+					],
+					"primary": true
+				}
+			]
+		}
+	}
+}

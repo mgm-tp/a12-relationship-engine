@@ -1,0 +1,40 @@
+{
+	"header": {
+		"id": "Category-form-binding-CategoryCategory-UiConfig-1_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItemsQuery",
+				"modelType": "query",
+				"reference": "Category-form-binding-CategoryCategory-UiConfig-1-available-query"
+			},
+			{
+				"purpose": "selectedItemQuery",
+				"modelType": "query",
+				"reference": "Category-form-binding-CategoryCategory-UiConfig-1-selected-query"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "belongs to"
+			},
+			{
+				"locale": "de",
+				"text": "gehört zu"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "CategoryCategory",
+		"targetRole": "ParentCategory",
+		"component": {
+			"componentType": "DropDownSelection",
+			"availableItemsQueryModel": "Category-form-binding-CategoryCategory-UiConfig-1-available-query",
+			"selectedItemQueryModel": "Category-form-binding-CategoryCategory-UiConfig-1-selected-query",
+			"elementRef": "F1"
+		}
+	}
+}

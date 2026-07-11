@@ -1,0 +1,115 @@
+{
+	"header": {
+		"id": "Bundle_Product_AvailableItemsOverview--ProductBundle",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Available Items"
+			},
+			{
+				"locale": "de",
+				"text": "Verfügbare Einträge"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Bundle_Product_AvailableItemsOverview--ProductBundle-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-752d8",
+				"width": 1,
+				"pinDirection": "LEFT",
+				"elementRef": "F4",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-72348",
+				"width": 1,
+				"elementRef": "F5",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-b96a7",
+				"width": 1,
+				"elementRef": "field_31308",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-482dc",
+				"label": [
+					{
+						"locale": "en",
+						"text": "Image"
+					},
+					{
+						"locale": "de",
+						"text": "Bild"
+					}
+				],
+				"width": 1,
+				"styles": {},
+				"elementRef": "group_95309",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "event_add_link",
+					"icon": {
+						"name": "add"
+					}
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 30,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		},
+		"rowActivation": {
+			"type": "event",
+			"event": "event_add_link"
+		}
+	}
+}

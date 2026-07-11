@@ -30,22 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Action } from "typescript-fsa";
+import type { DataProvider } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type DataProvider } from "@com.mgmtp.a12.client/client-core";
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-
-import { type LinkWithMutationMetadataAndTime } from "../../../internal/cdm/cdd/core/effectiveChanges/linksWithMetaData.js";
+import { createDataHolder } from "../../utils/activity.js";
+import { createLinkRef } from "../../mocks/relationships/mocks.js";
+import type { Relationship as RelationshipClientApi } from "../../../internal/relationship/relationship.js";
+import type { LinkWithMutationMetadataAndTime } from "../../../internal/cdm/cdd/core/effectiveChanges/linksWithMetaData.js";
 import {
 	type DgDocs,
-	type DgDocument,
 	type DgLinks,
+	type DgDocument,
 	type DocumentGraph,
 	generateLinkDocDocRef
 } from "../../../internal/documentGraph/core/index.js";
-import { type Relationship as RelationshipClientApi } from "../../../internal/relationship/relationship.js";
-import { createLinkRef } from "../../mocks/relationships/mocks.js";
-import { createDataHolder } from "../../utils/activity.js";
 
 export function setupDG(
 	docRefs: string[],
@@ -63,6 +62,7 @@ export function setupDG(
 			documentModelName: ""
 		};
 	});
+
 	if (linkDocForLinks) {
 		linkDocForLinks.forEach((linkId) => {
 			const linkDocRef = generateLinkDocDocRef(linkId);
@@ -87,12 +87,15 @@ export function setupDG(
 		};
 		linkRef.linkDescriptor.entities.forEach((entity) => {
 			const { docRef } = entity;
+
 			if (docRef === null) {
 				throw new Error("No entity found");
 			}
+
 			if (!links.linkIdsByDocId[docRef]) {
 				links.linkIdsByDocId[docRef] = [];
 			}
+
 			links.linkIdsByDocId[docRef]?.push(linkRef.id);
 		});
 	});
@@ -166,6 +169,7 @@ export function createMockDg(docs: DgDocument[] = []): DocumentGraph {
 			byDocRef: docs.reduce(
 				(acc, doc) => {
 					acc[doc.docRef] = doc;
+
 					return acc;
 				},
 				{} as DgDocs["byDocRef"]

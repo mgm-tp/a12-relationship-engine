@@ -33,20 +33,20 @@
 import * as React from "react";
 import { createContext, useContextSelector } from "use-context-selector";
 
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
+	Locale,
 	defaultDataFormats,
-	defaultLocalizerFactory,
 	defaultValueConversion,
-	Locale
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+	defaultLocalizerFactory
+} from "@com.mgmtp.a12.utils/utils-localization";
 import {
-	type Container,
-	type DefaultThemeType,
+	flatTheme,
 	compactTheme,
 	defaultTheme,
-	flatTheme,
-	flatCompactTheme
+	type Container,
+	flatCompactTheme,
+	type DefaultThemeType
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { SHOWCASE_RESOURCES } from "./config/resources.js";
@@ -102,6 +102,7 @@ export const ShowcaseContextProvider: React.FC<Container> = ({ children }) => {
 	const localizerContextValue = React.useMemo(() => {
 		const dataFormats = defaultDataFormats(locale);
 		const conversion = defaultValueConversion(dataFormats);
+
 		return {
 			locale,
 			dataFormats,

@@ -1,0 +1,93 @@
+{
+	"header": {
+		"id": "ContractCDM-form-binding-binding-ContractClaim_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "ContractClaim_claim_SelectedItemsOverview-tableList"
+			},
+			{
+				"purpose": "availableItemsInEditModal",
+				"modelType": "overview",
+				"reference": "ContractClaim_claim_AvailableItemsOverview--ContractClaim"
+			},
+			{
+				"purpose": "selectedItemsInEditModal",
+				"modelType": "overview",
+				"reference": "ContractClaim_claim_SelectedItemsOverview-edit"
+			}
+		],
+		"annotations": []
+	},
+	"content": {
+		"relationshipName": "ContractClaim",
+		"targetRole": "claim",
+		"component": {
+			"componentType": "TableList",
+			"selectedItemsOverviewModel": "ContractClaim_claim_SelectedItemsOverview-tableList",
+			"editConfiguration": {
+				"availableItemsOverviewModel": "ContractClaim_claim_AvailableItemsOverview--ContractClaim",
+				"selectedItemsOverviewModel": "ContractClaim_claim_SelectedItemsOverview-edit"
+			},
+			"buttons": [
+				{
+					"event": "event_open_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Modify List"
+						},
+						{
+							"locale": "de",
+							"text": "Modify List"
+						}
+					]
+				},
+				{
+					"event": "event_add_document",
+					"label": [
+						{
+							"locale": "en",
+							"text": "New"
+						},
+						{
+							"locale": "de",
+							"text": "New"
+						}
+					]
+				},
+				{
+					"event": "event_cancel_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Cancel"
+						},
+						{
+							"locale": "de",
+							"text": "Abbrechen"
+						}
+					],
+					"destructive": true
+				},
+				{
+					"event": "event_submit_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "OK"
+						},
+						{
+							"locale": "de",
+							"text": "OK"
+						}
+					],
+					"primary": true
+				}
+			]
+		}
+	}
+}

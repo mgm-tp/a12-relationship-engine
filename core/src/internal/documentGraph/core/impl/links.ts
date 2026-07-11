@@ -29,21 +29,20 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module documentGraph/core
  * @experimental
  */
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
+import type { DgChange } from "../slices.js";
 import { assertObject } from "../../../shared/assertion.js";
-
-import { type LinkAdded, type LinkDeleted, type LinkDocChanged } from "../changeLog/changeLog.js";
-import { type DgDocument, type DgLinkInternal, type DgLinks, type DocumentGraph } from "../documentGraph.js";
-import { type DgChange } from "../slices.js";
-import { type DeepReadonly, type DocRef } from "../utilityTypes.js";
+import type { DocRef, DeepReadonly } from "../utilityTypes.js";
+import type { LinkAdded, LinkDeleted, LinkDocChanged } from "../changeLog/changeLog.js";
+import type { DgLinks, DgDocument, DocumentGraph, DgLinkInternal } from "../documentGraph.js";
 
 import { mergeInto } from "./dg.js";
 
@@ -80,6 +79,7 @@ export function addLink(
 			id: generateNewLinkId(linkDescriptor.relationshipModel)
 		};
 	}
+
 	function generateNewLinkId(relshName: string): string {
 		// logic taken vom extensions/relationship/internal/reducers/addLink.ts
 		return relshName + "_NEW_" + ++addedLinkIndex;
@@ -147,6 +147,7 @@ function mergeLink(
 		kind: "linkAdded",
 		linkId: linkRef.id
 	};
+
 	return [newDg, [change]];
 
 	function makeMissingTargetDgDocument(docRef: DocRef): DgDocument {
@@ -176,6 +177,7 @@ export function removeLink(
 
 	// Update documents.byDocRef
 	const byDocRef = { ...dg.documents.byDocRef };
+
 	if (linkDocRef) {
 		// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
 		delete byDocRef[linkDocRef];
@@ -195,6 +197,7 @@ export function removeLink(
 		linkId: linkRef.id,
 		linkRef
 	};
+
 	return [newDg, [change]];
 }
 
@@ -240,6 +243,7 @@ export function modifyLink(
 		kind: "linkDocChanged",
 		linkId
 	};
+
 	return [newDg, [change]];
 }
 

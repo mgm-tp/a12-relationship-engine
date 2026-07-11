@@ -2,7 +2,7 @@
 	"header": {
 		"id": "NaturalPersonCDMNoRepeatable-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -28,23 +23,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_collapsed",
-				"counterOption": "simple",
-				"clearConfirmation": {
-					"enabled": true
-				}
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 50,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all_columns"
-			}
-		},
 		"columns": [
 			{
 				"id": "column-26e31",
@@ -82,21 +60,6 @@
 				"sortable": false
 			}
 		],
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "multi_selection"
-				}
-			]
-		},
 		"rowActionGroup": {
 			"actions": [
 				{
@@ -173,8 +136,24 @@
 				}
 			]
 		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "multi_selection"
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
 		"footerBox": {
-			"majorElements": [
+			"leftSlot": [],
+			"rightSlot": [
 				{
 					"type": "button",
 					"label": [
@@ -217,8 +196,24 @@
 					"destructive": false,
 					"primary": true
 				}
-			],
-			"minorElements": []
+			]
+		},
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_collapsed",
+				"counterOption": "simple",
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
 		}
 	}
 }

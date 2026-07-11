@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { NotificationViews, addWrapper, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
+import { addWrapper, NotificationViews, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
 /**
  * Wraps the application with the NotificationFrame for displaying notifications
  */

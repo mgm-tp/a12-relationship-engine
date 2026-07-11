@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Category-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "bindingConfiguration",
 				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"CategoryCategory-UiConfig-1\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CategoryCategory\",\"targetRole\":\"ParentCategory\",\"components\":[{\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Category_Category_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"Category_Parent_Category_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_7b217\"},{\"type\":\"relationship\",\"details\":{\"name\":\"Sub Categories\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CategoryCategory\",\"targetRole\":\"ChildCategory\",\"components\":[{\"id\":\"98af43\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":20,\"models\":[{\"name\":\"Category_Child_Category_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Category_Category_AvailableItemsOverview\",\"use\":\"candidate\"}]}]},\"elementId\":\"section-d67f6\"}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
@@ -52,6 +48,16 @@
 				"modelType": "overview",
 				"purpose": "bindingReference",
 				"reference": "Category_Child_Category_SelectedItemsOverview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Category-form-binding-CategoryCategory-UiConfig-1_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Category-form-binding-Sub-Categories_RuM"
 			}
 		]
 	},
@@ -192,21 +198,7 @@
 						"type": "CustomScreenElement",
 						"id": "customscreenelement_7b217",
 						"name": "CategoryCategory-UiConfig-1",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "CategoryCategory-UiConfig-1"
-									},
-									{
-										"locale": "de",
-										"text": "CategoryCategory-UiConfig-1"
-									}
-								]
-							}
-						}
+						"reference": "Category-form-binding-CategoryCategory-UiConfig-1_RuM"
 					},
 					{
 						"type": "ControlGrid",
@@ -231,21 +223,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-d67f6",
 						"name": "Sub Categories",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "Sub Categories"
-									},
-									{
-										"locale": "de",
-										"text": "Sub Categories"
-									}
-								]
-							}
-						}
+						"reference": "Category-form-binding-Sub-Categories_RuM"
 					}
 				]
 			}

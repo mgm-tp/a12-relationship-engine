@@ -30,59 +30,54 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeAll, afterAll, vi, type MockInstance, type Mock } from "vitest";
-import { type Action } from "redux";
+import * as TypeMoq from "typemoq";
+import type { Action } from "redux";
+import { fork, select } from "typed-redux-saga";
 import { expectSaga } from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers.js";
-import { fork, select } from "typed-redux-saga";
-import * as TypeMoq from "typemoq";
+import { vi, test, expect, describe, afterAll, beforeAll, type Mock, type MockInstance } from "vitest";
 
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { ModelGraph, JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { ConnectorLocator, RestServerConnector, type RestRequestPayload } from "@com.mgmtp.a12.utils/utils-connector";
 import {
+	type Model,
 	type Activity,
+	ModelSelectors,
 	ActivityActions,
 	type ActivityMap,
 	ActivitySelectors,
-	NEW_INSTANCE_IDENTIFIER,
 	type DataProvider,
-	type Model,
-	ModelSelectors
+	NEW_INSTANCE_IDENTIFIER
 } from "@com.mgmtp.a12.client/client-core";
-import { type JsonRpc2Request, type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	ConnectorLocator,
-	type RestRequestPayload,
-	RestServerConnector
-} from "@com.mgmtp.a12.utils/utils-connector/lib/main/index.js";
 
-import { type DocumentGraphReferences } from "../../../internal/cdm/cdd/core/adapter/fromCdd.js";
-import { type EffectiveChangeList } from "../../../internal/cdm/cdd/core/effectiveChanges/toEffectiveChanges.js";
-import { CddActions, CddSelectors } from "../../../internal/cdm/cdd/redux/index.js";
-import { type ScdmDataHolderShape } from "../../../internal/cdm/cdd/redux/dhReducersImpl.js";
-import * as CreateInitial from "../../../internal/cdm/cddUtils/createInitialDgCl.js";
+import { US_LOCALE } from "../../utils/localization.js";
+import { createActivity } from "../../utils/activity.js";
+import { createTestModels } from "../../mocks/ModelsUtil.js";
+import { createGeneralStore } from "../../mocks/store/store.js";
+import documentGraph from "../testData/dg.json" with { type: "json" };
+import Contract24Cdd from "../cdd/Contract24Cdd.json" with { type: "json" };
+import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
 import { CDD_DOC_REF } from "../../../internal/cdm/cdmCommons/cddTechnical.js";
+import { CddActions, CddSelectors } from "../../../internal/cdm/cdd/redux/index.js";
+import * as CreateInitial from "../../../internal/cdm/cddUtils/createInitialDgCl.js";
+import { loadDG, type CDDQuery } from "../../../internal/cdm/dataProvider/loadDG.js";
+import { createLinkRef, createModelsMock } from "../../mocks/relationships/mocks.js";
 import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
-import { cddDataProvider, resolveModels } from "../../../internal/cdm/dataProvider/cddDataProvider.js";
-import { convertToInternalRepresentation } from "../../../internal/cdm/dataProvider/convertToInternalRepresentation.js";
-import { type CDDQuery, loadDG } from "../../../internal/cdm/dataProvider/loadDG.js";
+import { RequestBuilder } from "../../../internal/server-connectors/requestBuilder.js";
+import type { ScdmDataHolderShape } from "../../../internal/cdm/cdd/redux/dhReducersImpl.js";
 import { toCddChanges } from "../../../internal/cdm/dataProvider/StandaloneActivityHandler.js";
+import type { DocumentGraphReferences } from "../../../internal/cdm/cdd/core/adapter/fromCdd.js";
+import { resolveModels, cddDataProvider } from "../../../internal/cdm/dataProvider/cddDataProvider.js";
+import type { EffectiveChangeList } from "../../../internal/cdm/cdd/core/effectiveChanges/toEffectiveChanges.js";
+import { convertToInternalRepresentation } from "../../../internal/cdm/dataProvider/convertToInternalRepresentation.js";
 import {
-	type DeepReadonly,
 	type DgChange,
 	type DgChangeLog,
+	type DeepReadonly,
 	type DocumentGraph,
 	generateLinkDocDocRef
 } from "../../../internal/documentGraph/core/index.js";
-import { createTestModels } from "../../mocks/ModelsUtil.js";
-import { createLinkRef, createModelsMock } from "../../mocks/relationships/mocks.js";
-import { createGeneralStore } from "../../mocks/store/store.js";
-import { createActivity } from "../../utils/activity.js";
-import { US_LOCALE } from "../../utils/localization.js";
-import { RequestBuilder } from "../../../internal/server-connectors/requestBuilder.js";
-
-import Contract24Cdd from "../cdd/Contract24Cdd.json" with { type: "json" };
-import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
-import documentGraph from "../testData/dg.json" with { type: "json" };
 
 import { createLinkMutation } from "./testSetup.js";
 
@@ -570,6 +565,7 @@ describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.data-provider", (
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					response.setup((x) => (x as any).then).returns(() => undefined);
 					response.setup((x) => x.ok).returns(() => true);
+
 					return Promise.resolve(response.object);
 				}
 
@@ -1051,6 +1047,7 @@ describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.data-provider", (
 		saveConfig.setup((x) => x.activityId).returns(() => activity.id);
 		saveConfig.setup((x) => x.dataHolders).returns(() => activity.dataHolders ?? []);
 		saveConfig.setup((x) => x.details).returns(() => details.object);
+
 		return saveConfig.object;
 	}
 });

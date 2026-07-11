@@ -30,11 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type FormEngineViews } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type React from "react";
 
+import { CRUDFormEngineView } from "./components/form-engine.js";
 import { CRUDOverviewView } from "./components/overview-engine.js";
-import { RelationshipFormEngineView } from "./components/relationship-form-engine.js";
+import { LegacyRelationshipFormEngineView } from "./components/legacy-relationship-form-engine.js";
 
 /**
  * The CRUD View Components
@@ -50,12 +50,16 @@ export namespace CRUDViews {
 	 * Note that this component should only be used as a drop-in component without any customization.
 	 * For this reason, it is not possible to pass `formModelMap`/`widgetMap` as props.
 	 */
-	export const FormEngineView: React.ComponentType<
-		Omit<FormEngineViews.FormEngineProps, "widgetMap" | "formModelMap">
-	> = RelationshipFormEngineView;
+	export const FormEngineView: React.FC<LegacyRelationshipFormEngineView.Props> = LegacyRelationshipFormEngineView;
+
+	/**
+	 * The new form engine component which integrate the newer version of Relationship Engine as composable API.
+	 * @experimental but expected to replace `FormEngineView` in the near future.
+	 */
+	export const FormEngineWithRelationshipEngineView: React.FC<CRUDFormEngineView.Props> = CRUDFormEngineView;
 
 	/** The overview engine component within the CRUD view */
-	export const OverviewEngineView: React.ComponentType<OverviewEngineFactories.ViewComponentProps> & {
-		handleProgressIndicator?: boolean;
-	} = CRUDOverviewView;
+	export const OverviewEngineView: React.FC<CRUDOverviewView.Props> = CRUDOverviewView;
 }
+
+export { LegacyRelationshipFormEngineView, CRUDFormEngineView, CRUDOverviewView };

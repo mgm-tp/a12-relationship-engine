@@ -35,26 +35,25 @@
  * @experimental
  */
 
-import { type SagaGenerator, select } from "typed-redux-saga";
+import { select, type SagaGenerator } from "typed-redux-saga";
 
 import { Model, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type QueryJsonRpc2Response, type DocumentSpec } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { DocumentSpec, QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { assertObject } from "../../shared/assertion.js";
-import {
-	type DeepReadonly,
-	type DgDocs,
-	type DgLinkInternal,
-	type DgLinks,
-	type DgLinksById,
-	type DocumentGraph
-} from "../../documentGraph/core/index.js";
-import { getDocumentModelOfSuperType } from "../../relationship/platform/getDocumentModelOfSuperType.js";
+import { CDD_DOC_REF } from "../cdmCommons/cddTechnical.js";
 import { DocumentProcessors } from "../../relationship/shared.js";
 import { getLink } from "../../relationship/platform/relationshipDataProvider/server/utils.js";
-
-import { CDD_DOC_REF } from "../cdmCommons/cddTechnical.js";
+import { getDocumentModelOfSuperType } from "../../relationship/platform/getDocumentModelOfSuperType.js";
+import type {
+	DgDocs,
+	DgLinks,
+	DgLinksById,
+	DeepReadonly,
+	DocumentGraph,
+	DgLinkInternal
+} from "../../documentGraph/core/index.js";
 
 let counterForDifferentiation = 0;
 
@@ -73,6 +72,7 @@ export function* convertToInternalRepresentation(
 	serverLinks: QueryJsonRpc2Response.Link[]
 ): SagaGenerator<DeepReadonly<DocumentGraph>> {
 	const links = convertToDgLinkInternalList(serverLinks);
+
 	return {
 		documents: {
 			byDocRef: yield* documentsByRef(cdmName, documents)
@@ -152,6 +152,7 @@ function linkIdsByDocId(links: DgLinkInternal[]): DgLinks["linkIdsByDocId"] {
 
 function convertToDgLinkInternalList(allLinks: QueryJsonRpc2Response.Link[]): DgLinkInternal[] {
 	const childLinks = allLinks.filter((item) => item.type === "CHILD");
+
 	return childLinks.map((item) => {
 		return {
 			linkRef: {

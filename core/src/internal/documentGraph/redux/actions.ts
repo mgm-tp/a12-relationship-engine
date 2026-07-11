@@ -29,17 +29,16 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module documentGraph/redux
  */
-import { actionCreatorFactory as actionCreatorFactory } from "typescript-fsa";
 
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { actionCreatorFactory as actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { type ChangeLog, type DeepReadonly, type DocumentGraph, type ElementRef } from "../core/index.js";
+import type { ChangeLog, ElementRef, DeepReadonly, DocumentGraph } from "../core/index.js";
 
 const acf = actionCreatorFactory("dg");
 

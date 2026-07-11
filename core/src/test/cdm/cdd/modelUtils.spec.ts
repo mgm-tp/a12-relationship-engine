@@ -30,14 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-
-import { relshPathToModelPath } from "../../../internal/cdm/cdd/core/index.js";
-import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 
 import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
+import { relshPathToModelPath } from "../../../internal/cdm/cdd/core/index.js";
+import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
 
 import TestModel from "./TestModel.json" with { type: "json" };
 

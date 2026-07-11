@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeAll, vi } from "vitest";
+import { Mock, type IMock } from "typemoq";
 import { expectSaga } from "redux-saga-test-plan";
-import { type IMock, Mock } from "typemoq";
+import { vi, test, expect, describe, beforeAll } from "vitest";
 
 import { type Activity, ActivityActions, type ApplicationSaga } from "@com.mgmtp.a12.client/client-core";
 

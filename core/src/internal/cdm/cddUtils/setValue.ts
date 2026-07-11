@@ -30,41 +30,36 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import {
-	type ModelGraph,
-	type Relationship,
-	type RelationshipModel
-} from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { DocumentPath } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type FieldInstanceValue,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelGraph, Relationship, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type {
+	DocumentModel,
+	GroupInstance,
+	EntityInstancePath,
+	FieldInstanceValue
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertObject, assertObjectType } from "../../shared/assertion.js";
 import { DocumentUtils } from "../../shared/utils.js";
-import { type DeepReadonly } from "../../documentGraph/core/index.js";
-import { changeDocument, type ChangeDocumentArgs } from "../../documentGraph/core/reducers.js";
-
-import { getDocRefByCddPath } from "../cdd/core/converter/docRefResolver.js";
 import { newDocRef } from "../cdd/redux/newDocRef.js";
 import { LINK_ID } from "../cdmCommons/cddTechnical.js";
-import { DOCUMENT_SERVICE } from "../cdmCommons/documentService.js";
-import { findChangeLocation } from "../cdmCommons/findChangeLocation.js";
-import { isLinkDocGroup } from "../cdmCommons/linkDocumentGroup.js";
-import { dmGroup2RelationshipGroupInfo, isRelationshipGroup } from "../cdmCommons/relationshipGroup.js";
 import { findModelElementByPath } from "../commons/modelUtils.js";
+import { DOCUMENT_SERVICE } from "../cdmCommons/documentService.js";
+import { isLinkDocGroup } from "../cdmCommons/linkDocumentGroup.js";
+import type { DeepReadonly } from "../../documentGraph/core/index.js";
+import { findChangeLocation } from "../cdmCommons/findChangeLocation.js";
+import { assertObject, assertObjectType } from "../../shared/assertion.js";
+import { getDocRefByCddPath } from "../cdd/core/converter/docRefResolver.js";
+import { changeDocument, type ChangeDocumentArgs } from "../../documentGraph/core/reducers.js";
+import { isRelationshipGroup, dmGroup2RelationshipGroupInfo } from "../cdmCommons/relationshipGroup.js";
 
-import { addLinksToCdd, type AddLinksToCddArgs } from "./addLinksToCdd.js";
-import { type CdmData } from "./cdmData.js";
-import { type EntityInstance } from "./entityInstance.js";
-import { findDocumentGraphDocument } from "./findDocumentGraphDocument.js";
-import { getUpdateValue } from "./getUpdateValue.js";
-import { removeLinkFromCdd } from "./removeLinkFromCdd.js";
-import { unwrapCdmData } from "./unwrapCdmData.js";
 import { updateCdd } from "./updateCdd.js";
+import type { CdmData } from "./cdmData.js";
+import { unwrapCdmData } from "./unwrapCdmData.js";
+import { getUpdateValue } from "./getUpdateValue.js";
+import type { EntityInstance } from "./entityInstance.js";
+import { removeLinkFromCdd } from "./removeLinkFromCdd.js";
+import { addLinksToCdd, type AddLinksToCddArgs } from "./addLinksToCdd.js";
+import { findDocumentGraphDocument } from "./findDocumentGraphDocument.js";
 
 /**
  * Mutable cache for the `presentRelationships` set, keyed by reference
@@ -201,6 +196,7 @@ function determineInstancesToSet(
 			pathsOfMissingAncestors
 				.map((path) => {
 					const modelElement = getModelElement(cdm, path);
+
 					return modelElement.type === "Group" && isRelationshipGroup(modelElement);
 				})
 				.some(Boolean)
@@ -215,11 +211,14 @@ function getPresentRelationships(
 	if (cache && cache.linksById === linksById && cache.presentRelationships) {
 		return cache.presentRelationships;
 	}
+
 	const result = new Set(Object.values(linksById).map((link) => link.linkRef.linkDescriptor.relationshipModel));
+
 	if (cache) {
 		cache.linksById = linksById;
 		cache.presentRelationships = result;
 	}
+
 	return result;
 }
 
@@ -282,9 +281,11 @@ function setValueInternal(
 
 function getAncestorPaths(path: EntityInstancePath): EntityInstancePath[] {
 	const ancestorPaths: EntityInstancePath[] = [];
+
 	for (let i = 1; i < path.length; i++) {
 		ancestorPaths.push(path.slice(0, i));
 	}
+
 	return ancestorPaths;
 }
 
@@ -323,6 +324,7 @@ function missingLinkInDg(path: EntityInstancePath, cdm: DocumentModel, presentRe
 	if (modelElement?.type !== "Group" || !isRelationshipGroup(modelElement)) {
 		return false;
 	}
+
 	const rgi = dmGroup2RelationshipGroupInfo(modelElement);
 
 	return !presentRelationships.has(rgi.relationship);
@@ -380,6 +382,7 @@ function getChangeDocumentArgsForLinkDocGroup(cdd: GroupInstance, path: EntityIn
 		DocumentUtils.isGroupInstance,
 		"Expected group instance of relationship group to exist."
 	);
+
 	return {
 		document: {},
 		elementRef: parentGroupInstance[LINK_ID] as string
@@ -414,14 +417,19 @@ function getRegularChangeDocumentArgs(
 function getLinkRef(data: CdmData, path: EntityInstancePath): DeepReadonly<Relationship.LinkRef> | undefined {
 	const { cdd, documentGraph } = unwrapCdmData(data);
 	const groupInstance = DOCUMENT_SERVICE.getAssignedObject(cdd, path);
+
 	if (!DocumentUtils.isGroupInstance(groupInstance)) {
 		return undefined;
 	}
+
 	const linkId = groupInstance[LINK_ID];
+
 	if (typeof linkId !== "string") {
 		return undefined;
 	}
+
 	const dgLink = documentGraph.links.byId[linkId];
+
 	return dgLink?.linkRef;
 }
 
@@ -436,6 +444,7 @@ function getLinkRef(data: CdmData, path: EntityInstancePath): DeepReadonly<Relat
 function getModelElement(documentModel: DocumentModel, path: EntityInstancePath): DocumentModel.Element {
 	const modelElement = findModelElementByPath(documentModel, path);
 	assertObject(modelElement, `Could not find model element in cdm for path '${DocumentPath.toString(path)}'`);
+
 	return modelElement;
 }
 
@@ -466,13 +475,16 @@ function findNonAbstractSubTypesRecursively(
 	modelGraph: ModelGraph
 ): ModelGraph.DocumentModel[] {
 	const subTypes: ModelGraph.DocumentModel[] = [];
+
 	if (startType.subTypes !== null && startType.subTypes.length > 0) {
 		for (const subTypeRef of startType.subTypes) {
 			const subType = modelGraph.documentModels.find((dm) => dm.modelId === subTypeRef);
 			assertObject(subType, `Cannot find type "${subTypeRef}" - corrupt Model Graph?`);
+
 			if (!subType.abstractModel) {
 				subTypes.push(subType);
 			}
+
 			subTypes.push(...findNonAbstractSubTypesRecursively(subType, modelGraph));
 		}
 	}

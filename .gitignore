@@ -7,6 +7,7 @@ npm-debug.log*
 # IDE (including symlinks)
 .vscode/*
 !.vscode/launch.json
+!.vscode/tasks.json
 .idea
 .classpath
 .settings
@@ -22,20 +23,25 @@ npm-debug.log*
 .envrc
 
 # Legal files copied into packages by copyLegalFiles task
-*/LICENSE
-*/NOTICE
-*/THIRD_PARTY_NOTICES
+**/LICENSE
+**/NOTICE
+**/THIRD_PARTY_NOTICES
+**/licenses
 
 # Build artifact
 com.mgmtp.a12-*.tgz
 *.tsbuildinfo
 *.validation.js
 schema.json
+!extraction-tool/src/internal/steps/**/schema.json
+!migration-tool/src/internal/steps/**/schema.json
 *.gz
 cyclonedx.json
 atlas-archives
 mockModelGraph.json
 pnpm-lock.yaml
+# Generated diagram images (rendered from .mmd sources by compile:diagrams)
+documentation/relationship/src/assets/images/new-architecture/*.png
 
 # Maven
 .maven
@@ -47,6 +53,12 @@ lib
 dist
 generated
 server/bin
-server/src/main/resources/models
-server/src/main/resources/requests
 coverage
+
+# LLM
+.claude/worktrees
+.github
+.serena
+*.local.*
+*.plan.*
+.playwright-mcp

@@ -1,0 +1,46 @@
+{
+	"header": {
+		"id": "Brand-form-binding-Relations_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItems",
+				"modelType": "overview",
+				"reference": "Brand_Product_AvailableItemsOverview--ProductBrand"
+			},
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "Product_Brand_SelectedItemsOverview-edit"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "ProductBrand-LinkForm"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Relations"
+			},
+			{
+				"locale": "de",
+				"text": "Relations"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "ProductBrand",
+		"targetRole": "Product",
+		"component": {
+			"componentType": "DualPaneSelection",
+			"availableItemsOverviewModel": "Brand_Product_AvailableItemsOverview--ProductBrand",
+			"selectedItemsOverviewModel": "Product_Brand_SelectedItemsOverview-edit",
+			"linkFormModel": "ProductBrand-LinkForm",
+			"height": "50vh"
+		}
+	}
+}

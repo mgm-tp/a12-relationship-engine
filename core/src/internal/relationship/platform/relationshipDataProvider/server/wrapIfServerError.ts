@@ -38,7 +38,7 @@
 import { Activity } from "@com.mgmtp.a12.client/client-core";
 import { JsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
 
 /** @internal */
 export function wrapIfServerError(error: unknown): unknown {

@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Claim-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Anspruchübersicht"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,16 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"showFullTextSearch": true,
-			"pagingSize": 50,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all_columns"
-			}
-		},
 		"columns": [
 			{
 				"id": "column-0cec6",
@@ -56,48 +41,6 @@
 				"sortable": false
 			}
 		],
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"icon": {
-						"name": "add",
-						"theme": "filled"
-					},
-					"label": [
-						{
-							"locale": "en",
-							"text": "Add"
-						},
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						}
-					],
-					"description": [
-						{
-							"locale": "en",
-							"text": "Add"
-						},
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						}
-					],
-					"type": "button",
-					"event": "add",
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
 		"rowActionGroup": {
 			"actions": [
 				{
@@ -132,9 +75,61 @@
 				}
 			]
 		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"icon": {
+						"name": "add",
+						"theme": "filled"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"description": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"type": "button",
+					"event": "add",
+					"destructive": false,
+					"primary": false
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
 		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
 		}
 	}
 }

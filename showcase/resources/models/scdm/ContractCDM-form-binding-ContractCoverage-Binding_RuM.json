@@ -1,0 +1,96 @@
+{
+	"header": {
+		"id": "ContractCDM-form-binding-ContractCoverage-Binding_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "ContractCoverage_coverage_SelectedItemsOverview-tableList"
+			},
+			{
+				"purpose": "availableItemsInEditModal",
+				"modelType": "overview",
+				"reference": "ContractCoverage_coverage_AvailableItemsOverview--ContractCoverage"
+			},
+			{
+				"purpose": "selectedItemsInEditModal",
+				"modelType": "overview",
+				"reference": "ContractCoverage_coverage_SelectedItemsOverview-edit"
+			}
+		],
+		"annotations": []
+	},
+	"content": {
+		"relationshipName": "ContractCoverage",
+		"targetRole": "coverage",
+		"component": {
+			"componentType": "TableList",
+			"selectedItemsOverviewModel": "ContractCoverage_coverage_SelectedItemsOverview-tableList",
+			"editConfiguration": {
+				"availableItemsOverviewModel": "ContractCoverage_coverage_AvailableItemsOverview--ContractCoverage",
+				"selectedItemsOverviewModel": "ContractCoverage_coverage_SelectedItemsOverview-edit"
+			},
+			"buttons": [
+				{
+					"event": "event_open_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Edit"
+						},
+						{
+							"locale": "de",
+							"text": "Bearbeiten"
+						}
+					]
+				},
+				{
+					"event": "event_add_document",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					]
+				},
+				{
+					"event": "event_cancel_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Cancel"
+						},
+						{
+							"locale": "de",
+							"text": "Abbrechen"
+						}
+					],
+					"destructive": true
+				},
+				{
+					"event": "event_submit_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "OK"
+						},
+						{
+							"locale": "de",
+							"text": "OK"
+						}
+					],
+					"primary": true
+				}
+			]
+		},
+		"modificationConfiguration": {
+			"extendParentActivityDescriptor": true
+		}
+	}
+}

@@ -34,26 +34,26 @@
  * @packageDocumentation
  * @module documentGraph/redux
  */
-import { type Action, type AnyAction } from "typescript-fsa";
+import type { UnknownAction } from "redux";
 
 import { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { assertCondition, assertObject } from "../../shared/assertion.js";
-import { experimentalWarning, isRecord } from "../../shared/utils.js";
-
-import { type DgChangeLogSlice, type DgSlice } from "../core/index.js";
 import * as DataReducers from "../core/reducers.js";
+import type { DgSlice, DgChangeLogSlice } from "../core/index.js";
+import { isRecord, experimentalWarning } from "../../shared/utils.js";
+import { assertObject, assertCondition } from "../../shared/assertion.js";
 
-import {
-	type AddDocumentPayload,
-	type AddLinkPayload,
-	type BeginTransactionPayload,
-	type ChangeDocumentPayload,
-	type ChangeLinkDocPayload,
-	type EndTransactionPayload,
-	type MergeDGPayload,
-	type RemoveLinkPayload,
-	type SetDGPayload
+import type {
+	SetDGPayload,
+	AddLinkPayload,
+	MergeDGPayload,
+	RemoveLinkPayload,
+	AddDocumentPayload,
+	ChangeLinkDocPayload,
+	ChangeDocumentPayload,
+	EndTransactionPayload,
+	BeginTransactionPayload
 } from "./actions.js";
 
 export type DgClDataHolderShape = Activity.DataHolder<DgSlice & DgChangeLogSlice>;
@@ -68,6 +68,7 @@ export function getDgAndClData(activity: Activity): DgSlice & DgChangeLogSlice {
 
 	const dgClData = defaultDataHolder.data;
 	assertCondition(isSetDgCl(dgClData), `Expected dataholder to contain documentGraph and changeLog slices`);
+
 	return dgClData;
 }
 
@@ -79,7 +80,7 @@ export interface DataHolderTuple {
 }
 
 export interface DataHolderReducerExtension {
-	(dhs: DataHolderTuple, action: AnyAction): DgClDataHolderShape;
+	(dhs: DataHolderTuple, action: UnknownAction): DgClDataHolderShape;
 }
 
 //#region ==== Reducer functions ====
@@ -92,6 +93,7 @@ export function handleSetDg(observer: DataHolderReducerExtension = nopObserver):
 			dirty: false
 		};
 		const slices = DataReducers.initialize(action.payload.documentGraph, action.payload.changeLog);
+
 		return observer({ prev: dataHolder, next: updateDataHolder(newDH, slices, action.payload.setDirty) }, action);
 	};
 }
@@ -101,7 +103,9 @@ export function handleMergeDg(observer: DataHolderReducerExtension = nopObserver
 		if (!isSetDgCl(dataHolder.data)) {
 			return dataHolder;
 		}
+
 		const slices = DataReducers.mergeInto(dataHolder.data, action.payload.documentGraph);
+
 		return observer({ prev: dataHolder, next: updateDataHolder(dataHolder, slices) }, action);
 	};
 }
@@ -111,7 +115,9 @@ export function handleAddLink(observer: DataHolderReducerExtension = nopObserver
 		if (!isSetDgCl(dataHolder.data)) {
 			return dataHolder;
 		}
+
 		const slices = DataReducers.addLink(dataHolder.data, action.payload);
+
 		return observer({ prev: dataHolder, next: updateDataHolder(dataHolder, slices, action.payload.setDirty) }, action);
 	};
 }
@@ -123,7 +129,9 @@ export function handleRemoveLink(
 		if (!isSetDgCl(dataHolder.data)) {
 			return dataHolder;
 		}
+
 		const slices = DataReducers.removeLink(dataHolder.data, action.payload.linkRef);
+
 		return observer({ prev: dataHolder, next: updateDataHolder(dataHolder, slices, action.payload.setDirty) }, action);
 	};
 }
@@ -135,7 +143,9 @@ export function handleChangeDocument(
 		if (!isSetDgCl(dataHolder.data)) {
 			return dataHolder;
 		}
+
 		const slices = DataReducers.changeDocument(dataHolder.data, action.payload);
+
 		return observer({ prev: dataHolder, next: updateDataHolder(dataHolder, slices) }, action);
 	};
 }
@@ -147,7 +157,9 @@ export function handleAddDocument(
 		if (!isSetDgCl(dataHolder.data)) {
 			return dataHolder;
 		}
+
 		const slices = DataReducers.addDocument(dataHolder.data, action.payload);
+
 		return observer({ prev: dataHolder, next: updateDataHolder(dataHolder, slices) }, action);
 	};
 }
@@ -157,6 +169,7 @@ export function handleChangeLinkDoc(
 ): ReducerSignature<ChangeLinkDocPayload> {
 	return (dataHolder: DgClDataHolderShape, action: Action<ChangeLinkDocPayload>) => {
 		experimentalWarning("handleChangeLinkDoc is not yet implemented.");
+
 		return observer({ prev: dataHolder, next: dataHolder }, action);
 	};
 }
@@ -168,9 +181,11 @@ export function handleBeginTransaction(
 		if (!isSetDgCl(dataHolder.data)) {
 			return dataHolder;
 		}
+
 		const slices = DataReducers.transaction.begin(dataHolder.data, {
 			id: action.payload.id
 		});
+
 		return observer({ prev: dataHolder, next: updateDataHolder(dataHolder, slices) }, action);
 	};
 }
@@ -182,10 +197,12 @@ export function handleEndTransaction(
 		if (!isSetDgCl(dataHolder.data)) {
 			return dataHolder;
 		}
+
 		const slices =
 			action.payload.outcome === "commit"
 				? DataReducers.transaction.commit(dataHolder.data)
 				: DataReducers.transaction.rollback(dataHolder.data);
+
 		return observer({ prev: dataHolder, next: updateDataHolder(dataHolder, slices, action.payload.setDirty) }, action);
 	};
 }
@@ -194,7 +211,7 @@ export function handleEndTransaction(
 
 //#region ==== Helper functions ====
 
-export function nopObserver(dhs: DataHolderTuple, action: AnyAction): DgClDataHolderShape {
+export function nopObserver(dhs: DataHolderTuple, action: UnknownAction): DgClDataHolderShape {
 	return dhs.next;
 }
 
@@ -204,9 +221,11 @@ function updateDataHolder(
 	dirty?: boolean
 ): DgClDataHolderShape {
 	const data = dataHolder.data;
+
 	if (data === undefined) {
 		return dataHolder;
 	}
+
 	return {
 		...dataHolder,
 		data: {

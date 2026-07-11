@@ -37,4 +37,4 @@
  */ /** */
 export * from "./converter/docRefResolver.js";
 export * from "./converter/relshPath.js";
-export * from "./cddState.js";
+export type * from "./cddState.js";

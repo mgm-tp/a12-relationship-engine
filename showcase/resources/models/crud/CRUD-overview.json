@@ -2,7 +2,7 @@
 	"header": {
 		"id": "CRUD-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "de"
@@ -21,12 +21,7 @@
 				"text": "CRUD Overview"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,6 +32,94 @@
 		]
 	},
 	"content": {
+		"columns": [
+			{
+				"id": "column-1949c",
+				"width": 1,
+				"elementRef": "F3",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			},
+			{
+				"id": "column-1949d",
+				"width": 1,
+				"elementRef": "field_cbf60",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "delete",
+					"confirmation": {
+						"message": [
+							{
+								"locale": "de",
+								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
+							},
+							{
+								"locale": "en",
+								"text": "Do you really want to delete this entry?"
+							}
+						]
+					},
+					"icon": {
+						"name": "delete"
+					},
+					"description": [
+						{
+							"locale": "de",
+							"text": "Löschen"
+						},
+						{
+							"locale": "en",
+							"text": "Delete"
+						}
+					],
+					"destructive": false,
+					"primary": false
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						},
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"event": "event_add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				},
+				{
+					"type": "multi_selection"
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
 		"configuration": {
 			"enableFilter": true,
 			"multiSelection": {
@@ -101,94 +184,6 @@
 				"showFilterBar": true,
 				"filterMode": "all"
 			}
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						},
-						{
-							"locale": "en",
-							"text": "Add"
-						}
-					],
-					"event": "event_add",
-					"icon": {
-						"name": "add"
-					},
-					"destructive": false,
-					"primary": false
-				},
-				{
-					"type": "multi_selection"
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
-		"columns": [
-			{
-				"id": "column-1949c",
-				"width": 1,
-				"elementRef": "F3",
-				"sortable": true,
-				"preferredSorting": "ASC"
-			},
-			{
-				"id": "column-1949d",
-				"width": 1,
-				"elementRef": "field_cbf60",
-				"sortable": true,
-				"preferredSorting": "ASC"
-			}
-		],
-		"rowActionGroup": {
-			"actions": [
-				{
-					"event": "delete",
-					"confirmation": {
-						"message": [
-							{
-								"locale": "de",
-								"text": "Wollen Sie diesen Eintrag wirklich löschen?"
-							},
-							{
-								"locale": "en",
-								"text": "Do you really want to delete this entry?"
-							}
-						]
-					},
-					"icon": {
-						"name": "delete"
-					},
-					"description": [
-						{
-							"locale": "de",
-							"text": "Löschen"
-						},
-						{
-							"locale": "en",
-							"text": "Delete"
-						}
-					],
-					"destructive": false,
-					"primary": false
-				}
-			]
 		}
 	}
 }

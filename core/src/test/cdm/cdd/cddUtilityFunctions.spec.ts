@@ -30,25 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeAll } from "vitest";
+import { test, expect, describe, beforeAll } from "vitest";
 
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
+import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
+import { readDocumentAndValidationModel } from "../../mocks/ModelsUtil.js";
+import { removeLink } from "../../../internal/documentGraph/core/impl/links.js";
+import documentGraph from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
+import type { DeepReadonly, DocumentGraph } from "../../../internal/documentGraph/core/index.js";
 import {
-	collectRelshPathsForRelsh,
-	getDocRefByCddPath,
 	getDocRefTopDown,
+	getDocRefByCddPath,
+	collectRelshPathsForRelsh,
 	getSourceDocRefFromTargetDocPath
 } from "../../../internal/cdm/cdd/core/index.js";
-import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
-import { type DeepReadonly, type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import { removeLink } from "../../../internal/documentGraph/core/impl/links.js";
-import { readDocumentAndValidationModel } from "../../mocks/ModelsUtil.js";
-import documentGraph from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
 
 import policeHolderLinkRef from "./PoliceHolderLinkRef.json" with { type: "json" };
 import policeHolderPostAddressLinkRef from "./PolicyHolderPostAddressLinkRef.json" with { type: "json" };

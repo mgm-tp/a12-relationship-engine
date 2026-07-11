@@ -1,0 +1,46 @@
+{
+	"header": {
+		"id": "Bundle-form-binding-Relations_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItems",
+				"modelType": "overview",
+				"reference": "Bundle_Product_AvailableItemsOverview--ProductBundle"
+			},
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "Product_Bundle_SelectedItemsOverview-edit"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "ProductBundle-LinkForm"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Relations"
+			},
+			{
+				"locale": "de",
+				"text": "Relations"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "ProductBundle",
+		"targetRole": "Product",
+		"component": {
+			"componentType": "DualPaneSelection",
+			"availableItemsOverviewModel": "Bundle_Product_AvailableItemsOverview--ProductBundle",
+			"selectedItemsOverviewModel": "Product_Bundle_SelectedItemsOverview-edit",
+			"linkFormModel": "ProductBundle-LinkForm",
+			"height": "45%"
+		}
+	}
+}

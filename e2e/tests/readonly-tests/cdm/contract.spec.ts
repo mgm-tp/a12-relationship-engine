@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect, test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-import { PWUtils, Selector, Showcase } from "../../../support/utils";
+import { PWUtils, Selector, Showcase } from "../../../support/utils.js";
 
 test.describe.configure({ mode: "parallel" });
 
@@ -41,7 +41,7 @@ test.describe("Contract SCDM", () => {
 		await page.goto(Showcase.CONTRACT_CDM);
 	});
 
-	test.skip("Add a child CDM", async ({ page }) => {
+	test("Add a child CDM", async ({ page }) => {
 		await page.getByRole("button", { name: "Add" }).click();
 		await expect(page.getByText("Simple CDM Prototype")).toBeVisible();
 
@@ -49,21 +49,91 @@ test.describe("Contract SCDM", () => {
 		await page.getByText("Natural Person").click();
 
 		await expect(page.getByText("Natural Person CDM")).toBeVisible();
-		await page.locator(`input[id^='a12-firstName']`).fill("John");
-		await page.locator(`input[id^='a12-lastName']`).fill("Doe");
-		await page.locator(`input[id='a12-fieldbasedrepeatoverviewcolumn-962cf-cell-0']`).fill("09/18/2025");
+		await page.getByRole("textbox", { name: "First name" }).fill("John");
+		await page.getByRole("textbox", { name: "Last name" }).fill("Doe");
 
-		await page.locator(`[data-role='autocomplete'] input`).click();
-		await page
-			.locator(`[data-role='dropdown-item']`)
-			.filter({ has: page.getByText("Markt") })
-			.click();
+		await page.getByRole("form", { name: "Natural Person CDM" }).getByRole("button", { name: "Save" }).click();
 
-		await expect(page.locator(`input[id^='a12-country']`)).toHaveValue("Germany");
+		// After saving the child CDM, verify the child form closes and we're back at the parent
+		await expect(page.getByRole("form", { name: "Natural Person CDM" })).not.toBeVisible({ timeout: 10000 });
 
-		await page.getByLabel("Natural Person CDM").getByRole("button", { name: "Save" }).click();
+		// The co-insurer should now appear in the Selected Elements table
+		const coInsuredTable = page
+			.getByRole("table")
+			.filter({ has: page.getByRole("columnheader", { name: "Co-insured since" }) });
+		await expect(coInsuredTable.getByText("No results found")).not.toBeVisible({ timeout: 10000 });
+		await expect(coInsuredTable.getByRole("row").nth(1)).toBeVisible();
+	});
 
-		await expect(page.getByText("John Doe")).toBeVisible();
+	test("merges saved child CDM data back into parent DocumentGraph", async ({ page }) => {
+		await page.getByRole("button", { name: "Add" }).click();
+		await expect(page.getByText("Simple CDM Prototype")).toBeVisible();
+
+		await page.getByRole("button", { name: "Add CoInsurer" }).click();
+		await page.getByText("Natural Person").click();
+
+		await expect(page.getByText("Natural Person CDM")).toBeVisible();
+		await page.getByRole("textbox", { name: "First name" }).fill("John");
+		await page.getByRole("textbox", { name: "Last name" }).fill("Doe");
+		await page.getByRole("form", { name: "Natural Person CDM" }).getByRole("button", { name: "Save" }).click();
+
+		// mergeChangelog.started dispatched — wait for child form to close
+		await expect(page.getByRole("form", { name: "Natural Person CDM" })).not.toBeVisible({ timeout: 10000 });
+
+		const coInsuredTable = page
+			.getByRole("table")
+			.filter({ has: page.getByRole("columnheader", { name: "Co-insured since" }) });
+		await expect(coInsuredTable.getByRole("row").nth(1)).toBeVisible();
+
+		// Re-open the child CDM by clicking the row — triggers a new checkpoint
+		await coInsuredTable.getByRole("row").nth(1).click();
+		await expect(page.getByRole("form", { name: "Natural Person CDM" })).toBeVisible({ timeout: 10000 });
+
+		// Data must survive the merge: mergeChangelogSaga applied the result to the parent DG
+		await expect(page.getByRole("textbox", { name: "First name" })).toHaveValue("John");
+		await expect(page.getByRole("textbox", { name: "Last name" })).toHaveValue("Doe");
+	});
+
+	test("rolls back child CDM edits on cancel", async ({ page }) => {
+		// Setup: create a contract with one Natural Person co-insurer
+		await page.getByRole("button", { name: "Add" }).click();
+		await expect(page.getByText("Simple CDM Prototype")).toBeVisible();
+
+		await page.getByRole("button", { name: "Add CoInsurer" }).click();
+		await page.getByText("Natural Person").click();
+
+		await page.getByRole("textbox", { name: "First name" }).fill("John");
+		await page.getByRole("textbox", { name: "Last name" }).fill("Doe");
+		await page.getByRole("form", { name: "Natural Person CDM" }).getByRole("button", { name: "Save" }).click();
+		await expect(page.getByRole("form", { name: "Natural Person CDM" })).not.toBeVisible({ timeout: 10000 });
+
+		const coInsuredTable = page
+			.getByRole("table")
+			.filter({ has: page.getByRole("columnheader", { name: "Co-insured since" }) });
+		await expect(coInsuredTable.getByRole("row").nth(1)).toBeVisible();
+
+		// Open the child CDM for editing — pushes a changelog checkpoint
+		await coInsuredTable.getByRole("row").nth(1).click();
+		await expect(page.getByRole("form", { name: "Natural Person CDM" })).toBeVisible({ timeout: 10000 });
+		await expect(page.getByRole("textbox", { name: "First name" })).toHaveValue("John");
+
+		// Edit the first name but do NOT save
+		await page.getByRole("textbox", { name: "First name" }).fill("Jane");
+
+		// Cancel triggers resolveChangelogCheckpoint with outcome: "rollback"
+		const naturalPersonForm = page.locator(Selector.CONTENT_BOX).filter({ hasText: "Natural Person CDM" }).last();
+		await naturalPersonForm.getByRole("button", { name: "Cancel" }).click();
+
+		// Handle possible "Discard Changes" confirmation dialog
+		const discardButton = page.getByRole("button", { name: /discard/i });
+		await discardButton.click();
+
+		await expect(page.getByRole("form", { name: "Natural Person CDM" })).not.toBeVisible({ timeout: 10000 });
+
+		// Re-open and verify rollback: DocumentGraph restored to "John", not "Jane"
+		await coInsuredTable.getByRole("row").nth(1).click();
+		await expect(page.getByRole("form", { name: "Natural Person CDM" })).toBeVisible({ timeout: 10000 });
+		await expect(page.getByRole("textbox", { name: "First name" })).toHaveValue("John");
 	});
 
 	test("CRUD CDM links with duplicated allowed", async ({ page }) => {
@@ -74,9 +144,9 @@ test.describe("Contract SCDM", () => {
 
 		const modalOverlay = page.locator(`${Selector.MODAL_OVERLAY} ${Selector.CONTENT_BOX}`);
 		await expect(modalOverlay).toHaveCount(3); // the modal itself is also a contentbox
-		const candidates = modalOverlay.filter({ has: page.getByText("Available Elements") }).last();
+		const candidates = modalOverlay.filter({ has: page.getByText("Available Items") }).last();
 		await expect(candidates).toBeVisible();
-		const links = modalOverlay.filter(byText("Selected Elements")).last();
+		const links = modalOverlay.filter(byText("Selected items")).last();
 		await expect(links).toBeVisible();
 
 		const candidateRow1 = candidates.getByRole("row").filter(byText("facebook"));
@@ -88,26 +158,35 @@ test.describe("Contract SCDM", () => {
 
 		const linkRow1 = links.getByRole("row").filter(byText("amazon"));
 		await expect(linkRow1).toBeVisible();
-		await linkRow1.locator("button").click();
+		await linkRow1.locator("button").filter({ hasText: "remove_circle" }).click();
 		await expect(candidateRow2.locator("button")).toBeEnabled();
 
 		await candidateRow1.locator("button").click();
+		await page.getByRole("textbox", { name: "Co-insured since" }).fill("05/08/2020");
+		await page.getByRole("dialog").getByRole("button", { name: "Save" }).click();
 		await expect(links.getByRole("row").filter(byText("facebook"))).toBeVisible();
-		await candidateRow1.locator("button").click(); // Add Mark Zuckerberg (facebook) 2 times
+		// Add Mark Zuckerberg (facebook) 2 times
+		await candidateRow1.locator("button").click();
+		await page.getByRole("textbox", { name: "Co-insured since" }).fill("02/09/1996");
+		await page.getByRole("dialog").getByRole("button", { name: "Save" }).click();
 
 		await page.getByRole("button", { name: "OK" }).click();
 
 		await expect(page.getByText("Mark Zuckerberg")).toHaveCount(2);
+		await expect(page.getByRole("row", { name: "Mark Zuckerberg" }).first()).toContainText("05/08/2020");
+		await expect(page.getByRole("row", { name: "Mark Zuckerberg" }).last()).toContainText("02/09/1996");
 
 		// Fill data for link document field of each link
 		await page.getByRole("row", { name: "Mark Zuckerberg" }).first().click();
 		await expect(page.getByText("Natural Person CDM")).toBeVisible();
 		const personCDMScreen = page.locator(Selector.CONTENT_BOX).filter({ hasText: "Natural Person CDM" }).last();
+		await expect(await personCDMScreen.getByRole("textbox", { name: "Co-insured since" })).toHaveValue("05/08/2020");
 		await personCDMScreen.getByRole("textbox", { name: "Co-insured since" }).fill("07/01/2025");
 		await personCDMScreen.getByRole("button", { name: "Save" }).click();
 
 		await page.getByRole("row", { name: "Mark Zuckerberg" }).last().click();
 		await expect(page.getByText("Natural Person CDM")).toBeVisible();
+		await expect(await personCDMScreen.getByRole("textbox", { name: "Co-insured since" })).toHaveValue("02/09/1996");
 		await personCDMScreen.getByRole("textbox", { name: "Co-insured since" }).fill("07/15/2025");
 		await personCDMScreen.getByRole("button", { name: "Save" }).click();
 
@@ -132,7 +211,7 @@ test.describe("Contract SCDM", () => {
 			await expect(page.getByText("Simple CDM Prototype")).toBeVisible();
 			await page.locator(Selector.CONTENT_BOX_HEADER).getByRole("link", { name: "Policy Holder" }).click();
 
-			const textLinePolicyHolder = PWUtils.selectTextlineByLabel(page, "Policy Holder");
+			const textLinePolicyHolder = PWUtils.selectTextFieldByLabel(page, "Policy Holder");
 			await expect(textLinePolicyHolder).toBeVisible();
 			await expect(textLinePolicyHolder.locator("input")).toHaveValue("mgm technology partners GmbH");
 			await expect(page.locator("[id*=expressioncell_69784] ul li")).toHaveCount(6);

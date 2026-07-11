@@ -35,40 +35,39 @@
  * @module relationship
  */
 
-import { call, put, select, type SagaGenerator } from "typed-redux-saga";
+import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import {
-	Activity,
-	ActivityActions,
-	ActivitySelectors,
-	type DataProvider,
-	LocaleSelectors,
-	Model,
-	ModelSelectors
-} from "@com.mgmtp.a12.client/client-core";
+import { FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
+import { setThumbnails, convertThumbnailResponse } from "@com.mgmtp.a12.client/client-core/a12internal";
 import {
 	Dispatcher,
+	LoadThumbnailUrlsJsonRpc2,
 	type DocumentJsonRpc2Request,
-	type RelationshipJsonRpc2request,
-	LoadThumbnailUrlsJsonRpc2
+	type RelationshipJsonRpc2request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
-import { setThumbnails } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/action.js";
-import { convertThumbnailResponse } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import {
+	Model,
+	Activity,
+	ModelSelectors,
+	ActivityActions,
+	LocaleSelectors,
+	ActivitySelectors,
+	type DataProvider,
+	NEW_INSTANCE_IDENTIFIER
+} from "@com.mgmtp.a12.client/client-core";
 
-import { assertCondition, assertObject } from "../../../shared/assertion.js";
 import { RelationshipActions } from "../../actions.js";
+import { assertObject, assertCondition } from "../../../shared/assertion.js";
 import { Relationship as RelationshipClientApi } from "../../relationship.js";
-import { type RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
 import { RequestBuilder } from "../../../server-connectors/requestBuilder.js";
-
 import { getDocumentModelOfSuperType } from "../getDocumentModelOfSuperType.js";
+import type { RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
 
 import { convertResponses } from "./server/convertResponses.js";
-import { createLoadRequests } from "./server/createLoadRequests.js";
-import { createSaveRequests, isAddDocumentOperationResponse } from "./server/createSaveRequests.js";
-import type { LoadRequestResult, RequestConfig } from "./server/types.js";
 import { wrapIfServerError } from "./server/wrapIfServerError.js";
+import { createLoadRequests } from "./server/createLoadRequests.js";
+import type { RequestConfig, LoadRequestResult } from "./server/types.js";
+import { createSaveRequests, isAddDocumentOperationResponse } from "./server/createSaveRequests.js";
 
 /* @internal */
 export function* saveData(
@@ -81,12 +80,15 @@ export function* saveData(
 	const { saving, updateActivityData } = details;
 
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 	if (activity === undefined) {
 		throw new Error(`No activity found for id ${activityId}.`);
 	}
+
 	if (activity.dataHolders === undefined) {
 		throw new Error(`No data holders found for activity ${activityId}.`);
 	}
+
 	if (!activity.descriptor.instance) {
 		throw new Error("Instance must be set to save a document!");
 	}
@@ -194,6 +196,7 @@ function* createForSave(
 	const responses = yield* call(() => Dispatcher.rpc(language, requests));
 
 	const thumbnailResponse = responses.at(-1);
+
 	if (LoadThumbnailUrlsJsonRpc2.Response.isInstance(thumbnailResponse)) {
 		yield* put(
 			setThumbnails({
@@ -216,6 +219,7 @@ function* createForSave(
 		activity,
 		updatePage: true
 	});
+
 	if (additionalThumbnailResponse) {
 		yield* put(
 			setThumbnails({
@@ -234,9 +238,11 @@ function updateSourceEntityForAdditionalConfig(
 ): RequestConfig[] {
 	return requestConfigs.map((request) => {
 		const { sourceEntity } = request.additionalConfig;
-		if (documentId && !sourceEntity.docRef) {
+
+		if (documentId && sourceEntity.docRef === NEW_INSTANCE_IDENTIFIER) {
 			request.additionalConfig.sourceEntity = { ...sourceEntity, docRef: documentId };
 		}
+
 		return request;
 	});
 }

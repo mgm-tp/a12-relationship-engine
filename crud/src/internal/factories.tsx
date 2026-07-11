@@ -30,29 +30,28 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
-import { type SagaIterator } from "redux-saga";
-import { call } from "typed-redux-saga";
+import type { Middleware } from "redux";
+import { call, type SagaGenerator } from "typed-redux-saga";
 
-import { type View } from "@com.mgmtp.a12.client/client-core";
+import type { View } from "@com.mgmtp.a12.client/client-core";
 
-import { CRUDOverviewView as OverviewCRUD } from "./components/overview-engine.js";
 import { crudMiddlewareWithoutValidation } from "./middlewares.js";
-import { createNewDocumentSaga, deleteRowSaga, selectRowSaga } from "./sagas.js";
+import { deleteRowSaga, selectRowSaga, createNewDocumentSaga } from "./sagas.js";
+import { CRUDOverviewView as OverviewCRUD } from "./components/overview-engine.js";
 
 export namespace CRUDFactories {
 	/**
 	 * Provides the application sagas necessary for the CRUD functionality.
 	 */
-	export function createSagas(): (() => SagaIterator<void>)[] {
+	export function createSagas(): (() => SagaGenerator<void>)[] {
 		return [
-			function* (): SagaIterator<void> {
+			function* (): SagaGenerator<void> {
 				yield* call(createNewDocumentSaga);
 			},
-			function* (): SagaIterator<void> {
+			function* (): SagaGenerator<void> {
 				yield* call(selectRowSaga);
 			},
-			function* (): SagaIterator<void> {
+			function* (): SagaGenerator<void> {
 				yield* call(deleteRowSaga);
 			}
 		];

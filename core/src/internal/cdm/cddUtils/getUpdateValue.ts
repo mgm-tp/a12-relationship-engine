@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type FieldInstanceValue, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /**
  * Determines the value to be written into a dg document.

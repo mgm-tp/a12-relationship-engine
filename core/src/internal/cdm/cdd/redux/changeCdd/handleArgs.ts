@@ -29,17 +29,17 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module cdm/cdd
  * @experimental
  */
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Change } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
-import { type PresentRelationshipsCache } from "../../../cddUtils/setValue.js";
+import type { Change } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
+import type { PresentRelationshipsCache } from "../../../cddUtils/setValue.js";
 
 /**
  * @internal

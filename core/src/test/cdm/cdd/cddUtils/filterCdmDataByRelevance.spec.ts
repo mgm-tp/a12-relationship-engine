@@ -30,25 +30,25 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type Model } from "@com.mgmtp.a12.client/client-core";
-import { type Models, type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type Document, type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Model } from "@com.mgmtp.a12.client/client-core";
+import type { Models, FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { Document, DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertCondition } from "../../../../internal/shared/assertion.js";
-import { type CdmData } from "../../../../internal/cdm/cddUtils/cdmData.js";
-import { filterCdmDataByRelevance } from "../../../../internal/cdm/cddUtils/notRelevant/filterCdmDataByRelevance.js";
-import {
-	type DgChange,
-	type DgChangeLog,
-	type DgDocs,
-	type DgDocument,
-	type DgLinksById,
-	type DocumentGraph
-} from "../../../../internal/documentGraph/core/index.js";
 import { createTestModels } from "../../../mocks/ModelsUtil.js";
+import { assertCondition } from "../../../../internal/shared/assertion.js";
+import type { CdmData } from "../../../../internal/cdm/cddUtils/cdmData.js";
 import { MOCK_MODEL_GRAPH } from "../../../mocks/relationships/ModelGraph.js";
+import { filterCdmDataByRelevance } from "../../../../internal/cdm/cddUtils/notRelevant/filterCdmDataByRelevance.js";
+import type {
+	DgDocs,
+	DgChange,
+	DgDocument,
+	DgChangeLog,
+	DgLinksById,
+	DocumentGraph
+} from "../../../../internal/documentGraph/core/index.js";
 
 describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 	describe("filterCdmDataByRelevance", () => {
@@ -83,6 +83,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 							changedDocs: {
 								"NaturalPerson-document/fa0b654b-c991-40c3-80b8-3ebcf4c578e1": (dgDoc: DgDocument) => {
 									assertCondition(dgDoc.loadingState === "loaded");
+
 									return {
 										...dgDoc,
 										document: {
@@ -141,6 +142,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 							changedDocs: {
 								"NaturalPerson-document/fa0b654b-c991-40c3-80b8-3ebcf4c578e1": (dgDoc: DgDocument) => {
 									assertCondition(dgDoc.loadingState === "loaded");
+
 									return {
 										...dgDoc,
 										document: {
@@ -194,6 +196,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 							changedDocs: {
 								"NaturalPerson-document/fa0b654b-c991-40c3-80b8-3ebcf4c578e1": (dgDoc: DgDocument) => {
 									assertCondition(dgDoc.loadingState === "loaded");
+
 									return {
 										...dgDoc,
 										document: {
@@ -247,6 +250,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 							changedDocs: {
 								"NaturalPerson-document/fa0b654b-c991-40c3-80b8-3ebcf4c578e1": (dgDoc: DgDocument) => {
 									assertCondition(dgDoc.loadingState === "loaded");
+
 									return {
 										...dgDoc,
 										document: {
@@ -307,6 +311,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 							changedDocs: {
 								"NaturalPerson-document/fa0b654b-c991-40c3-80b8-3ebcf4c578e1": (dgDoc: DgDocument) => {
 									assertCondition(dgDoc.loadingState === "loaded");
+
 									return {
 										...dgDoc,
 										document: {
@@ -705,6 +710,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 			const changedDocsByDocRef = Object.entries(dgChanges.changedDocs).reduce(
 				(acc, curr) => {
 					const [docRef, alterDoc] = curr;
+
 					return {
 						...acc,
 						[docRef]: alterDoc(originalCdmData.documentGraph.documents.byDocRef[docRef])

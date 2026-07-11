@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductBrand-LinkForm",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Beziehung bearbeiten"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"alias": "ProductBrand_AdditionalFieldsModel",

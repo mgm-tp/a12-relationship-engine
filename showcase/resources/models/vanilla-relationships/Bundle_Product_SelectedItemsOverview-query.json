@@ -1,0 +1,54 @@
+{
+	"header": {
+		"id": "Bundle_Product_SelectedItemsOverview-query",
+		"modelType": "query",
+		"modelVersion": "0.1.0",
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-query",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Product-document"
+			},
+			{
+				"purpose": "relationship-model-for-query",
+				"modelType": "relationship",
+				"alias": "RM",
+				"reference": "ProductBundle"
+			}
+		]
+	},
+	"content": {
+		"targetDocumentModel": "Product-document",
+		"projectionName": "document",
+		"paging": {
+			"pageNumber": 0,
+			"pageSize": 50
+		},
+		"links": [
+			{
+				"relationshipModel": "ProductBundle",
+				"targetRole": "Bundle",
+				"maxDepth": 1,
+				"constraint": {
+					"operator": "has",
+					"relationshipModel": "ProductBundle",
+					"targetRole": "Product",
+					"constraint": {
+						"operator": "exact_match",
+						"field": "/__meta/docRef",
+						"value": "${Product-document, [/__meta/docRef]}"
+					},
+					"maxDepth": 1
+				}
+			}
+		],
+		"exclude": true,
+		"constraint": {
+			"operator": "exact_match",
+			"field": "/__meta/docRef",
+			"value": "${Product-document, [/__meta/docRef]}"
+		}
+	}
+}

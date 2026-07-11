@@ -1,0 +1,69 @@
+{
+	"header": {
+		"id": "NestedDM",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "CM_NestedDM",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G1",
+					"name": "root",
+					"Group": {
+						"elements": [
+							{
+								"type": "Group",
+								"id": "G2",
+								"name": "level1",
+								"Group": {
+									"elements": [
+										{
+											"type": "Group",
+											"id": "G3",
+											"name": "level2",
+											"Group": {
+												"elements": [
+													{
+														"type": "Field",
+														"id": "field_abc",
+														"name": "deepField",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

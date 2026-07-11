@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Model, type ModelLoader, type ModelMap } from "@com.mgmtp.a12.client/client-core";
+import type { Model, ModelMap, ModelLoader } from "@com.mgmtp.a12.client/client-core";
 
-import { readDocumentAndValidationModel, readFormModel, readModel } from "./ModelsUtil.js";
+import { readModel, readFormModel, readDocumentAndValidationModel } from "./ModelsUtil.js";
 
 class FileSystemModelLoader implements ModelLoader {
 	readonly name: string = "FileSystemModelLoader";

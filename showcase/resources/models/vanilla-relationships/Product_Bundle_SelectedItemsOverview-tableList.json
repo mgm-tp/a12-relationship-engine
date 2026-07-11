@@ -1,0 +1,111 @@
+{
+	"header": {
+		"id": "Product_Bundle_SelectedItemsOverview-tableList",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Product_Bundle_SelectedItemsOverview-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-7cda7",
+				"elementRef": "F4",
+				"sortable": false,
+				"width": 1,
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Product",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-8fb40",
+				"elementRef": "F5",
+				"sortable": false,
+				"width": 1,
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Product",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-1583f",
+				"elementRef": "F5",
+				"sortable": false,
+				"width": 1,
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Product",
+						"type": "LINK"
+					}
+				]
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"id": "column-44679",
+				"elementRef": "field_31308",
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Product",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"styles": {},
+				"id": "column-983c2",
+				"elementRef": "group_95309",
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Product",
+						"type": "CHILD"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"pagingSize": 10,
+			"showFullTextSearch": false,
+			"enableFilter": false
+		},
+		"rowActivation": {
+			"type": "non_interactive"
+		}
+	}
+}

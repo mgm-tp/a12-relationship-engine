@@ -1,0 +1,98 @@
+{
+	"header": {
+		"id": "Product_Brand_AvailableItemsOverview--ProductBrand",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "List all brands"
+			},
+			{
+				"locale": "de",
+				"text": "Produktliste"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Product_Brand_AvailableItemsOverview--ProductBrand-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-c27fc",
+				"width": 1,
+				"elementRef": "F1",
+				"sortable": true,
+				"preferredSorting": "DESC"
+			},
+			{
+				"id": "column-e34a2",
+				"width": 1,
+				"elementRef": "F2",
+				"sortable": true,
+				"preferredSorting": "ASC"
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "event_add_link",
+					"icon": {
+						"name": "add"
+					}
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"initialSorting": [
+				{
+					"idref": "column-c27fc"
+				},
+				{
+					"idref": "column-e34a2"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		},
+		"rowActivation": {
+			"type": "event",
+			"event": "event_add_link"
+		}
+	}
+}

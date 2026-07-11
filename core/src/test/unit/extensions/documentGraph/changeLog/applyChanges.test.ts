@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type Change, type DocumentGraph } from "../../../../../internal/documentGraph/core/index.js";
+import type { Change, DocumentGraph } from "../../../../../internal/documentGraph/core/index.js";
 import { applyChanges, newChangeLog } from "../../../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.documentGraph.changeLog", () => {

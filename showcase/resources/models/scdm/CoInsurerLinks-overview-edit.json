@@ -1,0 +1,165 @@
+{
+	"header": {
+		"id": "CoInsurerLinks-overview-edit",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Selected items"
+			},
+			{
+				"locale": "de",
+				"text": "Ausgewählte Elemente"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "CoInsurerLinks-overview-query"
+			}
+		]
+	},
+	"content": {
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "event_delete_link",
+					"icon": {
+						"name": "remove_circle"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Remove"
+						},
+						{
+							"locale": "de",
+							"text": "Entfernen"
+						}
+					],
+					"labelHidden": true
+				},
+				{
+					"event": "event_restore_link",
+					"icon": {
+						"name": "add_circle"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Restore"
+						},
+						{
+							"locale": "de",
+							"text": "Wiederherstellen"
+						}
+					],
+					"labelHidden": true
+				},
+				{
+					"event": "event_edit_link_document",
+					"icon": {
+						"name": "edit"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Edit additional properties"
+						},
+						{
+							"locale": "de",
+							"text": "Zusätzliche Eigenschaften bearbeiten"
+						}
+					],
+					"labelHidden": true
+				}
+			]
+		},
+		"columns": [
+			{
+				"id": "column-28035",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_4e3fe",
+				"sortable": false,
+				"linkReferences": [
+					{
+						"relationship": "CoInsurer",
+						"targetRole": "businessPartner",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-0d658",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_6268b",
+				"sortable": false,
+				"linkReferences": [
+					{
+						"relationship": "CoInsurer",
+						"targetRole": "businessPartner",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-7a6d8",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_de37b",
+				"sortable": false,
+				"linkReferences": [
+					{
+						"relationship": "CoInsurer",
+						"targetRole": "businessPartner",
+						"type": "LINK"
+					}
+				]
+			},
+			{
+				"id": "column-5c226",
+				"width": 1,
+				"styles": {},
+				"elementRef": "group_d1772",
+				"sortable": false,
+				"linkReferences": [
+					{
+						"relationship": "CoInsurer",
+						"targetRole": "businessPartner",
+						"type": "CHILD"
+					}
+				]
+			}
+		],
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": false,
+			"pagingSize": 10
+		},
+		"rowActivation": {
+			"type": "event",
+			"event": "event_delete_link"
+		}
+	}
+}

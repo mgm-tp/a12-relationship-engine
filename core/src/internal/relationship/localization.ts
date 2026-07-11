@@ -35,12 +35,12 @@
  * @module relationship
  */
 
-import { type EntityCharacteristics } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Localizable, type LocalizableArgs } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+import type { Localizable, LocalizableArgs } from "@com.mgmtp.a12.utils/utils-localization";
+import type { EntityCharacteristics } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { RESOURCE_KEYS } from "./languages/index.js";
 import { de_DE } from "./languages/de_DE.js";
 import { en_US } from "./languages/en_US.js";
+import { RESOURCE_KEYS } from "./languages/index.js";
 
 const RELATIONSHIP_PREFIX = "relationship";
 const RELATIONSHIP_MODEL_PREFIX = `${RELATIONSHIP_PREFIX}.relationshipModel`;
@@ -76,6 +76,18 @@ export function descriptorResultCount(args: LocalizableArgs): Localizable {
 		defaults: {
 			en: en_US.extension.relationship.component["drop-down"]["result-count"],
 			de: de_DE.extension.relationship.component["drop-down"]["result-count"]
+		},
+		args
+	};
+}
+
+/** @internal */
+export function descriptorMinSearchLength(args: LocalizableArgs): Localizable {
+	return {
+		key: RESOURCE_KEYS.extension.relationship.component["drop-down"]["min-search-length"],
+		defaults: {
+			en: en_US.extension.relationship.component["drop-down"]["min-search-length"],
+			de: de_DE.extension.relationship.component["drop-down"]["min-search-length"]
 		},
 		args
 	};

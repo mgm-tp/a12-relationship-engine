@@ -30,30 +30,31 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
 import * as TypeMoq from "typemoq";
-import { type Action } from "typescript-fsa";
+import { test, expect, describe } from "vitest";
 
-import { type DocumentGraph } from "../../../../internal/documentGraph/core/documentGraph.js";
-import {
-	addDocument,
-	type AddDocumentPayload,
-	addLink,
-	type AddLinkPayload,
-	beginTransaction,
-	type BeginTransactionPayload,
-	changeDocument,
-	type ChangeDocumentPayload,
-	endTransaction,
-	type EndTransactionPayload,
-	mergeDG,
-	type MergeDGPayload,
-	removeLink,
-	type RemoveLinkPayload,
-	setDg,
-	type SetDGPayload
-} from "../../../../internal/documentGraph/redux/actions.js";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+
 import { createLinkDescriptor } from "../../../mocks/relationships/mocks.js";
+import type { DocumentGraph } from "../../../../internal/documentGraph/core/documentGraph.js";
+import {
+	setDg,
+	addLink,
+	mergeDG,
+	removeLink,
+	addDocument,
+	changeDocument,
+	endTransaction,
+	beginTransaction,
+	type SetDGPayload,
+	type AddLinkPayload,
+	type MergeDGPayload,
+	type RemoveLinkPayload,
+	type AddDocumentPayload,
+	type ChangeDocumentPayload,
+	type EndTransactionPayload,
+	type BeginTransactionPayload
+} from "../../../../internal/documentGraph/redux/actions.js";
 
 describe("document graph change handling actions", () => {
 	describe("DG", () => {

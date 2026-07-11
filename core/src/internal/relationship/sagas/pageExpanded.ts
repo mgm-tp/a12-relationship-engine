@@ -34,18 +34,17 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { call, put, select, takeEvery } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { put, call, select, takeEvery, type SagaGenerator } from "typed-redux-saga";
 
-import { assertObject } from "../../shared/assertion.js";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 import { RelationshipActions } from "../actions.js";
 import { RelationshipSelectors } from "../selectors.js";
+import { assertObject } from "../../shared/assertion.js";
 
-import { calculatePageClause, loadData } from "./utils.js";
+import { loadData, calculatePageClause } from "./utils.js";
 
-export function* pageExpandedSaga(): SagaIterator<void> {
+export function* pageExpandedSaga(): SagaGenerator<void> {
 	yield* takeEvery(RelationshipActions.Events.pageExpanded, handlePageExpanded);
 }
 

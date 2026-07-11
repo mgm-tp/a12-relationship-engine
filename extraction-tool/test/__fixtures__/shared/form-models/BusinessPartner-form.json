@@ -1,0 +1,402 @@
+{
+	"header": {
+		"id": "BusinessPartner-form",
+		"modelType": "form",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Business Partner"
+			},
+			{
+				"locale": "de",
+				"text": "Geschäftspartner"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"details\":{\"name\":\"PostalAddressBinding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-9e13c\"},{\"details\":{\"name\":\"LocationBinding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-10404\"}]"
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "BusinessPartner-document",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "BusinessPartner-document"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Address-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "PostAddressLinks-overview"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "LocationLinks-overview"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "NAVIGATION",
+						"id": "button-518b9",
+						"name": "PostalAddressButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Postal address (Single)"
+										},
+										{
+											"locale": "de",
+											"text": "Postanschrift (Single)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen1",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					},
+					{
+						"type": "NAVIGATION",
+						"id": "button-66ab4",
+						"name": "LocationsButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Locations (Dual)"
+										},
+										{
+											"locale": "de",
+											"text": "Adressen (Dual)"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY"
+						},
+						"target": "screen-d9d37",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-73686",
+						"name": "CancelButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										},
+										{
+											"locale": "de",
+											"text": "Abbrechen"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-72b76",
+						"name": "SaveButton",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										},
+										{
+											"locale": "de",
+											"text": "Speichern"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_submit",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "Screen1",
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-145ca",
+						"name": "cg1",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-5925a",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-57402",
+										"elementRef": "field_6268b"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-6b0ca",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-4f653",
+										"elementRef": "field_4e3fe"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-136a0",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-00271",
+										"elementRef": "group_d1772"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "InlineRepeat",
+						"id": "inlinerepeat-b2867",
+						"name": "inline-repeat-notes",
+						"repeatOverviewColumn": [
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-1c203",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "field_37c52"
+							},
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-a2eaf",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "field_998c7"
+							}
+						],
+						"groupRef": "group_f46c7",
+						"enableAdd": true,
+						"enableRemove": true
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-9e13c",
+						"name": "PostalAddressBinding",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "PostalAddressBinding"
+									},
+									{
+										"locale": "de",
+										"text": "PostalAddressBinding"
+									}
+								]
+							}
+						}
+					}
+				]
+			},
+			{
+				"id": "screen-d9d37",
+				"name": "Screen2",
+				"title": {
+					"type": "Multilingual",
+					"multilingualText": {
+						"text": [
+							{
+								"locale": "en",
+								"text": "screen2"
+							}
+						]
+					}
+				},
+				"screenElements": [
+					{
+						"type": "ControlGrid",
+						"id": "controlgrid-2a6aa",
+						"name": "cg1",
+						"row": [
+							{
+								"type": "Row",
+								"id": "row-c8295",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-c3dbc",
+										"elementRef": "field_6268b"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-bc2e6",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-884c6",
+										"elementRef": "field_4e3fe"
+									}
+								]
+							},
+							{
+								"type": "Row",
+								"id": "row-15d09",
+								"cell": [
+									{
+										"type": "Control",
+										"id": "control-679a3",
+										"elementRef": "group_d1772"
+									}
+								]
+							}
+						],
+						"verticalAlignment": "TOP"
+					},
+					{
+						"type": "InlineRepeat",
+						"id": "inlinerepeat-e0a9a",
+						"name": "inline-repeat-notes",
+						"repeatOverviewColumn": [
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-5fba6",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "field_37c52"
+							},
+							{
+								"type": "FieldBasedRepeatOverviewColumn",
+								"id": "fieldbasedrepeatoverviewcolumn-6480e",
+								"width": 1,
+								"sortable": false,
+								"filterable": false,
+								"preferredSorting": "ASC",
+								"elementRef": "field_998c7"
+							}
+						],
+						"groupRef": "group_f46c7",
+						"enableAdd": true,
+						"enableRemove": true
+					},
+					{
+						"type": "CustomScreenElement",
+						"id": "section-10404",
+						"name": "LocationBinding",
+						"title": {
+							"type": "Multilingual",
+							"multilingualText": {
+								"text": [
+									{
+										"locale": "en",
+										"text": "LocationBinding"
+									},
+									{
+										"locale": "de",
+										"text": "LocationBinding"
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {
+			"field": [
+				{
+					"label": {
+						"type": "Multilingual",
+						"multilingualText": {
+							"text": [
+								{
+									"locale": "en",
+									"text": "Logo"
+								},
+								{
+									"locale": "de",
+									"text": "Logo"
+								}
+							]
+						}
+					},
+					"elementRef": "group_d1772"
+				}
+			]
+		},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

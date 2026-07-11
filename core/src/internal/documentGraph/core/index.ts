@@ -35,10 +35,10 @@
  * @module documentGraph/core
  * @experimental
  */
-export * from "./utilityTypes.js";
-export * from "./documentGraph.js";
-export * from "./changeLog/changeLog.js";
-export * from "./slices.js";
+export type * from "./utilityTypes.js";
+export type * from "./documentGraph.js";
+export type * from "./changeLog/changeLog.js";
+export type * from "./slices.js";
 export { createDG } from "./impl/dg.js";
 export * from "./impl/docs.js";
 export * from "./impl/links.js";

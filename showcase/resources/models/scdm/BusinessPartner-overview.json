@@ -2,7 +2,7 @@
 	"header": {
 		"id": "BusinessPartner-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "de"
@@ -21,12 +21,7 @@
 				"text": "Business Partner Overview"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,55 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"showFullTextSearch": true,
-			"pagingSize": 10,
-			"initialSorting": [
-				{
-					"idref": "column-d8cb9"
-				},
-				{
-					"idref": "column-6203b"
-				}
-			],
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all_columns"
-			}
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"label": [
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						},
-						{
-							"locale": "en",
-							"text": "Add"
-						}
-					],
-					"type": "button",
-					"event": "add",
-					"icon": {
-						"name": "add"
-					},
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
 		"rowActionGroup": {
 			"actions": [
 				{
@@ -185,9 +131,58 @@
 				"sortable": false
 			}
 		],
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"label": [
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						},
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"type": "button",
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
 		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"initialSorting": [
+				{
+					"idref": "column-d8cb9"
+				},
+				{
+					"idref": "column-6203b"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
 		}
 	}
 }

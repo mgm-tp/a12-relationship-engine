@@ -30,23 +30,23 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { assert, describe, expect, test } from "vitest";
-import { render, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { Mock, type IMock } from "typemoq";
 import { expectSaga } from "redux-saga-test-plan";
-import { type IMock, Mock } from "typemoq";
+import { test, assert, expect, describe } from "vitest";
+import { render, waitFor } from "@testing-library/react";
 
-import { type Header } from "@com.mgmtp.a12.base/base-model-api/lib/main/header/index.js";
+import type { Header } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { type Activity, ActivityActions, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
+import { createView } from "../../../utils/activity.js";
+import { TestWrapper } from "../../../utils/testWrapper.js";
 import { CRUDActions } from "../../../../internal/actions.js";
 import { CRUDFactories } from "../../../../internal/factories.js";
 import { createGeneralStore } from "../../../mocks/store/store.js";
-import { createView } from "../../../utils/activity.js";
 import { createStoreForOverviewEngine } from "../../../mocks/store/storeForEngine.js";
-import { readDocumentAndValidationModel, readOverviewModel } from "../../../mocks/ModelsUtil.js";
-import { TestWrapper } from "../../../utils/testWrapper.js";
+import { readOverviewModel, readDocumentAndValidationModel } from "../../../mocks/ModelsUtil.js";
 
 describe("com.mgmtp.a12.crud.lib.extensions.crud.factories", () => {
 	describe("createSagas", () => {

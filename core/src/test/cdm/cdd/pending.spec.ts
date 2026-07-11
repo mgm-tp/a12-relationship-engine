@@ -30,13 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
-
-import { addMissingPaths, collectMissingPaths, updatePending } from "../../../internal/cdm/cdd/core/impl/pending.js";
-import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
-import { type RelshPath } from "../../../internal/documentGraph/core/index.js";
+import { test, expect, describe } from "vitest";
 
 import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
+import type { RelshPath } from "../../../internal/documentGraph/core/index.js";
+import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
+import { updatePending, addMissingPaths, collectMissingPaths } from "../../../internal/cdm/cdd/core/impl/pending.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 	const cdm = deserializeDocumentModel(contractCDM);

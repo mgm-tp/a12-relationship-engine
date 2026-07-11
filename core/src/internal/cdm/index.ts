@@ -35,23 +35,23 @@
  * @module cdm
  * @experimental
  */
-import { type Middleware } from "redux";
-import { type SagaIterator } from "redux-saga";
+import type { Middleware } from "redux";
+import type { SagaGenerator } from "typed-redux-saga";
 
 import {
+	formEngineSagas,
 	createEngineMiddlewares,
-	type FormEngineSagaOptions,
-	formEngineSagas
+	type FormEngineSagaOptions
 } from "@com.mgmtp.a12.formengine/formengine-core";
 
+import { queryRootName } from "./commons/modelUtils.js";
+import loadDataMiddleware from "./dataProvider/loadDataMiddleware.js";
+import type { CdmMiddlewareOptions } from "./cdd/redux/middleware-options.js";
+import cdmFormEngineChangeLogMiddleware from "./cdd/redux/cdm_fe_changelog.js";
+import { createCandidateDataHoldersSaga } from "./dataProvider/loadCandidates.js";
+import { createScdmComputationMiddleware } from "./cdd/redux/scdm_computations.js";
 import { cddDocumentDescriptorSelector } from "./cdd/core/documentDescriptorSelector.js";
 import { cddFormEngineMiddlewareAdapterFactory } from "./cdd/redux/cddMiddlewareAdapterFactory.js";
-import cdmFormEngineChangeLogMiddleware from "./cdd/redux/cdm_fe_changelog.js";
-import { type CdmMiddlewareOptions } from "./cdd/redux/middleware-options.js";
-import { createScdmComputationMiddleware } from "./cdd/redux/scdm_computations.js";
-import { queryRootName } from "./commons/modelUtils.js";
-import { createCandidateDataHoldersSaga } from "./dataProvider/loadCandidates.js";
-import loadDataMiddleware from "./dataProvider/loadDataMiddleware.js";
 import { disableHandlingMiddleware } from "./dataProvider/subactivity/disable-handling-middleware.js";
 
 export { createCddDataProvider } from "./dataProvider/cddDataProvider.js";
@@ -62,7 +62,7 @@ export { RESOURCE_KEYS as CDM_RESOURCE_KEYS } from "./languages/index.js";
  */
 export const EXPERIMENTAL = true;
 
-export function cdmSagas(options?: FormEngineSagaOptions): (() => SagaIterator<void>)[] {
+export function cdmSagas(options?: FormEngineSagaOptions): (() => SagaGenerator<void>)[] {
 	return [
 		createCandidateDataHoldersSaga,
 		...formEngineSagas({
@@ -81,4 +81,5 @@ export function createCdmMiddlewares(options?: CdmMiddlewareOptions): Middleware
 		disableHandlingMiddleware
 	];
 }
+
 export { queryRootName };

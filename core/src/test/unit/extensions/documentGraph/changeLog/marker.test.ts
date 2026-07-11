@@ -30,14 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, expect, test } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type Change, type ChangeLog } from "../../../../../internal/documentGraph/core/index.js";
+import type { Change, ChangeLog } from "../../../../../internal/documentGraph/core/index.js";
 import {
-	clearMarker,
+	trim,
 	findMarker,
-	newChangeLog,
-	trim
+	clearMarker,
+	newChangeLog
 } from "../../../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
 
 /**
@@ -120,10 +120,12 @@ describe("com.mgmtp.a12.relationshipengine-core.extensions.documentGraph.changeL
  */
 function makeLog(...entries: string[]): ChangeLog<string> {
 	const cl = newChangeLog<string>();
+
 	for (const entry of entries) {
 		const change: Change<string> =
 			entry[0] === "m" ? { kind: "marker", id: entry, snapshot: entry } : { kind: "docChanged", docRef: entry };
 		cl.changes.push(change);
 	}
+
 	return cl;
 }

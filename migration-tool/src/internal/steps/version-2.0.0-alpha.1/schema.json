@@ -1,0 +1,401 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/RelationshipUiModel",
+  "definitions": {
+    "RelationshipUiModel": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/Header"
+        },
+        "content": {
+          "$ref": "#/definitions/RelationshipUiModel.Content"
+        }
+      },
+      "required": [
+        "header",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "Header": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the model"
+        },
+        "modelType": {
+          "$ref": "#/definitions/ModelType",
+          "description": "The name of the meta model, e.g. application, document, form, overview, relationship, tree"
+        },
+        "modelVersion": {
+          "type": "string",
+          "description": "The version of the meta model"
+        },
+        "locales": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code"
+            ],
+            "additionalProperties": false
+          },
+          "description": "All supported locales of the model"
+        },
+        "labels": {
+          "$ref": "#/definitions/LocalizedModelText",
+          "description": "All labels of the model\n\nA label of a model is a text that can be used to display the model to users for a given locale"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional human-readable description of the model\n\nCan be used to provide additional information about the model, e.g. its usage, content, purpose, change history, etc."
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Annotation"
+          },
+          "description": "All annotations of the model\n\nAn annotation is a key value pair of strings which can contain any project specific extension."
+        },
+        "modelReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModelReference"
+          },
+          "description": "All references to other models"
+        }
+      },
+      "required": [
+        "id",
+        "modelType",
+        "modelVersion"
+      ],
+      "additionalProperties": false,
+      "description": "Contains common header information for all types of A12 models."
+    },
+    "ModelType": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "application",
+            "additive-document",
+            "combination",
+            "content",
+            "document",
+            "form",
+            "mapping",
+            "module-masterdetail",
+            "overview",
+            "print",
+            "relationship",
+            "structuralmapping",
+            "tree"
+          ]
+        }
+      ]
+    },
+    "LocalizedModelText": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LocalizedText"
+      },
+      "description": "An array containing the translations for a given model element (property), e.g. a label.\n\nEach array item contains the translation for a single (partial) locale."
+    },
+    "LocalizedText": {
+      "type": "object",
+      "properties": {
+        "locale": {
+          "type": "string",
+          "description": "The serialized representation of the (partial) locale.\n\nExpected format: \\<language\\>[_\\<COUNTRY\\>]\n\nValid examples: en_US, de_DE, fr\n\nInvalid examples: en-US, en_us, enUS, FR"
+        },
+        "text": {
+          "type": "string",
+          "description": "The localized text for the given locale."
+        }
+      },
+      "required": [
+        "locale",
+        "text"
+      ],
+      "additionalProperties": false,
+      "description": "An object representing a key-value mapping of locale -> localized text for a specific model property"
+    },
+    "Annotation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The identifier of the annotation"
+        },
+        "value": {
+          "type": "string",
+          "description": "Optional value of the annotation"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "Additional (project-specific) information attached to a model for customization purposes"
+    },
+    "ModelReference": {
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "type": "string",
+          "description": "A string containing what the references is used for"
+        },
+        "modelType": {
+          "$ref": "#/definitions/ModelType",
+          "description": "A string containing what (meta) model type is referenced e.g. document, form, overview, application, tree, relationship"
+        },
+        "alias": {
+          "type": "string",
+          "description": "A string which can be used inside of the model to refer to this model reference"
+        },
+        "reference": {
+          "type": "string",
+          "description": "The actual reference to the other model"
+        }
+      },
+      "required": [
+        "modelType",
+        "reference"
+      ],
+      "additionalProperties": false,
+      "description": "A model reference contains information about references of a model to other models."
+    },
+    "RelationshipUiModel.Content": {
+      "type": "object",
+      "properties": {
+        "relationshipName": {
+          "type": "string"
+        },
+        "targetRole": {
+          "type": "string"
+        },
+        "component": {
+          "$ref": "#/definitions/RelationshipUiModel.ComponentConfiguration"
+        },
+        "modificationConfiguration": {
+          "$ref": "#/definitions/RelationshipUiModel.ModificationConfiguration"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        }
+      },
+      "required": [
+        "relationshipName",
+        "targetRole",
+        "component"
+      ],
+      "additionalProperties": false
+    },
+    "RelationshipUiModel.ComponentConfiguration": {
+      "type": "object",
+      "properties": {
+        "componentType": {
+          "$ref": "#/definitions/RelationshipUiModel.ComponentType"
+        },
+        "selectedItemsOverviewModel": {
+          "type": "string"
+        },
+        "availableItemsOverviewModel": {
+          "type": "string"
+        },
+        "linkFormModel": {
+          "type": "string"
+        },
+        "editConfiguration": {
+          "$ref": "#/definitions/RelationshipUiModel.EditConfiguration"
+        },
+        "availableItemsQueryModel": {
+          "type": "string"
+        },
+        "selectedItemQueryModel": {
+          "type": "string"
+        },
+        "elementRef": {
+          "type": "string"
+        },
+        "buttons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelationshipUiModel.ButtonElement"
+          }
+        },
+        "height": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "componentType"
+      ],
+      "additionalProperties": false
+    },
+    "RelationshipUiModel.ComponentType": {
+      "type": "string",
+      "enum": [
+        "DualPaneSelection",
+        "DropDownSelection",
+        "TableList"
+      ]
+    },
+    "RelationshipUiModel.EditConfiguration": {
+      "type": "object",
+      "properties": {
+        "availableItemsOverviewModel": {
+          "type": "string"
+        },
+        "selectedItemsOverviewModel": {
+          "type": "string"
+        },
+        "dialogTitle": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "dialogWidth": {
+          "type": "string"
+        },
+        "dialogMaxWidth": {
+          "type": "string"
+        },
+        "dialogMaxHeight": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "availableItemsOverviewModel",
+        "selectedItemsOverviewModel"
+      ],
+      "additionalProperties": false
+    },
+    "RelationshipUiModel.ButtonElement": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "description": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "icon": {
+          "$ref": "#/definitions/RelationshipUiModel.ButtonIcon"
+        },
+        "destructive": {
+          "type": "boolean"
+        },
+        "primary": {
+          "type": "boolean"
+        },
+        "labelHidden": {
+          "type": "boolean",
+          "const": true
+        },
+        "confirmation": {
+          "$ref": "#/definitions/RelationshipUiModel.ButtonConfirmation"
+        },
+        "styles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        }
+      },
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false
+    },
+    "RelationshipUiModel.ButtonIcon": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string",
+          "enum": [
+            "filled",
+            "outlined",
+            "rounded",
+            "custom"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "RelationshipUiModel.ButtonConfirmation": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/LocalizedModelText"
+        },
+        "message": {
+          "$ref": "#/definitions/LocalizedModelText"
+        }
+      },
+      "additionalProperties": false
+    },
+    "RelationshipUiModel.ModificationConfiguration": {
+      "type": "object",
+      "properties": {
+        "extendParentActivityDescriptor": {
+          "type": "boolean",
+          "const": true
+        },
+        "activityDescriptor": {
+          "$ref": "#/definitions/RelationshipUiModel.ActivityDescriptor"
+        }
+      },
+      "additionalProperties": false
+    },
+    "RelationshipUiModel.ActivityDescriptor": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "instance": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "not": {}
+          }
+        ]
+      }
+    }
+  }
+}

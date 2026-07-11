@@ -1,0 +1,87 @@
+{
+	"header": {
+		"id": "ContractClaim",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "contract",
+				"reference": "Contract-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "claim",
+				"reference": "Claim-document"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"labels": [
+			{
+				"locale": "en"
+			},
+			{
+				"locale": "de"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"documentModel": "Contract-document",
+				"role": "contract",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			},
+			{
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en"
+					},
+					{
+						"locale": "de"
+					}
+				],
+				"role": "claim",
+				"documentModel": "Claim-document",
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			}
+		]
+	}
+}

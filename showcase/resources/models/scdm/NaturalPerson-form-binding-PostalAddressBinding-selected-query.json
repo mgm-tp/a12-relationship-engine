@@ -1,0 +1,53 @@
+{
+	"header": {
+		"id": "NaturalPerson-form-binding-PostalAddressBinding-selected-query",
+		"modelType": "query",
+		"modelVersion": "0.1.0",
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-query",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Address-document"
+			},
+			{
+				"purpose": "relationship-model-for-query",
+				"modelType": "relationship",
+				"alias": "RM",
+				"reference": "PostAddress"
+			}
+		]
+	},
+	"content": {
+		"targetDocumentModel": "Address-document",
+		"projectionName": "document",
+		"paging": {
+			"pageNumber": 0,
+			"pageSize": 1
+		},
+		"links": [
+			{
+				"relationshipModel": "PostAddress",
+				"targetRole": "businessPartner",
+				"maxDepth": 1,
+				"constraint": {
+					"operator": "exact_match",
+					"field": "/__meta/docRef",
+					"value": "${BusinessPartner-document, [/__meta/docRef]}"
+				}
+			}
+		],
+		"constraint": {
+			"operator": "has",
+			"relationshipModel": "PostAddress",
+			"targetRole": "businessPartner",
+			"constraint": {
+				"operator": "exact_match",
+				"field": "/__meta/docRef",
+				"value": "${BusinessPartner-document, [/__meta/docRef]}"
+			},
+			"maxDepth": 1
+		}
+	}
+}

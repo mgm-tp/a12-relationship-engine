@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -17,12 +17,98 @@ THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPR
 ////
 = Migration Instructions
 
+== 2026.06
+
+Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
+for an explanation of general steps.
+
+=== 3.0.0
+
+==== React peer dependency raised to 19.2
+
+*Tooling:* none — manual change.
+
+The minimum supported React version has been raised from `^19.0.0` to `^19.2.6`. Ensure your project's `package.json` meets this minimum:
+
+[source,json]
+----
+{
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}
+----
+
+==== Redux 5 upgrade
+
+*Tooling:* Client codemod (`@com.mgmtp.a12.client/client-codemod migrateTypescriptFsaImports`), *optional* — automates the `typescript-fsa` import rewrite only (see <<recipe-migrate-typescript-fsa-imports-crud>>). The dependency updates are manual.
+
+The `crud-core` package now requires Redux 5 (peer dependency `redux@^5.0.0`).
+This is a breaking change for consumers still on Redux 4.
+
+Recommended steps for consumers:
+
+. Update `redux`, `react-redux`, and `redux-saga` to versions compatible with Redux 5 in your host application.
+
+[[recipe-migrate-typescript-fsa-imports-crud]]
+===== Codemod: `migrateTypescriptFsaImports`
+
+The optional Client codemod automates a single change category:
+
+* *Rewrites `typescript-fsa` import paths* — every `import ... from "typescript-fsa"` is repointed to the compat shim `@com.mgmtp.a12.client/typescript-fsa-redux-5-compat`. Example:
++
+[source,typescript,title="Before"]
+----
+import { actionCreatorFactory, type Action } from "typescript-fsa";
+----
++
+[source,typescript,title="After"]
+----
+import { actionCreatorFactory, type Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+----
+
+Run it from your consuming project:
+
+[source,bash]
+----
+pnpm dlx @com.mgmtp.a12.client/client-codemod migrateTypescriptFsaImports
+----
+
+The codemod does *not* touch dependency versions — those remain manual.
+
+==== Replace `SagaIterator` with `SagaGenerator`
+
+*Tooling:* none — manual change.
+
+All saga return types have been changed from `SagaIterator` (from `redux-saga`) to `SagaGenerator` (from `typed-redux-saga`).
+This affects the public API of `CRUDFactories.createSagas()`.
+
+If you have custom sagas that explicitly type their return type as `SagaIterator`, update them to use `SagaGenerator` instead:
+
+[source,typescript]
+----
+// Before
+import { SagaIterator } from "redux-saga";
+
+function* mySaga(): SagaIterator<void> { /* ... */ }
+
+// After
+import { SagaGenerator } from "typed-redux-saga";
+
+function* mySaga(): SagaGenerator<void> { /* ... */ }
+----
+
+`typed-redux-saga` is already a transitive dependency via `@com.mgmtp.a12.client/client-core`.
+
 == 2025.06
 
 Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
 for an explanation of general steps.
 
-=== Migration to ESM
+=== 2.0.0
+
+==== Migrate to ESM
 
 The npm artifact `@com.mgmtp.a12.crud/crud-core` was migrated
 from CommonJS to link:https://nodejs.org/api/esm.html#modules-ecmascript-modules[ESM].
@@ -35,12 +121,12 @@ If your tests depend on mocking/stubbing CRUD API, consult the documentation of 
 
 Migrating your own application to ESM is not required, but recommended. Consult the documentation of your bundler for specifics.
 
-=== Updating to ES2024
+==== Update JavaScript output to ES2024
 
 The javascript output of the npm artifacts was updated from `ES2020` to `ES2024` to be able to use latest language features.
 When using supported browsers, there is no change necessary. If support for older browsers is required, make sure to include necessary polyfills.
 
-=== React 19 upgrade
+==== React 19 upgrade
 
 We dropped the support for React 18 and older and now require React 19 as our peerDependency.
 This means you have to perform the React 19 migration, which is described in great detail in the official
@@ -64,7 +150,7 @@ One solution is to override the dependency in your package.json. You also have t
 }
 ----
 
-=== Remove `onDocumentClick` and `onDocumentDoubleClick` callbacks for `OverviewCRUD` component
+==== Remove `onDocumentClick` and `onDocumentDoubleClick` callbacks for `OverviewCRUD`
 
 CRUDViews.OverviewCRUD is now switched to the new OverviewEngine's ViewComponent, this results in the 2 callbacks
 `onDocumentClick` and `onDocumentDoubleClick` no longer available. Refer to OverviewEngine's migration instruction for more details.

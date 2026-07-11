@@ -1,0 +1,53 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= Migration
+
+To convert a model workspace from existing nested-JSON binding annotations into standalone Relationship UI Models, an NPM CLI tool is provided. It reads the existing models in place and writes to the necessary models alongside them, ready to be committed.
+
+== Running the tool
+
+Point the tool at the root of the application's model workspace (the directory containing the model files). No installation is required; `npx` fetches the latest published version on demand:
+
+[source,sh]
+----
+npx @com.mgmtp.a12.relationshipengine/relationshipengine-binding-extraction@latest <path-to-workspace>
+----
+
+The tool inspects each Form model in the workspace, extracts every binding annotation, and emits a Relationship UI Model file per binding annotation next to the original model. Form models are updated to reference the new Relationship UI Models by name; the previous annotation strings are removed. Query Models needed by the new Relationship UI Models are generated alongside, case by case.
+
+When the input is a directory, the tool automatically uses that directory as the workspace root for model and resource lookup. No additional flags are needed.
+
+=== Custom workspace path
+
+If the target files do not reside at the workspace root, for example, when pointing the tool at a single Form model filem use `--workspace` (or `-w`) to specify the workspace root explicitly:
+
+[source,sh]
+----
+npx @com.mgmtp.a12.relationshipengine/relationshipengine-binding-extraction@latest <path-to-form-model> --workspace <path-to-workspace>
+----
+
+The workspace directory is scanned for all relevant models that the extraction pipeline may need to resolve cross-model references (overviews, query models, and so on). Generated models are written relative to the workspace root.
+
+== Recommended workflow
+
+. Migrate workspace models to the current release line. The tool only supports extraction from the binding annotation format to the RuM based models, and is not responsible for other migration tasks.
+. Run the tool on a clean working tree so the resulting `git diff` shows precisely which models were rewritten and which Relationship UI Models and Query Models were generated.
+. Optionally, use SME and preview app to review the generated models and verify the results. The tool offer a gateway to transform between Binding Model and the new Relationship UI Model, and tends to have a bias towards generating more models rather than fewer, so some manual cleanup/adjustment might be desired.
+. Once models are fully prepared, follow the <<_getting_started,Getting Started>> to setup the runtime environment.
+
+After this point the application runs against the new Relationship Engine architecture and the current stack can be removed.

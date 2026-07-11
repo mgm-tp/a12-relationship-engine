@@ -1,0 +1,40 @@
+{
+	"header": {
+		"id": "BusinessPartner-form-binding-PostalAddressBinding_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItemsQuery",
+				"modelType": "query",
+				"reference": "BusinessPartner-form-binding-PostalAddressBinding-available-query"
+			},
+			{
+				"purpose": "selectedItemQuery",
+				"modelType": "query",
+				"reference": "BusinessPartner-form-binding-PostalAddressBinding-selected-query"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Postal Address"
+			},
+			{
+				"locale": "de",
+				"text": "Postanschrift"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "PostAddress",
+		"targetRole": "address",
+		"component": {
+			"componentType": "DropDownSelection",
+			"availableItemsQueryModel": "BusinessPartner-form-binding-PostalAddressBinding-available-query",
+			"selectedItemQueryModel": "BusinessPartner-form-binding-PostalAddressBinding-selected-query",
+			"elementRef": "field_2fc9a"
+		}
+	}
+}

@@ -35,27 +35,27 @@
  * @module relationship
  */
 
-import { call, put, type SagaGenerator, select } from "typed-redux-saga";
+import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import {
-	Activity,
-	ActivityActions,
-	ActivitySagas,
-	ActivitySelectors,
-	type DataProvider,
-	LocaleSelectors
-} from "@com.mgmtp.a12.client/client-core";
 import {
 	Dispatcher,
 	type DocumentJsonRpc2Request,
 	type RelationshipJsonRpc2request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import {
+	Activity,
+	ActivitySagas,
+	ActivityActions,
+	LocaleSelectors,
+	ActivitySelectors,
+	type DataProvider
+} from "@com.mgmtp.a12.client/client-core";
 
 import { Relationship as RelationshipClientApi } from "../../relationship.js";
-import { type RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
+import type { RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
 
-import { createMutationRequests } from "./server/createMutationRequests.js";
 import { wrapIfServerError } from "./server/wrapIfServerError.js";
+import { createMutationRequests } from "./server/createMutationRequests.js";
 
 /* @internal */
 export function* deleteData(
@@ -67,9 +67,11 @@ export function* deleteData(
 
 	const state = yield* select();
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 	if (activity === undefined) {
 		throw new Error(`No activity found for id ${activityId}.`);
 	}
+
 	if (activity.dataHolders === undefined) {
 		throw new Error(`No data holders found for activity ${activityId}.`);
 	}
@@ -80,6 +82,7 @@ export function* deleteData(
 	let request: DocumentJsonRpc2Request | undefined;
 
 	const activityDataHolder = dataHolders.find(Activity.DataHolder.hasDescriptor(activity.descriptor));
+
 	if (activityDataHolder !== undefined) {
 		const childActivity = yield* select(ActivitySelectors.childActivityByInstanceId(activity, instanceId));
 
@@ -90,6 +93,7 @@ export function* deleteData(
 				})
 			);
 			const cancelled = yield* call(ActivitySagas.waitForResponseCancelRequested);
+
 			if (!cancelled) {
 				return;
 			}

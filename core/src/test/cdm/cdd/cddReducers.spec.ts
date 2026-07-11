@@ -30,15 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
+import dg from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
 import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
+import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
+import type { DocumentGraph } from "../../../internal/documentGraph/core/index.js";
 import { reduceCddState } from "../../../internal/cdm/cdd/core/impl/cddStateImpl.js";
 import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
-import { type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import dg from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
-
-import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 	describe("reduceCddState", () => {

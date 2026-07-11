@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Model } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Model } from "@com.mgmtp.a12.base/base-model-api";
+import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 export function isRelationshipModel(model: Model): model is RelationshipModel {
 	return model.header.modelType === "relationship";

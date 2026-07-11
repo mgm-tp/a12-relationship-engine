@@ -1,0 +1,40 @@
+{
+	"header": {
+		"id": "ContractCDM-form-binding-coInsured-postalAddress-select_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItemsQuery",
+				"modelType": "query",
+				"reference": "ContractCDM-form-binding-coInsured-postalAddress-select-available-query"
+			},
+			{
+				"purpose": "selectedItemQuery",
+				"modelType": "query",
+				"reference": "ContractCDM-form-binding-coInsured-postalAddress-select-selected-query"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Postal Address"
+			},
+			{
+				"locale": "de",
+				"text": "Postanschrift"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "PostAddress",
+		"targetRole": "address",
+		"component": {
+			"componentType": "DropDownSelection",
+			"availableItemsQueryModel": "ContractCDM-form-binding-coInsured-postalAddress-select-available-query",
+			"selectedItemQueryModel": "ContractCDM-form-binding-coInsured-postalAddress-select-selected-query",
+			"elementRef": "field_2fc9a"
+		}
+	}
+}

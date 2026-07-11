@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Product_Brand_SingleSelection_AvailableItemsOverview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Produktliste"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,28 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"showFullTextSearch": false,
-			"pagingSize": 10,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all"
-			}
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": []
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-2a329",
@@ -70,6 +43,28 @@
 		],
 		"rowActionGroup": {
 			"actions": []
+		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": [
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": false,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
 		}
 	}
 }

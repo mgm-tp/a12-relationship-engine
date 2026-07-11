@@ -35,16 +35,16 @@ import * as path from "node:path";
 import { inspect } from "node:util";
 import { fileURLToPath } from "node:url";
 
-import { type CommandModule } from "yargs";
+import type { CommandModule } from "yargs";
 
 import { JsonRpc2Response, type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import {
 	rpcRequest,
 	BaseUrlOption,
-	deleteDocument,
 	listDocuments,
 	PresetsOption,
+	deleteDocument,
 	resolvePresets
 } from "../utils/index.js";
 
@@ -92,13 +92,12 @@ export async function handleClean(options: Options) {
 	});
 
 	const deleteDocumentResponses = await rpcRequest(options, deleteDocumentRequests);
-	console.log(deleteDocumentResponses);
 
 	if (JsonRpc2Response.hasErrors(deleteDocumentResponses)) {
 		console.error(inspect(deleteDocumentResponses, { depth: 10 }));
 		process.exit(1);
 	} else {
-		console.log(inspect(deleteDocumentResponses, { depth: 10 }));
+		console.log("== Successfully clean documents with ", deleteDocumentResponses.length, " requests ==");
 	}
 }
 
@@ -111,14 +110,17 @@ function getActualDocRef(docRef: string): string {
 
 	return docRef;
 }
+
 console.log("Preparing the default models preset for clean up scripts");
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const directPath = path.join(__dirname, "models");
-const localPath = path.join(process.cwd(), "..", "showcase", "resources", "models");
+const relativePath = path.join(process.cwd(), "..", "showcase", "resources", "models");
+const rootPath = path.join(process.cwd(), "showcase", "resources", "models");
 const fallbackPath = path.join("/", "usr", "share", "services-utils", "models");
 
-const candidatePaths = [directPath, localPath, fallbackPath];
+const candidatePaths = [directPath, relativePath, rootPath, fallbackPath];
 const targetPath = candidatePaths.find(fs.existsSync);
+
 if (!targetPath) {
 	throw new Error(`No valid "models" directory found. Checked paths: ${candidatePaths.join(", ")}`);
 }
@@ -139,6 +141,7 @@ function getDocumentModelNames(directoryPath: string) {
 		.filter((file) => {
 			const content = fs.readFileSync(path.join(directoryPath, file), "utf-8");
 			const json = JSON.parse(content);
+
 			return json.header?.modelType === "document";
 		})
 		.map((file) => path.parse(file).name);

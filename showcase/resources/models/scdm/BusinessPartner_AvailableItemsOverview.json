@@ -2,7 +2,7 @@
 	"header": {
 		"id": "BusinessPartner_AvailableItemsOverview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "de"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -28,24 +23,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"showFullTextSearch": false,
-			"pagingSize": 50,
-			"initialSorting": [
-				{
-					"idref": "column-db60a"
-				},
-				{
-					"idref": "column-8da47"
-				}
-			],
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all_columns"
-			}
-		},
 		"columns": [
 			{
 				"id": "column-db60a",
@@ -72,18 +49,36 @@
 				"attachmentDisplayMode": "preview"
 			}
 		],
+		"rowActionGroup": {},
 		"subHeaderBox": {
-			"majorElements": [
+			"leftSlot": [],
+			"rightSlot": [
 				{
 					"type": "filter"
 				}
-			],
-			"minorElements": []
+			]
 		},
-		"rowActionGroup": {},
 		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": false,
+			"pagingSize": 50,
+			"initialSorting": [
+				{
+					"idref": "column-db60a"
+				},
+				{
+					"idref": "column-8da47"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
 		}
 	}
 }

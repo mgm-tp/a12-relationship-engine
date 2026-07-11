@@ -36,11 +36,11 @@
  * @experimental
  */
 
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { type DocumentGraph } from "../../documentGraph/core/documentGraph.js";
-import { type DeepReadonly } from "../../documentGraph/core/utilityTypes.js";
 import { A12InternalConstants } from "../../shared/constants.js";
+import type { DeepReadonly } from "../../documentGraph/core/utilityTypes.js";
+import type { DocumentGraph } from "../../documentGraph/core/documentGraph.js";
 
 export const T_DOC_REF = "t_docRef";
 export const TARGET_GROUPNAME = A12InternalConstants.TARGET_GROUP_NAME;

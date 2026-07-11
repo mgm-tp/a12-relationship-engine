@@ -30,19 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { NEW_INSTANCE_IDENTIFIER, type Model } from "@com.mgmtp.a12.client/client-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { type Model, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
 
-import { toCdd } from "../../../../internal/cdm/cdd/core/adapter/toCdd.js";
-import { type CdmData, createEmptyCdmData } from "../../../../internal/cdm/cddUtils/cdmData.js";
-import {
-	type DeepReadonly,
-	type DgLinkInternal,
-	type DocumentGraph
-} from "../../../../internal/documentGraph/core/index.js";
-import * as DgOps from "../../../../internal/documentGraph/core/impl/dg.js";
 import { createTestModels } from "../../../mocks/ModelsUtil.js";
+import { toCdd } from "../../../../internal/cdm/cdd/core/adapter/toCdd.js";
+import * as DgOps from "../../../../internal/documentGraph/core/impl/dg.js";
 import { MOCK_MODEL_GRAPH } from "../../../mocks/relationships/ModelGraph.js";
+import { type CdmData, createEmptyCdmData } from "../../../../internal/cdm/cddUtils/cdmData.js";
+import type { DeepReadonly, DocumentGraph, DgLinkInternal } from "../../../../internal/documentGraph/core/index.js";
 
 export function replaceLinkRanksInDg(dg: DeepReadonly<DocumentGraph>): DeepReadonly<DocumentGraph> {
 	const getNextRank = createGetNextRank();
@@ -66,6 +62,7 @@ export function replaceLinkRanksInDg(dg: DeepReadonly<DocumentGraph>): DeepReado
 
 	function createGetNextRank(): () => number {
 		let rank = 0;
+
 		return () => rank++;
 	}
 }
@@ -117,6 +114,7 @@ function extendCdmData(data: CdmData, partialDg: DocumentGraph): CdmData {
 	const [updatedDg] = DgOps.mergeInto({ dg: data.documentGraph, partialDg });
 	const cdm = data.cddState.cdm;
 	const updatedCdd = toCdd(updatedDg, NEW_INSTANCE_IDENTIFIER, cdm.content.modelRoot);
+
 	return {
 		documentGraph: updatedDg,
 		changeLog: data.changeLog, // not extending the changeLog

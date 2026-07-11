@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { NEW_INSTANCE_IDENTIFIER, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import { type ApplicationModel, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
 
 export const model: ApplicationModel = {
 	header: {
@@ -127,6 +127,7 @@ export function document(i: number): object {
 			DummyField: `Field${i}.1`
 		}
 	};
+
 	return result;
 }
 

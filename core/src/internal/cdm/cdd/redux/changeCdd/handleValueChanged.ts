@@ -35,22 +35,17 @@
  * @module cdm/cdd
  * @experimental
  */
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertCondition, assertObject, assertObjectType } from "../../../../shared/assertion.js";
 import { DocumentUtils } from "../../../../shared/utils.js";
-import { type CdmData } from "../../../cddUtils/cdmData.js";
-import { type PresentRelationshipsCache, setValue } from "../../../cddUtils/setValue.js";
+import type { CdmData } from "../../../cddUtils/cdmData.js";
+import type { ScdmDataHolderShape } from "../dhReducersImpl.js";
 import { DOCUMENT_SERVICE } from "../../../cdmCommons/documentService.js";
+import { setValue, type PresentRelationshipsCache } from "../../../cddUtils/setValue.js";
+import { assertObject, assertCondition, assertObjectType } from "../../../../shared/assertion.js";
 
-import { type ScdmDataHolderShape } from "../dhReducersImpl.js";
-
-import { type HandleArgs } from "./handleArgs.js";
+import type { HandleArgs } from "./handleArgs.js";
 
 /**
  * @internal
@@ -65,6 +60,7 @@ export function handleValueChanged(initialState: ScdmDataHolderShape, args: Hand
 	const { document, documentModels, modelGraph, change, cache } = args;
 
 	const initialData = initialState.data;
+
 	if (!initialData) {
 		return initialState;
 	}
@@ -83,6 +79,7 @@ export function handleValueChanged(initialState: ScdmDataHolderShape, args: Hand
 
 	const updateValue =
 		change.type === "GroupRemoved" ? undefined : DOCUMENT_SERVICE.getAssignedObject(document as GroupInstance, path);
+
 	if (DocumentUtils.isGroupInstances(updateValue) && updateValue.length !== 0) {
 		throw new Error("Can only handle case of removing all instances of a group.");
 	}

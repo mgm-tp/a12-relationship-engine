@@ -35,39 +35,37 @@
  * @module relationship-engine/applicationFactory
  */
 
-// we don't have a dependency on the modelLoader feature yet, but want to declare it to be future-proof
-/// <reference types="@com.mgmtp.a12.client/client-core/lib/extensions/modelLoader/index.js" />
-
 import {
-	addDataHandlers,
-	addDataReducers,
-	addCustomSagas,
-	addAdditionalMiddlewares,
-	combineFeatures,
-	type ApplicationWithConfiguredFeature,
-	type A12ApplicationConfig,
-	type RequireFeatures
-} from "@com.mgmtp.a12.client/client-core";
-import {
-	withConfiguredFormEngine,
-	withFormEngineDataHandlers,
-	withFormEngineDataReducers,
 	withFormEngineView,
 	withFormModelSupport,
-	type FormEngineSelectors
+	withConfiguredFormEngine,
+	type FormEngineSelectors,
+	withFormEngineDataHandlers,
+	withFormEngineDataReducers
 } from "@com.mgmtp.a12.formengine/formengine-core";
+import {
+	addCustomSagas,
+	addDataHandlers,
+	addDataReducers,
+	combineFeatures,
+	type RequireFeatures,
+	addAdditionalMiddlewares,
+	type A12ApplicationConfig,
+	type ApplicationWithConfiguredFeature
+} from "@com.mgmtp.a12.client/client-core";
 
-import { RelationshipFactories } from "../internal/relationship/factories.js";
+/* eslint-disable no-restricted-imports */
+import { RelationshipViews } from "../internal/relationship/views.js";
 import { RelationshipReducers } from "../internal/relationship/reducers.js";
-import { createCdmMiddlewares, cdmSagas, createCddDataProvider } from "../internal/cdm/index.js";
-import { cddReducers, cddDataHolderReducerExtension } from "../internal/cdm/cdd/redux/index.js";
 import { dgReducerFactory } from "../internal/documentGraph/redux/index.js";
+import { RelationshipFactories } from "../internal/relationship/factories.js";
+import type { CdmMiddlewareOptions } from "../internal/cdm/cdd/redux/middleware-options.js";
+import { cddReducers, cddDataHolderReducerExtension } from "../internal/cdm/cdd/redux/index.js";
+import { cdmSagas, createCdmMiddlewares, createCddDataProvider } from "../internal/cdm/index.js";
 import {
 	type RequestSelectorMap,
 	DefaultRequestSelectorMap
 } from "../internal/server-connectors/request-selector-map.js";
-import { type CdmMiddlewareOptions } from "../internal/cdm/cdd/redux/middleware-options.js";
-import { RelationshipViews } from "../internal/relationship/views.js";
 
 /**
  * We use module augmentation to extend the A12ApplicationConfig type with more options
@@ -75,13 +73,14 @@ import { RelationshipViews } from "../internal/relationship/views.js";
  * We must use the "internal" path as TS does not support module augmentation for re-exported types.
  * See https://github.com/microsoft/TypeScript/issues/12607
  */
-declare module "@com.mgmtp.a12.client/client-core/lib/core/application/internal/factories/applicationConfig.js" {
+declare module "@com.mgmtp.a12.client/client-core" {
 	interface A12ApplicationConfig {
 		readonly relationshipEngine?: RelationshipEngineOptions;
 	}
 }
 /**
  * Configuration options for the Relationship Engine.
+ * @legacy Use {@link RelationshipEngineFactories} with the new composable `withRelationshipEngine` instead.
  */ type RelationshipEngineOptions = {
 	/** Custom request selector map for relationship and CDD data loading */
 	readonly requestSelectorMap?: RequestSelectorMap;
@@ -92,6 +91,7 @@ declare module "@com.mgmtp.a12.client/client-core/lib/core/application/internal/
 /**
  * Type representing configured relationship engine features.
  * Ensures mutual exclusivity with other engine configurations.
+ * @legacy Use the new `withRelationshipEngine` composable instead.
  */
 type RelationshipEngineConfigured = {
 	readonly relationshipEngine?: never;
@@ -101,6 +101,7 @@ type RelationshipEngineConfigured = {
 
 /**
  * Application configuration type with relationship engine features configured.
+ * @legacy Use the new `withRelationshipEngine` composable instead.
  */
 export type ApplicationWithRelationshipEngineConfig = RequireFeatures<
 	A12ApplicationConfig & { configured: { overviewEngine: true } },
@@ -115,6 +116,7 @@ export type ApplicationWithRelationshipEngineConfig = RequireFeatures<
  *
  * @param cfg - Application configuration object
  * @returns Enhanced application configuration with relationship engine data handlers
+ * @legacy Use the new `withRelationshipEngine` composable backed by {@link RelationshipEngineFactories} instead.
  * @experimental
  */
 export const withRelationshipEngineDataHandlers = <T extends ApplicationWithRelationshipEngineConfig>(cfg: T) => {
@@ -136,6 +138,7 @@ export const withRelationshipEngineDataHandlers = <T extends ApplicationWithRela
  *
  * @param cfg - Application configuration object
  * @returns Enhanced application configuration with relationship engine data reducers
+ * @legacy Use the new `withRelationshipEngine` composable backed by {@link RelationshipEngineFactories} instead.
  * @experimental
  */
 export const withRelationshipEngineDataReducers = <T extends ApplicationWithRelationshipEngineConfig>(cfg: T) => {
@@ -154,12 +157,13 @@ export const withRelationshipEngineDataReducers = <T extends ApplicationWithRela
  *
  * @param cfg - Application configuration object
  * @returns Enhanced application configuration with relationship engine middlewares
+ * @legacy Use the new `withRelationshipEngine` composable backed by {@link RelationshipEngineFactories} instead.
  * @experimental
  */
 export const withRelationshipEngineMiddlewares = <T extends ApplicationWithRelationshipEngineConfig>(cfg: T) => {
 	return addAdditionalMiddlewares<T>(
 		...createCdmMiddlewares({
-			nowProvider: cfg.formEngine?.middlewares?.nowProvider,
+			kernelOptionsProvider: cfg.formEngine?.middlewares?.kernelOptionsProvider,
 			engineStateSelector: cfg.relationshipEngine?.engineStateSelector
 		})
 	)(cfg);
@@ -173,6 +177,7 @@ export const withRelationshipEngineMiddlewares = <T extends ApplicationWithRelat
  *
  * @param cfg - Application configuration object
  * @returns Enhanced application configuration with relationship engine sagas
+ * @legacy Use the new `withRelationshipEngine` composable backed by {@link RelationshipEngineFactories} instead.
  * @experimental
  */
 export const withRelationshipEngineSagas = <T extends ApplicationWithRelationshipEngineConfig>(cfg: T) => {
@@ -198,7 +203,7 @@ export const withRelationshipEngineSagas = <T extends ApplicationWithRelationshi
  *
  * @example
  * ```typescript
- * import { combineFeatures } from "@com.mgmtp.a12.client/client-core/lib/core/application/index.js";
+ * import { combineFeatures } from "@com.mgmtp.a12.client/client-core";
  * import { withRelationshipFormEngine } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core/lib/main/applicationFactory.js";
  *
  * const initialConfig = {
@@ -218,6 +223,9 @@ export const withRelationshipEngineSagas = <T extends ApplicationWithRelationshi
  * );
  * ```
  *
+ * @legacy Use `withFormEngine` + `withRelationshipEngine` (new architecture) instead.
+ * This composable bundles old CDM-based RE with Form Engine, which is incompatible with standalone `withFormEngine`.
+ * The new `withRelationshipEngine` layers cleanly on top of `withFormEngine` without conflicts.
  * @experimental
  */
 export const withRelationshipFormEngine = <T extends ApplicationWithRelationshipEngineConfig>(
@@ -255,6 +263,4 @@ export const withRelationshipFormEngine = <T extends ApplicationWithRelationship
 export { RelationshipFactories };
 export { RelationshipReducers };
 export { RelationshipViews };
-export { DefaultRequestSelectorMap };
-export type { RequestSelectorMap };
 export type { CdmMiddlewareOptions };

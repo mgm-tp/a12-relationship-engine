@@ -30,33 +30,33 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeEach } from "vitest";
+import { test, expect, describe, beforeEach } from "vitest";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
 
+import { createActivity, createDataHolder } from "../../../utils/activity.js";
+import { dhReducersFactory } from "../../../../internal/documentGraph/redux/dhReducers.js";
+import type { DeepReadonly } from "../../../../internal/documentGraph/core/utilityTypes.js";
+import { createLinkRef, createLinkDescriptor } from "../../../mocks/relationships/mocks.js";
+import mockDocumentGraph from "../../../mocks/scdm/loadDG/emptyDg.json" with { type: "json" };
 import { resetAddedLinkIndexForTesting } from "../../../../internal/documentGraph/core/index.js";
-import { type DgDocs, type DocumentGraph } from "../../../../internal/documentGraph/core/documentGraph.js";
-import { type DeepReadonly } from "../../../../internal/documentGraph/core/utilityTypes.js";
+import googleDocumentGraph from "../../../mocks/scdm/loadDG/dg-google.json" with { type: "json" };
+import type { DgDocs, DocumentGraph } from "../../../../internal/documentGraph/core/documentGraph.js";
 import {
-	addDocument,
+	nopObserver,
+	handleAddDocument,
+	type DgClDataHolderShape
+} from "../../../../internal/documentGraph/redux/dhReducersImpl.js";
+import {
+	setDg,
 	addLink,
-	beginTransaction,
-	changeDocument,
-	endTransaction,
 	mergeDG,
 	removeLink,
-	setDg
+	addDocument,
+	changeDocument,
+	endTransaction,
+	beginTransaction
 } from "../../../../internal/documentGraph/redux/actions.js";
-import { dhReducersFactory } from "../../../../internal/documentGraph/redux/dhReducers.js";
-import {
-	type DgClDataHolderShape,
-	handleAddDocument,
-	nopObserver
-} from "../../../../internal/documentGraph/redux/dhReducersImpl.js";
-import { createLinkDescriptor, createLinkRef } from "../../../mocks/relationships/mocks.js";
-import googleDocumentGraph from "../../../mocks/scdm/loadDG/dg-google.json" with { type: "json" };
-import mockDocumentGraph from "../../../mocks/scdm/loadDG/emptyDg.json" with { type: "json" };
-import { createActivity, createDataHolder } from "../../../utils/activity.js";
 
 describe("document graph change handling reducer", () => {
 	const dgReducers = dhReducersFactory(nopObserver);

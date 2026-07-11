@@ -1,0 +1,89 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+[[new-arch-getting-started]]
+= Getting Started
+
+The minimum integration is three steps: combine the engine composables when constructing the application, register a view that knows how to render a form together with its Relationship UI Models, and configure attachment support for Composed Document Model activities.
+
+== Combine the composables
+
+`withRelationshipEngine` is added to the application setup alongside Form Engine, Overview Engine and the application's other features. The composable's type signature requires Form Engine and Overview Engine to be configured first, and rejects double application.
+
+[source,typescript]
+----
+import { combineFeatures, createA12ApplicationSetup, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
+import { withFormEngine } from "@com.mgmtp.a12.formengine/formengine-core";
+import { withOverviewEngine } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { withRelationshipEngine, RelationshipEngineFactories } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+import { withCRUD } from "@com.mgmtp.a12.crud/crud-core";
+
+const initialConfig: A12ApplicationConfig = {
+    formEngine: { sagas: RelationshipEngineFactories.createFormEngineSagaOptions() }
+};
+
+const { store, Component } = createA12ApplicationSetup(
+    combineFeatures(
+        withFormEngine,
+        withOverviewEngine,
+        withRelationshipEngine,
+        withCRUD
+    )(initialConfig)
+);
+----
+
+[NOTE]
+====
+The `formEngine.sagas` configuration is only required for attachment support on Composed Document Model (CDM) activities.
+Without it, attachment upload, download, and delete operations might fail at runtime.
+`RelationshipEngineFactories.createFormEngineSagaOptions()` pre-wires a `documentDescriptorSelector` that resolves document descriptors from the RE document graph.
+====
+
+== Render forms with Relationship UI Models
+
+The recommended path is to also include `withCRUD` and to register the CRUD-provided form view, which already integrates the Relationship Engine view layer:
+
+[source,typescript]
+----
+import { CRUDViews } from "@com.mgmtp.a12.crud/crud-core";
+
+addView("MyCustomRelationshipFormEngine", CRUDViews.FormEngineWithRelationshipEngineView);
+----
+
+== Without `withCRUD`
+
+Applications that integrate the Form Engine view directly, without `withCRUD`, must extend their `FormEngineView` with the form-model map produced by `RelationshipEngineFactories.createFormModelMap`. This is what teaches the Form Engine view how to resolve Relationship UI Models to their renderers.
+
+[source,typescript]
+----
+import { FormEngineViews } from "@com.mgmtp.a12.formengine/formengine-core";
+import { DefaultFormModelMap } from "@com.mgmtp.a12.formengine/formengine-core";
+import { RelationshipEngineFactories } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+
+const formModelMap = {
+    ...DefaultFormModelMap,
+    ...RelationshipEngineFactories.createFormModelMap()
+};
+
+function MyFormEngineView(props: View) {
+    return <FormEngineViews.FormEngine {...props} formModelMap={formModelMap} />;
+}
+
+addView("MyFormEngine", MyFormEngineView);
+----
+
+The remainder of the integration, including how the Relationship Engine relates to Form Engine and Overview Engine and how data is loaded for a Relationship UI Model, is described in <<_composable_setup,Composable Setup>>.

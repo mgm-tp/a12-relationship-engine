@@ -40,24 +40,23 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { type Activity, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
-import { isScdmDataHolderShape, type ScdmDataHolderShape } from "../../../cdm/cdd/redux/dhReducersImpl.js";
 import { RelationshipActions } from "../../actions.js";
-import { type Relationship } from "../../relationship.js";
+import type { Relationship } from "../../relationship.js";
 import { RelationshipSelectors } from "../../selectors.js";
-
 import { ListAdapter } from "../components/adapter/List.js";
-import { MultiSelectionAdapter } from "../components/adapter/MultiSelection.js";
-import { SingleSelectionAdapter } from "../components/adapter/SingleSelection.js";
+import { useThumbnails } from "../components/useThumbnails.js";
 import { DropDownSelection } from "../components/DropDownSelection.js";
 import { DualPaneSelection } from "../components/DualPaneSelection.js";
-import { type ScdmProps } from "../components/scdm_adapter/scdm_adapter.js";
 import { ScdmListAdapter } from "../components/scdm_adapter/scdm_List.js";
+import type { ScdmProps } from "../components/scdm_adapter/scdm_adapter.js";
+import { LinkTableTemplate as TableList } from "../components/TableList.js";
+import { MultiSelectionAdapter } from "../components/adapter/MultiSelection.js";
+import { SingleSelectionAdapter } from "../components/adapter/SingleSelection.js";
 import { ScdmMultiSelectionAdapter } from "../components/scdm_adapter/scdm_MultiSelection.js";
 import { ScdmSingleSelectionAdapter } from "../components/scdm_adapter/scdm_SingleSelection.js";
-import { LinkTableTemplate as TableList } from "../components/TableList.js";
-import { useThumbnails } from "../components/useThumbnails.js";
+import { isScdmDataHolderShape, type ScdmDataHolderShape } from "../../../cdm/cdd/redux/dhReducersImpl.js";
 
-import { type Component, type ComponentProvider } from "./componentProvider.js";
+import type { Component, ComponentProvider } from "./componentProvider.js";
 
 export interface Adapters {
 	[type: string]: React.ComponentType<any> | undefined;
@@ -136,6 +135,7 @@ function RelationshipEngine(props: RelationshipEngineProps): React.ReactNode {
 				);
 			}
 		}
+
 		setBackup(undefined);
 	};
 
@@ -187,6 +187,7 @@ const componentProviderFactory = (props: CompleteRelationshipEngineProps) => {
 				}
 			};
 		}
+
 		return component;
 	};
 };
@@ -198,6 +199,7 @@ const defaultComponentProvider = (config: Relationship.ComponentConfiguration): 
 		case "TableList": {
 			return { type: "List", component: TableList };
 		}
+
 		case "DropDownSelection":
 			return { type: "SingleSelection", component: DropDownSelection };
 		default:
@@ -237,6 +239,7 @@ const buildTableListComponentProps = (
 	engineProps: CompleteRelationshipEngineProps
 ) => {
 	const editComponent = editComponentProvider(config, engineProps);
+
 	return {
 		editComponent: editComponent?.RelationshipComponent,
 		editComponentProps: editComponent?.componentProps,
@@ -244,6 +247,8 @@ const buildTableListComponentProps = (
 		hasChanges: engineProps.hasChanges,
 		onFinishEdit: engineProps.onFinishEdit,
 		editDialogWidth: config.props?.editDialogWidth,
+		editDialogMaxWidth: config.props?.editDialogMaxWidth,
+		editDialogMaxHeight: config.props?.editDialogMaxHeight,
 		editDialogTitle: config.props?.editDialogTitle,
 		editDialogCancelButtonLabel: config.props?.editDialogCancelButtonLabel,
 		editDialogCloseButtonLabel: config.props?.editDialogCloseButtonLabel
@@ -273,6 +278,7 @@ export function RelationshipComponent(props: RelationshipComponentProps): React.
 	};
 
 	const AdapterComponent = props.adapters[relationshipComponent.type];
+
 	return AdapterComponent ? (
 		<AdapterComponent TemplateComponent={relationshipComponent.component} {...baseComponentProps} />
 	) : null;

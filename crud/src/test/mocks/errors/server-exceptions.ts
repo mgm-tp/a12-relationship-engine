@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type JsonRpc2ResponseError } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { JsonRpc2ResponseError } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 export function createJsonRpc2ResponseError(level: "ERROR" | "WARNING" | "INFO", text = "test"): JsonRpc2ResponseError {
 	return {

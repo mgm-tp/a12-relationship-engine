@@ -30,16 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { findNotRelevantPaths, type Models } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type Document, type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Document, DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { type Models, findNotRelevantPaths } from "@com.mgmtp.a12.formengine/formengine-core";
 
-import { assertObject } from "../../../shared/assertion.js";
+import { setValue } from "../setValue.js";
+import type { CdmData } from "../cdmData.js";
 import { comparePaths } from "../../../shared/utils.js";
-
-import { type CdmData } from "../cdmData.js";
-import { type EntityInstance } from "../entityInstance.js";
-import { createPresentRelationshipsCache, setValue } from "../setValue.js";
+import type { EntityInstance } from "../entityInstance.js";
+import { assertObject } from "../../../shared/assertion.js";
 
 /**
  * @internal
@@ -75,10 +74,9 @@ export function filterCdmDataByRelevance(
 	}));
 
 	// Since we only remove elements, we don't need to hand in a filtered cdd.
-	const cache = createPresentRelationshipsCache();
 	return notRelevantEntityInstances.reduce(
 		(currentData, currentInstance) =>
-			setValue(currentData, currentInstance.value, currentInstance.path, documentModels, modelGraph, undefined, cache),
+			setValue(currentData, currentInstance.value, currentInstance.path, documentModels, modelGraph),
 		originalCdmData
 	);
 }

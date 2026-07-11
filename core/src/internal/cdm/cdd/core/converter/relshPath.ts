@@ -35,12 +35,12 @@
  * @module cdm/cdd
  * @experimental
  */
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { type RelshPath } from "../../../../documentGraph/core/index.js";
-import { dmGroup2RelationshipGroupInfo, isRelationshipGroup } from "../../../cdmCommons/relationshipGroup.js";
 import { isNonRepeatableGroup } from "../../../commons/modelUtils.js";
+import type { RelshPath } from "../../../../documentGraph/core/index.js";
+import { isRelationshipGroup, dmGroup2RelationshipGroupInfo } from "../../../cdmCommons/relationshipGroup.js";
 
 /**
  * @internal
@@ -49,6 +49,7 @@ import { isNonRepeatableGroup } from "../../../commons/modelUtils.js";
  */
 export function extractRelshNameFromRelshPath(relshName: RelshPath): string {
 	const split = relshName.split("/");
+
 	return split[split.length - 1];
 }
 
@@ -62,12 +63,14 @@ export function extractRelshNameFromRelshPath(relshName: RelshPath): string {
 export function collectRelshPathsForRelsh(rootGroup: DocumentModel.Group, relshName: string): RelshPath[] {
 	const result: string[] = [];
 	iterate([], rootGroup);
+
 	return result;
 
 	function iterate(parentPath: string[], group: DocumentModel.Group): void {
 		const relshGroupInfo = isRelationshipGroup(group) ? dmGroup2RelationshipGroupInfo(group) : undefined;
 		// Add to path only if current group represents an actual relationship, otherwise ignore
 		const pathAsArray = relshGroupInfo?.relationship ? [...parentPath, relshGroupInfo.relationship] : parentPath;
+
 		if (relshGroupInfo?.relationship === relshName) {
 			result.push(pathAsArray.join("/"));
 		} else {
@@ -89,6 +92,7 @@ export function relshPathToModelPath(rootGroup: DocumentModel.Group, relshPath: 
 	const pathSegments = (relshPath.length > 0 && relshPath.charAt(0) === "/" ? relshPath.slice(1) : relshPath).split(
 		"/"
 	);
+
 	return traverse(rootGroup, pathSegments, []);
 
 	function traverse(
@@ -99,8 +103,10 @@ export function relshPathToModelPath(rootGroup: DocumentModel.Group, relshPath: 
 		if (remainingPathArray.length === 0 || remainingPathArray[0].length === 0) {
 			return growingModelPath;
 		}
+
 		const [head, ...tail] = remainingPathArray;
 		const subGroups = group.elements.filter((el) => el.type === "Group");
+
 		for (const subGroup of subGroups) {
 			const modelPathArg =
 				subGroup.annotations?.find(({ name }) => name === "cdm.relationship")?.value === head // Case: found a match, now proceed traversal
@@ -108,16 +114,19 @@ export function relshPathToModelPath(rootGroup: DocumentModel.Group, relshPath: 
 					: isNonRepeatableGroup(subGroup) // Case: no match, but now try to skip nonRepeatable groups
 						? remainingPathArray
 						: undefined; // Other cases: skip
+
 			if (modelPathArg !== undefined) {
 				const fullModelPath = traverse(subGroup as DocumentModel.Group, modelPathArg, [
 					...growingModelPath,
 					{ elementName: subGroup.name }
 				]);
+
 				if (fullModelPath !== undefined) {
 					return fullModelPath;
 				}
 			}
 		}
+
 		// no repeatable group found, or a repeatable group which does not match current path segment
 		// ==> end & backtrack
 		return undefined;

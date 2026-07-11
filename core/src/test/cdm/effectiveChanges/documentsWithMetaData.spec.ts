@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
+import type { DgChangeLog, DocumentGraph } from "../../../internal/documentGraph/core/index.js";
 import { documentsWithMetaData } from "../../../internal/cdm/cdd/core/effectiveChanges/documentsWithMetaData.js";
-import { type DgChangeLog, type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.documentGraph", () => {
 	describe("documentsWithMetaData", () => {

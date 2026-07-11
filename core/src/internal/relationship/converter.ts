@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { ValueConversion } from "@com.mgmtp.a12.utils/utils-localization";
 import { DocumentModel, DocumentServiceFactory, type FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
-import { type ValueConversion } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
 
 /** @internal */
 export interface Converter {

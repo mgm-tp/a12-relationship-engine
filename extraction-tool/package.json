@@ -1,0 +1,51 @@
+{
+	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-binding-extraction",
+	"version": "3.0.0",
+	"type": "module",
+	"description": "Relationship Binding Extraction Tool",
+	"author": "mgm technology partners",
+	"license": "UNLICENSED",
+	"scripts": {
+		"clean": "rimraf lib/**",
+		"copy-models": "node --experimental-strip-types tools/copy-models.ts",
+		"initialize": "pnpm run copy-models",
+		"test": "pnpm \"/test:/\"",
+		"test:unit": "vitest run",
+		"update": "pnpm test:unit --update"
+	},
+	"dependencies": {
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
+		"@com.mgmtp.a12.formengine/formengine-model-migration": "catalog:a12Libs",
+		"@com.mgmtp.a12.kernel/kernel-md-facade": "catalog:a12Libs",
+		"@com.mgmtp.a12.migrationtool/migrationtool-core": "catalog:a12Libs",
+		"@com.mgmtp.a12.overviewengine/overviewengine-model-migration": "catalog:a12Libs",
+		"@com.mgmtp.a12.querymodel/querymodel-core": "catalog:a12Libs"
+	},
+	"devDependencies": {
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
+		"@com.mgmtp.a12.migrationtool/migrationtool-utils": "catalog:a12Libs",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@types/node": "catalog:devLibs",
+		"@types/semver": "^7.7.1",
+		"rimraf": "catalog:devLibs",
+		"semver": "^7.7.3",
+		"typescript": "catalog:libs",
+		"vite": "catalog:devLibs",
+		"vitest": "catalog:devLibs"
+	},
+	"bin": {
+		"relationship-binding-extraction": "bin/relationship-binding-extraction"
+	},
+	"files": [
+		"bin",
+		"lib",
+		"src",
+		"!*/*.tsbuildinfo",
+		"cyclonedx.json",
+		"licenses",
+		"LICENSE",
+		"NOTICE",
+		"THIRD_PARTY_NOTICES"
+	],
+	"exports": "./lib/api.js"
+}

@@ -34,14 +34,13 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { all, call, put, type SagaGenerator, select } from "typed-redux-saga";
+import { all, put, call, select, type SagaGenerator } from "typed-redux-saga";
 
 import { type Activity, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
+import { Relationship } from "../relationship.js";
 import { RelationshipActions } from "../actions.js";
 import { PaginationUtils } from "../paginationUtils.js";
-import { Relationship } from "../relationship.js";
 import { RelationshipSelectors } from "../selectors.js";
 import { AdapterLinkSelectors } from "../ui/components/adapter/adapterLinkSelectors.js";
 
@@ -77,6 +76,7 @@ export function* synchronizeRelevantDataHolders(
 
 	for (const dataHolder of relevantLinkDataHolders) {
 		const setPagePayload = yield* call(pageClauseGetter, activityId, dataHolder);
+
 		if (setPagePayload) {
 			setPagePayloads.push(setPagePayload);
 		}
@@ -85,6 +85,7 @@ export function* synchronizeRelevantDataHolders(
 	yield* all(setPagePayloads.map((payload) => put(RelationshipActions.Commands.setPage(payload))));
 
 	const instanceIds = setPagePayloads.map(({ instanceId }) => instanceId);
+
 	if (instanceIds.length) {
 		yield* call(loadData, activityId, instanceIds, "link" as const);
 	}
@@ -98,10 +99,11 @@ export function* calculatePageClause(params: {
 	pageNumber?: number;
 	newLinksCount?: number;
 	fullCount?: number;
-}): SagaIterator<Required<Relationship.PageClause> | undefined> {
+}): SagaGenerator<Required<Relationship.PageClause> | undefined> {
 	const { activityId, instanceId, type } = params;
 
 	let pagination: Relationship.Pagination | undefined;
+
 	if (type === "candidate") {
 		pagination = (yield* select(RelationshipSelectors.candidateDataHolder(activityId, instanceId)))?.data
 			?.candidatePagination;
@@ -126,7 +128,7 @@ export function* calculatePageClause(params: {
 }
 
 /** @internal */
-export function* loadData(activityId: string, instanceIds: string[], type: "candidate" | "link"): SagaIterator<void> {
+export function* loadData(activityId: string, instanceIds: string[], type: "candidate" | "link"): SagaGenerator<void> {
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
 
 	const isTypedDH =

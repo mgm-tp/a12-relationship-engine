@@ -8,7 +8,9 @@ module.exports = {
 			 * See https://github.com/pnpm/pnpm/issues/6667
 			 */
 			for (const key in lockfile.packages) {
-				if (lockfile.packages[key].resolution?.tarball) {
+				const tarball = lockfile.packages[key].resolution?.tarball;
+
+				if (tarball && !tarball.startsWith("file:")) {
 					delete lockfile.packages[key].resolution.tarball;
 				}
 			}

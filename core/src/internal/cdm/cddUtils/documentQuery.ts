@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type FieldInstanceValue,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
+import type {
+	DocumentModel,
+	GroupInstance,
+	EntityInstancePath,
+	FieldInstanceValue
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { DocumentUtils } from "../../shared/utils.js";
 
@@ -71,6 +71,7 @@ export namespace DocumentQuery {
 			modelElement: DocumentModel.Element
 		): void {
 			visitor({ path, element, modelElement });
+
 			if (
 				modelElement.type === "Group" &&
 				(element === undefined || DocumentUtils.isGroupInstance(element)) &&
@@ -83,6 +84,7 @@ export namespace DocumentQuery {
 						element !== undefined && DocumentUtils.isGroupInstance(element)
 							? element[childModelElement.name]
 							: undefined;
+
 					if (childModelElement.type === "Group" && childModelElement.repeatability === 1) {
 						// unique group - with or without data
 						walkRecursively(
@@ -116,6 +118,7 @@ export namespace DocumentQuery {
 				}
 			}
 		}
+
 		walkRecursively(start, [], startModel);
 	}
 }

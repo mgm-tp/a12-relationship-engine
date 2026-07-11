@@ -36,7 +36,7 @@
  * @experimental
  */
 
-import { type MiddlewareOptions, type FormEngineSelectors } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { MiddlewareOptions, FormEngineSelectors } from "@com.mgmtp.a12.formengine/formengine-core";
 
 /**
  * Configuration options for computing and validating
@@ -45,6 +45,6 @@ import { type MiddlewareOptions, type FormEngineSelectors } from "@com.mgmtp.a12
  * for more information about these parameters.
  */
 
-export interface CdmMiddlewareOptions extends Pick<MiddlewareOptions, "nowProvider"> {
+export interface CdmMiddlewareOptions extends Pick<MiddlewareOptions, "kernelOptionsProvider"> {
 	readonly engineStateSelector?: FormEngineSelectors.EngineStateSelector;
 }

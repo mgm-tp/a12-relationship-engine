@@ -37,19 +37,18 @@
  */
 import { connect } from "react-redux";
 
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type OverviewEngineApi, type OverviewEngineState } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { OverviewEngineApi, OverviewEngineState } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { CddActions } from "../../../../cdm/cdd/redux/index.js";
+import type { MultiSelectionProps } from "../api.js";
 import { RelationshipActions } from "../../../actions.js";
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
 import { RelationshipSelectors } from "../../../selectors.js";
-
+import { CddActions } from "../../../../cdm/cdd/redux/index.js";
 import { MultiSelectionWrapper } from "../adapter/MultiSelection.js";
-import { type MultiSelectionProps } from "../api.js";
-import { getCandidatePaginationProps, getFilterProps, getSortingProps } from "../util.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
+import { getFilterProps, getSortingProps, getCandidatePaginationProps } from "../util.js";
 
 import * as ScdmRelationshipUiAdapter from "./scdm_adapter.js";
 
@@ -75,8 +74,8 @@ interface DispatchProps {
 	onSortingChange(sort?: RelationshipClientApi.SortClause): void;
 }
 /** @internal */
-export const ScdmMultiSelectionAdapter = connect<StateProps, DispatchProps, OwnProps>(
-	function mapStateToProps(state, ownProps): StateProps {
+export const ScdmMultiSelectionAdapter = connect<StateProps, DispatchProps, OwnProps, object>(
+	function mapStateToProps(state: object, ownProps): StateProps {
 		const { activityId, config, formModel, formModelElement, componentConfiguration, instanceId } = ownProps;
 
 		const coreProps = ScdmRelationshipUiAdapter.mapStateToAdapterProps(state, ownProps);
@@ -110,6 +109,7 @@ export const ScdmMultiSelectionAdapter = connect<StateProps, DispatchProps, OwnP
 			activityId,
 			config: { targetRole }
 		} = ownProps;
+
 		return {
 			onAddLink: (candidate: RelationshipClientApi.Candidate) => {
 				dispatch(

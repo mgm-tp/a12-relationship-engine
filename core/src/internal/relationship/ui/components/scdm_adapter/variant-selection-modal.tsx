@@ -37,15 +37,15 @@
  */
 import React, { useContext } from "react";
 
+import type { Localizer } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { ModelGraph, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { Icon, Button, ModalOverlay, ActionContentbox, ContentBoxElements } from "@com.mgmtp.a12.widgets/widgets-core";
 import {
-	defaultVariantSelectionMapper,
 	VariantSelection,
-	type VariantSelectionItem
+	type VariantSelectionItem,
+	defaultVariantSelectionMapper
 } from "@com.mgmtp.a12.client/client-core/heterogeneity";
-import { type ModelGraph, type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Localizer } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { Button, ActionContentbox, ContentBoxElements, Icon, ModalOverlay } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { assertObject } from "../../../../shared/assertion.js";
 import { getEntityByRole } from "../../../../cdm/commons/relationshipModelUtils.js";
@@ -61,7 +61,7 @@ export function VariantSelectionModal(props: {
 	const title = localizer(descriptorVariantSelectionTitle());
 
 	return (
-		<ModalOverlay closeOnEsc onClose={props.onClose}>
+		<ModalOverlay closeOnEsc closeOnOutsideClick onClose={props.onClose}>
 			<ActionContentbox
 				headingElements={<ContentBoxElements.Title text={title} ariaLevel={1} />}
 				headingButtons={[
@@ -90,12 +90,15 @@ export function calculateVariantSelectionItems(
 ): VariantSelectionItem[] {
 	if (relationshipModel && targetRole) {
 		const targetEntity = getEntityByRole(relationshipModel, targetRole);
+
 		if (!targetEntity) {
 			return [];
 		}
+
 		const targetModel = modelGraph.documentModels.find((dm) => dm.modelId === targetEntity.documentModel);
 		assertObject(targetModel);
 		const result = defaultVariantSelectionMapper(modelGraph, localizer)(targetModel);
+
 		return result;
 	} else {
 		return [];

@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { deserializeDocumentModel } from "../../../../internal/cdm/commons/modelUtils.js";
 import { flatten } from "../../../../internal/cdm/commons/utils.js";
-import { cdmToGraph } from "../../../../internal/cdm/dataProvider/smg/cdmToGraph.js";
 import cdm from "../../testData/ContractCDM.json" with { type: "json" };
+import { cdmToGraph } from "../../../../internal/cdm/dataProvider/smg/cdmToGraph.js";
+import { deserializeDocumentModel } from "../../../../internal/cdm/commons/modelUtils.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.data-provider", () => {
 	const dm = deserializeDocumentModel(cdm);

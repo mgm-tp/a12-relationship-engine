@@ -30,16 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeEach } from "vitest";
+import { test, expect, describe, beforeEach } from "vitest";
 
-import { type EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
-import { moveGroupInstance } from "../../../../internal/cdm/cddUtils/moveGroupInstance.js";
+import type { DgChangeLog } from "../../../../internal/documentGraph/core/slices.js";
 import { DOCUMENT_SERVICE } from "../../../../internal/cdm/cdmCommons/documentService.js";
-import { type DgDocument, type DocumentGraph } from "../../../../internal/documentGraph/core/documentGraph.js";
+import { moveGroupInstance } from "../../../../internal/cdm/cddUtils/moveGroupInstance.js";
+import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
 import { resetAddedLinkIndexForTesting } from "../../../../internal/documentGraph/core/impl/links.js";
-import { type DgChangeLog } from "../../../../internal/documentGraph/core/slices.js";
+import type { DgDocument, DocumentGraph } from "../../../../internal/documentGraph/core/documentGraph.js";
 
 import { setupCddUtilsTestData } from "./testUtils.js";
 
@@ -102,7 +102,6 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 				const actualCdd = actual.cddState.cachedCdd?.cdd;
 				expect(actualCdd).not.toBeUndefined();
 
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const actualCddValue = DOCUMENT_SERVICE.getAssignedObject(actualCdd!, path);
 				expect(actualCddValue).toEqual({ note: "note1" });
 			});

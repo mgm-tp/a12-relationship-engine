@@ -35,10 +35,10 @@
  * @module relationship
  */
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
 
-import { type RelationshipActions } from "../actions.js";
-import { type Relationship } from "../relationship.js";
+import type { Relationship } from "../relationship.js";
+import type { RelationshipActions } from "../actions.js";
 
 /** @internal */
 export function handleSetCandidatePage(

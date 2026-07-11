@@ -1,1 +1,0 @@
-[{"jsonrpc":"2.0","method":"ADD_DOCUMENT","id":"addDocumentOperation","params":{"documentModelName":"Category-document","document":{"Properties":{"name":"Cat4SubCategory"}},"locale":"en"}}]

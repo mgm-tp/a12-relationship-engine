@@ -30,18 +30,18 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
 	type Change,
-	type GroupAdded,
 	DocumentPath,
+	type GroupAdded,
 	type ReadonlyObjectMap
 } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
-import { assertObjectType } from "../../../../shared/assertion.js";
-import { DocumentUtils, comparePaths } from "../../../../shared/utils.js";
-import { DOCUMENT_SERVICE } from "../../../cdmCommons/documentService.js";
 import { notUndefined } from "../../../commons/utils.js";
+import { assertObjectType } from "../../../../shared/assertion.js";
+import { comparePaths, DocumentUtils } from "../../../../shared/utils.js";
+import { DOCUMENT_SERVICE } from "../../../cdmCommons/documentService.js";
 
 type GroupAddedPathMap = { [path: string]: { count: number; updated: number } };
 

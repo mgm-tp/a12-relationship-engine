@@ -30,27 +30,22 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelGraph, type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { DocumentPath } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelGraph, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { DocumentUtils } from "../../shared/utils.js";
-import { type ChangeDocumentArgs, changeDocument } from "../../documentGraph/core/reducers.js";
-
-import { DOCUMENT_SERVICE } from "../cdmCommons/documentService.js";
-import { findChangeLocation } from "../cdmCommons/findChangeLocation.js";
-import { isLinkDocGroup } from "../cdmCommons/linkDocumentGroup.js";
-import { isRelationshipGroup } from "../cdmCommons/relationshipGroup.js";
 import { findModelElementByPath } from "../commons/modelUtils.js";
+import { DOCUMENT_SERVICE } from "../cdmCommons/documentService.js";
+import { isLinkDocGroup } from "../cdmCommons/linkDocumentGroup.js";
+import { findChangeLocation } from "../cdmCommons/findChangeLocation.js";
+import { isRelationshipGroup } from "../cdmCommons/relationshipGroup.js";
+import { changeDocument, type ChangeDocumentArgs } from "../../documentGraph/core/reducers.js";
 
-import { type CdmData } from "./cdmData.js";
-import { findDocumentGraphDocument } from "./findDocumentGraphDocument.js";
-import { unwrapCdmData } from "./unwrapCdmData.js";
 import { updateCdd } from "./updateCdd.js";
+import type { CdmData } from "./cdmData.js";
+import { unwrapCdmData } from "./unwrapCdmData.js";
+import { findDocumentGraphDocument } from "./findDocumentGraphDocument.js";
 
 /**
  * @experimental
@@ -69,6 +64,7 @@ export function moveGroupInstance(
 	const cdm = data.cddState.cdm;
 
 	const modelElement = findModelElementByPath(cdm, path);
+
 	if (!modelElement || modelElement.type !== "Group") {
 		throw new Error(`Could not find group for path '${DocumentPath.toString(path)}'`);
 	}
@@ -123,6 +119,7 @@ function moveGroupInstanceInDgDoc(
 	documentModel: DocumentModel
 ): GroupInstance {
 	const rowIndex = path[path.length - 1].index - 1;
+
 	if (rowIndex === undefined) {
 		throw new Error("Expected that last segment in document path contains index");
 	}
@@ -130,6 +127,7 @@ function moveGroupInstanceInDgDoc(
 	const groupInstancesPath = DocumentUtils.getGroupInstancesPath(path);
 
 	const groupInstances = DOCUMENT_SERVICE.getAssignedObject(dgDocument, groupInstancesPath);
+
 	if (groupInstances !== null && DocumentUtils.isGroupInstances(groupInstances)) {
 		const arrayWithOutMovedInstance = groupInstances.filter((_, index) => index !== rowIndex);
 		const updatedGroupInstances = [

@@ -1,0 +1,83 @@
+{
+	"header": {
+		"id": "Category_Category_AvailableItemsOverview--CategoryCategory",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Available Items"
+			},
+			{
+				"locale": "de",
+				"text": "Verfügbare Einträge"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Category_Category_AvailableItemsOverview--CategoryCategory-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-c27fc",
+				"elementRef": "F1",
+				"sortable": true,
+				"preferredSorting": "ASC",
+				"width": 1
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "event_add_link",
+					"icon": {
+						"name": "add"
+					}
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"pagingSize": 10,
+			"showFullTextSearch": true,
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
+		},
+		"rowActivation": {
+			"type": "event",
+			"event": "event_add_link"
+		}
+	}
+}

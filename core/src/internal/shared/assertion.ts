@@ -58,6 +58,7 @@ export function assertCondition(condition: boolean, message?: string): asserts c
 export function assertNotNullish<T>(obj: T | null | undefined, message?: string): T {
 	// eslint-disable-next-line eqeqeq
 	assertCondition(obj != null, message);
+
 	return obj;
 }
 

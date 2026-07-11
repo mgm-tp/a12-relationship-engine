@@ -29,17 +29,16 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module cdm/cdd
  * @experimental
  */
-import { type DeepReadonly, type DgChangeLog, type DocumentGraph } from "../../../../documentGraph/core/index.js";
-import { type Relationship } from "../../../../relationship/relationship.js";
-import { LINKDOC_GROUPNAME, T_DOC_REF, TARGET_GROUPNAME } from "../../../cdmCommons/cddTechnical.js";
 
+import type { Relationship } from "../../../../relationship/relationship.js";
 import { linksWithMetaData } from "../effectiveChanges/linksWithMetaData.js";
+import { T_DOC_REF, TARGET_GROUPNAME, LINKDOC_GROUPNAME } from "../../../cdmCommons/cddTechnical.js";
+import type { DgChangeLog, DeepReadonly, DocumentGraph } from "../../../../documentGraph/core/index.js";
 
 /**
  * @internal
@@ -55,6 +54,7 @@ export function cddLinksWithMetadata(
 ): Relationship.LinkWithMutationMetadata[] {
 	const linkMutations = linksWithMetaData(dg, changeLog);
 	const filteredLinks = filterLinkMutations();
+
 	return addTargetDocs();
 
 	function filterLinkMutations(): Relationship.LinkWithMutationMetadata[] {
@@ -77,6 +77,7 @@ export function cddLinksWithMetadata(
 			const targetDocRef = link.link.linkRef.linkDescriptor.entities[targetEntityIdx].docRef;
 			const targetDoc = targetDocRef !== null ? dg.documents.byDocRef[targetDocRef] : undefined;
 			const actualDocument = targetDoc?.loadingState === "loaded" ? targetDoc.document : {};
+
 			return {
 				link: {
 					...link.link,

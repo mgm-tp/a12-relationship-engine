@@ -34,21 +34,16 @@
  * @packageDocumentation
  * @experimental
  */
-import { type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertCondition, assertObjectType } from "../../shared/assertion.js";
 import { DocumentUtils } from "../../shared/utils.js";
-
 import { findModelElementByPath } from "../commons/modelUtils.js";
+import { assertCondition, assertObjectType } from "../../shared/assertion.js";
 
-import { CDD_DOC_REF, LINKDOC_GROUPNAME, LINK_ID, T_DOC_REF } from "./cddTechnical.js";
 import { DOCUMENT_SERVICE } from "./documentService.js";
 import { dmGroup2RelationshipGroupInfo } from "./relationshipGroup.js";
+import { LINK_ID, T_DOC_REF, CDD_DOC_REF, LINKDOC_GROUPNAME } from "./cddTechnical.js";
 
 interface ChangeLocation {
 	/**
@@ -107,6 +102,7 @@ export function findChangeLocation(
 
 	while (currentPath.length > 0) {
 		const currentGroupInstance = DOCUMENT_SERVICE.getAssignedObject(document, currentPath);
+
 		if (DocumentUtils.isGroupInstance(currentGroupInstance) && currentGroupInstance[T_DOC_REF] !== undefined) {
 			// we have found an identifiable sub-document
 			// however, we still have to find out whether the field was actually part of the embedded link doc
@@ -118,6 +114,7 @@ export function findChangeLocation(
 				? createChangeLocation(relshGroupInstance, currentPath, true)
 				: createChangeLocation(currentGroupInstance, currentPath);
 		}
+
 		currentPath = parentPath(currentPath);
 	}
 
@@ -166,6 +163,7 @@ export function findChangeLocation(
 		const { relationship } = dmGroup2RelationshipGroupInfo(relationshipGroup);
 
 		const matchingRM = relationshipModels.find((rm) => rm.header.id === relationship);
+
 		return documentModels.find((dm) => dm.header.id === matchingRM?.content.linkDocumentModel);
 	}
 }

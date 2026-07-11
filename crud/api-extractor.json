@@ -1,4 +1,14 @@
 {
 	"extends": "../api-extractor.json",
-	"projectFolder": "."
+	"projectFolder": ".",
+	"compiler": {
+		"tsconfigFilePath": "<projectFolder>/tsconfig.json",
+		"overrideTsconfig": {
+			"compilerOptions": {
+				"target": "ES2024",
+				"lib": ["DOM", "DOM.Iterable", "ES2024"],
+				"skipLibCheck": true
+			}
+		}
+	}
 }

@@ -31,18 +31,18 @@
  */
 
 import {
-	ActivitySelectors,
-	LocaleSelectors,
 	Model,
+	type Selector,
 	ModelSelectors,
-	type Selector
+	LocaleSelectors,
+	ActivitySelectors
 } from "@com.mgmtp.a12.client/client-core";
 import {
-	createEngineStore,
-	type EngineState,
 	type Models,
-	FormEngineSelectors,
-	isFormModel
+	isFormModel,
+	type EngineState,
+	createEngineStore,
+	FormEngineSelectors
 } from "@com.mgmtp.a12.formengine/formengine-core";
 
 export namespace CustomFormEngineSelectors {
@@ -63,6 +63,7 @@ export namespace CustomFormEngineSelectors {
 
 			const models = CustomFormEngineSelectors.models(activityId)(state);
 			const ui = FormEngineSelectors.uiState(activityId)(state);
+
 			return models && ui
 				? createEngineStore({
 						models,
@@ -81,6 +82,7 @@ export namespace CustomFormEngineSelectors {
 	export function models(activityId: string): Selector<Models | undefined> {
 		return (state) => {
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (activity === undefined) {
 				return undefined;
 			}
@@ -90,17 +92,20 @@ export namespace CustomFormEngineSelectors {
 				documentModelName,
 				Model.isDocumentAndValidationModel
 			)(state);
+
 			if (documentAndValidationModel === undefined) {
 				return undefined;
 			}
 
 			const formModelName = `${activity.descriptor.taskType}-form`;
 			const formModel = selectModelOrThrow(formModelName, isFormModel)(state);
+
 			if (formModel === undefined) {
 				return undefined;
 			}
 
 			const { generatedCodeAccessor: validatorProvider } = documentAndValidationModel;
+
 			return {
 				documentModel: documentAndValidationModel,
 				validatorProvider,
@@ -119,8 +124,10 @@ export namespace CustomFormEngineSelectors {
 
 		return (state) => {
 			const formModel = modelSelector(state);
+
 			if (formModel === undefined) {
 				const error = modelErrorSelector(state);
+
 				if (error) {
 					throw error;
 				}

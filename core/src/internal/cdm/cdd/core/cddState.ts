@@ -35,14 +35,9 @@
  * @module cdm/cdd
  * @experimental
  */
-import { type DocumentModel, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel, GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import {
-	type DeepReadonly,
-	type DocRef,
-	type LoadingState,
-	type RelshPath
-} from "../../../documentGraph/core/index.js";
+import type { DocRef, RelshPath, DeepReadonly, LoadingState } from "../../../documentGraph/core/index.js";
 
 /**
  * State shape of CDD

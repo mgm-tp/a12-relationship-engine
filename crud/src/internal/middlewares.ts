@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
+import type { Middleware } from "redux";
 
 import { ActivityActions } from "@com.mgmtp.a12.client/client-core";
 import { Events, FormEngineActions } from "@com.mgmtp.a12.formengine/formengine-core";
@@ -44,11 +44,13 @@ const commitEvent = new RegExp(`(${EventNames.FORM_SUBMIT}|${EventNames.FORM_SUB
 /** @internal */
 export const crudMiddlewareWithoutValidation: Middleware = (api) => (next) => (action) => {
 	const result = next(action);
+
 	if (!FormEngineActions.event.match(action) || !Events.eventButton.match(action.payload.engineEvent)) {
 		return result;
 	}
 
 	const eventButton = action.payload.engineEvent.payload.name;
+
 	if (saveEvent.test(eventButton)) {
 		api.dispatch(ActivityActions.save.started({ activityId: action.payload.activityId }));
 	} else if (commitEvent.test(eventButton)) {
@@ -64,5 +66,6 @@ export const crudMiddlewareWithoutValidation: Middleware = (api) => (next) => (a
 			})
 		);
 	}
+
 	return result;
 };

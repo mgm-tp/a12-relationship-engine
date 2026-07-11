@@ -1,0 +1,68 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= Composable Setup
+
+This chapter describes how the Relationship Engine plugs into an A12 client application, what it expects from Form Engine and Overview Engine, and what it contributes to data loading.
+
+== The composable
+
+`withRelationshipEngine` is the public entry point. It is a standard A12 feature composable and is meant to be combined with the other engine composables:
+
+* `withFormEngine`, which must be applied before `withRelationshipEngine`.
+* `withOverviewEngine`, which must be applied before `withRelationshipEngine`.
+* `withRelationshipEngine`, applied once. The composable's type signature rejects configurations where Form Engine or Overview Engine is missing, and rejects double application.
+
+Beyond ordering and uniqueness, no special configuration object is required for the Relationship Engine itself: the engine reads everything it needs from the application's models, from the descriptors of the activities the application opens, and from the data services configuration provided by `withDataServicesConfiguration`.
+
+[NOTE]
+====
+When the application uses Composed Document Model (CDM) activities with attachment support, `initialConfig.formEngine.sagas` must be configured with `RelationshipEngineFactories.createFormEngineSagaOptions()` _before_ the composable chain runs. See <<new-arch-getting-started,Getting Started>> for the full setup.
+====
+
+== Relationship with Form Engine
+
+The Relationship Engine delegates anything form-shaped to Form Engine and observes Form Engine actions to keep its own state in sync.
+
+* *Fields* are controlled by Form Engine form components. A dedicated data provider produces Form Engine compatible data holders so this is a regular Form Engine activity scope from Form Engine's point of view.
+* *Field changes inside a form engine* are emitted by Form Engine as field-value changes; a Relationship Engine middleware observes them and appends a `docChanged` entry to the changelog. Form Engine continues processing normally; the Relationship Engine neither blocks nor rewrites the action.
+* *CustomScreenElement* referencing to a Relationship UI Models will be rendered by RelationshipEngine. Applications that integrates the Form Engine view directly, without `withCRUD`, must pass this custom `FormModelMap` to their `FormEngineView` (see <<new-arch-getting-started,Getting Started>>).
+
+== Relationship with Overview Engine
+
+The Relationship Engine uses Overview Engine as the rendering delegate for the selected items pane (in `DualPane` and `TableList`) and for the available items pane (in `DualPane`).
+
+* *Selected items and available items data holders* are Overview Engine data holders with Relationship Engine specific metadata attached. Overview Engine renders rows from them; the Relationship Engine owns their loading and lifecycle.
+* *Row clicks* inside the selected items pane are observed by Relationship Engine middlewares, which decide whether to open a child activity (in Composed Document Model), open the link document editor, or emit a signal for the host application.
+* *Pending but unsaved targets* are reflected in the Overview Engine query: in the standard "selecting" mode the Relationship Engine extends the result set so the new target appears in the next reload. In the alternative "drafting" modes the query is left untouched and a synthetic row is prepended to the Overview Engine result instead. See <<_state_management,State Management>>.
+
+== Data loading
+
+The data provider loads in three phases on the standard activity init path:
+
+. *Document Graph* (Composed Document Model only). The Composed Document Model tree is fetched from DataServices and populates the Document Graph data holder. Relationship UI Models are identified from the form model.
+. *Source-entity resolution*. For each Relationship UI Model, the Relationship Engine walks the Composed Document Model relationship chain to determine which document acts as the source for that model's queries.
+. *Overview pane and dropdown data*. The data holders for the selected items and available items panes are loaded; dropdown candidate sets are loaded via their Query Models in a single RPC request.
+
+A separate phase fetches sub-document-graph slices when a link is added in Composed Document Model mode and the Relationship UI Model declares a `groupPath`.
+
+A separate phase fetches the overview engine data when user trigger a search, filter or pagination request. 
+Per default, Relationship Engine respects every loading behavior configured in the Overview Model.
+
+A separate phase fetches the dropdown data when user opens the dropdown, triggers a search or loads more request. 
+By default, dropdown only load the selected item, available items are only loaded on demand. 
+This helps avoid loading large chunk of available items unnecessary during initiation phase.

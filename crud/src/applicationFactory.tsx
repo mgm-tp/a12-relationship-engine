@@ -30,29 +30,29 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import {
-	addCustomSagas,
-	setConfigured,
-	combineFeatures,
-	addAdditionalMiddlewares,
-	type RequireFeatures,
-	type A12ApplicationConfig,
-	type ApplicationWithConfiguredFeature,
-	addView,
-	modifyView,
-	type View
-} from "@com.mgmtp.a12.client/client-core";
-import type { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import type { FormEngineViews } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import {
+	addView,
+	type View,
+	modifyView,
+	setConfigured,
+	addCustomSagas,
+	combineFeatures,
+	type RequireFeatures,
+	addAdditionalMiddlewares,
+	type A12ApplicationConfig,
+	type ApplicationWithConfiguredFeature
+} from "@com.mgmtp.a12.client/client-core";
 
-import { CRUDFactories } from "./internal/factories.js";
 import { CRUDViews } from "./internal/views.js";
+import { CRUDFactories } from "./internal/factories.js";
 
 /**
  * We use module augmentation to extend the A12ApplicationConfig type with CRUD options
  * This is applied once they import anything from this file
  */
-declare module "@com.mgmtp.a12.client/client-core/lib/core/application/internal/factories/applicationConfig.js" {
+declare module "@com.mgmtp.a12.client/client-core" {
 	interface A12ApplicationConfig {
 		readonly crud?: {
 			readonly viewConfig?: {
@@ -95,8 +95,13 @@ export const withOverviewCRUDView = <T extends ApplicationWithCRUDConfig>(cfg: T
 /**
  * @experimental
  */
-export const withFormCRUDView = <T extends ApplicationWithCRUDConfig>(cfg: T) =>
-	addView<T>("FormCRUD", CRUDViews.FormEngineView)(cfg);
+export const withFormCRUDView = <T extends ApplicationWithCRUDConfig>(cfg: T) => {
+	if (cfg.configured.newRelationshipEngine) {
+		return addView<T>("FormCRUD", CRUDViews.FormEngineWithRelationshipEngineView)(cfg);
+	}
+
+	return addView<T>("FormCRUD", CRUDViews.FormEngineView)(cfg);
+};
 
 /**
  * @experimental

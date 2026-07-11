@@ -1,0 +1,63 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#dbeafe","primaryTextColor":"#1e3a5f","primaryBorderColor":"#3b82f6","lineColor":"#64748b","secondaryColor":"#dcfce7","tertiaryColor":"#fef9c3"}}}%%
+flowchart TB
+    subgraph fe["<b>Form Engine — owns its data holders</b>"]
+        FE_DH["<b>Default DataHolders</b>\nactivity, fields, form state"]
+        FE_ACTS["<b>Native events</b>\nfield, attachments, repeats changes..."]
+    end
+
+    subgraph oe["<b>Overview Engine — owns embedded data holders</b>"]
+        OE_DH["Available or Selected Items DataHolder\nkeyed by <b>dataHolderDescriptor</b>"]
+        OE_ACTS["<b>Native events</b>\nrow/button clicks, search, sort, filter..."]
+    end
+
+    subgraph re["<b>Relationship Engine — dropdown data holders</b>"]
+        DD_DH["Available and Selected Items DataHolder\nkeyed by <b>dataHolderDescriptor</b>"]
+        RE_ACTS["<b>Builtin events</b>\nsearch, select, edit, clear..."]
+    end
+
+    subgraph guard["<b>Ownership check</b>"]
+        G["next(action) - FE/OE always get the action first
+----
+ChangelogDataHolder present for this activity?
+no: pass through (not an RE activity)
+<b>yes</b>: RE intercepts"]
+    end
+
+    subgraph mw["<b>RE Middleware Layer</b>"]
+        direction LR
+        MW_F["FE interceptors"]
+        MW_O["OE interceptors"]
+    end
+
+    fe --> guard
+    oe --> guard
+    re --> guard
+    guard --> mw
+
+    mw --> CL["<b>RE Redux State</b><br>Changelog.Change<br><small>linkCRUD, docCRUD, linkDocCRUD, cdmRootComputed, subDocumentGraphAdded</small>"]
+
+    CL --> DG["DocumentGraph and checkpoints"]
+    DG --> CDM["One-way CDD computation"]
+    CDM --> UI[React UI]
+
+    classDef feNode fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+    classDef oeNode fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef reNode fill:#ede9fe,stroke:#7c3aed,color:#3b0764
+    classDef guardNode fill:#fef9c3,stroke:#ca8a04,color:#713f12
+    classDef mwNode fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e
+    classDef stateNode fill:#eff6ff,stroke:#3b82f6,color:#1e40af
+    classDef outputNode fill:#f0fdf4,stroke:#16a34a,color:#14532d
+
+    class FE_DH,FE_ACTS feNode
+    class OE_DH,OE_ACTS oeNode
+    class DD_DH,RE_ACTS reNode
+    class G guardNode
+    class MW_F,MW_O mwNode
+    class CL,DG stateNode
+    class CDM,UI outputNode
+
+    style fe fill:#eff6ff,stroke:#3b82f6,color:#1e40af
+    style oe fill:#f0fdf4,stroke:#16a34a,color:#14532d
+    style re fill:#f5f3ff,stroke:#7c3aed,color:#3b0764
+    style guard fill:#fef9c3,stroke:#ca8a04,color:#713f12
+    style mw fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e

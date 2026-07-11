@@ -30,23 +30,23 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, beforeAll, beforeEach, assert, expect } from "vitest";
+import { test, assert, expect, describe, beforeAll, beforeEach } from "vitest";
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Model } from "@com.mgmtp.a12.client/client-core";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
+import type { Model } from "@com.mgmtp.a12.client/client-core";
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
+import { createTestModels } from "../../../mocks/ModelsUtil.js";
+import { MOCK_MODEL_GRAPH } from "../../../mocks/relationships/ModelGraph.js";
 import { createInitialDgCl } from "../../../../internal/cdm/cddUtils/createInitialDgCl.js";
+import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
 import {
-	type DeepReadonly,
 	type DgChangeLog,
+	type DeepReadonly,
 	type DocumentGraph,
 	resetAddedLinkIndexForTesting
 } from "../../../../internal/documentGraph/core/index.js";
-import { createTestModels } from "../../../mocks/ModelsUtil.js";
-import { MOCK_MODEL_GRAPH } from "../../../mocks/relationships/ModelGraph.js";
 
 import { replaceLinkRanksInDg, setupCddUtilsTestData } from "./testUtils.js";
 

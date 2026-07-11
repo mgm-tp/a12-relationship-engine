@@ -36,7 +36,7 @@
  * @experimental
  */
 
-import { type Localizable } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
 
 import { de_DE } from "./de_DE.js";
 import { en_US } from "./en_US.js";

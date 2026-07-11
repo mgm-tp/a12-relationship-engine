@@ -30,18 +30,18 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, expect, test, vi } from "vitest";
+import { vi, test, expect, describe } from "vitest";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 
-import { createDisplayValueProvider } from "../../../../internal/relationship/ui/components/adapter/SingleSelection.js";
 import { getMockModels } from "../../../mocks/relationships/mocks.js";
 import { DE_LOCALIZER_CTX, US_LOCALIZER_CTX } from "../../../utils/localization.js";
+import { createDisplayValueProvider } from "../../../../internal/relationship/ui/components/adapter/SingleSelection.js";
 
-vi.mock("@com.mgmtp.a12.formengine/formengine-core/lib/models/index.js", async (importOriginal) => {
+vi.mock("@com.mgmtp.a12.formengine/formengine-core", async (importOriginal) => {
 	return {
 		// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-		...(await importOriginal<typeof import("@com.mgmtp.a12.formengine/formengine-core/lib/models/index.js")>()),
+		...(await importOriginal<typeof import("@com.mgmtp.a12.formengine/formengine-core")>()),
 		defaultValueParser: (path: ModelPath, value: string) => value
 	};
 });

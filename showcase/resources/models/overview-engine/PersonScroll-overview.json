@@ -2,7 +2,7 @@
 	"header": {
 		"id": "PersonScroll-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Person"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,44 +32,6 @@
 		]
 	},
 	"content": {
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "multi_selection"
-				},
-				{
-					"type": "button",
-					"event": "add",
-					"destructive": false,
-					"icon": {
-						"name": "add"
-					},
-					"primary": false,
-					"description": [
-						{
-							"locale": "en",
-							"text": "Add a person"
-						},
-						{
-							"locale": "de",
-							"text": "Fügen Sie eine Person hinzu"
-						}
-					]
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-5bd25",
@@ -217,6 +174,44 @@
 					]
 				}
 			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"event": "add",
+					"destructive": false,
+					"icon": {
+						"name": "add"
+					},
+					"primary": false,
+					"description": [
+						{
+							"locale": "en",
+							"text": "Add a person"
+						},
+						{
+							"locale": "de",
+							"text": "Fügen Sie eine Person hinzu"
+						}
+					]
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
 		},
 		"configuration": {
 			"showFullTextSearch": true,

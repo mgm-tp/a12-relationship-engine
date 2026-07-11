@@ -30,28 +30,27 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeAll, vi, afterAll } from "vitest";
+import { vi, test, expect, describe, afterAll, beforeAll } from "vitest";
 
-import { ActivitySelectors, type ApplicationModel, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph, type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { ModelGraph, Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { ModelSelectors, ActivitySelectors, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 
-import {
-	type DocumentMutation,
-	type DocumentWithMutationMetadata
-} from "../../../internal/cdm/cdd/core/effectiveChanges/documentsWithMetaData.js";
-import {
-	cddActivityStateAdapter,
-	cddStateAdapter
-} from "../../../internal/cdm/cdd/redux/cddMiddlewareAdapterFactory.js";
-import { CddSelectors } from "../../../internal/cdm/cdd/redux/selectors.js";
-import { type DgLinkInternal, type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import { createLinkRefResponse, createModelsMock } from "../../mocks/relationships/mocks.js";
-import { MOCK_MODEL_GRAPH } from "../../mocks/relationships/ModelGraph.js";
-import { createGeneralStore } from "../../mocks/store/store.js";
-import { createActivity, createDataHolder } from "../../utils/activity.js";
 import { createModule } from "../../utils/appmodel-utils.js";
-
+import { createGeneralStore } from "../../mocks/store/store.js";
 import { createLinkMutation } from "../dataProvider/testSetup.js";
+import { MOCK_MODEL_GRAPH } from "../../mocks/relationships/ModelGraph.js";
+import { createActivity, createDataHolder } from "../../utils/activity.js";
+import { CddSelectors } from "../../../internal/cdm/cdd/redux/selectors.js";
+import { createModelsMock, createLinkRefResponse } from "../../mocks/relationships/mocks.js";
+import type { DocumentGraph, DgLinkInternal } from "../../../internal/documentGraph/core/index.js";
+import {
+	cddStateAdapter,
+	cddActivityStateAdapter
+} from "../../../internal/cdm/cdd/redux/cddMiddlewareAdapterFactory.js";
+import type {
+	DocumentMutation,
+	DocumentWithMutationMetadata
+} from "../../../internal/cdm/cdd/core/effectiveChanges/documentsWithMetaData.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 	const testActivityId = "123";

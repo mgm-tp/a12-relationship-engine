@@ -1,0 +1,141 @@
+{
+	"header": {
+		"id": "Product_Brand_SelectedItemsOverview-edit",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Product_Brand_SelectedItemsOverview-query"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Selected products"
+			},
+			{
+				"locale": "de",
+				"text": "Ausgewählte Produkte"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-b8549",
+				"width": 1,
+				"elementRef": "F4",
+				"sortable": false
+			},
+			{
+				"id": "column-21b4b",
+				"width": 1,
+				"elementRef": "F5",
+				"sortable": false
+			},
+			{
+				"id": "column-38ed3",
+				"width": 1,
+				"elementRef": "F5",
+				"sortable": false,
+				"linkReferences": [
+					{
+						"relationship": "ProductBrand",
+						"targetRole": "Brand",
+						"type": "LINK"
+					}
+				]
+			},
+			{
+				"id": "column-05916",
+				"width": 1,
+				"styles": {},
+				"elementRef": "group_95309",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "event_delete_link",
+					"icon": {
+						"name": "remove_circle"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Remove"
+						},
+						{
+							"locale": "de",
+							"text": "Entfernen"
+						}
+					],
+					"labelHidden": true
+				},
+				{
+					"event": "event_restore_link",
+					"icon": {
+						"name": "add_circle"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Restore"
+						},
+						{
+							"locale": "de",
+							"text": "Wiederherstellen"
+						}
+					],
+					"labelHidden": true
+				},
+				{
+					"event": "event_edit_link_document",
+					"icon": {
+						"name": "edit"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Edit additional properties"
+						},
+						{
+							"locale": "de",
+							"text": "Zusätzliche Eigenschaften bearbeiten"
+						}
+					],
+					"labelHidden": true
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": false,
+			"pagingSize": 10,
+			"showFullTextSearch": false
+		},
+		"rowActivation": {
+			"type": "event",
+			"event": "event_delete_link"
+		}
+	}
+}

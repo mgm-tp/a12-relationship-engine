@@ -36,14 +36,14 @@
  * @experimental
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
+import { addToMapOfArrays } from "../../commons/utils.js";
 import { assertCondition } from "../../../shared/assertion.js";
 import { relshPathToModelPath } from "../../cdd/core/index.js";
-import { type RelationshipGroupInformation } from "../../cdmCommons/relationshipAnnotations.js";
-import { dmGroup2RelationshipGroupInfo, isRelationshipGroup } from "../../cdmCommons/relationshipGroup.js";
-import { findModelElementByPath, queryRootName } from "../../commons/modelUtils.js";
-import { addToMapOfArrays } from "../../commons/utils.js";
+import { queryRootName, findModelElementByPath } from "../../commons/modelUtils.js";
+import type { RelationshipGroupInformation } from "../../cdmCommons/relationshipAnnotations.js";
+import { isRelationshipGroup, dmGroup2RelationshipGroupInfo } from "../../cdmCommons/relationshipGroup.js";
 
 import { CDM_Graph, type CdmRelationship, type DirectedRelationships } from "./CDM_Graph.js";
 
@@ -54,9 +54,11 @@ export function cdmToGraph(cdm: DocumentModel, relshPath: string): CDM_Graph {
 
 function graphForCDM(cdm: DocumentModel): CDM_Graph {
 	const rootModelName = queryRootName(cdm);
+
 	if (rootModelName === undefined) {
 		throw new Error("CDM missing query root");
 	}
+
 	return rmGroup2SMG(cdm.content.modelRoot, rootModelName);
 }
 
@@ -66,6 +68,7 @@ function graphForSubCDM(cdm: DocumentModel, relshPath: string): CDM_Graph {
 	const rmGroup = findModelElementByPath(cdm, modelPath);
 	assertCondition(rmGroup !== undefined && rmGroup.type === "Group", `"${modelPath} must be a group"`);
 	const { targetDocumentModel } = dmGroup2RelationshipGroupInfo(rmGroup);
+
 	return rmGroup2SMG(rmGroup, targetDocumentModel);
 }
 
@@ -73,10 +76,12 @@ function rmGroup2SMG(rmGroup: DocumentModel.Group, smgRootName: string): CDM_Gra
 	const root = CDM_Graph.createSimpleDocModel(smgRootName);
 	const relationships: DirectedRelationships = {};
 	findAndAddRelationships(rmGroup, smgRootName);
+
 	return { root, relationships };
 
 	function findAndAddRelationships(group: DocumentModel.Group, currentModelId: string): void {
 		const relationshipGroups = findRelationshipGroups(group);
+
 		for (const rg of relationshipGroups) {
 			const rgInfo = dmGroup2RelationshipGroupInfo(rg);
 			addRelationship(currentModelId, rgInfo);
@@ -86,6 +91,7 @@ function rmGroup2SMG(rmGroup: DocumentModel.Group, smgRootName: string): CDM_Gra
 
 	function findRelationshipGroups(group: DocumentModel.Group): DocumentModel.Group[] {
 		const result: DocumentModel.Group[] = [];
+
 		for (const element of group.elements) {
 			if (element.type === "Group") {
 				if (isRelationshipGroup(element)) {
@@ -95,11 +101,13 @@ function rmGroup2SMG(rmGroup: DocumentModel.Group, smgRootName: string): CDM_Gra
 				}
 			}
 		}
+
 		return result;
 	}
 
 	function addRelationship(source: string, rgInfo: RelationshipGroupInformation): void {
 		const exists = (relationships[source] ?? []).some((srm) => srm.name === rgInfo.relationship);
+
 		if (!exists) {
 			const cdmRelationship: CdmRelationship = {
 				name: rgInfo.relationship,

@@ -35,9 +35,9 @@
  * @module documentGraph/core
  * @experimental
  */
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type DocRef } from "../utilityTypes.js";
+import type { DocRef } from "../utilityTypes.js";
 
 /**
  * The Change Log (ChLog) records changes to the document graph (excluding the CDD!) for these purposes:

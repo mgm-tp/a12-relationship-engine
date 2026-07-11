@@ -30,21 +30,20 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
+import documentGraph from "../testData/dg.json" with { type: "json" };
 import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
-import { linksWithMetaData } from "../../../internal/cdm/cdd/core/effectiveChanges/linksWithMetaData.js";
-import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
-import { type DeepReadonly, type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import { newChangeLog } from "../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
 import { mergeInto } from "../../../internal/documentGraph/core/impl/dg.js";
 import { addLink } from "../../../internal/documentGraph/core/impl/links.js";
-
 import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
-import documentGraph from "../testData/dg.json" with { type: "json" };
+import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
+import { newChangeLog } from "../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
+import type { DeepReadonly, DocumentGraph } from "../../../internal/documentGraph/core/index.js";
+import { linksWithMetaData } from "../../../internal/cdm/cdd/core/effectiveChanges/linksWithMetaData.js";
 
-import Contract24Cdd from "./Contract24Cdd.json" with { type: "json" };
 import facebookDg from "./dg-facebook.json" with { type: "json" };
+import Contract24Cdd from "./Contract24Cdd.json" with { type: "json" };
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 	const CONTRACT_ID = "Contract-document/24";

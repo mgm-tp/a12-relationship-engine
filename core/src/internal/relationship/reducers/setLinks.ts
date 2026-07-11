@@ -35,11 +35,11 @@
  * @module relationship
  */
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
 
-import { type RelationshipActions } from "../actions.js";
+import type { Relationship } from "../relationship.js";
 import { PaginationUtils } from "../paginationUtils.js";
-import { type Relationship } from "../relationship.js";
+import type { RelationshipActions } from "../actions.js";
 
 /** @internal */
 export function handleSetLinks(
@@ -47,6 +47,7 @@ export function handleSetLinks(
 	payload: RelationshipActions.Commands.SetLinksPayload
 ): Activity.DataHolder<Relationship.LinkInstance> {
 	const linkInstance = dataHolder.data;
+
 	if (!linkInstance) {
 		throw new Error(`dataholder with descriptor ${dataHolder.descriptor} has no data!`);
 	}

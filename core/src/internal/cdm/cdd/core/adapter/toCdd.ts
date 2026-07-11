@@ -38,23 +38,18 @@
 
 import { merge } from "lodash-es";
 
-import { type DocumentModel, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel, GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { assertCondition } from "../../../../shared/assertion.js";
-import {
-	type DeepReadonly,
-	type DgDocument,
-	type DocRef,
-	type DocumentGraph
-} from "../../../../documentGraph/core/index.js";
-import { LINKDOC_GROUPNAME, LINK_ID, T_DOC_REF, getCddDoc } from "../../../cdmCommons/cddTechnical.js";
+import { targetDocRefBySourceDocRef } from "../../../commons/relationshipModelUtils.js";
 import { dmGroup2RelationshipGroupInfo } from "../../../cdmCommons/relationshipGroup.js";
+import { LINK_ID, T_DOC_REF, getCddDoc, LINKDOC_GROUPNAME } from "../../../cdmCommons/cddTechnical.js";
+import type { DocRef, DgDocument, DeepReadonly, DocumentGraph } from "../../../../documentGraph/core/index.js";
 import {
-	assertIsNonRepeatableGroup,
 	isNonRepeatableGroup,
+	assertIsNonRepeatableGroup,
 	resolveAnnotationOrUndefined
 } from "../../../commons/modelUtils.js";
-import { targetDocRefBySourceDocRef } from "../../../commons/relationshipModelUtils.js";
 
 /**
  * All but the last group of an entry are non-repeatable groups
@@ -96,10 +91,12 @@ export function toCdd(
 		const lipAA: LinkInsertionPath[][] = currentGroup.elements
 			.filter((el): el is DocumentModel.Group => el.type === "Group")
 			.map(flattenGroup);
+
 		for (const lip of lipAA.flat()) {
 			// lip contains the group nesting (relative to draftCdd) to the "relshRepresentant" group
 			embedRelsh(draftCdd, sourceDocRef, lip);
 		}
+
 		return draftCdd;
 	}
 
@@ -119,6 +116,7 @@ export function toCdd(
 
 		if (lip.length === 1 && lip[0].repeatability === 1 && selectedLinkId) {
 			const selectedLink = linksForRelsh.find((link) => link.linkRef.id === selectedLinkId);
+
 			if (selectedLink) {
 				linksForRelsh = [selectedLink];
 			}
@@ -126,6 +124,7 @@ export function toCdd(
 
 		for (const link of linksForRelsh) {
 			const targetDocRef = targetDocRefBySourceDocRef(link.linkRef.linkDescriptor, sourceDocRef);
+
 			if (targetDocRef === undefined) {
 				continue;
 			}
@@ -147,6 +146,7 @@ export function toCdd(
 			} as GroupInstance;
 			embedSubCdd(draftCdd, lip, subCdd);
 		}
+
 		return draftCdd;
 	}
 
@@ -161,9 +161,11 @@ export function toCdd(
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const parentGroup: any = parentGroups.reduce(navigateParent, draftCdd);
 		let insertionObject = parentGroup[lastGroup.name];
+
 		if (insertionObject === undefined || insertionObject === null) {
 			insertionObject = lastGroup.repeatability === 1 ? {} : [];
 		}
+
 		if (lastGroup.repeatability === 1) {
 			assertCondition(
 				typeof insertionObject === "object",
@@ -180,10 +182,12 @@ export function toCdd(
 	function navigateParent(docPointer: any, group: DocumentModel.Group): GroupInstance {
 		assertIsNonRepeatableGroup(group);
 		let next = docPointer[group.name];
+
 		if (next === undefined || next === null) {
 			// Non-Repeatable groups are objects and not arrays!
 			next = docPointer[group.name] = {};
 		}
+
 		return next as GroupInstance; // Casting is allowed because group is non-repeating!
 	}
 
@@ -206,8 +210,10 @@ export function toCdd(
 			.filter((el): el is DocumentModel.Group => el.type === "Group")
 			.map((subGroup) => {
 				const a = flattenGroup(subGroup);
+
 				return a.map((ng) => [subGroup, ...ng]);
 			});
+
 		return ngAA.flat();
 	}
 }

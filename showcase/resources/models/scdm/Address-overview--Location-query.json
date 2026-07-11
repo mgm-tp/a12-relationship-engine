@@ -1,0 +1,42 @@
+{
+	"header": {
+		"id": "Address-overview--Location-query",
+		"modelType": "query",
+		"modelVersion": "0.1.0",
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-query",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Address-document"
+			},
+			{
+				"purpose": "relationship-model-for-query",
+				"modelType": "relationship",
+				"alias": "RM",
+				"reference": "Location"
+			}
+		]
+	},
+	"content": {
+		"targetDocumentModel": "Address-document",
+		"projectionName": "document",
+		"paging": {
+			"pageNumber": 0,
+			"pageSize": 50
+		},
+		"links": [
+			{
+				"relationshipModel": "Location",
+				"targetRole": "businessPartner",
+				"maxDepth": 1,
+				"constraint": {
+					"operator": "exact_match",
+					"field": "/__meta/docRef",
+					"value": "${BusinessPartner-document, [/__meta/docRef]}"
+				}
+			}
+		]
+	}
+}

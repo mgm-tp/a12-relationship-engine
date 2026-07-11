@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductBrand_Brand____generated",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "de"
@@ -16,21 +16,15 @@
 			{
 				"name": "application",
 				"value": ""
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
 			{
-				"alias": "Brand-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Brand-document"
 			},
 			{
-				"alias": "ProductBrand_AdditionalFieldsModel",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "ProductBrand_AdditionalFieldsModel"
@@ -64,7 +58,9 @@
 								"name": "Properties",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Brand-document"
+									"includeConfig": {
+										"reference": "Brand-document"
+									}
 								}
 							}
 						]
@@ -83,7 +79,9 @@
 								"name": "AdditionalFields",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "ProductBrand_AdditionalFieldsModel"
+									"includeConfig": {
+										"reference": "ProductBrand_AdditionalFieldsModel"
+									}
 								}
 							}
 						]

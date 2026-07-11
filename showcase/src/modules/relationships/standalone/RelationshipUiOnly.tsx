@@ -33,10 +33,10 @@
 import React from "react";
 import { connect, useSelector } from "react-redux";
 
-import { ActivityActions, ActivitySelectors, Model, type View } from "@com.mgmtp.a12.client/client-core";
 import { FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
-import { Relationship, RelationshipViews } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
 import { Button, ActionContentbox, ContentBoxElements } from "@com.mgmtp.a12.widgets/widgets-core";
+import { Model, type View, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
+import { Relationship, RelationshipViews } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
 
 interface DispatchProps {
 	cancel(): void;
@@ -67,6 +67,7 @@ export function RelationshipUiOnly({
 
 	const elementIds = [];
 	const { bindings = [] }: { readonly bindings?: object[] } = configuration || {};
+
 	for (const binding of bindings) {
 		if (Model.Binding.isInstance(binding) && Relationship.UiConfigurationBinding.isInstance(binding)) {
 			elementIds.push(binding.elementId);
@@ -107,7 +108,7 @@ export function RelationshipUiOnly({
 	);
 }
 
-const ConnectedRelationshipUiOnly = connect<{}, DispatchProps, View>(
+const ConnectedRelationshipUiOnly = connect<{}, DispatchProps, View, object>(
 	undefined,
 	function mapDispatchToProps(dispatch, { activityId }) {
 		return {

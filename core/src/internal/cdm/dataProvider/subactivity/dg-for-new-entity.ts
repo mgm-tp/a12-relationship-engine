@@ -36,8 +36,8 @@
  * @experimental
  */
 
-import { type DgChangeLogSlice, type DgSlice } from "../../../documentGraph/core/index.js";
-import { addDocument, addLink } from "../../../documentGraph/core/reducers.js";
+import { addLink, addDocument } from "../../../documentGraph/core/reducers.js";
+import type { DgSlice, DgChangeLogSlice } from "../../../documentGraph/core/index.js";
 
 /**
  * @internal

@@ -1,0 +1,12 @@
+{
+	"extends": "../tsconfig",
+	"include": ["${configDir}/tests", "${configDir}/support", "${configDir}/playwright.config.ts"],
+	"compilerOptions": {
+		"rootDir": "${configDir}",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"verbatimModuleSyntax": false,
+		"noEmit": true,
+		"types": ["node"]
+	}
+}

@@ -30,30 +30,30 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React, { useCallback, useContext, useEffect, useMemo } from "react";
+import type { Dispatch } from "redux";
 import { DndProvider } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { type Dispatch } from "redux";
-import { StyleSheetManager, ThemeProvider } from "styled-components";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
+import React, { useMemo, useEffect, useContext, useCallback } from "react";
 
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { DirtyHandlingViews } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
 import {
-	ApplicationSelectors,
+	ViewViews,
 	FrameFactories,
 	type FrameViews,
 	NotificationViews,
-	ViewViews
+	ApplicationSelectors
 } from "@com.mgmtp.a12.client/client-core";
-import { DirtyHandlingViews } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
 import {
-	A11YLanguageContext,
-	type A11yDefinition,
 	getA11yResource,
 	DragAndDropUtils,
-	defaultTheme,
-	shouldForwardProp
+	shouldForwardProp,
+	A11YLanguageContext,
+	type A11yDefinition
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
+import { THEMES, useShowcaseContext } from "./context.js";
 import { createViewProvider } from "./containerFactory.js";
 import { ApplicationFrameLayout } from "./views/application-frame-layout.js";
 
@@ -64,6 +64,7 @@ interface PageProps {
 export function Page({ initialStoreActions }: PageProps): React.ReactNode {
 	const { locale } = useContext(LocalizerContext);
 	const busyState = useSelector(ApplicationSelectors.busy());
+	const theme = useShowcaseContext((context) => context.theme);
 
 	const rootRegionRef = useMemo(() => [], []);
 	const RegionUi = useMemo(() => FrameFactories.regionUiProvider(rootRegionRef), [rootRegionRef]);
@@ -71,6 +72,7 @@ export function Page({ initialStoreActions }: PageProps): React.ReactNode {
 	const viewProvider = useMemo(() => createViewProvider(), []);
 	const a11yResource = useMemo<A11yDefinition>(() => {
 		const SUPPORTED_LANGUAGES = ["en", "de"];
+
 		return getA11yResource(SUPPORTED_LANGUAGES.includes(locale.language) ? locale.language : "en");
 	}, [locale.language]);
 
@@ -85,6 +87,7 @@ export function Page({ initialStoreActions }: PageProps): React.ReactNode {
 				component: ApplicationFrameLayout
 			};
 		}
+
 		return FrameFactories.layoutProvider(name);
 	}, []);
 
@@ -92,7 +95,7 @@ export function Page({ initialStoreActions }: PageProps): React.ReactNode {
 		<DndProvider backend={DragAndDropUtils.DefaultDndBackend} options={DragAndDropUtils.DefaultDndBackendOptions}>
 			<A11YLanguageContext.Provider value={a11yResource}>
 				<StyleSheetManager shouldForwardProp={shouldForwardProp}>
-					<ThemeProvider theme={defaultTheme}>
+					<ThemeProvider theme={THEMES[theme]}>
 						<ViewViews.ProgressIndicator global progress={busyState ? "loading" : "none"}>
 							<NotificationViews.Frame>
 								<RegionUi

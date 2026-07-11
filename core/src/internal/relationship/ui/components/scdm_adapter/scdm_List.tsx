@@ -36,30 +36,26 @@
  * @experimental
  */
 
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { Events, FormEngineActions, type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	localizableFromModel,
-	type LocalizedModelText
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { Events, type FormModel, FormEngineActions } from "@com.mgmtp.a12.formengine/formengine-core";
+import { localizableFromModel, type LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
 
-import { assertObject } from "../../../../shared/assertion.js";
-import { descriptorTableListAdd, descriptorTableListEdit } from "../../../localization.js";
-import { type Relationship } from "../../../relationship.js";
-import { isRelationshipModel } from "../../../../shared/RelationshipModel.js";
-
-import { type AdapterLink } from "../adapter/adapterLinkSelectors.js";
-import { ListWrapper } from "../adapter/List.js";
-import { type ListProps } from "../api.js";
+import type { ListProps } from "../api.js";
 import { areMaxLinksAdded } from "../util.js";
+import { ListWrapper } from "../adapter/List.js";
+import type { Relationship } from "../../../relationship.js";
+import { assertObject } from "../../../../shared/assertion.js";
+import type { AdapterLink } from "../adapter/adapterLinkSelectors.js";
+import { isRelationshipModel } from "../../../../shared/RelationshipModel.js";
+import { descriptorTableListAdd, descriptorTableListEdit } from "../../../localization.js";
 
-import { makeRowsPathForRepeat } from "./makeRowsPathForRepeat.js";
 import * as ScdmRelationshipUiAdapter from "./scdm_adapter.js";
-import { calculateVariantSelectionItems, VariantSelectionModal } from "./variant-selection-modal.js";
+import { makeRowsPathForRepeat } from "./makeRowsPathForRepeat.js";
+import { VariantSelectionModal, calculateVariantSelectionItems } from "./variant-selection-modal.js";
 
 /** @internal */
 interface OwnProps extends ScdmRelationshipUiAdapter.OwnProps<ListProps, FormModel.DetachedRepeat> {
@@ -77,8 +73,8 @@ interface DispatchProps {
 }
 
 /** @internal */
-export const ScdmListAdapter = connect<ScdmRelationshipUiAdapter.StateProps, DispatchProps, OwnProps>(
-	function mapStateToProps(state, ownProps) {
+export const ScdmListAdapter = connect<ScdmRelationshipUiAdapter.StateProps, DispatchProps, OwnProps, object>(
+	function mapStateToProps(state: object, ownProps) {
 		const coreProps = ScdmRelationshipUiAdapter.mapStateToAdapterProps(state, ownProps);
 
 		const linksWithRowIndex =
@@ -99,6 +95,7 @@ export const ScdmListAdapter = connect<ScdmRelationshipUiAdapter.StateProps, Dis
 	},
 	function mapDispatchToProps(dispatch, ownProps: OwnProps) {
 		const { activityId } = ownProps;
+
 		return {
 			onEditLinkedDoc: (link: Relationship.LinkWithDocument) => {
 				const allRowsPath = makeRowsPathForRepeat(ownProps.formModelElement.groupPath, ownProps.dataContext);
@@ -139,7 +136,7 @@ function ListWrapperWrapper(props: ScdmRelationshipUiAdapter.StateProps & Dispat
 
 	const modelGraph = useSelector(ModelSelectors.modelGraph());
 
-	const relationshipModel = useSelector((state) => {
+	const relationshipModel = useSelector((state: object) => {
 		if (!props.relationship) {
 			return undefined;
 		} else {
@@ -182,9 +179,10 @@ function ListWrapperWrapper(props: ScdmRelationshipUiAdapter.StateProps & Dispat
 			}
 		: props.onCreateAndLink;
 
-	const onLinkClick = props.createActivityForExistingEntity
+	const createActivityForExistingEntity = props.createActivityForExistingEntity;
+	const onLinkClick = createActivityForExistingEntity
 		? (link: AdapterLink) => {
-				dispatch(props.createActivityForExistingEntity?.((link.document as any).t_docRef, link.linkRef.id));
+				dispatch(createActivityForExistingEntity((link.document as any).t_docRef, link.linkRef.id));
 			}
 		: props.onEditLinkedDoc;
 

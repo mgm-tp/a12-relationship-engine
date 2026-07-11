@@ -1,0 +1,93 @@
+{
+	"header": {
+		"id": "ContractCDM-form-binding-binding-ClaimLocation_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "ClaimLocation_location_SelectedItemsOverview-tableList"
+			},
+			{
+				"purpose": "availableItemsInEditModal",
+				"modelType": "overview",
+				"reference": "Address-overview--ClaimLocation"
+			},
+			{
+				"purpose": "selectedItemsInEditModal",
+				"modelType": "overview",
+				"reference": "ClaimLocation_location_SelectedItemsOverview-edit"
+			}
+		],
+		"annotations": []
+	},
+	"content": {
+		"relationshipName": "ClaimLocation",
+		"targetRole": "location",
+		"component": {
+			"componentType": "TableList",
+			"selectedItemsOverviewModel": "ClaimLocation_location_SelectedItemsOverview-tableList",
+			"editConfiguration": {
+				"availableItemsOverviewModel": "Address-overview--ClaimLocation",
+				"selectedItemsOverviewModel": "ClaimLocation_location_SelectedItemsOverview-edit"
+			},
+			"buttons": [
+				{
+					"event": "event_open_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Edit"
+						},
+						{
+							"locale": "de",
+							"text": "Bearbeiten"
+						}
+					]
+				},
+				{
+					"event": "event_add_document",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					]
+				},
+				{
+					"event": "event_cancel_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Cancel"
+						},
+						{
+							"locale": "de",
+							"text": "Abbrechen"
+						}
+					],
+					"destructive": true
+				},
+				{
+					"event": "event_submit_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "OK"
+						},
+						{
+							"locale": "de",
+							"text": "OK"
+						}
+					],
+					"primary": true
+				}
+			]
+		}
+	}
+}

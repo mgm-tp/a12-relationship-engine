@@ -36,40 +36,41 @@
  * @experimental
  */
 
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type VariantSelectionItem } from "@com.mgmtp.a12.client/client-core/heterogeneity";
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { localizableFromModel } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { Button, addPrefix, noop } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { noop, Button, addPrefix } from "@com.mgmtp.a12.widgets/widgets-core";
+import { localizableFromModel } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { VariantSelectionItem } from "@com.mgmtp.a12.client/client-core/heterogeneity";
 
+import type { SingleSelectionProps } from "../api.js";
+import { RelationshipActions } from "../../../actions.js";
+import { RelationshipSelectors } from "../../../selectors.js";
 import { assertObject } from "../../../../shared/assertion.js";
 import { CddActions } from "../../../../cdm/cdd/redux/index.js";
+import { SingleSelectionWrapper } from "../adapter/SingleSelection.js";
+import { isRelationshipModel } from "../../../../shared/RelationshipModel.js";
 import { getEntityByRole } from "../../../../cdm/commons/relationshipModelUtils.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
 import {
 	descriptorAddEntityButton,
 	descriptorEditEntityButton,
 	descriptorOpenEntityButton
 } from "../../../../cdm/languages/localization.js";
-import { RelationshipActions } from "../../../actions.js";
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
-import { RelationshipSelectors } from "../../../selectors.js";
-import { isRelationshipModel } from "../../../../shared/RelationshipModel.js";
-
-import { SingleSelectionWrapper } from "../adapter/SingleSelection.js";
-import { type SingleSelectionProps } from "../api.js";
 
 import * as ScdmRelationshipUiAdapter from "./scdm_adapter.js";
-import { calculateVariantSelectionItems, VariantSelectionModal } from "./variant-selection-modal.js";
+import { VariantSelectionModal, calculateVariantSelectionItems } from "./variant-selection-modal.js";
 
 interface StateProps extends ScdmRelationshipUiAdapter.StateProps {
 	readonly candidateModels?: RelationshipClientApi.OverviewModels;
 	readonly candidatesFullCount: number;
+	readonly minSearchableTokenSize?: number;
 }
 
 interface DispatchProps {
@@ -82,8 +83,8 @@ interface DispatchProps {
 type OwnProps = ScdmRelationshipUiAdapter.OwnProps<SingleSelectionProps, FormModel.Control>;
 
 /** @internal */
-export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProps>(
-	function mapStateToProps(state, ownProps) {
+export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProps, object>(
+	function mapStateToProps(state: object, ownProps) {
 		const { activityId, formModel, formModelElement, componentConfiguration } = ownProps;
 		const coreProps = ScdmRelationshipUiAdapter.mapStateToAdapterProps(state, ownProps);
 
@@ -98,10 +99,15 @@ export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, Own
 		const rawCandidates = RelationshipSelectors.candidateDataHolder(activityId, ownProps.formModelElement.id)(state);
 		const candidatesFullCount = rawCandidates?.data?.candidatePagination.fullCount ?? -1;
 
+		const minSearchableTokenSizeStr = DataServicesSelectors.configurationByKey(
+			"mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize"
+		)(state);
+
 		return {
 			...coreProps,
 			candidatesFullCount,
-			candidateModels
+			candidateModels,
+			minSearchableTokenSize: minSearchableTokenSizeStr ? Number(minSearchableTokenSizeStr) : undefined
 		};
 	},
 	function mapDispatchToProps(dispatch, ownProps): DispatchProps {
@@ -109,6 +115,7 @@ export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, Own
 			activityId,
 			config: { targetRole }
 		} = ownProps;
+
 		return {
 			onSelectLink: (candidate) => {
 				dispatch(
@@ -161,7 +168,7 @@ function SingleSelectionWrapperWrapper(props: StateProps & DispatchProps & OwnPr
 	const dispatch = useDispatch();
 	const modelGraph = useSelector(ModelSelectors.modelGraph());
 
-	const relationshipModel = useSelector((state) => {
+	const relationshipModel = useSelector((state: object) => {
 		if (!props.relationship) {
 			return undefined;
 		} else {
@@ -177,6 +184,7 @@ function SingleSelectionWrapperWrapper(props: StateProps & DispatchProps & OwnPr
 	let onClick: (() => void) | undefined;
 	let variantSelectionItems: VariantSelectionItem[] = [];
 	let onVariantSelected: (modelName: string) => void = () => {};
+
 	if (
 		props.links.loadingState === "loaded" &&
 		props.relationship &&
@@ -186,6 +194,7 @@ function SingleSelectionWrapperWrapper(props: StateProps & DispatchProps & OwnPr
 		props.createActivityForExistingEntity !== undefined
 	) {
 		const { addButtonLabel, editButtonLabel } = props.modificationConfiguration;
+		const { createActivityForNewEntity, createActivityForExistingEntity } = props;
 
 		const hasLink = props.links.data.length > 0;
 		const targetDocRef = hasLink ? (props.links.data[0].document.t_docRef as string) : undefined;
@@ -193,7 +202,7 @@ function SingleSelectionWrapperWrapper(props: StateProps & DispatchProps & OwnPr
 		variantSelectionItems = calculateVariantSelectionItems(modelGraph, localizer, relationshipModel, props.targetRole);
 
 		onVariantSelected = (modelName) => {
-			dispatch(props.createActivityForNewEntity?.(modelName));
+			dispatch(createActivityForNewEntity(modelName));
 		};
 
 		const targetEntity = relationshipModel && getEntityByRole(relationshipModel, props.targetRole);
@@ -230,7 +239,7 @@ function SingleSelectionWrapperWrapper(props: StateProps & DispatchProps & OwnPr
 
 		onClick = targetDocRef
 			? () => {
-					dispatch(props.createActivityForExistingEntity?.(targetDocRef));
+					dispatch(createActivityForExistingEntity(targetDocRef));
 				}
 			: !props.readonly
 				? () => {
@@ -243,6 +252,7 @@ function SingleSelectionWrapperWrapper(props: StateProps & DispatchProps & OwnPr
 					}
 				: undefined;
 	}
+
 	return (
 		<>
 			<SingleSelectionWrapper

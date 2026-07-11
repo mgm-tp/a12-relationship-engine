@@ -35,8 +35,8 @@
  * @module relationship
  */
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 /**
  * Returns the document model for the superType of given `dmName`, if exists.

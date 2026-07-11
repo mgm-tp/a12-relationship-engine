@@ -35,12 +35,12 @@
  * @module cdm/data-provider
  * @experimental
  */
-import { type AnyAction, type MiddlewareAPI } from "redux";
+import type { UnknownAction, MiddlewareAPI } from "redux";
 
-import { ActivityActions, ActivitySelectors, StoreFactories } from "@com.mgmtp.a12.client/client-core";
 import { Commands, FormEngineActions } from "@com.mgmtp.a12.formengine/formengine-core";
+import { StoreFactories, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
-import { isParentCdmActivity, linkedActivities } from "./parent-activity.js";
+import { linkedActivities, isParentCdmActivity } from "./parent-activity.js";
 
 /**
  * Middleware that disables the parent CDM activity when a sub activity is created
@@ -51,11 +51,12 @@ import { isParentCdmActivity, linkedActivities } from "./parent-activity.js";
  * from the sub to the parent CDM activity.
  */
 export const disableHandlingMiddleware = StoreFactories.createMiddleware((api, next, action) => {
-	handleDisable(action, api);
+	handleDisable(action as UnknownAction, api);
+
 	return next(action);
 });
 
-function handleDisable(action: AnyAction, api: MiddlewareAPI) {
+function handleDisable(action: UnknownAction, api: MiddlewareAPI) {
 	if (ActivityActions.cancel.match(action) || ActivityActions.commit.done.match(action)) {
 		const activityId = ActivityActions.cancel.match(action)
 			? action.payload.activityId

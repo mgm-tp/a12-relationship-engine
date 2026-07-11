@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type AnyAction, type Store, type Unsubscribe } from "redux";
+import type { Store, Unsubscribe, UnknownAction } from "redux";
 
-import { type Selector } from "@com.mgmtp.a12.client/client-core";
+import type { Selector } from "@com.mgmtp.a12.client/client-core";
 
 interface Options {
-	readonly store: Store<object, AnyAction>;
+	readonly store: Store<object, UnknownAction>;
 	readonly select?: Selector<object>;
 	onChange(currentState: object): void;
 }
@@ -45,6 +45,7 @@ export function observeStore({ store, onChange, select }: Options): Unsubscribe 
 
 	function handleChange(): void {
 		const nextState = select ? select(store.getState()) : store.getState();
+
 		if (nextState !== currentState) {
 			currentState = nextState;
 			onChange(currentState);
@@ -53,5 +54,6 @@ export function observeStore({ store, onChange, select }: Options): Unsubscribe 
 
 	const unsubscribe = store.subscribe(handleChange);
 	handleChange();
+
 	return unsubscribe;
 }

@@ -32,10 +32,10 @@
 
 import * as React from "react";
 
-import { type ApplicationModel, type View } from "@com.mgmtp.a12.client/client-core";
 import { CRUDViews } from "@com.mgmtp.a12.crud/crud-core";
+import type { View, ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 
-import { type SampleAppModule } from "../../../utils/SampleAppModule.js";
+import type { SampleAppModule } from "../../../utils/SampleAppModule.js";
 
 import RelationshipUiOnly from "./RelationshipUiOnly.js";
 import appModel from "./standalone.appmodel.json" with { type: "json" };

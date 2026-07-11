@@ -1,0 +1,30 @@
+{
+	"entries": [
+		{
+			"name": "OverviewModel",
+			"modelType": "overview",
+			"package": "@com.mgmtp.a12.overviewengine/overviewengine-model-migration",
+			"stepsPath": "src/internal/steps",
+			"versionRange": ">=39.0.0-pre.5",
+			"files": [
+				{
+					"filename": "overview-model.ts",
+					"to": "overview-model.ts"
+				}
+			]
+		},
+		{
+			"name": "FormModel",
+			"modelType": "form",
+			"package": "@com.mgmtp.a12.formengine/formengine-model-migration",
+			"stepsPath": "src/main/steps",
+			"versionRange": ">=37.5.0",
+			"files": [
+				{
+					"filename": "FormModel.ts",
+					"to": "form-model.ts"
+				}
+			]
+		}
+	]
+}

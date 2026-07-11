@@ -1,0 +1,106 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= State Management
+
+The runtime state of the Relationship Engine is split across a small number of data holders. For the current stage, most of them are internal, only a few extension points are allowed. However, it is expected that more will be opened up in the official release.
+
+== Data holders
+
+Per activity the Relationship Engine creates the following data holders:
+
+Changelog data holder::
+Append-only log of changes the activity has accumulated since it was opened, plus a checkpoint stack used by detached repeat groups and similar transactional flows. This is the single source of truth for "what has changed".
+
+Document Graph data holder (Composed Document Model only)::
+Immutable snapshot of the Composed Document Model tree, that is the documents and links reachable from the Composed Document Model root, plus link documents. Each new changelog entry is folded into a new Document Graph instance via a pure transformation. Activities outside Composed Document Model do not have a Document Graph.
+
+Selected items instance and available items instance data holders::
+One per Relationship UI Model. They hold the Overview Engine shaped data the panes render. The Relationship Engine owns their loading; Overview Engine renders from them.
+
+Dropdown selection data holder::
+One per Dropdown Relationship UI Model. Holds candidate sets and the current selection.
+
+Selectors expose this state to the view layer. The important ones to know about by name are the *effective changes* selector (deduplicated changes used by the save path), the *drafting document* and *drafting link* selectors (see below), the *link target lifecycle* selector (drives badges and the inherited-row enforcement), and the *selecting document entries* selector (drives the runtime extension of the selected items pane query).
+
+== The changelog as a single source of truth
+
+.Redux action flow: Form Engine and Overview Engine dispatch native events. RE middlewares intercept actions for owned activities and produce typed Changelog entries. The Changelog feeds the DocumentGraph, CDM computation, and ultimately the React UI.
+image::assets/images/new-architecture/state-management-flow.png[Redux action interception and changelog production flow diagram]
+
+Every change starts as a changelog entry. The change kinds are:
+
+* *Link added* and *link deleted*, the structural relationship changes. Available both in Composed Document Model activities and outside them.
+* *Link document changed*, a field-level update or a wholesale replacement of a link document.
+* *Document added* and *document changed*, that is drafting a new child document and editing a field on an existing Composed Document Model document. Available in Composed Document Model activities only.
+* *CDM root computed*, a transient cache of the most recent SCDM computation result.
+* *Sub-document-graph added*, a transient cache of a sub-document-graph slice fetched for a freshly-added link.
+
+The two transient kinds are excluded from the deduplicated effective-changes view used at save time, but they participate in changelog seeding so that downstream replays remain synchronous.
+
+Each entry carries an optional `inherited` flag. Inherited entries appear in a child activity that was seeded from a parent, or via the Parent Link Descriptor protocol described below; they apply to the Document Graph normally so the child sees the link or document, but they are filtered out of the merge path back into the parent. The single exception is the Parent Link Descriptor's injected `linkAdded`, which is kept because it represents the child's own parent-facing relationship and must be persisted.
+
+== Document Graph
+
+The Document Graph is an immutable structure: documents indexed by their document reference, links indexed by their link id, and a per-document index of which links touch each document. A monotonically increasing index records how many changelog entries have been applied to produce the current snapshot.
+
+Each application of a changelog entry returns a fresh Document Graph instance. This is what makes selectors cheap: structural sharing keeps unchanged sub-trees identical by reference, so React re-renders are scoped to what actually changed.
+
+== Reflecting the changelog in the selected items pane
+
+The selected items pane is rendered by an Overview Engine instance. Its rows would normally come exclusively from a Query result, which only knows about persisted state. The Relationship Engine bridges this gap with three strategies. The strategy used for a given Relationship UI Model is determined entirely by the model's query shape; there is no per-call flag to set.
+
+Selecting documents::
+For relationships where duplicates are not allowed, the engine concatenates the pending target document references onto the result set served by the Overview Engine query and triggers a reload. Because the extension is performed at the result-set level rather than by mutating the query semantics, Overview Engine features such as search, filter and paging continue to work without being aware of the client state.
+
+Drafting links::
+For relationships where duplicates are allowed, the Overview Engine query is generated with a per-link response shape that is needed to display duplicates. The result-set extension used in the standard mode is not applicable in that shape. Instead, when the user adds a candidate, the Relationship Engine captures a snapshot of the target document at add-time and attaches it to the changelog entry. A drafting-link row is prepended to the selected items pane, identified by link id (so duplicate rows do not collide), without contacting the server.
+
+Drafting documents (Composed Document Model)::
+A new child document in Composed Document Model has not been persisted on the server yet. The Relationship Engine records a `docAdded` entry, which both adds a node to the Document Graph and causes a drafting-document row to be prepended to the selected items pane. Clicking the row opens a child activity pre-seeded from the parent's changelog, where the user can fill in the new document; on save it is merged back up into the parent.
+
+The three strategies are mutually consistent: the *selecting document entries* selector returns an empty set whenever the Relationship UI Model's query is in the per-link response shape, which automatically suppresses both the result-set extension and the post-add reload. Render order in the selected items pane is: drafting documents, then drafting links, then server rows.
+
+== Save routing
+
+When an activity saves, the save handler reads the deduplicated effective changes and decides between three outcomes:
+
+* *No effective changes*, a no-op.
+* *Merge*: the parent activity has its own Relationship Engine changelog; the child's local changes are folded into the parent's changelog. SCDM and the Document Graph are recomputed synchronously by replaying the merged changes.
+* *Persist*: there is no Relationship Engine parent (or no parent at all); the changes are translated into DataServices RPCs (`addDocument`, `addLink`, `updateDocument` and similar) and dispatched in a single batched call.
+
+If any pending `linkAdded` requires a link document but does not yet have one, the save handler prompts the user to fill it in before continuing. Cancelling the prompt aborts the save without losing the changelog.
+
+== Parent Link Descriptor
+
+There are situations where a master or list-based engine, such as Tree Engine or Overview Engine, opens a child activity that should already display a link to a parent document. For example, adding a person under a company tree. From the Relationship Engine's point of view there is no parent activity, no parent changelog, nothing to seed from, and yet the child form must show the parent link the moment it opens.
+
+The protocol for this is the *Parent Link Descriptor*. It is a structural subtype of the standard A12 activity descriptor: any descriptor that carries the three fields
+
+* `parentInstance`,
+* `parentRelationshipName`,
+* `parentRelationshipRole`
+
+is recognized by the Relationship Engine at activity init time. The engine looks up the relationship model, derives the child's role from it, then prepares a `linkAdded` entry on the child's changelog with the `inherited` flag set, and applies it to the initial Document Graph (if present). From that point on the link is a regular changelog entry: visible in the form, included in lifecycle calculations, persisted as part of the save.
+
+Inherited links are read-only in the UI. Any link modification actions are disabled regardless the component type. This is enforced through the `inherited` flag from the changelog entry.
+
+Limitations worth noting:
+
+* The descriptor is read once at init. Changing its fields later does not retroactively update the child; the activity has to be re-opened.
+* Only one inherited parent link can be declared per child. Multiple parent links would require an extension to both the descriptor shape and the init handling.
+* The injection succeeds whenever the relationship model exists in the model graph. If the child's Relationship UI Model does not actually reference that relationship, the injected entry is silently inert.

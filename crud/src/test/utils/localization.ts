@@ -30,46 +30,6 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import {
-	type DataFormats,
-	defaultDataFormats,
-	defaultLocalizerFactory,
-	defaultValueConversion,
-	type Locale,
-	type Localizable,
-	type Localizer
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { type LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 
 export const US_LOCALE: Locale = { language: "en", country: "US" };
-
-export type LocalizerCtx = { locale?: Locale; dataFormats?: DataFormats; localizer?: Localizer };
-export const US_LOCALIZER_CTX = {
-	locale: US_LOCALE,
-	dataFormats: defaultDataFormats(US_LOCALE),
-	localizer: defaultLocalizerFactory({
-		locale: US_LOCALE,
-		dataFormats: defaultDataFormats(US_LOCALE)
-	})
-};
-
-export const DE_LOCALE: Locale = { language: "de", country: "DE" };
-
-export const DE_LOCALIZER_CTX: LocalizerContext.Type = {
-	locale: DE_LOCALE,
-	dataFormats: defaultDataFormats(DE_LOCALE),
-	localizer: defaultLocalizerFactory({
-		locale: DE_LOCALE,
-		dataFormats: defaultDataFormats(DE_LOCALE)
-	}),
-	conversion: defaultValueConversion(defaultDataFormats(DE_LOCALE))
-};
-
-export const KEY_OUTPUT_LOCALIZER: Localizer = (...localizables: Localizable[]) => localizables[0].key;
-
-export const KEY_OUTPUT_LOCALIZER_CONTEXT: LocalizerContext.Type = {
-	locale: US_LOCALE,
-	dataFormats: defaultDataFormats(US_LOCALE),
-	localizer: KEY_OUTPUT_LOCALIZER,
-	conversion: defaultValueConversion(defaultDataFormats(US_LOCALE))
-};

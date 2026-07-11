@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module } from "@com.mgmtp.a12.client/client-core";
+import type { Module } from "@com.mgmtp.a12.client/client-core";
 
 import CRUDModule from "./crud/crud.js";
 

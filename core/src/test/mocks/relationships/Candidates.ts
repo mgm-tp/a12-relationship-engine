@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { documentByType } from "./documents/index.js";
 
@@ -57,6 +57,7 @@ function createCandidates(params: {
 	targetDocuments: { [key: string]: any }[];
 }): Relationship.Candidate[] {
 	const { relationshipModelName, sourceEntity, targetRole, targetDocuments } = params;
+
 	return targetDocuments.map<Relationship.Candidate>((document, documentIndex) => ({
 		linkRef: {
 			linkDescriptor: {

@@ -2,7 +2,7 @@
 	"header": {
 		"id": "NaturalPerson-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "bindingConfiguration",
 				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"PostalAddressBinding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"elementId\":\"section-d5f0d\"},{\"type\":\"relationship\",\"details\":{\"name\":\"LocationBinding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"elementId\":\"section-3afb6\"}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
@@ -52,6 +48,16 @@
 				"modelType": "overview",
 				"purpose": "bindingReference",
 				"reference": "LocationLinks-overview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "NaturalPerson-form-binding-PostalAddressBinding_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "NaturalPerson-form-binding-LocationBinding_RuM"
 			}
 		]
 	},
@@ -312,21 +318,6 @@
 						"type": "CustomScreenElement",
 						"id": "section-d5f0d",
 						"name": "PostalAddressBinding",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "PostalAddressBinding"
-									},
-									{
-										"locale": "de",
-										"text": "PostalAddressBinding"
-									}
-								]
-							}
-						},
 						"hideCondition": {
 							"masterField": "field_3fa82",
 							"cases": [
@@ -334,7 +325,8 @@
 									"masterValue": "true"
 								}
 							]
-						}
+						},
+						"reference": "NaturalPerson-form-binding-PostalAddressBinding_RuM"
 					}
 				]
 			},
@@ -426,21 +418,6 @@
 						"type": "CustomScreenElement",
 						"id": "section-3afb6",
 						"name": "LocationBinding",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "LocationBinding"
-									},
-									{
-										"locale": "de",
-										"text": "LocationBinding"
-									}
-								]
-							}
-						},
 						"hideCondition": {
 							"masterField": "field_3fa82",
 							"cases": [
@@ -448,7 +425,8 @@
 									"masterValue": "true"
 								}
 							]
-						}
+						},
+						"reference": "NaturalPerson-form-binding-LocationBinding_RuM"
 					}
 				]
 			}

@@ -33,10 +33,10 @@
 import React from "react";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
 
-import { GlobalStyles, type Container, shouldForwardProp } from "@com.mgmtp.a12.widgets/widgets-core";
 import { addWrapper, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
+import { GlobalStyles, type Container, shouldForwardProp } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { useShowcaseContext, THEMES, ShowcaseContextProvider } from "../../context.js";
+import { THEMES, useShowcaseContext, ShowcaseContextProvider } from "../../context.js";
 
 export { THEMES, useShowcaseContext };
 

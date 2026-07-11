@@ -41,27 +41,20 @@ export { RelationshipActions } from "./actions.js";
 export { RelationshipReducers } from "./reducers.js";
 export { RelationshipSelectors } from "./selectors.js";
 export { Relationship } from "./relationship.js";
+export type { WithComponentProvider, CreateRelationshipFormModelMapType } from "./ui/FormEngineCustomWidgets.js";
 export {
 	RelationshipFormModelMap,
 	useIsBoundModelElement,
-	createRelationshipFormModelMap,
-	WithComponentProvider,
-	CreateRelationshipFormModelMapType
+	createRelationshipFormModelMap
 } from "./ui/FormEngineCustomWidgets.js";
-export { DualPaneSelection, DualPaneSelectionProps } from "./ui/components/DualPaneSelection.js";
-export {
-	LinkTableTemplate as TableList,
-	TableListProps,
-	ModelableEditDialogProps,
-	EditDialogButtonProps
-} from "./ui/components/TableList.js";
-export {
-	DropDownSelection,
-	DropDownSelectionProps,
-	DropDownSelectionState
-} from "./ui/components/DropDownSelection.js";
+export type { DualPaneSelectionProps } from "./ui/components/DualPaneSelection.js";
+export { DualPaneSelection } from "./ui/components/DualPaneSelection.js";
+export type { TableListProps, ModelableEditDialogProps, EditDialogButtonProps } from "./ui/components/TableList.js";
+export { LinkTableTemplate as TableList } from "./ui/components/TableList.js";
+export type { DropDownSelectionProps, DropDownSelectionState } from "./ui/components/DropDownSelection.js";
+export { DropDownSelection } from "./ui/components/DropDownSelection.js";
 
-export {
+export type {
 	SingleSelectionProps,
 	MultiSelectionProps,
 	ListProps,
@@ -74,10 +67,10 @@ export {
 	RelationshipDocument
 } from "./ui/components/api.js";
 
-export { LocalizedLabelConfig } from "./ui/components/util.js";
+export type { LocalizedLabelConfig } from "./ui/components/util.js";
 
+export type { ProgressIndicatorContext } from "./ui/components/ProgressIndicatorContext.js";
 export {
-	ProgressIndicatorContext,
 	ProgressIndicatorContextProvider,
 	useProgressIndicatorContext
 } from "./ui/components/ProgressIndicatorContext.js";

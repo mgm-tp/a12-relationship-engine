@@ -1,11 +1,6 @@
 {
 	"extends": "../tsconfig",
-	"exclude": ["./node_modules", "./target", "./lib"],
-	"include": ["src/**/*.ts", "src/**/*.json"],
 	"compilerOptions": {
-		"outDir": "lib",
-		"declaration": false,
-		"declarationMap": false,
 		"resolveJsonModule": true,
 		"typeRoots": ["./node_modules/@types"],
 		"types": ["node"]

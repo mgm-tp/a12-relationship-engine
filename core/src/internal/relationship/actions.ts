@@ -35,17 +35,18 @@
  * @module relationship
  */
 
-import { type Action, actionCreatorFactory, type AnyAction } from "typescript-fsa";
+import type { UnknownAction } from "redux";
 
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { type Activity, ActivityActions } from "@com.mgmtp.a12.client/client-core";
-import {
-	type Relationship as RelationshipServerApi,
-	type RelationshipModel
+import { type Action, actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import type { OverviewModel, OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type {
+	RelationshipModel,
+	Relationship as RelationshipServerApi
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type OverviewEngineApi, type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { type Relationship } from "./relationship.js";
+import type { Relationship } from "./relationship.js";
 
 /**
  * These actions are objects that send data about the relationship events and
@@ -71,7 +72,7 @@ export namespace RelationshipActions {
 			return ActivityActions.loadData(payload);
 		}
 
-		createInstanceDataholders.match = (action: AnyAction): action is Action<CreateInstanceDataholdersPayload> => {
+		createInstanceDataholders.match = (action: UnknownAction): action is Action<CreateInstanceDataholdersPayload> => {
 			return ActivityActions.loadData.match(action) && "instances" in action.payload;
 		};
 

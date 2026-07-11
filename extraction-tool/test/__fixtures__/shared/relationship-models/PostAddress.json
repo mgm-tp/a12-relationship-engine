@@ -1,0 +1,72 @@
+{
+	"header": {
+		"id": "PostAddress",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"linkDocumentModel": null,
+		"duplicatesAllowed": false,
+		"labels": [],
+		"entityCharacteristics": [
+			{
+				"role": "businessPartner",
+				"documentModel": "BusinessPartner-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": ""
+					},
+					{
+						"locale": "de",
+						"text": ""
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			},
+			{
+				"role": "address",
+				"documentModel": "Address-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "Postal Address"
+					},
+					{
+						"locale": "de",
+						"text": "Postanschrift"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
+			}
+		]
+	}
+}

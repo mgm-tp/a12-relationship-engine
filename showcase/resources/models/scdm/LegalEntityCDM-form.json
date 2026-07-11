@@ -2,7 +2,7 @@
 	"header": {
 		"id": "LegalEntityCDM-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "bindingConfiguration",
 				"value": "[{\"details\":{\"name\":\"locations-repeat\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-8d146\"},{\"details\":{\"name\":\"postal-address-section\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"modificationConfiguration\":{\"addButtonLabel\":[{\"locale\":\"en\",\"text\":\"Add Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift hinzufügen\"}],\"editButtonLabel\":[{\"locale\":\"en\",\"text\":\"Edit Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift bearbeiten\"}],\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"post-address-select\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-7c29f\"}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
@@ -52,6 +48,16 @@
 				"modelType": "overview",
 				"purpose": "bindingReference",
 				"reference": "PostAddressLinks-overview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "LegalEntityCDM-form-binding-locations-repeat_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "LegalEntityCDM-form-binding-postal-address-section_RuM"
 			}
 		]
 	},
@@ -312,27 +318,19 @@
 									]
 								}
 							]
-						}
+						},
+						"annotations": [
+							{
+								"name": "a12-relationship-ui-model-reference",
+								"value": "LegalEntityCDM-form-binding-locations-repeat_RuM"
+							}
+						]
 					},
 					{
 						"type": "CustomScreenElement",
 						"id": "section-7c29f",
 						"name": "postal-address-section",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "postal-address-section"
-									},
-									{
-										"locale": "de",
-										"text": "postal-address-section"
-									}
-								]
-							}
-						}
+						"reference": "LegalEntityCDM-form-binding-postal-address-section_RuM"
 					},
 					{
 						"type": "ControlGrid",

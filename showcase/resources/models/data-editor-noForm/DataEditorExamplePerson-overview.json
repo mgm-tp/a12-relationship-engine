@@ -2,7 +2,7 @@
 	"header": {
 		"id": "DataEditorExamplePerson-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Person"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,46 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"showFullTextSearch": true,
-			"pagingSize": 10,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "custom_list",
-				"fields": [
-					{
-						"fieldId": "F3"
-					},
-					{
-						"fieldId": "F4"
-					},
-					{
-						"fieldId": "F8"
-					},
-					{
-						"fieldId": "F9"
-					}
-				]
-			}
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "search"
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-5bd25",
@@ -146,6 +101,46 @@
 		],
 		"rowActionGroup": {
 			"actions": []
+		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "search"
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "custom_list",
+				"fields": [
+					{
+						"fieldId": "F3"
+					},
+					{
+						"fieldId": "F4"
+					},
+					{
+						"fieldId": "F8"
+					},
+					{
+						"fieldId": "F9"
+					}
+				]
+			}
 		}
 	}
 }

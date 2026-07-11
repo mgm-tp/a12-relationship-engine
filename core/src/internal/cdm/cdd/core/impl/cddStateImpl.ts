@@ -35,12 +35,11 @@
  * @module cdm/cdd
  * @experimental
  */
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-
-import { type DeepReadonly, type DocRef, type DocumentGraph } from "../../../../documentGraph/core/index.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { toCdd } from "../adapter/toCdd.js";
-import { type CddState, type PartialCddState } from "../cddState.js";
+import type { CddState, PartialCddState } from "../cddState.js";
+import type { DocRef, DeepReadonly, DocumentGraph } from "../../../../documentGraph/core/index.js";
 
 /** @internal */
 export function reduceCddState(
@@ -50,9 +49,11 @@ export function reduceCddState(
 	updated?: PartialCddState
 ): CddState {
 	const prevCddChangeCounter = prev?.cachedCdd?.snapshotChangeCounter;
+
 	if (prevCddChangeCounter === newChangeCounter && prev !== undefined) {
 		return prev;
 	}
+
 	const mergedPartialCddState: PartialCddState = {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		...prev!, // either prev or updated is defined
@@ -60,6 +61,7 @@ export function reduceCddState(
 	};
 	const { rootDocRef, cdm, selectedLinkId } = mergedPartialCddState;
 	const cdd = toCdd(dg, rootDocRef, cdm.content?.modelRoot, selectedLinkId);
+
 	return {
 		...mergedPartialCddState,
 		cachedCdd: {

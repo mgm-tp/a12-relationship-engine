@@ -36,11 +36,10 @@
  * @experimental
  */
 
+import type { ScdmDataHolderShape } from "../dhReducersImpl.js";
 import { assertCondition } from "../../../../shared/assertion.js";
 
-import { type ScdmDataHolderShape } from "../dhReducersImpl.js";
-
-import { type HandleArgs } from "./handleArgs.js";
+import type { HandleArgs } from "./handleArgs.js";
 import { handleValueChanged } from "./handleValueChanged.js";
 
 /**
@@ -60,6 +59,7 @@ export function handleGroupRemoved(initialState: ScdmDataHolderShape, args: Hand
 	assertCondition(change.type === "GroupRemoved", "Change type doesn't fit handle function!");
 
 	const cdm = initialState.data?.cddState.cdm;
+
 	if (cdm === undefined) {
 		return initialState;
 	}

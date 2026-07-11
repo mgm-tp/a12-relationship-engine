@@ -34,74 +34,65 @@ import "./config/dev.config.js";
 import "./config/server-connector.js";
 
 import React from "react";
-import * as ReactDOM from "react-dom/client";
 import type { Store } from "redux";
 import { Provider } from "react-redux";
-import "@com.mgmtp.a12.widgets/widgets-core/lib/theme/basic.css";
+import * as ReactDOM from "react-dom/client";
 
-import {
-	withModel,
-	addCustomSagas,
-	addWrapper,
-	ModuleRegistryProvider,
-	type A12ApplicationConfig,
-	type Module,
-	createA12ApplicationSetup,
-	addView,
-	addPlatformSagas,
-	combineFeatures,
-	type ApplicationSaga,
-	addDataHandlers,
-	addLayout,
-	type ApplicationModel,
-	ModelActions,
-	type DataHandler
-} from "@com.mgmtp.a12.client/client-core";
+import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
+import { withCRUD, CRUDViews } from "@com.mgmtp.a12.crud/crud-core";
+import { withFormEngine } from "@com.mgmtp.a12.formengine/formengine-core";
 import { addDeepLinkingSagas } from "@com.mgmtp.a12.client/client-core/deepLinking";
 import { withDirtyHandling } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
-import { CRUDViews, withCRUD } from "@com.mgmtp.a12.crud/crud-core";
+import { withPlatformModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
+import { withDataServicesConfiguration } from "@com.mgmtp.a12.client/client-core/dataServicesAdapter";
+import { withOverviewEngine, OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
 	createEmptyDocumentDataProvider,
 	platformSingleDocumentDataProvider
 } from "@com.mgmtp.a12.formengine/formengine-core";
 import {
-	createCddDataProvider,
-	DefaultRequestSelectorMap,
-	RelationshipFactories,
-	type RequestSelectorMap,
-	withRelationshipFormEngine
+	withRelationshipEngine,
+	RelationshipEngineFactories
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
-import { withOverviewEngine, OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { withPlatformModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
-import { withDataServicesConfiguration } from "@com.mgmtp.a12.client/client-core/dataServicesAdapter";
+import {
+	addView,
+	withModel,
+	addLayout,
+	addWrapper,
+	type Module,
+	ModelActions,
+	addCustomSagas,
+	combineFeatures,
+	addDataHandlers,
+	addPlatformSagas,
+	type DataHandler,
+	type ApplicationSaga,
+	type ApplicationModel,
+	ModuleRegistryProvider,
+	type A12ApplicationConfig,
+	createA12ApplicationSetup
+} from "@com.mgmtp.a12.client/client-core";
 
-import model from "./appmodel.json" with { type: "json" };
-import OverviewAppModel from "./overview-appmodel.json" with { type: "json" };
 import { ShowcaseContextProvider } from "./context.js";
 import { SampleAppModules } from "./modules/modules.js";
-import { standaloneDataProviders } from "./modules/relationships/standalone/standaloneDataProviders.js";
+import model from "./appmodel.json" with { type: "json" };
+import { addChildCategorySaga } from "./saga/add-child-category.js";
+import { ApplicationFrameLayout } from "./views/application-frame-layout.js";
+import OverviewAppModel from "./overview-appmodel.json" with { type: "json" };
 import { handleErrorSaga } from "./views/showcaseOverview/handleErrorSaga.js";
 import { selectRowReadonlySaga } from "./views/showcaseOverview/showcaseOverviewSagas.js";
+import RelationshipUiOnly from "./modules/relationships/standalone/RelationshipUiOnly.js";
+import { standaloneDataProviders } from "./modules/relationships/standalone/standaloneDataProviders.js";
+import { CustomRelationshipFormEngine } from "./modules/relationships/simpleCDM/CustomRelationshipFormEngine.js";
 import {
-	fetchModelGraph,
 	withTheme,
+	fetchModelGraph,
 	withSizeDetector,
 	withNotification,
 	withReduxDevtool
 } from "./config/composable/index.js";
-import RelationshipUiOnly from "./modules/relationships/standalone/RelationshipUiOnly.js";
-import { ApplicationFrameLayout } from "./views/application-frame-layout.js";
-import { CustomRelationshipFormEngine } from "./modules/relationships/simpleCDM/CustomRelationshipFormEngine.js";
 
 const applicationModules: Module[] = [{ id: "OverviewAppModel", model: () => OverviewAppModel as ApplicationModel }];
-
-const reRequestSelectorMap: RequestSelectorMap = {
-	...DefaultRequestSelectorMap,
-	loadCandidates: (config) => (state) => {
-		const request = DefaultRequestSelectorMap.loadCandidates(config)(state);
-		return request;
-	}
-};
 
 SampleAppModules.forEach((m) => ModuleRegistryProvider.getInstance().addModule(m));
 const moduleDataLoaders = SampleAppModules.map((mod) => mod.dataLoaders || []).reduce(
@@ -113,9 +104,7 @@ applicationModules.forEach((module) => ModuleRegistryProvider.getInstance().addM
 const dataHandlers: DataHandler[] = [
 	...moduleDataLoaders,
 	...standaloneDataProviders,
-	createCddDataProvider({ requestSelectorMap: reRequestSelectorMap }),
 	createEmptyDocumentDataProvider(),
-	RelationshipFactories.createRelationshipDataProvider({ requestSelectorMap: reRequestSelectorMap }),
 	platformSingleDocumentDataProvider,
 	...OverviewEngineFactories.createDataProviders()
 ];
@@ -132,7 +121,7 @@ const initialConfig: A12ApplicationConfig = {
 	config: { overridePlatformSagas: [], dataHandlers: [] },
 	initialActions: ({ dispatch }: Store) => fetchModelGraph(dispatch),
 	deepLinking: { config: { applyTriggers: [ModelActions.setModelGraph] } },
-	relationshipEngine: { requestSelectorMap: reRequestSelectorMap }
+	formEngine: { sagas: RelationshipEngineFactories.createFormEngineSagaOptions() }
 };
 
 const { store, initialActions, Component } = createA12ApplicationSetup(
@@ -142,7 +131,7 @@ const { store, initialActions, Component } = createA12ApplicationSetup(
 			addPlatformSagas(...modulePlatformSagas),
 			addLayout("ApplicationFrame", { component: ApplicationFrameLayout }),
 			addView("ShowcaseOverview", CRUDViews.OverviewEngineView),
-			addView("RelationshipFormEngine", CRUDViews.FormEngineView),
+			addView("RelationshipFormEngine", CRUDViews.FormEngineWithRelationshipEngineView),
 			addView("RelationshipUiOnly", RelationshipUiOnly),
 			addView("SortedRelationshipFormEngine", CustomRelationshipFormEngine),
 			addCustomSagas(selectRowReadonlySaga, handleErrorSaga)
@@ -151,8 +140,9 @@ const { store, initialActions, Component } = createA12ApplicationSetup(
 		combineFeatures(
 			withModel(model),
 			withDataServicesConfiguration,
+			withFormEngine,
 			withOverviewEngine,
-			withRelationshipFormEngine,
+			withRelationshipEngine,
 			withCRUD,
 			withPlatformModelLoader
 		),
@@ -164,7 +154,9 @@ const { store, initialActions, Component } = createA12ApplicationSetup(
 			withNotification,
 			withReduxDevtool,
 			withDirtyHandling,
-			addDeepLinkingSagas
+			addDeepLinkingSagas,
+
+			addCustomSagas(addChildCategorySaga)
 		)
 	)(initialConfig)
 );

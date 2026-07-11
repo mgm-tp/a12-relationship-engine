@@ -1,0 +1,40 @@
+{
+	"header": {
+		"id": "Contract-form-binding-PolicyHolderBinding_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItemsQuery",
+				"modelType": "query",
+				"reference": "Contract-form-binding-PolicyHolderBinding-available-query"
+			},
+			{
+				"purpose": "selectedItemQuery",
+				"modelType": "query",
+				"reference": "Contract-form-binding-PolicyHolderBinding-selected-query"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Policy Holder"
+			},
+			{
+				"locale": "de",
+				"text": "Policeninhaber"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "PolicyHolder",
+		"targetRole": "businessPartner",
+		"component": {
+			"componentType": "DropDownSelection",
+			"availableItemsQueryModel": "Contract-form-binding-PolicyHolderBinding-available-query",
+			"selectedItemQueryModel": "Contract-form-binding-PolicyHolderBinding-selected-query",
+			"elementRef": "field_4e3fe"
+		}
+	}
+}

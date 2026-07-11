@@ -1,0 +1,102 @@
+{
+	"header": {
+		"id": "CategoryCategory",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "CategoryCategory"
+			},
+			{
+				"locale": "de",
+				"text": "CategoryCategory"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "ParentCategory",
+				"reference": "Category-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "ChildCategory",
+				"reference": "Category-document"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": true,
+		"labels": [
+			{
+				"locale": "en",
+				"text": "CategoryCategory"
+			},
+			{
+				"locale": "de",
+				"text": "CategoryCategory"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"role": "ParentCategory",
+				"documentModel": "Category-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "ParentCategory"
+					},
+					{
+						"locale": "de",
+						"text": "ParentCategory"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			},
+			{
+				"role": "ChildCategory",
+				"documentModel": "Category-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "ChildCategory"
+					},
+					{
+						"locale": "de",
+						"text": "ChildCategory"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			}
+		]
+	}
+}

@@ -35,26 +35,23 @@
  * @module relationship
  */
 
-import { all, call, type SagaGenerator, select } from "typed-redux-saga";
+import { all, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { type Activity, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
-import {
-	type RelationshipJsonRpc2request,
-	AddDocumentJsonRpc2Response,
-	type DocumentJsonRpc2Request
-} from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { JsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { filterDocumentByRelevance } from "@com.mgmtp.a12.formengine/formengine-core";
+import { type Activity, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
+import type { DocumentModel, Document as KernelDocument } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
-	type DocumentModel,
-	type Document as KernelDocument
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+	AddDocumentJsonRpc2Response,
+	type DocumentJsonRpc2Request,
+	type RelationshipJsonRpc2request
+} from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { A12InternalConstants } from "../../../../shared/constants.js";
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
 import { DocumentProcessors } from "../../document-processor.js";
-import { type RequestSelectorMap } from "../../../../server-connectors/request-selector-map.js";
-
 import { RelationshipDataProviderSelectors } from "../selectors.js";
+import { A12InternalConstants } from "../../../../shared/constants.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
+import type { RequestSelectorMap } from "../../../../server-connectors/request-selector-map.js";
 
 import { createMutationRequests } from "./createMutationRequests.js";
 
@@ -86,6 +83,7 @@ export function* createSaveRequests(
 				document
 			})
 		);
+
 		return [addDocRequest, ...mutationRequestSelectors];
 	} else {
 		const modifyDocRequest = yield* select(
@@ -96,6 +94,7 @@ export function* createSaveRequests(
 				document
 			})
 		);
+
 		return [modifyDocRequest, ...mutationRequestSelectors];
 	}
 }
@@ -107,9 +106,10 @@ function replaceNullDocRef(
 	const entities = link.linkRef.linkDescriptor.entities.map((entity) => {
 		return {
 			...entity,
-			docRef: entity.docRef === null ? newDocRef : entity.docRef
+			docRef: entity.docRef === NEW_INSTANCE_IDENTIFIER ? newDocRef : entity.docRef
 		};
 	});
+
 	return {
 		...link,
 		linkRef: {
@@ -128,6 +128,7 @@ function* preSaveMutation(
 	defaultDocRef: string
 ): SagaGenerator<RelationshipClientApi.Mutation> {
 	const mutation = { ...preMutation, link: replaceNullDocRef(preMutation.link, defaultDocRef) };
+
 	if (mutation.link.document.relationship === undefined) {
 		return mutation;
 	}
@@ -158,7 +159,9 @@ function* preSaveMutation(
 
 /* @internal */
 export function isAddDocumentOperationResponse(response: unknown): response is AddDocumentJsonRpc2Response {
-	return AddDocumentJsonRpc2Response.isInstance(response) && response.id === A12InternalConstants.ADD_DOC_OPERATION;
+	return JsonRpc2Response.ok.isInstance(response) && typeof response.result === "object" && response.result !== null
+		? AddDocumentJsonRpc2Response.isInstance(response) && response.id === A12InternalConstants.ADD_DOC_OPERATION
+		: false;
 }
 
 function* processDocument(

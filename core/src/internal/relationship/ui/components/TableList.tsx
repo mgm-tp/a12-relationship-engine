@@ -35,39 +35,40 @@
  * @module relationship
  */
 
-import React, { useContext, useState } from "react";
+import type React from "react";
+import { useState, useContext } from "react";
 
 import { AriaLevelContext } from "@com.mgmtp.a12.formengine/formengine-core";
+import { localizableFromModel } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
-	useOverviewEngineContext,
+	OverviewTable,
 	OverviewEngine,
-	OverviewTable
+	useOverviewEngineContext
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { localizableFromModel } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
 import {
 	Button,
-	ButtonGroup,
 	addPrefix,
-	ActionContentbox,
-	ContentBoxElements,
-	InputElements,
+	ButtonGroup,
 	ModalOverlay,
-	ProgressIndicator
+	InputElements,
+	ActionContentbox,
+	ProgressIndicator,
+	ContentBoxElements
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import {
 	descriptorTableListAdd,
 	descriptorTableListEdit,
-	descriptorTableListEditDialogCancel,
 	descriptorTableListEditDialogClose,
-	descriptorTableListEditDialogTitle
+	descriptorTableListEditDialogTitle,
+	descriptorTableListEditDialogCancel
 } from "../../localization.js";
 
-import { type ListItem, type ListProps } from "./api.js";
+import type { ListItem, ListProps } from "./api.js";
 import { EditDialogVetoComponent } from "./EditDialogVetoComponent.js";
 import { ProgressIndicator as RelshProgressIndicator } from "./ProgressIndicator.js";
-import { omitActionColumnWidth, type LocalizedLabelConfig } from "./util.js";
+import { normalizeCssLength, omitActionColumnWidth, type LocalizedLabelConfig } from "./util.js";
 
 export interface TableListProps extends ListProps, ModelableEditDialogProps, Pick<EditDialogButtonProps, "editLabel"> {
 	readonly editComponent?: React.ComponentType<Record<string, unknown>>;
@@ -75,10 +76,27 @@ export interface TableListProps extends ListProps, ModelableEditDialogProps, Pic
 	readonly onBeginEdit?: () => void;
 	readonly onFinishEdit?: (cancel: boolean) => void;
 	readonly hasChanges?: () => boolean;
+	/**
+	 * Height of the inline TableList as a CSS length value, passed through directly.
+	 * Leave unset for `auto`.
+	 */
+	readonly height?: string;
 }
 
 export interface ModelableEditDialogProps {
-	readonly editDialogWidth?: number;
+	/**
+	 * CSS width applied to the edit dialog modal overlay container. Accepts any CSS length
+	 * (e.g. `"80%"`, `"900px"`). Replaces the previous numeric `editDialogWidth` prop.
+	 */
+	readonly editDialogWidth?: string;
+	/**
+	 * CSS max-width applied to the edit dialog modal overlay container.
+	 */
+	readonly editDialogMaxWidth?: string;
+	/**
+	 * CSS max-height applied to the edit dialog modal overlay container.
+	 */
+	readonly editDialogMaxHeight?: string;
 	readonly editDialogTitle?: LocalizedLabelConfig;
 	readonly editDialogCancelButtonLabel?: LocalizedLabelConfig;
 	readonly editDialogCloseButtonLabel?: LocalizedLabelConfig;
@@ -105,6 +123,7 @@ export function LinkTableTemplate(props: TableListProps): React.ReactNode {
 	const onRowClick = props.onItemClick
 		? (params: { documentId: string; customEvent?: string }) => {
 				const item = items.find((i) => i.documentJson.id === params.documentId);
+
 				if (item && props.onItemClick) {
 					props.onItemClick(item);
 				}
@@ -114,7 +133,9 @@ export function LinkTableTemplate(props: TableListProps): React.ReactNode {
 	return (
 		<>
 			<InputElements.Label label={props.label} />
-			<div>
+			<div
+				data-role="relationship-engine-table-list"
+				style={{ height: props.height !== undefined ? normalizeCssLength(props.height) : "auto" }}>
 				<OverviewEngine
 					{...overviewProps}
 					data={shownItems.filter((e) => e.visible).map(({ documentJson }) => documentJson)}
@@ -212,6 +233,8 @@ function EditDialogButton(props: EditDialogButtonProps): React.ReactNode {
 						}
 					}}
 					editDialogWidth={props.editDialogWidth}
+					editDialogMaxWidth={props.editDialogMaxWidth}
+					editDialogMaxHeight={props.editDialogMaxHeight}
 					editDialogTitle={props.editDialogTitle}
 					editDialogCancelButtonLabel={props.editDialogCancelButtonLabel}
 					editDialogCloseButtonLabel={props.editDialogCloseButtonLabel}
@@ -288,8 +311,19 @@ function EditDialog(props: EditDialogProps) {
 			</ButtonGroup>
 		</ContentBoxElements.Footer>
 	);
+
 	return (
-		<ModalOverlay maxWidth={props.editDialogWidth ?? 1200} onClose={props.onClose} closeOnEsc>
+		<ModalOverlay
+			onClose={props.onClose}
+			closeOnEsc
+			closeOnOutsideClick
+			containerAttributes={{
+				style: {
+					width: props.editDialogWidth,
+					maxWidth: props.editDialogMaxWidth,
+					maxHeight: props.editDialogMaxHeight
+				}
+			}}>
 			<ActionContentbox padding="24px" headingElements={header} footer={footer}>
 				<AriaLevelContext.Provider value={{ ariaLevel: 2 }}>{props.children}</AriaLevelContext.Provider>
 			</ActionContentbox>

@@ -1,0 +1,39 @@
+{
+	"header": {
+		"id": "Category-form-binding-Sub-Categories_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItems",
+				"modelType": "overview",
+				"reference": "Category_Category_AvailableItemsOverview--CategoryCategory"
+			},
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "Category_Child_Category_SelectedItemsOverview-edit"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Sub Categories"
+			},
+			{
+				"locale": "de",
+				"text": "Sub Categories"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "CategoryCategory",
+		"targetRole": "ChildCategory",
+		"component": {
+			"componentType": "DualPaneSelection",
+			"availableItemsOverviewModel": "Category_Category_AvailableItemsOverview--CategoryCategory",
+			"selectedItemsOverviewModel": "Category_Child_Category_SelectedItemsOverview-edit"
+		}
+	}
+}

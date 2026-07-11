@@ -1,0 +1,67 @@
+{
+	"header": {
+		"id": "PolicyHolderLinks-overview-new",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "PolicyHolderLinks-overview-new-query"
+			}
+		]
+	},
+	"content": {
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-dc0b7",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_4e3fe",
+				"sortable": false
+			},
+			{
+				"id": "column-e7762",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_6268b",
+				"sortable": false
+			}
+		],
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
+		}
+	}
+}

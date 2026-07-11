@@ -32,41 +32,40 @@
 
 import { expectSaga } from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers.js";
-import { assert, beforeAll, describe, expect, it, test, vi } from "vitest";
+import { it, vi, test, assert, expect, describe, beforeAll } from "vitest";
 
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
 import { type Activity, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { type CddState } from "../../../../internal/cdm/cdd/core/cddState.js";
+import { stubConsoleErrors } from "../../../utils/stubs.js";
 import { CddActions } from "../../../../internal/cdm/cdd/redux/index.js";
-import { type ScdmDataHolderShape } from "../../../../internal/cdm/cdd/redux/dhReducersImpl.js";
+import { createModelsMock } from "../../../mocks/relationships/mocks.js";
+import type { CddState } from "../../../../internal/cdm/cdd/core/cddState.js";
+import { createActivity, createDataHolder } from "../../../utils/activity.js";
 import { CddSelectors } from "../../../../internal/cdm/cdd/redux/selectors.js";
-import { createInitialDgCl } from "../../../../internal/cdm/cddUtils/createInitialDgCl.js";
 import { queryRootName } from "../../../../internal/cdm/commons/modelUtils.js";
-import { type CddDataHandler } from "../../../../internal/cdm/dataProvider/CddDataHandler.js";
+import { createMockDg, mockSaveDoneAction, createMockSaveConfig } from "../testSetup.js";
+import { load } from "../../../../internal/cdm/dataProvider/StandaloneActivityHandler.js";
+import { createInitialDgCl } from "../../../../internal/cdm/cddUtils/createInitialDgCl.js";
+import type { CddDataHandler } from "../../../../internal/cdm/dataProvider/CddDataHandler.js";
+import type { ScdmDataHolderShape } from "../../../../internal/cdm/cdd/redux/dhReducersImpl.js";
+import { newChangeLog } from "../../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
+import { DefaultRequestSelectorMap } from "../../../../internal/server-connectors/request-selector-map.js";
+import type {
+	ChangeLog,
+	DgChangeLog,
+	DeepReadonly,
+	DocumentGraph
+} from "../../../../internal/documentGraph/core/index.js";
 import {
 	SubActivityHandler,
 	replaceCddDocument,
-	setMarkerAfterInitialization,
-	wasSubActivityEditedBefore
+	wasSubActivityEditedBefore,
+	setMarkerAfterInitialization
 } from "../../../../internal/cdm/dataProvider/subactivity/SubActivityHandler.js";
-import { DefaultRequestSelectorMap } from "../../../../internal/server-connectors/request-selector-map.js";
-import { load } from "../../../../internal/cdm/dataProvider/StandaloneActivityHandler.js";
-import {
-	type ChangeLog,
-	type DeepReadonly,
-	type DgChangeLog,
-	type DocumentGraph
-} from "../../../../internal/documentGraph/core/index.js";
-import { newChangeLog } from "../../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
-import { createModelsMock } from "../../../mocks/relationships/mocks.js";
-import { createActivity, createDataHolder } from "../../../utils/activity.js";
-import { stubConsoleErrors } from "../../../utils/stubs.js";
-
-import { createMockDg, createMockSaveConfig, mockSaveDoneAction } from "../testSetup.js";
 
 describe("com.mgmtp.a12.client.extensions.cdm.subactivity", () => {
 	describe("SubActivityHandler", () => {

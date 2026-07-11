@@ -49,6 +49,7 @@ export interface RemotePromise<T = undefined> {
 
 export function createRemotePromise<T>(): RemotePromise<T> {
 	let resolve: (value: T | PromiseLike<T>) => void = () => {};
+
 	let reject: (result?: T) => void = () => {};
 
 	const promise = new Promise<T>((resolveClb, rejectClb) => {

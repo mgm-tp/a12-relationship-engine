@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel, GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { assertObject } from "../../shared/assertion.js";
-import { type DocumentGraph } from "../../documentGraph/core/documentGraph.js";
-import { type DeepReadonly } from "../../documentGraph/core/utilityTypes.js";
+import type { DeepReadonly } from "../../documentGraph/core/utilityTypes.js";
+import type { DocumentGraph } from "../../documentGraph/core/documentGraph.js";
 
-import { type CdmData } from "./cdmData.js";
+import type { CdmData } from "./cdmData.js";
 
 /** @internal */
 export function unwrapCdmData(data: CdmData): {

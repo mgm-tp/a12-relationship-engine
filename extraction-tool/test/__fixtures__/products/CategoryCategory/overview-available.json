@@ -1,0 +1,66 @@
+{
+	"header": {
+		"id": "Category_ChildCategory_AvailableItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Available categories"
+			},
+			{
+				"locale": "de",
+				"text": "Verfügbare Kategorien"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Category-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": false,
+			"pagingSize": 10
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-category-name",
+				"width": 1,
+				"styles": {},
+				"elementRef": "F1",
+				"sortable": true
+			}
+		],
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		}
+	}
+}

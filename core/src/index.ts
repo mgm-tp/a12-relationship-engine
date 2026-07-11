@@ -38,5 +38,24 @@ export * from "./internal/documentGraph/core/index.js";
 export * from "./internal/documentGraph/redux/index.js";
 export * from "./internal/server-connectors/request-selector-map.js";
 
-// Application Factory (composable API)
 export * from "./main/applicationFactory.js";
+
+/**
+ * @experimental
+ * Collection of API from the new Relationship Engine architecture
+ * which is planned to be used by other components.
+ *
+ * More public APIs are to come but not at this stage, due to the need of stabilization
+ */
+export * from "./main/composable.js";
+export * from "./main/factories.js";
+
+export { ParentLinkDescriptor } from "./store/index.js";
+export type { RelationshipEngineMiddlewareOptions } from "./store/index.js";
+
+export type { RelationshipUiModel } from "./models/index.js";
+export { isRelationshipUiModel, SUPPORTED_MODEL_VERSIONS } from "./models/index.js";
+
+export type { RelationshipEngineFormModelMap, RelationshipEngineFormModelMapOptions } from "./view/index.js";
+
+export type { RelationshipEngineDataProviderOptions } from "./client/index.js";

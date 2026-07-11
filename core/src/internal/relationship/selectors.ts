@@ -29,30 +29,30 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module relationship
  */
-import {
-	type Activity,
-	ActivitySelectors,
-	type ApplicationModel,
-	Model,
-	ModelSelectors,
-	type Selector,
-	ViewSelectors
-} from "@com.mgmtp.a12.client/client-core";
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
 import { isFormModel } from "@com.mgmtp.a12.formengine/formengine-core";
 import { isOverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import {
+	Model,
+	type Activity,
+	type Selector,
+	ViewSelectors,
+	ModelSelectors,
+	ActivitySelectors,
+	type ApplicationModel
+} from "@com.mgmtp.a12.client/client-core";
 
 import { assertCondition } from "../shared/assertion.js";
 import { InternalModelSelectors } from "../shared/selectors.js";
 
-import { BindingsSelectors } from "./bindings.js";
-import { ComponentName, DEFAULT_PAGE_SIZE, TABLE_LIST } from "./constants.js";
 import { Relationship } from "./relationship.js";
+import { BindingsSelectors } from "./bindings.js";
+import { TABLE_LIST, ComponentName, DEFAULT_PAGE_SIZE } from "./constants.js";
 
 /**
  * All relationship related selectors.
@@ -68,6 +68,7 @@ export namespace RelationshipSelectors {
 
 		return (state) => {
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (activity === undefined) {
 				return undefined;
 			}
@@ -83,6 +84,7 @@ export namespace RelationshipSelectors {
 			const relationshipMutations = mutationValues.filter(
 				(m) => m.link.linkRef.linkDescriptor.relationshipModel === relationship
 			);
+
 			return sourceEntity
 				? relationshipMutations.filter(initMutationFilterBySource(sourceEntity))
 				: relationshipMutations;
@@ -105,12 +107,15 @@ export namespace RelationshipSelectors {
 	): Selector<Relationship.Instance | undefined> {
 		return (state) => {
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (activity === undefined) {
 				return undefined;
 			}
+
 			const { dataHolders = [] } = activity;
 			const linkDH = dataHolders.find(Relationship.LinkDataHolder.isInstanceById(instanceId));
 			const candidateDH = dataHolders.find(Relationship.CandidateDataHolder.isInstanceById(instanceId));
+
 			if (!candidateDH && linkDH?.data?.uiConfiguration.components[0].name === TABLE_LIST) {
 				return (
 					linkDH &&
@@ -130,6 +135,7 @@ export namespace RelationshipSelectors {
 					}
 				);
 			}
+
 			return (
 				linkDH &&
 				linkDH.data &&
@@ -148,10 +154,13 @@ export namespace RelationshipSelectors {
 	): Selector<Activity.DataHolder<Relationship.Mutation[]> | undefined> {
 		return (state) => {
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (activity === undefined) {
 				return undefined;
 			}
+
 			const { dataHolders = [] } = activity;
+
 			return dataHolders.find(Relationship.MutationDataHolder.isInstance);
 		};
 	}
@@ -163,10 +172,13 @@ export namespace RelationshipSelectors {
 	): Selector<Activity.DataHolder<Relationship.CandidateInstance> | undefined> {
 		return (state) => {
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (activity === undefined) {
 				return undefined;
 			}
+
 			const { dataHolders = [] } = activity;
+
 			return dataHolders.find(Relationship.CandidateDataHolder.isInstanceById(instanceId));
 		};
 	}
@@ -181,12 +193,14 @@ export namespace RelationshipSelectors {
 
 		return activity?.dataHolders?.find(Relationship.LinkDataHolder.isInstanceById(instanceId));
 	}
+
 	/** Selects all relationship link data holders for a given activity id. */
 	export function linkDataHolders(state: object, activityId: string): Activity.DataHolder<Relationship.LinkInstance>[] {
 		const activity = ActivitySelectors.activityById(activityId)(state);
 
 		return activity?.dataHolders?.filter(Relationship.LinkDataHolder.isInstance) ?? [];
 	}
+
 	/**
 	 * Selects all relationship link data holders for a given activity id and sourceId for the desired components
 	 * @internal
@@ -198,15 +212,18 @@ export namespace RelationshipSelectors {
 		componentNames: string[]
 	): Activity.DataHolder<Relationship.LinkInstance>[] {
 		const sourceEntity = RelationshipSelectors.sourceEntity(state, activityId, sourceInstanceId);
+
 		return RelationshipSelectors.linkDataHolders(state, activityId).filter((dataHolder) => {
 			const instanceId = dataHolder.descriptor.instanceId as string;
 
 			const componentName = RelationshipSelectors.componentName(state, activityId, instanceId);
+
 			if (componentName === undefined || !componentNames.includes(componentName)) {
 				return false;
 			}
 
 			const componentSourceEntity = RelationshipSelectors.sourceEntity(state, activityId, instanceId);
+
 			return isLinkEntitySpecEquals(sourceEntity, componentSourceEntity);
 		});
 	}
@@ -239,6 +256,7 @@ export namespace RelationshipSelectors {
 			RelationshipSelectors.candidateDataHolder(activityId, instanceId)(state);
 
 		const components = componentDataHolder?.data?.uiConfiguration.components;
+
 		if (!components) {
 			return undefined;
 		}
@@ -249,6 +267,7 @@ export namespace RelationshipSelectors {
 
 		return componentName;
 	}
+
 	/**
 	 * Selects an {@link Relationship.OverviewModels} bundle for candidates or links by a given
 	 * activity id and component configuration.
@@ -271,13 +290,16 @@ export namespace RelationshipSelectors {
 					m.use === config.resultDocumentModelType &&
 					ModelSelectors.modelByName(m.name, isOverviewModel)(state) !== undefined
 			);
+
 			if (modelDescriptor === undefined) {
 				return { loadingState: "error" };
 			}
 
 			const overviewModel = ModelSelectors.modelByName(modelDescriptor.name, isOverviewModel)(state);
+
 			if (overviewModel === undefined) {
 				const error = ModelSelectors.modelErrorByName(modelDescriptor.name)(state);
+
 				return { loadingState: error !== undefined ? "error" : "loading" };
 			}
 
@@ -290,10 +312,12 @@ export namespace RelationshipSelectors {
 				const error = ModelSelectors.modelErrorByName(InternalModelSelectors.getDocumentModelReference(overviewModel))(
 					state
 				);
+
 				return { loadingState: error !== undefined ? "error" : "loading" };
 			}
 
 			const { generatedCodeAccessor: validatorProvider } = documentAndValidationModel;
+
 			return {
 				loadingState: "loaded",
 				documentModel: documentAndValidationModel,
@@ -314,13 +338,16 @@ export namespace RelationshipSelectors {
 			const modelName = selectLinkFormModelName({
 				componentConfig
 			})(state);
+
 			if (modelName === undefined) {
 				return undefined;
 			}
 
 			const formModel = ModelSelectors.modelByName(modelName, isFormModel)(state);
+
 			if (formModel === undefined) {
 				const error = ModelSelectors.modelErrorByName(modelName)(state);
+
 				return { loadingState: error !== undefined ? "error" : "loading" };
 			}
 
@@ -333,10 +360,12 @@ export namespace RelationshipSelectors {
 				const error = ModelSelectors.modelErrorByName(InternalModelSelectors.getDocumentModelReference(formModel))(
 					state
 				);
+
 				return { loadingState: error !== undefined ? "error" : "loading" };
 			}
 
 			const { generatedCodeAccessor: validatorProvider } = documentAndValidationModel;
+
 			return {
 				loadingState: "loaded",
 				documentModel: documentAndValidationModel,
@@ -371,6 +400,7 @@ export namespace RelationshipSelectors {
 			const bindingConfigurationFromFormModel = BindingsSelectors.bindingConfiguration({
 				activityId
 			})(state);
+
 			if (bindingConfigurationFromFormModel) {
 				relationshipBindingConfigurations.push(bindingConfigurationFromFormModel);
 			}
@@ -385,6 +415,7 @@ export namespace RelationshipSelectors {
 	): Relationship.UiConfigurationBinding[][] {
 		const result: Relationship.UiConfigurationBinding[][] = [];
 		const sceneReference = ViewSelectors.sceneReferenceByActivityId(activityId)(state);
+
 		if (sceneReference !== undefined) {
 			const scene = InternalModelSelectors.sceneByReference(sceneReference)(state);
 			const directives = collectAllDirectives(scene);
@@ -409,6 +440,7 @@ export namespace RelationshipSelectors {
 		modelElementId: string
 	): Relationship.UiConfigurationBinding | undefined {
 		const bindings = relationshipBindings({ activityId })(state);
+
 		return bindings.find((binding) => binding.elementId === modelElementId);
 	}
 
@@ -424,6 +456,7 @@ export namespace RelationshipSelectors {
 				({ modelId, type }) =>
 					type === "form" && componentConfig.models.find((model) => model.name === modelId && model.use === "link")
 			);
+
 			return form?.modelId;
 		};
 	}

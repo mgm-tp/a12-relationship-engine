@@ -1,0 +1,103 @@
+{
+	"header": {
+		"id": "AddressDM",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "CM_AddressDM",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_60e44",
+					"name": "address",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_dbbc9",
+								"name": "country",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_90cd2",
+								"name": "city",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_2fc9a",
+								"name": "street",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_e9abb",
+								"name": "number",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_ecbda",
+								"name": "view",
+								"Group": {
+									"repeatability": 1,
+									"usageType": "attachment",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_138ef",
+											"name": "original_filename",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

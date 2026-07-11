@@ -2,7 +2,7 @@
 	"header": {
 		"id": "BundleOM",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -29,48 +29,9 @@
 				"reference": "BundleDM"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		]
+		"annotations": []
 	},
 	"content": {
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "multi_selection"
-				},
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Add"
-						},
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						}
-					],
-					"event": "add_event",
-					"destructive": false,
-					"icon": {
-						"name": "add"
-					},
-					"primary": true
-				}
-			]
-		},
 		"columns": [
 			{
 				"id": "column-752d19",
@@ -294,6 +255,41 @@
 				}
 			]
 		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"event": "add_event",
+					"destructive": false,
+					"icon": {
+						"name": "add"
+					},
+					"primary": true
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {},
 		"configuration": {
 			"rowTitle": [
 				{
@@ -390,7 +386,6 @@
 					]
 				}
 			}
-		},
-		"footerBox": {}
+		}
 	}
 }

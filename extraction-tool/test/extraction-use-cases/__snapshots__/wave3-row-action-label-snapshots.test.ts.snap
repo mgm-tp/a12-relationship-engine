@@ -1,0 +1,57 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Wave 3 — LINK selected/edit row-action group snapshot > LINK row-action group has delete, restore, and edit-link actions (external snapshot) 1`] = `
+[
+  {
+    "event": "event_delete_link",
+    "icon": {
+      "name": "remove_circle",
+    },
+    "label": [
+      {
+        "locale": "en",
+        "text": "Remove",
+      },
+      {
+        "locale": "de",
+        "text": "Entfernen",
+      },
+    ],
+    "labelHidden": true,
+  },
+  {
+    "event": "event_restore_link",
+    "icon": {
+      "name": "add_circle",
+    },
+    "label": [
+      {
+        "locale": "en",
+        "text": "Restore",
+      },
+      {
+        "locale": "de",
+        "text": "Wiederherstellen",
+      },
+    ],
+    "labelHidden": true,
+  },
+  {
+    "event": "event_edit_link_document",
+    "icon": {
+      "name": "edit",
+    },
+    "label": [
+      {
+        "locale": "en",
+        "text": "Edit additional properties",
+      },
+      {
+        "locale": "de",
+        "text": "Zusätzliche Eigenschaften bearbeiten",
+      },
+    ],
+    "labelHidden": true,
+  },
+]
+`;

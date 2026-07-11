@@ -30,12 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeEach } from "vitest";
+import { test, expect, describe, beforeEach } from "vitest";
 
-import { type EntityInstancePath, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
 import { addGroupInstance } from "../../../../internal/cdm/cddUtils/addGroupInstance.js";
+import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
 import {
 	type DgChangeLog,
 	type DocumentGraph,

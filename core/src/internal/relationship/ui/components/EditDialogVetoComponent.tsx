@@ -36,14 +36,14 @@
  */
 import React, { useContext } from "react";
 
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { Button, ButtonGroup, ModalNotification } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import {
 	descriptorTableListEditDialogVetoAbort,
+	descriptorTableListEditDialogVetoTitle,
 	descriptorTableListEditDialogVetoDiscard,
-	descriptorTableListEditDialogVetoMessage,
-	descriptorTableListEditDialogVetoTitle
+	descriptorTableListEditDialogVetoMessage
 } from "../../localization.js";
 
 /**

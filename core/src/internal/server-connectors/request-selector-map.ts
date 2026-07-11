@@ -35,13 +35,13 @@
  * @module server-connectors
  */
 
-import { LocaleSelectors, type Selector } from "@com.mgmtp.a12.client/client-core";
-import {
-	type DocumentJsonRpc2Request,
-	type Query,
-	type QueryJsonRpc2Request,
-	type RelationshipJsonRpc2request,
-	type Relationship
+import { type Selector, LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
+import type {
+	Query,
+	Relationship,
+	QueryJsonRpc2Request,
+	DocumentJsonRpc2Request,
+	RelationshipJsonRpc2request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { RequestBuilder } from "./requestBuilder.js";
@@ -141,6 +141,7 @@ export namespace RequestSelectorMap {
 export const DefaultRequestSelectorMap: RequestSelectorMap = {
 	loadCandidates: (config) => () => {
 		const { id, targetDocumentModel, paging, constraint, sort, links, fields, exclude } = config;
+
 		return RequestBuilder.query(id, {
 			projectionName: "document",
 			targetDocumentModel,
@@ -154,6 +155,7 @@ export const DefaultRequestSelectorMap: RequestSelectorMap = {
 	},
 	loadLinks: (config) => () => {
 		const { id, targetDocumentModel, paging, constraint, sort, links, fields, exclude } = config;
+
 		return RequestBuilder.query(id, {
 			projectionName: "document",
 			targetDocumentModel,
@@ -167,6 +169,7 @@ export const DefaultRequestSelectorMap: RequestSelectorMap = {
 	},
 	loadDocumentGraph: (config) => () => {
 		const { id, targetDocumentModel, fields, constraint, paging } = config;
+
 		return RequestBuilder.query(id, {
 			projectionName: "document-graph",
 			targetDocumentModel,
@@ -180,36 +183,42 @@ export const DefaultRequestSelectorMap: RequestSelectorMap = {
 		({ id, modelId, document }) =>
 		(state) => {
 			const locale = LocaleSelectors.locale()(state);
+
 			return RequestBuilder.addDocument(id, modelId, document, locale);
 		},
 	modifyDocument:
 		({ id, docRef, document }) =>
 		(state) => {
 			const locale = LocaleSelectors.locale()(state);
+
 			return RequestBuilder.modifyDocument(id, docRef, document, locale);
 		},
 	deleteDocument:
 		({ id, docRef }) =>
 		(state) => {
 			const locale = LocaleSelectors.locale()(state);
+
 			return RequestBuilder.deleteDocument(id, docRef, locale);
 		},
 	addLink:
 		({ id, linkRef, linkDocument }) =>
 		() => {
 			const req = RequestBuilder.addLink(linkRef, linkDocument);
+
 			return { ...req, id };
 		},
 	modifyLink:
 		({ id, linkRef, linkDocument }) =>
 		() => {
 			const req = RequestBuilder.modifyLink(linkRef, linkDocument);
+
 			return { ...req, id };
 		},
 	deleteLink:
 		({ id, linkRef }) =>
 		() => {
 			const req = RequestBuilder.deleteLink(linkRef);
+
 			return { ...req, id };
 		}
 };

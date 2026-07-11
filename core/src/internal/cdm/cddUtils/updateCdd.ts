@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type PartialCddState } from "../cdd/core/cddState.js";
+import type { PartialCddState } from "../cdd/core/cddState.js";
 import { reduceCddState } from "../cdd/core/impl/cddStateImpl.js";
 
-import { type CdmData } from "./cdmData.js";
+import type { CdmData } from "./cdmData.js";
 
 /** @internal */
 export function updateCdd(previousData: CdmData, nextData: CdmData, updatePartialCddState?: PartialCddState): CdmData {

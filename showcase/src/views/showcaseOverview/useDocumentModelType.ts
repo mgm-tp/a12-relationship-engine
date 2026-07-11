@@ -33,7 +33,7 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { OverviewEngineSelectors } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 /**
@@ -46,6 +46,7 @@ export function useDocumentModelType(activityId: string, modelGraph: ModelGraph)
 		if (!modelsState) {
 			return undefined;
 		}
+
 		return findDocumentModelType(modelsState.documentModel.header.id, modelGraph);
 	}, [modelGraph, modelsState]);
 }

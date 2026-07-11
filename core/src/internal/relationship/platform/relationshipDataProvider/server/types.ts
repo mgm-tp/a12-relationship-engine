@@ -35,18 +35,18 @@
  * @module relationship
  */
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
-import {
-	type JsonRpc2Request,
-	type JsonRpc2Response,
-	type QueryJsonRpc2Request,
-	type Relationship,
-	type LoadThumbnailUrlsJsonRpc2
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type {
+	Relationship,
+	JsonRpc2Request,
+	JsonRpc2Response,
+	QueryJsonRpc2Request,
+	LoadThumbnailUrlsJsonRpc2
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
-import { type RelationshipActions } from "../../../actions.js";
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
+import type { RelationshipActions } from "../../../actions.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
 
 /* @internal */
 interface BaseRequestConfig<R extends JsonRpc2Request = JsonRpc2Request> {

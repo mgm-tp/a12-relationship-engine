@@ -2,7 +2,7 @@
 	"header": {
 		"id": "NaturalPerson-document",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "comment",
 				"value": "Eine natürliche Person"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": []

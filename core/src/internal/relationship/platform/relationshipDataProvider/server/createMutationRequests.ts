@@ -35,10 +35,10 @@
  * @module relationship
  */
 
-import { type RelationshipJsonRpc2request } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { RelationshipJsonRpc2request } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
-import { type RequestSelectorMap } from "../../../../server-connectors/request-selector-map.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
+import type { RequestSelectorMap } from "../../../../server-connectors/request-selector-map.js";
 
 /* @internal */
 export function createMutationRequests(

@@ -34,29 +34,27 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { call, put, type SagaGenerator, select, takeEvery } from "typed-redux-saga";
-import { type Action, type AnyAction } from "typescript-fsa";
+import { put, call, select, takeEvery, type SagaGenerator } from "typed-redux-saga";
 
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import {
+	StoreSagas,
+	ModelSelectors,
 	ActivityActions,
 	ActivitySelectors,
-	type ApplicationSaga,
-	ModelSelectors,
-	StoreSagas
+	type ApplicationSaga
 } from "@com.mgmtp.a12.client/client-core";
 
-import { InternalModelSelectors } from "../../shared/selectors.js";
-import { CddSelectors } from "../../cdm/cdd/redux/index.js";
-
-import { RelationshipActions } from "../actions.js";
 import { Relationship } from "../relationship.js";
+import { RelationshipActions } from "../actions.js";
 import { RelationshipSelectors } from "../selectors.js";
+import { CddSelectors } from "../../cdm/cdd/redux/index.js";
+import { InternalModelSelectors } from "../../shared/selectors.js";
 
 /** @internal */
-export function* initializeDataHoldersSaga(config: ApplicationSaga.Configuration): SagaIterator<void> {
+export function* initializeDataHoldersSaga(config: ApplicationSaga.Configuration): SagaGenerator<void> {
 	yield* takeEvery(
-		(a: AnyAction) =>
+		(a: { type: string }) =>
 			ActivityActions.push.match(a) || (ActivityActions.cancel.match(a) && a.payload.replacementActivity !== undefined),
 		initializeDataHoldersAndLoadMissingData,
 		config
@@ -70,6 +68,7 @@ function* initializeDataHoldersAndLoadMissingData(
 	const activityId = ActivityActions.cancel.match(action)
 		? action.payload.replacementActivity?.id
 		: action.payload.activity.id;
+
 	if (activityId === undefined) {
 		throw new Error(`No activity found`);
 	}
@@ -81,6 +80,7 @@ function* initializeDataHoldersAndLoadMissingData(
 
 	try {
 		const success = yield* call(waitForFormModelLoading, activityId);
+
 		if (success) {
 			const instances = selectFromState(activityId, yield* select());
 
@@ -98,6 +98,7 @@ function* initializeDataHoldersAndLoadMissingData(
 
 function* waitForFormModelLoading(activityId: string): SagaGenerator<boolean> {
 	const modelDescriptors = yield* select(ModelSelectors.modelDescriptorsByActivityId(activityId));
+
 	if (modelDescriptors.every((md) => md.modelType === "form")) {
 		// The Form Model has to be loaded before we can access the binding
 		// configuration, because the binding config is embedded inside it.
@@ -111,6 +112,7 @@ function* waitForFormModelLoading(activityId: string): SagaGenerator<boolean> {
 	}
 
 	const bindings = yield* select(RelationshipSelectors.relationshipBindings({ activityId }));
+
 	return bindings.length > 0;
 }
 

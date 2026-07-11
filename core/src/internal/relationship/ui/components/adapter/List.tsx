@@ -35,23 +35,22 @@
  * @module relationship
  */
 
-import React, { useContext } from "react";
 import { connect } from "react-redux";
+import React, { useContext } from "react";
 
 import { Activity, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
+import type { ListItem, ListProps } from "../api.js";
 import { RelationshipActions } from "../../../actions.js";
-import { type Relationship } from "../../../relationship.js";
+import type { Relationship } from "../../../relationship.js";
 import { RelationshipSelectors } from "../../../selectors.js";
 
-import { type ListItem, type ListProps } from "../api.js";
-
 import * as RelationshipUiAdapter from "./adapter.js";
-import { type AdapterLink, AdapterLinkSelectors } from "./adapterLinkSelectors.js";
 import { retrieveTargetDocRef } from "./MultiSelection.js";
+import { type AdapterLink, AdapterLinkSelectors } from "./adapterLinkSelectors.js";
 
 /** @internal */
 export interface StateProps extends RelationshipUiAdapter.StateProps {
@@ -77,6 +76,7 @@ interface DispatchProps {
 /** @internal */
 export function ListWrapper(props: StateProps & OwnProps & WrapperProps): React.ReactNode {
 	const localizer = useContext(LocalizerContext).localizer;
+
 	if (props.linkModels === undefined) {
 		return null;
 	}
@@ -87,6 +87,7 @@ export function ListWrapper(props: StateProps & OwnProps & WrapperProps): React.
 					props.links.loadingState === "loaded"
 						? props.links.data.find((l) => l.linkRef.id === item.documentJson.id)
 						: undefined;
+
 				if (link && props.onLinkClick) {
 					props.onLinkClick(link);
 				}
@@ -97,6 +98,7 @@ export function ListWrapper(props: StateProps & OwnProps & WrapperProps): React.
 		data.map<ListItem>((l) => ({
 			documentJson: {
 				id: l.linkRef.id,
+				modelId: l.document.modelId as string,
 				...l.document
 			},
 			visible: l.visible,
@@ -126,8 +128,8 @@ export function ListWrapper(props: StateProps & OwnProps & WrapperProps): React.
 }
 
 /** @internal */
-export const ListAdapter = connect<StateProps, {}, OwnProps>(
-	function mapStateToProps(state, ownProps): StateProps {
+export const ListAdapter = connect<StateProps, {}, OwnProps, object>(
+	function mapStateToProps(state: object, ownProps): StateProps {
 		const { activityId, componentConfiguration: componentConfig, instanceId } = ownProps;
 
 		const linkModels = RelationshipSelectors.overviewModels({

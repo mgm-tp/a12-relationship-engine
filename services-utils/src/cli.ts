@@ -33,10 +33,11 @@
 import Yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import { cleanCommand } from "./commands/clean.js";
 import { seedCommand } from "./commands/seed.js";
-import { uploadModelsCommand } from "./commands/upload-models.js";
+import { cleanCommand } from "./commands/clean.js";
 import { waitOnCommand } from "./commands/wait-on.js";
+import { uploadModelsCommand } from "./commands/upload-models.js";
+import { prettyBindingCommand } from "./commands/pretty-binding.js";
 
 Yargs(hideBin(process.argv))
 	.usage("$0 <command> [options...] [--help]")
@@ -45,4 +46,5 @@ Yargs(hideBin(process.argv))
 	.command(cleanCommand)
 	.command(waitOnCommand)
 	.command(uploadModelsCommand)
+	.command(prettyBindingCommand)
 	.parse();

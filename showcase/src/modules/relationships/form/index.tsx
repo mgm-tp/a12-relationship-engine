@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 
-import { type SampleAppModule } from "../../../utils/SampleAppModule.js";
+import type { SampleAppModule } from "../../../utils/SampleAppModule.js";
 
 import appModel from "./form.appmodel.json" with { type: "json" };
 

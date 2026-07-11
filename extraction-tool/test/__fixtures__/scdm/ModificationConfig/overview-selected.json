@@ -1,0 +1,54 @@
+{
+	"header": {
+		"id": "PolicyBeneficiary_SelectedItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "PolicyBeneficiary_SelectedItemsOverview"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "PolicyBeneficiary_SelectedItemsOverview____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-I4_field_beneficiaryName",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_field_beneficiaryName",
+				"sortable": false
+			}
+		]
+	}
+}

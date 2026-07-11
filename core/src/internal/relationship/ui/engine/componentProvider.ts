@@ -34,9 +34,8 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type Relationship } from "../../relationship.js";
-
-import { type ListProps, type MultiSelectionProps, type SingleSelectionProps } from "../components/api.js";
+import type { Relationship } from "../../relationship.js";
+import type { ListProps, MultiSelectionProps, SingleSelectionProps } from "../components/api.js";
 
 export interface MultiSelectionComponent {
 	readonly type: "MultiSelection";

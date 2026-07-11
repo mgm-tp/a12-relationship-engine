@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type CRUD_RESOURCE_KEYS } from "@com.mgmtp.a12.crud/crud-core";
-import { type LocalizationTreeMap } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+import type { CRUD_RESOURCE_KEYS } from "@com.mgmtp.a12.crud/crud-core";
+import type { LocalizationTreeMap } from "@com.mgmtp.a12.utils/utils-localization";
 
 const de_DE: typeof CRUD_RESOURCE_KEYS = {
 	crud: {

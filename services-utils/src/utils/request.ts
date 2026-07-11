@@ -32,13 +32,15 @@
 
 import Chance from "chance";
 
-import {
-	type JsonRpc2Request,
-	type JsonRpc2Response,
-	type DocumentJsonRpc2Request
+import type {
+	Relationship,
+	JsonRpc2Request,
+	JsonRpc2Response,
+	DocumentJsonRpc2Request,
+	RelationshipJsonRpc2request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type BaseUrlOption } from "./common.js";
+import type { BaseUrlOption } from "./common.js";
 
 export async function rpcRequest(options: BaseUrlOption, requests: JsonRpc2Request[]): Promise<JsonRpc2Response[]> {
 	const res = await fetch(`${options.baseUrl}/api/v2/rpc`, {
@@ -46,9 +48,11 @@ export async function rpcRequest(options: BaseUrlOption, requests: JsonRpc2Reque
 		body: JSON.stringify(requests),
 		headers: { "Content-Type": "application/json", "Accept-Language": "en" }
 	});
+
 	if (res.status > 400) {
 		throw new Error(`Cannot call the JSON RPC request. Error: ${res.status} - ${res.statusText}`);
 	}
+
 	return res.json();
 }
 
@@ -64,6 +68,21 @@ export function addRequest(
 		id: `Add${documentModelName}${suffix}`,
 		method: "ADD_DOCUMENT",
 		params: { document, documentModelName, locale: "en_US" }
+	};
+}
+
+export function linkEntities(
+	suffix: string,
+	relationshipModel: string,
+	entities: Relationship.LinkEntitySpec[],
+	linkDocument?: { [key: string]: object },
+	position?: Relationship.LinkPosition
+): RelationshipJsonRpc2request.AddLinkJsonRpc2request {
+	return {
+		jsonrpc: "2.0",
+		id: `${relationshipModel}-${suffix}`,
+		method: "ADD_LINK",
+		params: { linkDescriptor: { entities, relationshipModel, position }, linkDocument }
 	};
 }
 

@@ -30,15 +30,14 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type AnyAction } from "redux";
-import { type Action } from "typescript-fsa";
 import { all, put, takeEvery, type SagaGenerator } from "typed-redux-saga";
 
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { JsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { ActivityActions, NotificationActions } from "@com.mgmtp.a12.client/client-core";
 
 export function* handleErrorSaga(): SagaGenerator<void> {
-	yield* takeEvery((anyAction: AnyAction) => ActivityActions.error.match(anyAction), handle);
+	yield* takeEvery((anyAction: { type: string }) => ActivityActions.error.match(anyAction), handle);
 }
 
 function* handle(action: Action<ActivityActions.ErrorPayload>): SagaGenerator<void> {
@@ -50,6 +49,7 @@ function* handle(action: Action<ActivityActions.ErrorPayload>): SagaGenerator<vo
 	}
 
 	const errors = error.errors;
+
 	if (Array.isArray(errors) && JsonRpc2Response.hasErrors(errors)) {
 		for (const rpcError of errors) {
 			if (!JsonRpc2Response.error.isInstance(rpcError)) {

@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Product-document",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "de"
@@ -25,10 +25,6 @@
 			{
 				"name": "subTypes",
 				"value": "Bundle-document"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": []

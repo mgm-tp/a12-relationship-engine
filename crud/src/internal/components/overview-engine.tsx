@@ -30,49 +30,51 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import type { Dispatch } from "redux";
 import { useDispatch, useSelector } from "react-redux";
-import { type Dispatch } from "redux";
+import React, { useMemo, useState, useContext, useCallback } from "react";
 
-import { ModelSelectors, type View } from "@com.mgmtp.a12.client/client-core";
-import {
-	defaultVariantSelectionMapper,
-	VariantSelection,
-	type VariantSelectionProps
-} from "@com.mgmtp.a12.client/client-core/heterogeneity";
-import {
-	OverviewEngineActions,
-	OverviewEngineFactories,
-	defaultMapDispatchToEventHandlers,
-	type OverviewModel
-} from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { localizableFromLocalizationTreeMap } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
 import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+import { type View, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { localizableFromLocalizationTreeMap } from "@com.mgmtp.a12.utils/utils-localization";
 import {
-	Button as ButtonWidget,
+	Icon,
+	ModalOverlay,
 	ActionContentbox,
 	ContentBoxElements,
-	Icon,
-	ModalOverlay
+	Button as ButtonWidget
 } from "@com.mgmtp.a12.widgets/widgets-core";
+import {
+	VariantSelection,
+	type VariantSelectionProps,
+	defaultVariantSelectionMapper
+} from "@com.mgmtp.a12.client/client-core/heterogeneity";
+import {
+	type OverviewModel,
+	OverviewEngineActions,
+	OverviewEngineFactories,
+	defaultMapDispatchToEventHandlers
+} from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { CRUDActions } from "../actions.js";
 import { EventNames } from "../events.js";
-import { DEFAULT_TRANSLATIONS, RESOURCE_KEYS } from "../languages/index.js";
+import { CRUDActions } from "../actions.js";
 import { assertObject } from "../utils/assertion.js";
 import { useDocumentModelType } from "../utils/use-document-model-type.js";
+import { RESOURCE_KEYS, DEFAULT_TRANSLATIONS } from "../languages/index.js";
 
 const logger = LoggerFactory.getLogger("extensions/crud");
 
-interface CRUDOverviewViewProps extends View {
-	readonly eventHandlers?: {
-		onEventButtonClick?(eventName: string): void;
-	};
+export namespace CRUDOverviewView {
+	export interface Props extends OverviewEngineFactories.ViewComponentProps, View {
+		readonly eventHandlers?: {
+			onEventButtonClick?(eventName: string): void;
+		};
+	}
 }
 
 /** @internal */
-export function CRUDOverviewView(props: CRUDOverviewViewProps): React.ReactNode {
+export function CRUDOverviewView(props: CRUDOverviewView.Props): React.ReactNode {
 	const dispatch = useDispatch();
 
 	const { localizer } = useContext(LocalizerContext);
@@ -85,6 +87,7 @@ export function CRUDOverviewView(props: CRUDOverviewViewProps): React.ReactNode 
 	const engineDispatch: Dispatch = useCallback(
 		(action) => {
 			dispatch(OverviewEngineActions.event({ activityId: props.activityId, engineAction: action }));
+
 			return action;
 		},
 		[dispatch, props.activityId]
@@ -120,6 +123,7 @@ export function CRUDOverviewView(props: CRUDOverviewViewProps): React.ReactNode 
 				},
 				onRowClick(params: { documentId: string; customEvent?: string }) {
 					const { customEvent, documentId } = params;
+
 					if (!customEvent) {
 						dispatch(
 							CRUDActions.selectRow({
@@ -133,6 +137,7 @@ export function CRUDOverviewView(props: CRUDOverviewViewProps): React.ReactNode 
 				},
 				onRowButtonClick(params: { documentId: string; rowActionModel: OverviewModel.Button }) {
 					const { documentId, rowActionModel: rowAction } = params;
+
 					if (rowAction?.event.endsWith(EventNames.OVERVIEW_DELETE)) {
 						logger.log("Overview CRUD event", rowAction.event, documentId);
 						dispatch(
@@ -183,7 +188,7 @@ function VariantSelectionModal(props: VariantSelectionModalProps): React.ReactNo
 	const { localizer } = useContext(LocalizerContext);
 
 	return (
-		<ModalOverlay closeOnEsc onClose={props.onClose}>
+		<ModalOverlay closeOnEsc closeOnOutsideClick onClose={props.onClose}>
 			<ActionContentbox
 				headingElements={
 					<ContentBoxElements.Title

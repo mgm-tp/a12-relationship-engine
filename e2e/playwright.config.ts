@@ -30,32 +30,69 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { defineConfig, devices } from "@playwright/test";
+import { devices, defineConfig } from "@playwright/test";
+
+import { DEPRECATED_APP_URL } from "./tests/deprecated/base-url";
+
+if (!process.env.BASE_URL) {
+	process.env.BASE_URL = `http://127.0.0.1:17000`;
+}
+
+if (!process.env.BASE_ENTRY) {
+	process.env.BASE_ENTRY = `composable`;
+}
+
+process.env.APP_URL = `${process.env.BASE_URL}/${process.env.BASE_ENTRY}`;
 
 export default defineConfig({
 	outputDir: "./target/test-results",
-	testDir: "./tests",
 	forbidOnly: !!process.env.CI,
-	retries: process.env.CI ? 2 : 1,
+	retries: process.env.CI ? 3 : 1,
 	workers: process.env.CI ? 2 : 4,
+	fullyParallel: true,
 	reporter: [[process.env.CI ? "list" : "html", { outputFolder: "./target/playwright-report" }]],
 	use: {
-		baseURL: "http://localhost:17000/composable",
-		trace: "on-first-retry"
+		baseURL: process.env.APP_URL,
+		trace: "on-first-retry",
+		screenshot: "only-on-failure",
+		video: "retain-on-failure"
 	},
 	globalSetup: "./support/global-setup",
+	globalTeardown: "./support/global-teardown",
 	projects: [
 		{
-			name: "chromium",
-			use: { ...devices["Desktop Chrome"] }
+			name: "readonly",
+			use: { ...devices["Desktop Chrome"] },
+			testDir: "./tests/readonly-tests"
+		},
+		{
+			name: "writeable",
+			use: { ...devices["Desktop Chrome"] },
+			testDir: "./tests/writeable-tests",
+			workers: 1,
+			dependencies: ["readonly"]
+		},
+		{
+			name: "deprecated-readonly",
+			use: { ...devices["Desktop Chrome"], baseURL: DEPRECATED_APP_URL },
+			testDir: "./tests/deprecated/readonly-tests"
+		},
+		{
+			name: "deprecated-writeable",
+			use: { ...devices["Desktop Chrome"], baseURL: DEPRECATED_APP_URL },
+			testDir: "./tests/deprecated/writeable-tests",
+			workers: 1,
+			dependencies: ["writeable", "deprecated-readonly"]
 		}
 	],
-	webServer: {
-		command: 'pnpm -F "*-showcase" -F "*-server" start',
-		url: "http://localhost:17090/actuator/health/initializationFinished",
-		reuseExistingServer: !process.env.CI,
-		cwd: "../",
-		stdout: process.env.CI ? "ignore" : "pipe",
-		timeout: 240 * 1000
-	}
+	webServer: process.env.PLAYWRIGHT_NO_WEB_SERVER
+		? undefined
+		: {
+				command: 'pnpm -F "*-showcase" -F "*-server" start:app',
+				url: "http://localhost:17090/actuator/health",
+				reuseExistingServer: true,
+				cwd: "../",
+				stdout: "pipe",
+				timeout: 240 * 1000
+			}
 });

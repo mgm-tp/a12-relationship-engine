@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ContractCoverage_coverage_AvailableItemsOverview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -28,16 +23,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"showFullTextSearch": false,
-			"pagingSize": 50,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all_columns"
-			}
-		},
 		"columns": [
 			{
 				"id": "column-927e9",
@@ -47,18 +32,28 @@
 				"sortable": false
 			}
 		],
+		"rowActionGroup": {},
 		"subHeaderBox": {
-			"majorElements": [
+			"leftSlot": [],
+			"rightSlot": [
 				{
 					"type": "filter"
 				}
-			],
-			"minorElements": []
+			]
 		},
-		"rowActionGroup": {},
 		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": false,
+			"pagingSize": 50,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all_columns"
+			}
 		}
 	}
 }

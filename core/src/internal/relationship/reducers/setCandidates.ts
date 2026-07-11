@@ -35,11 +35,11 @@
  * @module relationship
  */
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
 
-import { type RelationshipActions } from "../actions.js";
+import type { Relationship } from "../relationship.js";
 import { PaginationUtils } from "../paginationUtils.js";
-import { type Relationship } from "../relationship.js";
+import type { RelationshipActions } from "../actions.js";
 
 /** @internal */
 export function handleSetCandidates(
@@ -48,6 +48,7 @@ export function handleSetCandidates(
 ): Activity.DataHolder<Relationship.CandidateInstance> {
 	const { candidates: payloadCandidates, activityId, instanceId, ...restPayload } = payload;
 	const candidateInstance = dataHolder.data;
+
 	if (!candidateInstance) {
 		throw new Error(`dataholder with descriptor ${dataHolder.descriptor} has no data!`);
 	}

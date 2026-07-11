@@ -15,10 +15,10 @@ dependencyResolutionManagement {
     versionCatalogs {
         gradlePluginLibs {
             version('spring-boot', springBootVersion)
-            version('node-gradle', '7.0.1')
-            version('docker-remote-api', '9.3.7')
-            version('devtools-deployment', '0.4.8')
-            version('git-version', '3.0.0')
+            version('node-gradle', '7.1.0')
+            version('docker-remote-api', '10.0.0')
+            version('devtools-deployment', '0.7.0')
+            version('git-version', '4.3.0')
             version('artifact-publish', '0.4.0-rc.1')
 
             plugin('git-version', "com.palantir.git-version").versionRef('git-version')
@@ -34,26 +34,39 @@ dependencyResolutionManagement {
             version('build-utilities', '0.1.0')
             version('kernel', a12Version.kernel)
             version('dataservices', a12Version.dataservices)
+            version('wcf', '0.2.0')
+            version('rmc-conversion', '0.4.0-pre.4.1')
 
             library('build-utilities', 'com.mgmtp.a12.devtools.plugins', 'build-utilities').versionRef('build-utilities')
 
             library('dataservices-server-app', 'com.mgmtp.a12.dataservices', 'dataservices-server-app').versionRef('dataservices')
             library('dataservices-server-init-app', 'com.mgmtp.a12.dataservices', 'dataservices-server-init-app').versionRef('dataservices')
+            library('dataservices-modelgraph', 'com.mgmtp.a12.dataservices', 'dataservices-modelgraph-fs-impl').versionRef('dataservices')
 
             library('base-bom', 'com.mgmtp.a12.base', 'base-bom').versionRef('base')
             library('kernel-bom', 'com.mgmtp.a12.kernel', 'kernel-bom').versionRef('kernel')
             library('dataservices-bom', 'com.mgmtp.a12.dataservices', 'dataservices-parent').versionRef('dataservices')
+
+            library('dataservices-wcf-cli', 'com.mgmtp.a12.dataservices.wcf', 'dataservices-wcf-cli').versionRef('wcf')
+            library('dataservices-wcf-api', 'com.mgmtp.a12.dataservices.wcf', 'dataservices-wcf-api').versionRef('wcf')
+            library('rmc-conversion', 'com.mgmtp.a12.rmc', 'conversion').versionRef('rmc-conversion')
+            library('base-model-api', 'com.mgmtp.a12.base', 'base-model-api').versionRef('base')
+            library('kernel-md-facade', 'com.mgmtp.a12.kernel', 'kernel-md-facade').versionRef('kernel')
         }
 
         libs {
             version('spring-boot', springBootVersion)
             version('logstash','7.4')
             version('logback-classic','1.5.6')
+            version('jackson','3.1.2')
+            version('testng','7.9.0')
 
             library('spring-boot-configuration-processor', 'org.springframework.boot', 'spring-boot-configuration-processor').versionRef('spring-boot')
             library('spring-boot-devtools', 'org.springframework.boot', 'spring-boot-devtools').versionRef('spring-boot')
             library('logstash', 'net.logstash.logback', 'logstash-logback-encoder').versionRef('logstash')
             library('logback-classic', 'ch.qos.logback', 'logback-classic').versionRef('logback-classic')
+            library('jackson-databind', 'tools.jackson.core', 'jackson-databind').versionRef('jackson')
+            library('testng', 'org.testng', 'testng').versionRef('testng')
         }
     }
 }
@@ -63,7 +76,7 @@ HashMap<String, String> getA12Versions() {
 
     def getVersion = { String packageName ->
         def catalogVersion = yaml.load(file("pnpm-workspace.yaml").newInputStream())["catalogs"]["a12Libs"][packageName].replaceAll(/^[~^]/, '') as String
-        def overrideVersion = new JsonSlurper().parse(file("package.json"))["pnpm"]["overrides"][packageName]?.replaceAll(/^[~^]/, '')
+        def overrideVersion = new JsonSlurper().parse(file("package.json"))["pnpm"]?["overrides"]?[packageName]?.replaceAll(/^[~^]/, '')
 
         return overrideVersion ?: catalogVersion
     }
@@ -75,9 +88,10 @@ HashMap<String, String> getA12Versions() {
     ]
 }
 gradle.ext.a12Versions = getA12Versions()
-gradle.ext.workspaces = ["core", "crud", "documentation/relationship", "documentation/crud", "services-utils", "showcase"]
+gradle.ext.workspaces = ["core", "crud", "documentation/relationship", "documentation/crud", "migration-tool", "services-utils", "showcase"]
 
 rootProject.name = "relationship-engine"
 
 include "server"
 include "showcase"
+include "showcase-models-converters"

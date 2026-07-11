@@ -33,27 +33,24 @@
 import * as Fs from "node:fs";
 import * as Path from "node:path";
 
-import { isModelInstance, type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Model } from "@com.mgmtp.a12.client/client-core";
+import type { Model } from "@com.mgmtp.a12.client/client-core";
+import { isModelInstance, type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import { isOverviewModel, type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
-	defaultValueParser,
-	type FormModel,
 	isFormModel,
+	type FormModel,
+	defaultValueParser,
 	unmarshallFormModel
 } from "@com.mgmtp.a12.formengine/formengine-core";
 import {
 	type DocumentModel,
-	type IGeneratedCodeAccessor
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import {
 	DocumentServiceFactory,
+	type IGeneratedCodeAccessor,
 	GeneratedCodeAccessorFactory
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/facade.js";
-import { isOverviewModel, type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
+import type { ModelMap } from "../utils/models.js";
 import { getDocumentModelReference } from "../../internal/utils/get-document-model-reference.js";
-
-import { type ModelMap } from "../utils/models.js";
 
 export function createTestModels(modelDescriptors: Model.Descriptor[]): ModelAPI[] {
 	return modelDescriptors.map(({ name, modelType }) => readModelType(name, modelType));
@@ -65,15 +62,17 @@ export function createA12TestModels(documentModelName: string, formModelName: st
 
 export function modelListToMap(models: ModelAPI[]): ModelMap {
 	let map = {};
+
 	for (const m of models) {
 		map = { ...map, [m.header.id]: m };
 	}
+
 	return map;
 }
 
 export function readModelFile(modelName: string): string {
 	return Fs.readFileSync(
-		Path.join(__dirname, "..", "..", "..", "..", "showcase", "target", "models", modelName),
+		Path.join(__dirname, "..", "..", "..", "..", "showcase", "target", "data", "models", modelName),
 		"utf8"
 	);
 }

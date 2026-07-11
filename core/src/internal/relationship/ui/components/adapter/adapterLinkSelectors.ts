@@ -35,12 +35,12 @@
  * @module relationship
  */
 import { ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { assertObject, assertUnreachable } from "../../../../shared/assertion.js";
-import { DROP_DOWN_SELECTION, DUAL_PANE_SELECTION, TABLE_LIST } from "../../../constants.js";
 import { Relationship } from "../../../relationship.js";
 import { RelationshipSelectors } from "../../../selectors.js";
+import { assertObject, assertUnreachable } from "../../../../shared/assertion.js";
+import { TABLE_LIST, DROP_DOWN_SELECTION, DUAL_PANE_SELECTION } from "../../../constants.js";
 
 export interface AdapterLink extends Relationship.LinkWithDocument {
 	readonly mutation?: Relationship.LinkMutationState;
@@ -122,6 +122,7 @@ export namespace AdapterLinkSelectors {
 
 		return [...newLinks, ...unloadedRemovedLinks, ...existingLinks].map(applyLinkModification(mutations));
 	}
+
 	function tableListLinksList(state: object, activityId: string, instanceId: string): AdapterLink[] {
 		const linkInstance = AdapterLinkSelectors.linkInstance(state, activityId, instanceId);
 		const pagination = linkInstance.linkPagination;
@@ -141,6 +142,7 @@ export namespace AdapterLinkSelectors {
 
 		return [...newLinks, ...existingLinks].map(applyLinkModification(mutations));
 	}
+
 	function dropdownLinksList(state: object, activityId: string, instanceId: string): AdapterLink[] {
 		const linkInstance = AdapterLinkSelectors.linkInstance(state, activityId, instanceId);
 		const loadedLinks = linkInstance.links;
@@ -157,6 +159,7 @@ export namespace AdapterLinkSelectors {
 
 		return [...newLinks, ...existingLinks].map(applyLinkModification(mutations));
 	}
+
 	function contains(linkList: { linkRef: { id: string } }[], link: { linkRef: { id: string } }): boolean {
 		return linkList.some((listItem) => listItem.linkRef.id === link.linkRef.id);
 	}
@@ -170,6 +173,7 @@ export namespace AdapterLinkSelectors {
 
 	export function instanceMutations(state: object, activityId: string, instanceId: string): Relationship.Mutation[] {
 		const instance = RelationshipSelectors.relationshipInstance(activityId, instanceId)(state);
+
 		if (instance === undefined) {
 			return [];
 		}
@@ -178,9 +182,11 @@ export namespace AdapterLinkSelectors {
 			instance.uiConfiguration.relationshipName,
 			Relationship.isRelationshipModel
 		)(state);
+
 		if (relationshipModel === undefined) {
 			return [];
 		}
+
 		return (
 			RelationshipSelectors.mutations({
 				activityId,
@@ -189,6 +195,7 @@ export namespace AdapterLinkSelectors {
 			})(state)?.reverse() ?? []
 		);
 	}
+
 	/** @internal */
 	export function mutatedLinksCount(
 		state: object,
@@ -207,6 +214,7 @@ export namespace AdapterLinkSelectors {
 
 		return linkInstance;
 	}
+
 	function applyLinkModification(mutations: Relationship.Mutation[]): (link: AdapterLink) => AdapterLink {
 		return (link) => {
 			const linkMutation = mutations.find(
@@ -245,6 +253,7 @@ export namespace AdapterLinkSelectors {
 
 		let additionalLinksCount = 0;
 		const componentName = RelationshipSelectors.componentName(state, activityId, instanceId);
+
 		if (componentName === undefined) {
 			return undefined;
 		}

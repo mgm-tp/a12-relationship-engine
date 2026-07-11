@@ -30,15 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-
-import * as AddressMocks from "./AddressMocks.js";
 import * as BrandMocks from "./BrandMocks.js";
 import * as BundleMocks from "./BundleMocks.js";
-import * as BusinessPartnerMocks from "./BusinessPartnerMocks.js";
-import * as CategoryMocks from "./CategoryMocks.js";
-import * as LinkDocumentMocks from "./LinkDocumentMocks.js";
+import * as AddressMocks from "./AddressMocks.js";
 import * as ProductMocks from "./ProductMocks.js";
+import * as CategoryMocks from "./CategoryMocks.js";
+import * as BusinessPartnerMocks from "./BusinessPartnerMocks.js";
 
 export const documentByType: {
 	[key: string]:
@@ -57,18 +54,3 @@ export const documentByType: {
 	businessPartner: BusinessPartnerMocks.documents,
 	address: AddressMocks.documents
 };
-
-function getFirstEntity(role: string): Relationship.LinkEntitySpec {
-	const documents = documentByType[role];
-	return {
-		docRef: documents?.[0].id ?? null,
-		role: role
-	};
-}
-
-export const firstProductEntity = getFirstEntity("Product");
-export const firstBrandEntity = getFirstEntity("Brand");
-export const firstBundleEntity = getFirstEntity("Bundle");
-export const firstCategoryEntity = getFirstEntity("ParentCategory");
-
-export const getLinkDocument = LinkDocumentMocks.getLinkDocument;

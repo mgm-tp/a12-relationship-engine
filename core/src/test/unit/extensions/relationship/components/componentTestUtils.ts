@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
 export function createOverviewModelMock(id: string): OverviewModel {
 	return {
@@ -60,7 +60,7 @@ export function createOverviewModelMock(id: string): OverviewModel {
 			],
 			rowActionGroup: {},
 			subHeaderBox: {
-				majorElements: [
+				rightSlot: [
 					{
 						type: OverviewModel.ElementType.FILTER
 					}
@@ -105,7 +105,8 @@ export function createDocumentModelMock(): DocumentModel {
 						]
 					}
 				]
-			}
+			},
+			documentUniquenessCriteria: []
 		}
 	};
 }

@@ -31,7 +31,7 @@
  */
 
 import waitOn from "wait-on";
-import { type CommandModule } from "yargs";
+import type { CommandModule } from "yargs";
 
 import { BaseUrlOption } from "../utils/index.js";
 
@@ -50,7 +50,7 @@ export async function handleWaitOn(options: Options) {
 	console.log("Waiting for server to start...");
 
 	await waitOn({
-		resources: [`${options.baseUrl}/actuator/health/initializationFinished`],
+		resources: [`${options.baseUrl}/actuator/health`],
 		interval: 5000,
 		verbose: true,
 		timeout: options.timeout

@@ -34,10 +34,29 @@ import Path from "node:path";
 import Fs from "node:fs/promises";
 
 import notice from "eslint-plugin-notice";
+import stylistic from "@stylistic/eslint-plugin";
+import { fixupPluginRules } from "@eslint/compat";
+import perfectionist from "eslint-plugin-perfectionist";
 import unusedImports from "eslint-plugin-unused-imports";
+import filenameConfig from "eslint-plugin-filename-rules";
 import typedReduxSaga from "@jambit/eslint-plugin-typed-redux-saga";
 
 import { reactStrict } from "@com.mgmtp.a12.devtools/eslint-config";
+
+/**
+ * @param { import("eslint").Eslint.Plugin } plugin
+ */
+function injectRuleSchema(plugin) {
+	const fixupPlugin = fixupPluginRules(plugin);
+	const newRules = Object.fromEntries(
+		Object.entries(fixupPlugin.rules).map(([ruleName, rule]) => [
+			ruleName,
+			{ ...rule, meta: { ...rule.meta, schema: false } }
+		])
+	);
+
+	return { ...fixupPlugin, rules: newRules };
+}
 
 const license = await Fs.readFile(Path.join(import.meta.dirname, "license_header.txt"), "utf-8");
 
@@ -52,18 +71,22 @@ export default [
 			"**/build/",
 			"**/target/",
 			"**/typedoc/",
-			"**/node_modules/",
 			"**/coverage/",
 			"**/resources/",
 			"**/generated/",
-			"**/*.skip-test.*"
+			"**/playwright-report/",
+			"**/test-results/",
+			"**/*.skip-test.*",
+			"**/worktrees/**",
+			"extraction-tool/src/models/form-model.ts",
+			"extraction-tool/src/models/overview-model.ts",
+			"extraction-tool/src/internal/steps/index.ts"
 		]
 	},
 	{
 		name: "general",
 		languageOptions: {
 			parserOptions: {
-				project: ["*/tsconfig.eslint.json"],
 				tsconfigRootDir: import.meta.dirname
 			}
 		},
@@ -71,14 +94,14 @@ export default [
 			reportUnusedDisableDirectives: "error"
 		},
 		plugins: {
-			notice,
+			notice: fixupPluginRules(notice),
+			stylistic,
+			perfectionist,
 			"unused-imports": unusedImports,
-			"typed-redux-saga": typedReduxSaga
+			"typed-redux-saga": typedReduxSaga,
+			filename: injectRuleSchema(filenameConfig)
 		},
 		rules: {
-			"react-hooks/preserve-manual-memoization": "warn",
-			"react-hooks/static-components": "warn",
-			"react-hooks/refs": "warn",
 			"@typescript-eslint/no-namespace": "off",
 			"@typescript-eslint/no-empty-object-type": "off",
 			"@typescript-eslint/no-empty-function": "warn",
@@ -86,53 +109,90 @@ export default [
 			"@typescript-eslint/no-explicit-any": "warn",
 			"@typescript-eslint/no-unused-vars": ["warn", { ignoreRestSiblings: true }],
 			curly: "error",
-			"no-console": "error",
 			"no-inner-declarations": "off",
 			"react/display-name": "off",
 			"react/prop-types": "off",
 			"react/react-in-jsx-scope": "off",
+			"react-hooks/refs": "off",
+			"react-hooks/static-components": "off",
+			"react-hooks/immutability": "off",
+			"react-hooks/preserve-manual-memoization": "off",
 			"notice/notice": ["error", { template: license, onNonMatchingHeader: "replace", chars: license.length }],
 			eqeqeq: "error",
+			"no-console": "error",
+			"import/order": "off",
 			"import/no-extraneous-dependencies": "error",
+			"perfectionist/sort-imports": [
+				"error",
+				{
+					type: "line-length",
+					groups: ["side-effect", "builtin", "external", "a12", "core", "parent", ["sibling", "index"]],
+					customGroups: [
+						{ groupName: "a12", elementNamePattern: "^@com\\.mgmtp\\.a12\\." },
+						{ groupName: "core", elementNamePattern: "\\..*/main" }
+					]
+				}
+			],
+			"perfectionist/sort-named-imports": ["error", { type: "line-length" }],
 			"unused-imports/no-unused-imports": "error",
 			"no-restricted-imports": [
 				"error",
 				{
-					patterns: ["@com.mgmtp.a12*/**/internal/**", "@com.mgmtp.a12*/**/src/**"]
+					patterns: [
+						{
+							group: [
+								"../**/internal/*",
+								"!../**/internal/shared.js",
+								"@com.mgmtp.a12*/**/internal/**",
+								"@com.mgmtp.a12*/**/src/**"
+							],
+							message: "Importing from internal/src modules is not allowed. Please use the public API instead."
+						},
+						{
+							group: ["redux-saga"],
+							importNames: ["SagaIterator"],
+							message: "Use 'SagaGenerator' from 'typed-redux-saga' instead."
+						},
+						{
+							group: ["redux", "!./**"],
+							importNames: ["AnyAction"],
+							message: "AnyAction is deprecated in Redux 5. Use 'UnknownAction' or 'unknown' instead."
+						}
+					]
 				}
 			],
+
 			"typed-redux-saga/delegate-effects": "error",
 			"typed-redux-saga/use-typed-effects": "error",
 			"@typescript-eslint/consistent-type-imports": [
 				"error",
-				{ prefer: "type-imports", fixStyle: "inline-type-imports" }
+				{ prefer: "type-imports", fixStyle: "separate-type-imports" }
+			],
+			"@typescript-eslint/no-import-type-side-effects": "error",
+
+			"stylistic/padding-line-between-statements": [
+				"error",
+				{ blankLine: "always", prev: "*", next: ["if", "while", "for", "switch", "try", "do", "return"] },
+				{ blankLine: "always", prev: "block-like", next: "*" }
 			]
 		}
 	},
 	{
 		name: "test",
-		files: ["**/test/**"],
+		files: ["**/test/**", "**/*.test.ts"],
 		rules: {
-			"react-hooks/rules-of-hooks": "off",
-			"react/react-in-jsx-scope": "off",
+			"@typescript-eslint/no-non-null-assertion": "off",
 			"import/no-extraneous-dependencies": ["error", { devDependencies: true }],
-			"@typescript-eslint/no-unused-expressions": "off",
+			"no-console": "off",
 			"no-restricted-imports": ["error", { patterns: ["@com.mgmtp.a12*/**/internal/**", "@com.mgmtp.a12*/**/src/**"] }]
 		}
 	},
 	{
-		name: "documentation",
-		files: ["documentation/**"],
+		name: "internal",
+		files: ["services-utils/**", "**/scripts/**", "documentation/**"],
 		rules: {
+			"no-console": "off",
 			"import/no-extraneous-dependencies": "off"
-		}
-	},
-	{
-		name: "scripts",
-		files: ["**/scripts/**", "services-utils/**"],
-		rules: {
-			"@typescript-eslint/no-require-imports": ["off"],
-			"no-console": "off"
 		}
 	}
 ];

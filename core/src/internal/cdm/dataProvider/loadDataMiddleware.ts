@@ -35,25 +35,29 @@
  * @module cdm/data-provider
  * @experimental
  */
-import { ActivityActions, ActivitySelectors, StoreFactories } from "@com.mgmtp.a12.client/client-core";
+import { StoreFactories, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { addCddLink } from "../cdd/redux/actions.js";
 import { CddSelectors } from "../cdd/redux/selectors.js";
-import { type QueryPath } from "../cdmCommons/queryPath.js";
+import type { QueryPath } from "../cdmCommons/queryPath.js";
 
 /**
  * Trigger reloading of missing paths in CDD after a link has been added.
  */
 const loadDataMiddleware = StoreFactories.createMiddleware((api, next, action) => {
 	const result = next(action);
+
 	if (addCddLink.match(action)) {
 		const activity = ActivitySelectors.activityById(action.payload.activityId)(api.getState());
+
 		if (activity) {
 			const dataHolder = ActivitySelectors.dataHolderByDescriptor(activity.id, activity?.descriptor)(api.getState());
+
 			if (dataHolder) {
 				// Check if there is something to load;
 				// if not, then dispatch loadData in order to prevent UI switching to busy indicator.
 				const missing: QueryPath[] = CddSelectors.missingPathSelector(action.payload.activityId)(api.getState());
+
 				if (missing.length > 0) {
 					api.dispatch(
 						ActivityActions.loadData({
@@ -65,6 +69,7 @@ const loadDataMiddleware = StoreFactories.createMiddleware((api, next, action) =
 			}
 		}
 	}
+
 	return result;
 });
 

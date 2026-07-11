@@ -32,12 +32,11 @@
 
 import * as Path from "path";
 
-import { defineConfig, type RsbuildConfig } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
-import { pluginTypeCheck } from "@rsbuild/plugin-type-check";
+import { pluginBabel } from "@rsbuild/plugin-babel";
+import { defineConfig, type RsbuildConfig } from "@rsbuild/core";
 import { IgnorePlugin, SwcJsMinimizerRspackPlugin } from "@rspack/core";
 import { pluginStyledComponents } from "@rsbuild/plugin-styled-components";
-import { pluginBabel } from "@rsbuild/plugin-babel";
 
 import packageJson from "./package.json" with { type: "json" };
 
@@ -49,7 +48,6 @@ const PATH = {
 	HTML: Path.join(__dirname, "resources", "public", "index.html"),
 	NODE_MODULES: Path.join(__dirname, "node_modules"),
 	SRC: Path.join(__dirname, "src"),
-	CORE: Path.join(__dirname, "..", "overview-engine"),
 	ENTRY: Path.join(__dirname, "src", "index.tsx"),
 	COMPOSABLE_ENTRY: Path.join(__dirname, "src", "composable.appsetup.tsx"),
 	OUTPUT: Path.join(__dirname, "dist")
@@ -83,7 +81,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(({ command, envMode
 		},
 		source: {
 			entry: Object.fromEntries(Object.entries(entries).map(([name, entry]) => [name, entry.path])),
-			include: [PATH.SRC, PATH.CORE],
+			include: [PATH.SRC],
 			define: {
 				__A12_MODEL_VERSIONS__: JSON.stringify({}),
 				__VERSION__: `"${packageJson.version}"`,
@@ -94,22 +92,18 @@ const config: ReturnType<typeof defineConfig> = defineConfig(({ command, envMode
 			dedupe: ["immutable", "clsx", "scheduler", "react-is"],
 			alias: {
 				// caused by react-dnd
-				"react/jsx-runtime.js": "react/jsx-runtime",
-				// necessary for WhyDidYouRender to track useSelector
-				"react-redux": command === "dev" ? "react-redux/lib" : "react-redux"
+				"react/jsx-runtime.js": "react/jsx-runtime"
 			}
 		},
 		html: {
 			template: PATH.HTML,
-			favicon: "./resources/public/favicon.gif",
 			templateParameters: ({ entryName }) => entries[entryName as keyof typeof entries]
 		},
 		plugins: [
 			pluginReact(),
 			pluginStyledComponents(),
-			pluginTypeCheck(),
 			pluginBabel({
-				include: [PATH.SRC, PATH.CORE],
+				include: [PATH.SRC],
 				exclude: /node_modules/
 			})
 		],

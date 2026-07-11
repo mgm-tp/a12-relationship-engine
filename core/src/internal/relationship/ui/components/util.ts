@@ -35,18 +35,18 @@
  * @module relationship
  */
 
-import { type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
+import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
-	type OverviewEngineApi,
-	type OverviewEngineState,
 	SortingOrder,
-	OverviewModel
+	OverviewModel,
+	type OverviewEngineApi,
+	type OverviewEngineState
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
 
+import type { Relationship } from "../../relationship.js";
 import { DocumentModelUtils } from "../../../shared/utils.js";
 import { getEntityByRole } from "../../../cdm/commons/relationshipModelUtils.js";
-import { type Relationship } from "../../relationship.js";
 
 /** @internal */
 export function getSortingProps(
@@ -60,6 +60,7 @@ export function getSortingProps(
 	const {
 		candidateQuery: { sorts }
 	} = relationshipInstance;
+
 	if (sorts === undefined) {
 		return undefined;
 	}
@@ -77,6 +78,7 @@ export function getSortingProps(
 				OverviewModel.ReferenceColumn.isAssignableFrom(col) &&
 				DocumentModelUtils.getElementPathForId(col.elementRef, documentModel) === path
 		);
+
 		if (columnIndex < 0) {
 			throw new Error(`No column could be found for the path "${path}"`);
 		}
@@ -143,6 +145,21 @@ export function areMaxLinksAdded(
 	const multiplicityUpperLimit = targetEntityCharacteristic?.linkConstraints.multiplicity.upperLimit;
 
 	return typeof multiplicityUpperLimit === "number" && numberOfLinks >= multiplicityUpperLimit;
+}
+
+const UNITLESS_NUMBER = /^\d+(\.\d+)?$/;
+
+/**
+ * Normalizes a CSS length coming from a model configuration. SME may store a height as a unitless
+ * number (e.g. `"600"`), which is invalid CSS and ignored by the renderer; such a value is
+ * interpreted as pixels. Any value that already carries a unit or keyword is returned unchanged.
+ *
+ * @internal
+ */
+export function normalizeCssLength(value: string): string {
+	const trimmed = value.trim();
+
+	return UNITLESS_NUMBER.test(trimmed) ? `${trimmed}px` : value;
 }
 
 /** @internal */

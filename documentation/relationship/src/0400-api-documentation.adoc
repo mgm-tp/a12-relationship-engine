@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -17,4 +17,13 @@ THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPR
 ////
 = API Documentation
 
-The API documentation can be found link:./assets/generated/typedoc/index.html[here].
+The full type-level API reference for the Relationship Engine packages is generated from JSDoc by TypeDoc and published alongside this guide. `@internal` exports are excluded from the generated reference; what remains is the supported public surface.
+
+The two packages of interest are:
+
+* `@com.mgmtp.a12.relationshipengine/relationshipengine-core`, the engine setup, models, public events and view-customisation entry points.
+* `@com.mgmtp.a12.crud/crud-core`, the CRUD components built on top of `relationshipengine-core`.
+
+When consulting the generated API, treat the chapters in this guide as the conceptual map: anything described here has a public type behind it, and the TypeDoc page is the authoritative reference for the exact signatures.
+
+The generated reference can be found link:./assets/generated/typedoc/index.html[here].

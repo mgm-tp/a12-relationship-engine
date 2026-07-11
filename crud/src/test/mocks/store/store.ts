@@ -30,18 +30,17 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Middleware } from "redux";
-import { legacy_configureStore as configureStore, type MockStore } from "redux-mock-store";
+import type { Middleware } from "redux";
+import { type MockStore, legacy_configureStore as configureStore } from "redux-mock-store";
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Activity, type ActivityMap, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-
-import { setupActivityMap } from "../../utils/activity.js";
-import { US_LOCALE } from "../../utils/localization.js";
-import { type ModelMap } from "../../utils/models.js";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Activity, ActivityMap, ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 
 import { modelListToMap } from "../ModelsUtil.js";
+import type { ModelMap } from "../../utils/models.js";
+import { US_LOCALE } from "../../utils/localization.js";
+import { setupActivityMap } from "../../utils/activity.js";
 
 export function createGeneralStore(
 	options: {
@@ -57,7 +56,7 @@ export function createGeneralStore(
 	} = {}
 ): MockStore<object> {
 	const activityMap = options.activityMap ?? setupActivityMap(options.activities || []);
-	const store = configureStore<object>(options.middlewares)({
+	const store = configureStore<object>(options.middlewares as any)({
 		activities: activityMap,
 		models: {
 			applicationModel:

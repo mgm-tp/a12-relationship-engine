@@ -1,0 +1,82 @@
+{
+	"header": {
+		"id": "PolicyHolder",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "PolicyHolder"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "policy",
+				"reference": "Policy-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "holder",
+				"reference": "PolicyHolder-document"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"linkDocumentModel": null,
+		"labels": [],
+		"entityCharacteristics": [
+			{
+				"role": "policy",
+				"documentModel": "Policy-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "policy"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			},
+			{
+				"role": "holder",
+				"documentModel": "PolicyHolder-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "holder"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			}
+		]
+	}
+}

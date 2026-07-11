@@ -1,0 +1,45 @@
+{
+	"header": {
+		"id": "Contract-form-binding-CoInsurerBinding-DualPane_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItems",
+				"modelType": "overview",
+				"reference": "BusinessPartner_AvailableItemsOverview--CoInsurer"
+			},
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "CoInsurerLinks-overview-edit"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "CoInsurer-LinkForm"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "CoInsurerBinding_DualPane"
+			},
+			{
+				"locale": "de",
+				"text": "CoInsurerBinding_DualPane"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "CoInsurer",
+		"targetRole": "businessPartner",
+		"component": {
+			"componentType": "DualPaneSelection",
+			"availableItemsOverviewModel": "BusinessPartner_AvailableItemsOverview--CoInsurer",
+			"selectedItemsOverviewModel": "CoInsurerLinks-overview-edit",
+			"linkFormModel": "CoInsurer-LinkForm"
+		}
+	}
+}

@@ -1,0 +1,69 @@
+{
+	"header": {
+		"id": "ProductBrand_AdditionalFieldsModel",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Product brand additional fields"
+			},
+			{
+				"locale": "de",
+				"text": "Zusatzfelder Produktmarke"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "ProductBrand_AdditionalFieldsModel",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G1",
+					"name": "ProductBrand_AdditionalFieldsModel",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "F1",
+								"name": "linkNote",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

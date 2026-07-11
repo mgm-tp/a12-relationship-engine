@@ -35,11 +35,10 @@
  * @module cdm/cdd
  * @experimental
  */
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
+import type { CddState } from "../cddState.js";
 import { LINK_ID, T_DOC_REF } from "../../../cdmCommons/cddTechnical.js";
-
-import { type CddState } from "../cddState.js";
 
 /**
  * @internal
@@ -70,6 +69,7 @@ export function fromCdd(cddState: CddState): DocumentGraphReferences {
 		if (!currentObject || typeof currentObject !== "object") {
 			return;
 		}
+
 		for (const [key, value] of Object.entries(currentObject)) {
 			if (key === T_DOC_REF) {
 				docRefs.add(value as string);

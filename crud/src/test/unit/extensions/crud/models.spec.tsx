@@ -30,20 +30,20 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
 import { Provider } from "react-redux";
-import { legacy_configureStore as configureStore, type MockStore } from "redux-mock-store";
+import { test, expect, describe } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { type MockStore, legacy_configureStore as configureStore } from "redux-mock-store";
 
-import { type Model } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
-import { type OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { Model } from "@com.mgmtp.a12.base/base-model-api";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { CRUDViews } from "../../../../internal/views.js";
+import { TestWrapper } from "../../../utils/testWrapper.js";
 import { createTestModels } from "../../../mocks/ModelsUtil.js";
 import { createGeneralStore } from "../../../mocks/store/store.js";
 import { createActivity, type DocumentListData } from "../../../utils/activity.js";
-import { TestWrapper } from "../../../utils/testWrapper.js";
 
 import { applicationModules } from "./mocks/ApplicationModel.js";
 
@@ -68,6 +68,7 @@ const mountOverviewCRUD = (models: Model[]) => (activity: Activity) => {
 			</TestWrapper>
 		</Provider>
 	);
+
 	return { props, store };
 };
 
@@ -87,6 +88,7 @@ function createActivityWithDataHolder(descriptor: Activity.Descriptor, data: obj
 		]
 	});
 }
+
 describe("com.mgmtp.a12.crud.lib.extensions.crud.views", () => {
 	describe("OverviewCRUD", () => {
 		describe(

@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { QueryJsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 /* @internal */
 export function getLink(links: QueryJsonRpc2Response.Link[], linkId: string): QueryJsonRpc2Response.Link | undefined {

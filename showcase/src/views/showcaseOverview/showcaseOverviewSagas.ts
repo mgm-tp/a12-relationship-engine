@@ -30,25 +30,25 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type SagaIterator } from "redux-saga";
-import { call, put, select, takeLatest } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { put, call, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
-import { ActivityActions, ActivitySagas, ActivitySelectors, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
 import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { OverviewActivity } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { ActivitySagas, ModelSelectors, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { selectRowReadonly, type SelectRowReadonlyPayload } from "./showcaseOverviewActions.js";
 
 const logger = LoggerFactory.getLogger("ShowcaseOverview");
 
-export function* selectRowReadonlySaga(): SagaIterator<void> {
+export function* selectRowReadonlySaga(): SagaGenerator<void> {
 	yield* takeLatest(selectRowReadonly, selectRow);
 }
 
-function* selectRow(action: Action<SelectRowReadonlyPayload>): SagaIterator<void> {
+function* selectRow(action: Action<SelectRowReadonlyPayload>): SagaGenerator<void> {
 	const { instanceId, activityId } = action.payload;
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 	if (activity === undefined) {
 		throw new Error(`Activity [id: ${activityId}] does not exist in the store anymore.`);
 	}
@@ -58,8 +58,10 @@ function* selectRow(action: Action<SelectRowReadonlyPayload>): SagaIterator<void
 	if (!OverviewActivity.Data.DocumentListData.isInstance(activity.dataHolders[0].data)) {
 		throw new Error(`Activity [id: ${activityId}] does not contain a document list.`);
 	}
+
 	const documents = activity.dataHolders[0].data.documents;
 	const modelId = documents?.find((item) => item?.id === instanceId)?.modelId;
+
 	if (modelId === undefined) {
 		throw new Error(`Cannot find modelId for document ${instanceId}, activity [id: ${activityId}]`);
 	}
@@ -87,13 +89,15 @@ function* selectRow(action: Action<SelectRowReadonlyPayload>): SagaIterator<void
 function* cancelDocumentActivityIfPresent(
 	activityId: string,
 	action: Action<ActivityActions.PushPayload>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 	if (!activity) {
 		throw new Error("Expected activity to exist.");
 	}
 
 	const activityWithInstance = yield* select(ActivitySelectors.childActivityWithInstance(activity.id));
+
 	if (activityWithInstance) {
 		logger.log("cancel document");
 
@@ -105,6 +109,7 @@ function* cancelDocumentActivityIfPresent(
 		);
 
 		const cancelled = yield* call(ActivitySagas.waitForResponseCancelRequested);
+
 		if (!cancelled) {
 			return;
 		}

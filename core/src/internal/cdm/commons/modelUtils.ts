@@ -35,10 +35,8 @@
  * @module cdm
  * @experimental
  */
-import { type Header } from "@com.mgmtp.a12.base/base-model-api/lib/main/header/index.js";
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/facade.js";
+import type { Header, ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import { type DocumentModel, DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 export function queryRootName(documentModel: DocumentModel): string | undefined {
 	return resolveHeaderAnnotationOrUndefined(documentModel.header, "cdm.queryRoot");
@@ -47,9 +45,11 @@ export function queryRootName(documentModel: DocumentModel): string | undefined 
 /** @internal */
 export function resolveAnnotation(dmElement: DocumentModel.Element, name: string): string {
 	const value = resolveAnnotationOrUndefined(dmElement, name);
+
 	if (typeof value !== "string") {
 		throw new Error(`Annotation with name "${name}" is not of type string.`);
 	}
+
 	return value;
 }
 
@@ -61,9 +61,11 @@ export function resolveAnnotationOrUndefined(dmElement: DocumentModel.Element, n
 /** @internal */
 export function resolveHeaderAnnotation(header: Header, name: string): string {
 	const value = resolveHeaderAnnotationOrUndefined(header, name);
+
 	if (typeof value !== "string") {
 		throw new Error(`Annotation with name "${name}" is not of type string.`);
 	}
+
 	return value;
 }
 
@@ -75,6 +77,7 @@ export function resolveHeaderAnnotationOrUndefined(header: Header, name: string)
 /** @internal */
 export function deserializeDocumentModel(serializedDM: object): DocumentModel {
 	const serializer = new DocumentServiceFactory().getDocumentModelSerializer();
+
 	return serializer.deserialize(JSON.stringify(serializedDM));
 }
 

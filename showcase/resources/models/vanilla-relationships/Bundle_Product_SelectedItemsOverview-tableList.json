@@ -1,0 +1,98 @@
+{
+	"header": {
+		"id": "Bundle_Product_SelectedItemsOverview-tableList",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Bundle_Product_SelectedItemsOverview-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-1ff1e",
+				"elementRef": "F1",
+				"sortable": false,
+				"preferredSorting": "ASC",
+				"width": 1,
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Bundle",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-a5157",
+				"elementRef": "F2",
+				"sortable": false,
+				"width": 1,
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Bundle",
+						"type": "CHILD"
+					}
+				]
+			},
+			{
+				"id": "column-6a679",
+				"elementRef": "F5",
+				"sortable": false,
+				"width": 1,
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Bundle",
+						"type": "LINK"
+					}
+				]
+			},
+			{
+				"sortable": false,
+				"width": 1,
+				"id": "column-7112e",
+				"elementRef": "field_d4c4b",
+				"linkReferences": [
+					{
+						"relationship": "ProductBundle",
+						"targetRole": "Bundle",
+						"type": "CHILD"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"pagingSize": 10,
+			"showFullTextSearch": false,
+			"enableFilter": false
+		},
+		"rowActivation": {
+			"type": "non_interactive"
+		}
+	}
+}

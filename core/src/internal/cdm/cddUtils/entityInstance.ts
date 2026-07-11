@@ -30,11 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import {
-	type EntityInstancePath,
-	type FieldInstanceValue,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance, EntityInstancePath, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /**
  * Instance of a Group or Field represented by its path and value

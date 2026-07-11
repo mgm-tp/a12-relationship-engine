@@ -2,7 +2,7 @@
 	"header": {
 		"id": "LegalEntityCDM",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,35 +21,47 @@
 			{
 				"name": "cdm.queryRoot",
 				"value": "LegalEntity-document"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
 			{
-				"alias": "LegalEntity-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "LegalEntity-document"
 			},
 			{
-				"alias": "Address-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Address-document"
 			},
 			{
-				"alias": "CoInsurerAdditionalFields",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "CoInsurerAdditionalFields"
 			},
 			{
-				"alias": "Contract-document",
 				"modelType": "document",
 				"purpose": "include",
+				"reference": "Contract-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "LegalEntity-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "Address-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "CoInsurerAdditionalFields"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
 				"reference": "Contract-document"
 			}
 		]
@@ -75,7 +87,9 @@
 					"name": "businessPartner",
 					"Group": {
 						"repeatability": 1,
-						"modelAlias": "LegalEntity-document"
+						"includeConfig": {
+							"reference": "LegalEntity-document"
+						}
 					}
 				},
 				{
@@ -109,7 +123,9 @@
 								"name": "address",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Address-document"
+									"includeConfig": {
+										"reference": "Address-document"
+									}
 								}
 							}
 						]
@@ -146,7 +162,9 @@
 								"name": "address",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Address-document"
+									"includeConfig": {
+										"reference": "Address-document"
+									}
 								}
 							},
 							{
@@ -201,7 +219,9 @@
 											"name": "additionalFields",
 											"Group": {
 												"repeatability": 1,
-												"modelAlias": "CoInsurerAdditionalFields"
+												"includeConfig": {
+													"reference": "CoInsurerAdditionalFields"
+												}
 											}
 										}
 									]
@@ -213,7 +233,9 @@
 								"name": "contract",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Contract-document"
+									"includeConfig": {
+										"reference": "Contract-document"
+									}
 								}
 							},
 							{

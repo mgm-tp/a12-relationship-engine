@@ -1,7 +1,10 @@
 {
 	"extends": "../tsconfig",
-	"include": ["*.config.ts"],
+	"include": ["*.config.ts", "package.json"],
 	"compilerOptions": {
-		"composite": true
+		"composite": true,
+		"rootDir": "${configDir}",
+		"outDir": "${configDir}/lib",
+		"resolveJsonModule": true
 	}
 }

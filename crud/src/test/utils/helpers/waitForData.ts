@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type AnyAction, type Store } from "redux";
+import type { Store, UnknownAction } from "redux";
 
 import { type Activity, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
@@ -45,14 +45,17 @@ interface Options {
 
 export type WaitForDataFunc = (options: Options) => Promise<boolean | undefined>;
 
-export function waitForDataWithStore(store: Store<object, AnyAction>): WaitForDataFunc {
+export function waitForDataWithStore(store: Store<object, UnknownAction>): WaitForDataFunc {
 	const waitFor = waitForWithStore(store);
+
 	return function waitForData({ activityId, descriptor, assertCallback }) {
 		return waitFor((state: object) => {
 			const dataHolder = ActivitySelectors.dataHolderByDescriptor(activityId, descriptor)(state);
+
 			if (dataHolder === undefined) {
 				throw new Error(noDataHolderFoundError(state, activityId, descriptor));
 			}
+
 			assertCallback(dataHolder.data);
 		});
 	};
@@ -61,6 +64,7 @@ export function waitForDataWithStore(store: Store<object, AnyAction>): WaitForDa
 function noDataHolderFoundError(state: object, activityId: string, descriptor: Activity.DataHolderDescriptor): string {
 	const activity = ActivitySelectors.activityById(activityId)(state);
 	const dataHolders = (activity && activity.dataHolders) || [];
+
 	return (
 		"Could not find a matching data holder for the given descriptor [" +
 		JSON.stringify(descriptor, null, 2) +

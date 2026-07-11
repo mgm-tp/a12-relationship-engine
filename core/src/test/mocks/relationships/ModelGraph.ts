@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import JSON from "./mockModelGraph.json" with { type: "json" };
+import JSON from "./generated/mockModelGraph.json" with { type: "json" };
 
-export const MOCK_MODEL_GRAPH = JSON as ModelGraph;
+export const MOCK_MODEL_GRAPH = JSON as unknown as ModelGraph;

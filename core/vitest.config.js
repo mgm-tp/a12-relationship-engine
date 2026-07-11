@@ -34,6 +34,8 @@ import { defineConfig } from "vitest/config";
 import pluginReact from "@vitejs/plugin-react";
 
 export default defineConfig({
+	/** Suppress annoying unsupported es2025 warning message from esbuild, which might crash Jenkins instance */
+	esbuild: { tsconfigRaw: { compilerOptions: { target: "es2024", useDefineForClassFields: true } } },
 	test: {
 		setupFiles: ["./src/test/utils/vitest.setup.ts"],
 		environment: "jsdom",

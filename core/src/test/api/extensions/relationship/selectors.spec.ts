@@ -30,23 +30,23 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, beforeEach, expect } from "vitest";
-import { legacy_configureStore as configureStore, type MockStore } from "redux-mock-store";
+import { test, expect, describe, beforeEach } from "vitest";
+import { type MockStore, legacy_configureStore as configureStore } from "redux-mock-store";
 
-import { type ActivityMap } from "@com.mgmtp.a12.client/client-core";
+import type { ActivityMap } from "@com.mgmtp.a12.client/client-core";
 
-import { type Relationship } from "../../../../internal/relationship/relationship.js";
+import type { ModelState } from "../../../utils/models.js";
+import type { Relationship } from "../../../../internal/relationship/relationship.js";
 import { RelationshipSelectors } from "../../../../internal/relationship/selectors.js";
 import {
 	ACTIVITY_ID,
-	CANDIDATE_OVERVIEW_MODEL_ID,
 	COMPONENT_CONFIG,
-	COMPONENT_CONFIG_FORM_MODEL_FIRST,
-	createActivitySlice,
 	createModelSlice,
-	LINK_OVERVIEW_MODEL_ID
+	createActivitySlice,
+	LINK_OVERVIEW_MODEL_ID,
+	CANDIDATE_OVERVIEW_MODEL_ID,
+	COMPONENT_CONFIG_FORM_MODEL_FIRST
 } from "../../../mocks/relationships/mocks.js";
-import { type ModelState } from "../../../utils/models.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.RelationshipSelectors", () => {
 	describe("overviewModels", () => {
@@ -104,6 +104,7 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 						})(store.getState());
 
 						expect(selection.loadingState).to.be.equal("loaded");
+
 						if (selection.loadingState === "loaded") {
 							expect(selection.overviewModel.header.id).to.be.equal(params.expectedModelId);
 						}

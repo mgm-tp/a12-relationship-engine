@@ -30,16 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { ApplicationFactories, type ApplicationSetup, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 import { createPlatformServerModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
+import { ApplicationFactories, type ApplicationSetup, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 // tag::setup[]
 import {
-	cddDataHolderReducerExtension,
-	cddReducers,
 	cdmSagas,
-	createCddDataProvider,
+	cddReducers,
+	dgReducerFactory,
 	createCdmMiddlewares,
-	dgReducerFactory
+	createCddDataProvider,
+	cddDataHolderReducerExtension
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
 
 export function setup(model: ApplicationModel): ApplicationSetup {

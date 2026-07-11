@@ -36,7 +36,7 @@
  * @experimental
  */
 
-import { type RESOURCE_KEYS } from "./keys.js";
+import type { RESOURCE_KEYS } from "./keys.js";
 
 /**
  * @internal

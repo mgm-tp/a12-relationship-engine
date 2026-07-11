@@ -33,20 +33,20 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ActivitySelectors, type View } from "@com.mgmtp.a12.client/client-core";
+import { type View, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import {
-	FormEngineActions,
-	FormEngineStateAdapter,
 	FormEngineViews,
+	FormEngineActions,
+	type FormModelMap,
 	DefaultFormModelMap,
-	type FormModelMap
+	FormEngineStateAdapter
 } from "@com.mgmtp.a12.formengine/formengine-core";
 import {
-	type RelationshipViews,
+	TableList,
 	DualPaneSelection,
+	type RelationshipViews,
 	cddActivityStateAdapter,
-	createRelationshipFormModelMap,
-	TableList
+	createRelationshipFormModelMap
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
 
 const CustomFormModelMap: FormModelMap = {
@@ -56,21 +56,26 @@ const CustomFormModelMap: FormModelMap = {
 			if (config.name === "DualPaneSelection") {
 				return { type: "MultiSelection", component: CustomDualPane };
 			}
+
 			if (config.name === "TableList") {
 				return { type: "List", component: CustomTableList };
 			}
+
 			return undefined;
 		}
 	})
 };
 
 export function CustomRelationshipFormEngine(props: View): React.ReactNode {
-	const stateProps = useSelector((state) => {
+	const stateProps = useSelector((state: object) => {
 		const activity = ActivitySelectors.activityById(props.activityId)(state);
+
 		if (!activity) {
 			return {};
 		}
+
 		const adaptedState = cddActivityStateAdapter(activity)(state);
+
 		return FormEngineStateAdapter.mapStateToProps(adaptedState, {
 			...props,
 			formModelMap: CustomFormModelMap
@@ -88,6 +93,7 @@ function CustomDualPane(props: RelationshipViews.MultiSelectionProps) {
 		if (props.assignments.loadingState !== "loaded") {
 			return props.assignments;
 		}
+
 		return { ...props.assignments, data: [...props.assignments.data].sort(sortFunction) };
 	}, [props.assignments]);
 
@@ -104,6 +110,7 @@ function CustomTableList(props: RelationshipViews.ListProps) {
 		if (props.items.loadingState !== "loaded") {
 			return props.items;
 		}
+
 		return { ...props.items, data: [...props.items.data].sort(sortFunction) };
 	}, [props.items]);
 
@@ -122,11 +129,14 @@ interface Item {
 const sortFunction = (a1: Item, a2: Item) => {
 	const a1Name = a1.documentJson?.target?.businessPartner?.name;
 	const a2Name = a2.documentJson?.target?.businessPartner?.name;
+
 	if (a1Name === a2Name) {
 		return 0;
 	}
+
 	if (a1Name > a2Name) {
 		return -1;
 	}
+
 	return 1;
 };

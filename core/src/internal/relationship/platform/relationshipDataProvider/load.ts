@@ -35,20 +35,20 @@
  * @module relationship
  */
 
-import { all, call, put, type SagaGenerator, select } from "typed-redux-saga";
+import { all, put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { type Activity, ActivityActions, ActivitySelectors, LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
+import { setThumbnails } from "@com.mgmtp.a12.client/client-core/a12internal";
+import { convertThumbnailResponse } from "@com.mgmtp.a12.client/client-core/a12internal";
 import { Dispatcher, LoadThumbnailUrlsJsonRpc2 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { setThumbnails } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/action.js";
-import { convertThumbnailResponse } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import { type Activity, ActivityActions, LocaleSelectors, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
-import { type RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
-import { RequestBuilder } from "../../../server-connectors/requestBuilder.js";
 import { RelationshipActions } from "../../actions.js";
+import { RequestBuilder } from "../../../server-connectors/requestBuilder.js";
+import type { RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
 
 import { convertResponses } from "./server/convertResponses.js";
-import { createLoadRequests } from "./server/createLoadRequests.js";
 import { wrapIfServerError } from "./server/wrapIfServerError.js";
+import { createLoadRequests } from "./server/createLoadRequests.js";
 
 /* @internal */
 export function* loadData(
@@ -57,6 +57,7 @@ export function* loadData(
 ): SagaGenerator<void> {
 	const { activityId, dataHolders } = config;
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 	if (activity === undefined) {
 		throw new Error(`No activity found for id ${activityId}.`);
 	}
@@ -75,6 +76,7 @@ export function* loadData(
 		);
 
 		const thumbnailResponse = responses.find(LoadThumbnailUrlsJsonRpc2.Response.isInstance);
+
 		if (thumbnailResponse) {
 			yield* put(setThumbnails({ activityId, thumbnails: convertThumbnailResponse(thumbnailResponse) }));
 		}

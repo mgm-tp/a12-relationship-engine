@@ -1,0 +1,69 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= Architecture Overview
+
+== Summary
+
+The Relationship Engine is structured around four ideas. None of them are large in isolation; the architecture is the way they fit together.
+
+Composable feature::
+The Relationship Engine is registered alongside Form Engine and Overview Engine through a dedicated A12 composable. It never mutates Form Engine or Overview Engine state. It observes their actions, keeps its own state, and delegates form rendering to Form Engine and table rendering to Overview Engine. The setup is type-safe: the composable will not type-check unless Form Engine and Overview Engine are configured first, and it cannot be applied twice.
+
+Changelog as the single source of truth for changes::
+Every user-visible change, whether adding or removing a link, editing a link document, drafting a new child document, or editing a field on an existing Composed Document Model document, is recorded as an entry in an append-only changelog. The changelog is held in a dedicated data holder per activity. Selectors derive everything else (effective changes for save, drafting rows, lifecycle badges, link indicator counts) from this single log.
+
+Document Graph for Composed Document Model::
+Composed Document Model activities additionally maintain an immutable Document Graph: the tree of documents and links rooted at the Composed Document Model root. Each changelog entry is folded into a fresh Document Graph instance. Activities outside Composed Document Model do not have a Document Graph; their Relationship UI Models work directly against Overview Engine data holders, with the changelog tracking only link additions and deletions.
+
+Standalone Relationship UI Model, not annotation::
+Relationship configuration lives in standalone A12 models, namely a Relationship UI Model per relationship UI (Dual Pane, Table List, or Dropdown), a Query Model per data fetch and (for pane-based Relationship UI Models) an Overview Model per pane. Components, queries and panes reference these models by name. The previous approach of stringified JSON inside Form Engine annotations is no longer used.
+
+== Layers
+
+The runtime decomposes into three layers:
+
+. *Application setup*, which registers the Relationship Engine artefacts next to those of Form Engine and Overview Engine. Each registration is additive.
+. *Redux store*, which holds the changelog, the optional Document Graph, the selected items and available items data holders (which are Overview Engine compatible), and the dropdown selection state. Selectors expose a stable read interface to the view layer.
+. *View layer*, a context-driven `ComponentMap` and `WidgetMap`. Default implementations of `DualPane`, `TableList`, `DropDownSelection`, the Overview Engine wrapper and supporting widgets ship with the package and can be replaced individually.
+
+The flow of a change through these layers is consistent: a UI event is observed by a middleware, the middleware (or a saga it kicks off) appends a changelog entry, the entry is folded into the Document Graph in Composed Document Model activities, and selectors recompute so React re-renders only the affected components. On save, a save handler reads the deduplicated effective changes from the changelog and routes them either as a merge into a parent activity's changelog or as a persist call to DataServices.
+
+== Changelog based state management
+
+.Architecture comparison: legacy dual-path implementation versus the new unified changelog pipeline. The legacy side is shown for reference; the new architecture collapses both CDM and non-CDM paths into a single Changelog and DocumentGraph.
+image::assets/images/new-architecture/architecture-overview.png[Unified changelog architecture diagram showing legacy dual-path versus new single pipeline]
+
+The same machinery serves both Composed Document Model and non-Composed Document Model activities. The differences are limited to:
+
+* whether a Document Graph data holder is present,
+* which changelog entry kinds can occur (activities outside Composed Document Model only ever produce link-add and link-delete entries; Composed Document Model activities additionally produce document-add, document-change, and the cached transient entries used by SCDM and sub-document-graph loading),
+* whether a child activity's changelog is seeded from a parent activity (a Composed Document Model feature for editing a drafting sub CDM tree).
+
+Application setup, view customisation and the modelling story are the same in both modes.
+
+A change worth noting against the current architecture: in the new architecture a *changelog is always present*, regardless of whether the activity is Composed Document Model or not. Every Relationship Engine feature, including the link lifecycle indicators, the drafting rows in the selected items pane, the Parent Link Descriptor protocol and the save routing, derives from this single structure.
+
+== Reading order
+
+The remaining chapters take this overview from setup to extension:
+
+* <<_composable_setup,Composable Setup>>, how the Relationship Engine is wired into an A12 application alongside Form Engine and Overview Engine.
+* <<_modeling,Modeling>>, the Relationship UI Model, Query Model and Overview Model, and how they describe a relationship UI end-to-end.
+* <<_state_management,State Management>>, what the changelog, Document Graph, Overview Engine, Dropdown data holders contribute, plus the Parent Link Descriptor protocol for parents that are not Relationship Engine activities.
+* <<_view_customization,View Customization>>, the `ComponentMap`, `WidgetMap`, and the supported event hooks.
+* <<_migration,Migration>>, the migration tool for converting existing bindings to Relationship UI Models.

@@ -1,9 +1,17 @@
+// Shared base config for all packages. All packages emit via tsc --build.
 {
 	"extends": "@com.mgmtp.a12.devtools/tsconfig",
+	"include": ["${configDir}/src/**/*.ts", "${configDir}/src/**/*.tsx", "${configDir}/src/**/*.json"],
 	"exclude": ["**/node_modules", "**/.*/"],
 	"compilerOptions": {
+		"composite": true,
 		"incremental": true,
+		"noEmitOnError": false,
 		"preserveWatchOutput": true,
-		"noEmitOnError": false
+		"stableTypeOrdering": true,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"rootDir": "${configDir}/src",
+		"outDir": "${configDir}/lib"
 	}
 }

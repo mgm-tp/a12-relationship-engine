@@ -30,19 +30,22 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { afterAll, beforeAll, beforeEach, describe, expect, type Mock, type MockInstance, test, vi } from "vitest";
-import { type Action } from "redux";
-import { expectSaga, type RunResult } from "redux-saga-test-plan";
 import * as TypeMoq from "typemoq";
+import type { Action } from "redux";
+import { expectSaga, type RunResult } from "redux-saga-test-plan";
+import { vi, test, expect, afterAll, describe, beforeAll, type Mock, beforeEach, type MockInstance } from "vitest";
 
+import type { FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { ConnectorLocator, RestServerConnector, type RestRequestPayload } from "@com.mgmtp.a12.utils/utils-connector";
 import {
 	type Activity,
+	ModelSelectors,
 	ActivityActions,
-	type ActivityMap,
-	NEW_INSTANCE_IDENTIFIER,
-	type DataProvider,
 	LocaleSelectors,
-	ModelSelectors
+	type ActivityMap,
+	type DataProvider,
+	NEW_INSTANCE_IDENTIFIER
 } from "@com.mgmtp.a12.client/client-core";
 import {
 	Dispatcher,
@@ -51,31 +54,24 @@ import {
 	type RelationshipJsonRpc2response,
 	type Relationship as RelationshipServerApi
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import {
-	ConnectorLocator,
-	type RestRequestPayload,
-	RestServerConnector
-} from "@com.mgmtp.a12.utils/utils-connector/lib/main/index.js";
 
-import {
-	type Relationship,
-	type RelationshipDocument,
-	RelationshipFactories,
-	RelationshipSelectors
-} from "../../../../internal/relationship/index.js";
+import { thenable } from "../../../utils/promise.js";
+import { createDataHolder } from "../../../utils/activity.js";
+import { createGeneralStore } from "../../../mocks/store/store.js";
+import { RequestBuilder } from "../../../../internal/server-connectors/requestBuilder.js";
 import { DocumentProcessors } from "../../../../internal/relationship/platform/document-processor.js";
-import { RelationshipDataProviderSelectors } from "../../../../internal/relationship/platform/relationshipDataProvider/selectors.js";
 import {
 	createDocumentModel,
-	createOverviewModelsLoaded,
-	createRelationshipModel
+	createRelationshipModel,
+	createOverviewModelsLoaded
 } from "../../../mocks/relationships/mocks.js";
-import { createGeneralStore } from "../../../mocks/store/store.js";
-import { createDataHolder } from "../../../utils/activity.js";
-import { thenable } from "../../../utils/promise.js";
-import { RequestBuilder } from "../../../../internal/server-connectors/requestBuilder.js";
+import { RelationshipDataProviderSelectors } from "../../../../internal/relationship/platform/relationshipDataProvider/selectors.js";
+import {
+	type Relationship,
+	RelationshipFactories,
+	RelationshipSelectors,
+	type RelationshipDocument
+} from "../../../../internal/relationship/index.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.RelationshipFactories", () => {
 	let fetchSpy: Mock;
@@ -127,6 +123,7 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 			activity.setup((x) => x.id).returns(() => "1");
 			activity.setup((x) => x.descriptor).returns(() => mockActivityDescriptor);
 			activity.setup((x) => x.dataHolders).returns(() => dataHolders);
+
 			return activity.object;
 		}
 
@@ -137,6 +134,7 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 			dataHolder.setup((x) => x.data).returns(() => activityData);
 			dataHolder.setup((x) => x.descriptor).returns(() => mockActivityDescriptor);
 			dataHolder.setup((x) => x.error).returns(() => undefined);
+
 			return dataHolder.object;
 		}
 
@@ -172,13 +170,16 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 				const dataHolders: { [key: string]: Activity.DataHolder } = {
 					activity: mockActivityDataHolder()
 				};
+
 				if (relationshipActivity) {
 					dataHolders.link = mockDataHolder("link", {});
 					dataHolders.candidate = mockDataHolder("candidate", {});
 				}
+
 				if (includeUnknown) {
 					dataHolders.unknown = mockDataHolder("unknown", {});
 				}
+
 				activity.setup((x) => x.dataHolders).returns(() => Object.values(dataHolders));
 
 				return { activity: activity.object, dataHolders };
@@ -319,6 +320,7 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 					loadConfig.setup((x) => x.operation).returns(() => "load");
 					loadConfig.setup((x) => x.activityId).returns(() => activity.id);
 					loadConfig.setup((x) => x.dataHolders).returns(() => activity.dataHolders ?? []);
+
 					return loadConfig.object;
 				}
 
@@ -532,6 +534,7 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 					saveConfig.setup((x) => x.activityId).returns(() => activity.id);
 					saveConfig.setup((x) => x.dataHolders).returns(() => activity.dataHolders ?? []);
 					saveConfig.setup((x) => x.details).returns(() => details.object);
+
 					return saveConfig.object;
 				}
 
@@ -567,6 +570,7 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 							const link = TypeMoq.Mock.ofType<RelationshipServerApi.LinkWithDocument>();
 							link.setup((x) => x.linkRef).returns(() => ({ id, linkDescriptor }));
 							link.setup((x) => x.document).returns(() => ({ relationship: {} }));
+
 							return link.object;
 						}
 
@@ -727,6 +731,7 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.Rela
 					deleteConfig.setup((x) => x.activityId).returns(() => activity.id);
 					deleteConfig.setup((x) => x.dataHolders).returns(() => activity.dataHolders ?? []);
 					deleteConfig.setup((x) => x.details).returns(() => ({ instanceId: instanceIdMock }));
+
 					return deleteConfig.object;
 				}
 
@@ -797,6 +802,7 @@ function fetchStub(payload: RestRequestPayload): Promise<Response> {
 					links: []
 				}
 			};
+
 			return candidateResponse;
 		} else if (request.id?.toString().includes("link")) {
 			const link = TypeMoq.Mock.ofType<RelationshipServerApi.LinkWithDocument>();
@@ -833,6 +839,7 @@ function fetchStub(payload: RestRequestPayload): Promise<Response> {
 					]
 				}
 			};
+
 			return linkResponse;
 		} else {
 			// load thumbnails
@@ -850,6 +857,7 @@ function fetchStub(payload: RestRequestPayload): Promise<Response> {
 
 function removeId(req: JsonRpc2Request): Omit<JsonRpc2Request, "id"> {
 	const { id, ...rest } = req;
+
 	return rest;
 }
 

@@ -36,11 +36,11 @@
  * @experimental
  */
 
-import { type SagaGenerator } from "typed-redux-saga";
+import type { SagaGenerator } from "typed-redux-saga";
 
-import { type DataProvider } from "@com.mgmtp.a12.client/client-core";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DataProvider } from "@com.mgmtp.a12.client/client-core";
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /** @internal */
 export type LoadType = "create" | "load";

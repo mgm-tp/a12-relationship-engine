@@ -30,11 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { assertCondition } from "../../shared/assertion.js";
-import { type DocumentGraph } from "../../documentGraph/core/documentGraph.js";
-import { type DeepReadonly } from "../../documentGraph/core/utilityTypes.js";
+import type { DeepReadonly } from "../../documentGraph/core/utilityTypes.js";
+import type { DocumentGraph } from "../../documentGraph/core/documentGraph.js";
 
 /** @internal */
 export function findDocumentGraphDocument(

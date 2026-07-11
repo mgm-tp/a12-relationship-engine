@@ -29,25 +29,24 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module documentGraph/core
  * @experimental
  */
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
-import { type Change, type ChangeLog } from "./changeLog/changeLog.js";
-import { applyChanges, clearMarker, findMarker, newChangeLog, trim } from "./changeLog/changeLogImpl.js";
-import { type DocumentGraph } from "./documentGraph.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
 import * as DgOps from "./impl/dg.js";
 import * as DocOps from "./impl/docs.js";
 import * as LinkOps from "./impl/links.js";
-import { type DgChangeLogSlice, type DgSlice } from "./slices.js";
-import { type DeepReadonly, type ElementRef } from "./utilityTypes.js";
-
-import { type DgChange } from "./index.js";
+import type { DgChange } from "./index.js";
+import type { DocumentGraph } from "./documentGraph.js";
+import type { DgSlice, DgChangeLogSlice } from "./slices.js";
+import type { Change, ChangeLog } from "./changeLog/changeLog.js";
+import type { ElementRef, DeepReadonly } from "./utilityTypes.js";
+import { trim, findMarker, clearMarker, applyChanges, newChangeLog } from "./changeLog/changeLogImpl.js";
 
 export function initialize(
 	documentGraph: DeepReadonly<DocumentGraph>,
@@ -65,6 +64,7 @@ export function mergeInto(
 		partialDg
 	});
 	const changeLog = applyChanges(prev.changeLog, changes);
+
 	return { documentGraph, changeLog };
 }
 
@@ -77,6 +77,7 @@ export function addLink(
 ): DgSlice & DgChangeLogSlice {
 	const [documentGraph, changes] = LinkOps.addLink(arg.linkDescriptor, arg.linkDoc, prev.documentGraph);
 	const changeLog = applyChanges(prev.changeLog, changes);
+
 	return { documentGraph, changeLog };
 }
 
@@ -86,6 +87,7 @@ export function removeLink(
 ): DgSlice & DgChangeLogSlice {
 	const [documentGraph, changes] = LinkOps.removeLink(linkRef, prev.documentGraph);
 	const changeLog = applyChanges(prev.changeLog, changes);
+
 	return { documentGraph, changeLog };
 }
 
@@ -104,6 +106,7 @@ export function addDocument(
 		prev.documentGraph as DocumentGraph
 	);
 	const changeLog = applyChanges(prev.changeLog, changes);
+
 	return { documentGraph, changeLog };
 }
 
@@ -136,7 +139,9 @@ export function changeDocument(prev: DgSlice & DgChangeLogSlice, arg: ChangeDocu
 	} else {
 		[documentGraph, changes] = DocOps.changeDocument(arg.document, arg.elementRef, prev.documentGraph as DocumentGraph);
 	}
+
 	const changeLog = applyChanges(prev.changeLog, changes);
+
 	return { documentGraph, changeLog };
 }
 
@@ -151,6 +156,7 @@ export const transaction = {
 			}
 		];
 		const changeLog = applyChanges(prev.changeLog, changes);
+
 		return {
 			documentGraph,
 			changeLog
@@ -160,6 +166,7 @@ export const transaction = {
 	commit: (prev: DgSlice & DgChangeLogSlice): DgSlice & DgChangeLogSlice => {
 		const documentGraph = prev.documentGraph;
 		const changeLog = clearMarker(prev.changeLog);
+
 		return {
 			documentGraph,
 			changeLog
@@ -168,11 +175,14 @@ export const transaction = {
 
 	rollback: (prev: DgSlice & DgChangeLogSlice): DgSlice & DgChangeLogSlice => {
 		const marker = findMarker(prev.changeLog);
+
 		if (marker === undefined) {
 			return prev;
 		}
+
 		const documentGraph = marker.snapshot;
 		const changeLog = trim(prev.changeLog);
+
 		return {
 			documentGraph,
 			changeLog

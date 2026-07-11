@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type RESOURCE_KEYS } from "./keys.js";
+import type { RESOURCE_KEYS } from "./keys.js";
 
 /** @internal */
 export const de_DE: typeof RESOURCE_KEYS = {

@@ -35,15 +35,15 @@
  * @module server-connectors
  */
 
-import {
-	type QueryJsonRpc2Request,
-	type LoadThumbnailUrlsJsonRpc2,
-	type DocumentJsonRpc2Request,
-	type Query,
-	type RelationshipJsonRpc2request,
-	type Relationship
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type {
+	Query,
+	Relationship,
+	QueryJsonRpc2Request,
+	DocumentJsonRpc2Request,
+	LoadThumbnailUrlsJsonRpc2,
+	RelationshipJsonRpc2request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
 
 const JSON_RPC_VERSION = "2.0";
 let requestCounter = 0;

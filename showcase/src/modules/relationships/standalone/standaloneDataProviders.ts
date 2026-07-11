@@ -30,25 +30,24 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { SagaIterator } from "redux-saga";
-import { call, put, select } from "typed-redux-saga";
+import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import {
-	ActivityActions,
-	ActivitySelectors,
-	type Activity,
-	NEW_INSTANCE_IDENTIFIER,
-	type DataProvider,
-	LocaleSelectors,
-	Model,
-	ModelSelectors,
-	StoreSagas,
-	type Selector
-} from "@com.mgmtp.a12.client/client-core";
 import { Dispatcher, type DocumentSpec } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { Relationship, RelationshipFactories } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
 // eslint-disable-next-line no-restricted-imports
-import { RequestBuilder } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core/lib/internal/server-connectors/requestBuilder.js";
+import { RequestBuilder } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core/internal/server-connectors/requestBuilder.js";
+import {
+	Model,
+	StoreSagas,
+	type Activity,
+	type Selector,
+	ModelSelectors,
+	ActivityActions,
+	LocaleSelectors,
+	ActivitySelectors,
+	type DataProvider,
+	NEW_INSTANCE_IDENTIFIER
+} from "@com.mgmtp.a12.client/client-core";
 
 const standaloneModuleSingleDocumentDataProvider: DataProvider = {
 	name: "StandaloneSingleDocumentDataProvider",
@@ -56,16 +55,18 @@ const standaloneModuleSingleDocumentDataProvider: DataProvider = {
 		const { activityId, activities, dataHolder, operation } = config;
 		const activity = activities[activityId];
 		const descriptor = activity?.descriptor;
+
 		return (
 			isMatchedOperationAndDescriptor(operation, descriptor) &&
 			!isRelationshipDataHolder(dataHolder) &&
 			descriptor?.instance !== NEW_INSTANCE_IDENTIFIER
 		);
 	},
-	*provideData(config: DataProvider.ProvideDataConfig): SagaIterator<void> {
+	*provideData(config: DataProvider.ProvideDataConfig): SagaGenerator<void> {
 		const { activityId } = config;
 		const activity = yield* select(ActivitySelectors.activityById(activityId));
 		const instance = activity?.descriptor.instance;
+
 		if (!instance) {
 			throw new Error(`Instance must be set for activityId ${activityId}.`);
 		}
@@ -102,24 +103,30 @@ const standaloneModuleRelationshipDataProvider: DataProvider = {
 		const { activityId, activities, dataHolder, operation } = config;
 		const activity = activities[activityId];
 		const descriptor = activity?.descriptor;
+
 		return isMatchedOperationAndDescriptor(operation, descriptor) && isRelationshipDataHolder(dataHolder);
 	},
-	*provideData(config: DataProvider.ProvideDataConfig): SagaIterator<void> {
+	*provideData(config: DataProvider.ProvideDataConfig): SagaGenerator<void> {
 		const { activityId } = config;
 		const modelsSelector: Selector<{ stateChanged: boolean; returnValue: object | null }> = (state) => {
 			const models = ModelSelectors.modelInScene({ activityId, modelType: "overview" })(state);
+
 			if (!models || Model.Error.isInstance(models)) {
 				return { stateChanged: models !== undefined, returnValue: null };
 			}
+
 			return { stateChanged: true, returnValue: models };
 		};
+
 		// wait for overview models
 		const models = yield* call(() => StoreSagas.waitForStateChange(modelsSelector));
+
 		if (!models) {
 			throw new Error(`Models not found ${activityId}.`);
 		}
 
 		const relationshipDataProvider = RelationshipFactories.createRelationshipDataProvider();
+
 		return yield* call(relationshipDataProvider.provideData, config);
 	}
 };

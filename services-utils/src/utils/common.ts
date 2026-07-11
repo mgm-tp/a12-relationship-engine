@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import {
-	type JsonRpc2Request,
-	type QueryJsonRpc2Request,
-	type DocumentJsonRpc2Request
+import type {
+	JsonRpc2Request,
+	QueryJsonRpc2Request,
+	DocumentJsonRpc2Request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 export interface BaseUrlOption {

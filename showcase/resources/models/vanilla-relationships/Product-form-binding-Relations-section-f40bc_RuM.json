@@ -1,0 +1,46 @@
+{
+	"header": {
+		"id": "Product-form-binding-Relations-section-f40bc_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItems",
+				"modelType": "overview",
+				"reference": "Product_Bundle_AvailableItemsOverview--ProductBundle"
+			},
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "Bundle_Product_SelectedItemsOverview-edit"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "ProductBundle-LinkForm"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "de",
+				"text": "Relations"
+			},
+			{
+				"locale": "en",
+				"text": "Relations"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "ProductBundle",
+		"targetRole": "Bundle",
+		"component": {
+			"componentType": "DualPaneSelection",
+			"availableItemsOverviewModel": "Product_Bundle_AvailableItemsOverview--ProductBundle",
+			"selectedItemsOverviewModel": "Bundle_Product_SelectedItemsOverview-edit",
+			"linkFormModel": "ProductBundle-LinkForm",
+			"height": "250"
+		}
+	}
+}

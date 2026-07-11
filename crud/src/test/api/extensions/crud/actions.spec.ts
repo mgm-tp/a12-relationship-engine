@@ -30,8 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
-import { type Action } from "typescript-fsa";
+import { test, expect, describe } from "vitest";
+
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 import { CRUDActions } from "../../../../internal/actions.js";
 

@@ -34,35 +34,33 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { call, put, takeLatest } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { put, call, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
 import { ActivityActions } from "@com.mgmtp.a12.client/client-core";
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
-
-import { assertObject } from "../../shared/assertion.js";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { RelationshipActions } from "../actions.js";
-import { type Relationship } from "../relationship.js";
+import type { Relationship } from "../relationship.js";
+import { assertObject } from "../../shared/assertion.js";
 import { removeModelNameFromEntities } from "../shared.js";
 
 import {
-	createLinkDocument,
-	findLinkDocumentModelName,
-	findRelinkableLink,
 	handleAddLink,
-	isDuplicatesAllowed
+	createLinkDocument,
+	findRelinkableLink,
+	isDuplicatesAllowed,
+	findLinkDocumentModelName
 } from "./addLink.js";
 
 /** @internal */
-export function* addLinkRequestedSaga(): SagaIterator<void> {
+export function* addLinkRequestedSaga(): SagaGenerator<void> {
 	yield* takeLatest(RelationshipActions.Events.addLinkRequested, handleAddLinkRequested);
 }
 
 function* handleAddLinkRequested(
 	action: Action<RelationshipActions.Events.AddLinkRequestedPayLoad>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const { activityId, instanceId } = action.payload;
 
 	const candidate: Relationship.Candidate = {
@@ -74,14 +72,17 @@ function* handleAddLinkRequested(
 	};
 
 	const linkDocumentModelName = yield* call(findLinkDocumentModelName, candidate);
+
 	if (!linkDocumentModelName) {
 		yield* call(handleAddLink, action);
+
 		return;
 	}
 
 	try {
 		const duplicatesAllowed = yield* call(isDuplicatesAllowed, candidate.linkRef.linkDescriptor.relationshipModel);
 		let linkDocument: object | undefined;
+
 		if (duplicatesAllowed) {
 			linkDocument = yield* call(createLinkDocument, activityId, candidate);
 		} else {

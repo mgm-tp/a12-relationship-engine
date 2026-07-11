@@ -29,17 +29,16 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module relationship
  */
-import { type Action } from "typescript-fsa";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { type RelationshipActions } from "../actions.js";
-import { type Relationship } from "../relationship.js";
+import type { Relationship } from "../relationship.js";
+import type { RelationshipActions } from "../actions.js";
 
 /** @internal */
 export function handleSetFilter(

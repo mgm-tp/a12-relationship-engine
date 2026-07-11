@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Person-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Person"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,134 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"multiSelection": {
-				"collapseOption": "collapsible_expanded",
-				"counterOption": "simple",
-				"buttons": [
-					{
-						"destructive": false,
-						"icon": {
-							"name": "info",
-							"theme": "outlined"
-						},
-						"event": "selection-overview",
-						"primary": false,
-						"description": [
-							{
-								"locale": "en",
-								"text": "Show selected persons"
-							},
-							{
-								"locale": "de",
-								"text": "Ausgewählte Personen anzeigen"
-							}
-						]
-					},
-					{
-						"destructive": false,
-						"icon": {
-							"name": "compare_arrows"
-						},
-						"event": "compare",
-						"primary": false,
-						"description": [
-							{
-								"locale": "en",
-								"text": "Compare selected persons"
-							},
-							{
-								"locale": "de",
-								"text": "Vergleiche selektierte Personen"
-							}
-						]
-					}
-				],
-				"clearConfirmation": {
-					"enabled": true
-				}
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 10,
-			"showRowCount": true,
-			"initialSorting": [
-				{
-					"idref": "column-3eb14"
-				},
-				{
-					"idref": "column-5bd25"
-				}
-			],
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "custom_list",
-				"enumeratedStringFilter": {
-					"pagingSize": 2,
-					"fields": [
-						{
-							"fieldId": "F3"
-						},
-						{
-							"fieldId": "F8"
-						}
-					]
-				},
-				"fields": [
-					{
-						"fieldId": "F3"
-					},
-					{
-						"fieldId": "F4"
-					},
-					{
-						"fieldId": "F8"
-					},
-					{
-						"fieldId": "F9"
-					}
-				]
-			}
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "multi_selection"
-				},
-				{
-					"type": "button",
-					"event": "add",
-					"destructive": false,
-					"icon": {
-						"name": "add"
-					},
-					"primary": false,
-					"description": [
-						{
-							"locale": "en",
-							"text": "Add a person"
-						},
-						{
-							"locale": "de",
-							"text": "Fügen Sie eine Person hinzu"
-						}
-					]
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-5bd25",
@@ -308,6 +175,134 @@
 					]
 				}
 			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"event": "add",
+					"destructive": false,
+					"icon": {
+						"name": "add"
+					},
+					"primary": false,
+					"description": [
+						{
+							"locale": "en",
+							"text": "Add a person"
+						},
+						{
+							"locale": "de",
+							"text": "Fügen Sie eine Person hinzu"
+						}
+					]
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"multiSelection": {
+				"collapseOption": "collapsible_expanded",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"destructive": false,
+						"icon": {
+							"name": "info",
+							"theme": "outlined"
+						},
+						"event": "selection-overview",
+						"primary": false,
+						"description": [
+							{
+								"locale": "en",
+								"text": "Show selected persons"
+							},
+							{
+								"locale": "de",
+								"text": "Ausgewählte Personen anzeigen"
+							}
+						]
+					},
+					{
+						"destructive": false,
+						"icon": {
+							"name": "compare_arrows"
+						},
+						"event": "compare",
+						"primary": false,
+						"description": [
+							{
+								"locale": "en",
+								"text": "Compare selected persons"
+							},
+							{
+								"locale": "de",
+								"text": "Vergleiche selektierte Personen"
+							}
+						]
+					}
+				],
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"showRowCount": true,
+			"initialSorting": [
+				{
+					"idref": "column-3eb14"
+				},
+				{
+					"idref": "column-5bd25"
+				}
+			],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "custom_list",
+				"enumeratedStringFilter": {
+					"pagingSize": 2,
+					"fields": [
+						{
+							"fieldId": "F3"
+						},
+						{
+							"fieldId": "F8"
+						}
+					]
+				},
+				"fields": [
+					{
+						"fieldId": "F3"
+					},
+					{
+						"fieldId": "F4"
+					},
+					{
+						"fieldId": "F8"
+					},
+					{
+						"fieldId": "F9"
+					}
+				]
+			}
 		}
 	}
 }

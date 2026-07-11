@@ -34,9 +34,9 @@
 
 import React from "react";
 
-import { FrameFactories, type View } from "@com.mgmtp.a12.client/client-core";
 import { CRUDFactories } from "@com.mgmtp.a12.crud/crud-core";
 import { FormEngineViews } from "@com.mgmtp.a12.formengine/formengine-core";
+import { type View, FrameFactories } from "@com.mgmtp.a12.client/client-core";
 
 export function createViewProvider() {
 	const formEngineViewProvider = createFormEngineViewProvider();

@@ -30,22 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { Provider } from "react-redux";
-import { describe, expect, beforeEach, test } from "vitest";
+import { test, expect, describe, beforeEach } from "vitest";
 
-import { type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { AriaLevelContext } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
 import { ViewViews } from "@com.mgmtp.a12.client/client-core";
+import { DataRoles } from "@com.mgmtp.a12.widgets/widgets-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { AriaLevelContext } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { findAllByDataRole, findByDataRole, getByDataRole, render, screen } from "../../../../utils/rtl/test-utils.js";
-import { TestWrapper } from "../../../../utils/rtl/testWrapper.js";
-import { DualPaneOverviewTable } from "../../../../../internal/relationship/ui/components/DualPaneSelection.js";
-import { readDocumentAndValidationModel, readModel } from "../../../../mocks/ModelsUtil.js";
-import { createGeneralStore } from "../../../../mocks/store/store.js";
 import { createActivity } from "../../../../utils/activity.js";
+import { TestWrapper } from "../../../../utils/rtl/testWrapper.js";
+import { createGeneralStore } from "../../../../mocks/store/store.js";
 import { TableList } from "../../../../../internal/relationship/index.js";
+import { readModel, readDocumentAndValidationModel } from "../../../../mocks/ModelsUtil.js";
+import { DualPaneOverviewTable } from "../../../../../internal/relationship/ui/components/DualPaneSelection.js";
+import { render, screen, getByDataRole, findByDataRole, findAllByDataRole } from "../../../../utils/rtl/test-utils.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.aria-level", () => {
 	describe("DualPanel Selection", () => {
@@ -68,30 +67,28 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.aria-level",
 			const overviewModel = readModel("Product-overview");
 			const TEST_ACTIVITY_ID = "1";
 			render(
-				<Provider
-					store={createGeneralStore({
-						activities: [createActivity({ id: TEST_ACTIVITY_ID })]
-					})}>
-					<ViewViews.ActivityContext.Provider value={{ activityId: TEST_ACTIVITY_ID }}>
-						<TestWrapper>
-							<AriaLevelContext.Provider value={{ ariaLevel: 5 }}>
-								<TableList
-									itemModels={{
-										documentModel: documentModel,
-										loadingState: "loaded",
-										overviewModel: overviewModel as OverviewModel,
-										validatorProvider: documentModel.generatedCodeAccessor
-									}}
-									items={[] as any}
-									localizableKeyPrefix=""
-									editComponent={() => <TestDualPane />}
-									editComponentProps={{}}
-									onAddItem={() => {}}
-								/>
-							</AriaLevelContext.Provider>
-						</TestWrapper>
-					</ViewViews.ActivityContext.Provider>
-				</Provider>
+				<ViewViews.ActivityContext.Provider value={{ activityId: TEST_ACTIVITY_ID }}>
+					<TestWrapper
+						store={createGeneralStore({
+							activities: [createActivity({ id: TEST_ACTIVITY_ID })]
+						})}>
+						<AriaLevelContext.Provider value={{ ariaLevel: 5 }}>
+							<TableList
+								itemModels={{
+									documentModel: documentModel,
+									loadingState: "loaded",
+									overviewModel: overviewModel as OverviewModel,
+									validatorProvider: documentModel.generatedCodeAccessor
+								}}
+								items={[] as any}
+								localizableKeyPrefix=""
+								editComponent={() => <TestDualPane />}
+								editComponentProps={{}}
+								onAddItem={() => {}}
+							/>
+						</AriaLevelContext.Provider>
+					</TestWrapper>
+				</ViewViews.ActivityContext.Provider>
 			);
 		});
 
@@ -113,6 +110,7 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.aria-level",
 				const modalOverlay = await findByDataRole(window.document.body, DataRoles.Modal.Overlay);
 
 				const dualPane = (await findAllByDataRole(modalOverlay, DataRoles.Contentbox))[1];
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 				expect(dualPane).to.be.exist;
 
 				const title = getByDataRole(dualPane, DataRoles.Contentbox.Title);

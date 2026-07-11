@@ -1,0 +1,98 @@
+{
+	"header": {
+		"id": "CoInsurer",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "de"
+			},
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "contract",
+				"reference": "Contract-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "businessPartner",
+				"reference": "BusinessPartner-document"
+			},
+			{
+				"purpose": "Link Document model",
+				"modelType": "document",
+				"alias": "Link Model",
+				"reference": "CoInsurerAdditionalFields"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": true,
+		"linkDocumentModel": "CoInsurerAdditionalFields",
+		"labels": [
+			{
+				"locale": "de"
+			},
+			{
+				"locale": "en"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"role": "contract",
+				"documentModel": "Contract-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "de",
+						"text": ""
+					},
+					{
+						"locale": "en",
+						"text": ""
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			},
+			{
+				"role": "businessPartner",
+				"documentModel": "BusinessPartner-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "de",
+						"text": ""
+					},
+					{
+						"locale": "en",
+						"text": ""
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			}
+		]
+	}
+}

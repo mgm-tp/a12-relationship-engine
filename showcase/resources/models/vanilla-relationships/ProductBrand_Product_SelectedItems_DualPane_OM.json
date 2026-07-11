@@ -2,18 +2,13 @@
 	"header": {
 		"id": "ProductBrand_Product_SelectedItems_DualPane_OM",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -24,11 +19,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": false,
-			"pagingSize": 50,
-			"showFullTextSearch": false
-		},
 		"columns": [
 			{
 				"id": "column-c2942",
@@ -67,13 +57,18 @@
 			}
 		],
 		"rowActionGroup": {},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"subHeaderBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": false,
+			"pagingSize": 50,
+			"showFullTextSearch": false
 		}
 	}
 }

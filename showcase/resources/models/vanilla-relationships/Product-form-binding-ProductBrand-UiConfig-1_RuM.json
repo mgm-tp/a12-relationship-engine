@@ -1,0 +1,65 @@
+{
+	"header": {
+		"id": "Product-form-binding-ProductBrand-UiConfig-1_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItemsQuery",
+				"modelType": "query",
+				"reference": "Product-form-binding-ProductBrand-UiConfig-1-available-query"
+			},
+			{
+				"purpose": "selectedItemQuery",
+				"modelType": "query",
+				"reference": "Product-form-binding-ProductBrand-UiConfig-1-selected-query"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "ProductBrand-LinkForm"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "is manufactured by"
+			},
+			{
+				"locale": "de",
+				"text": "vertrieben von"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "ProductBrand",
+		"targetRole": "Brand",
+		"component": {
+			"linkFormModel": "ProductBrand-LinkForm",
+			"buttons": [
+				{
+					"event": "event_edit_link_document",
+					"icon": {
+						"name": "description"
+					},
+					"labelHidden": true,
+					"label": [
+						{
+							"locale": "en",
+							"text": "Edit additional properties"
+						},
+						{
+							"locale": "de",
+							"text": "Zusätzliche Eigenschaften bearbeiten"
+						}
+					]
+				}
+			],
+			"componentType": "DropDownSelection",
+			"availableItemsQueryModel": "Product-form-binding-ProductBrand-UiConfig-1-available-query",
+			"selectedItemQueryModel": "Product-form-binding-ProductBrand-UiConfig-1-selected-query",
+			"elementRef": "F1"
+		}
+	}
+}

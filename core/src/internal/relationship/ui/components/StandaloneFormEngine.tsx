@@ -39,26 +39,23 @@
 
 import React, { Component } from "react";
 import { connect, Provider } from "react-redux";
-import { applyMiddleware, createStore, type Middleware, type Store } from "redux";
+import { type Store, createStore, type Reducer, applyMiddleware, type Middleware } from "redux";
 
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import type { DocumentModel, IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
-	createCombinedReducer,
-	createEngineMiddlewares,
-	createEngineStore,
-	type EngineState,
 	type FormModel,
-	type DefaultDispatchProps,
-	defaultMapDispatchToProps,
-	defaultMapStateToProps,
+	type EngineState,
+	createEngineStore,
+	FormEngineRenderer,
 	type DefaultOwnProps,
+	createCombinedReducer,
+	defaultMapStateToProps,
 	type DefaultStateProps,
-	FormEngineRenderer
+	createEngineMiddlewares,
+	type DefaultDispatchProps,
+	defaultMapDispatchToProps
 } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type IGeneratedCodeAccessor
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
 
 // Attention: All of these props are for initialization only - changes are ignored!
 /** @internal */
@@ -75,12 +72,17 @@ export interface FormEngineProps {
 	readonly additionalMiddlewares?: Middleware[];
 }
 
+// Stub `activities: {}` so FE UniqueConstraintViolationBar (which reads
+// `state.activities` via ActivitySelectors.error) does not throw against this private engine-only store.
 function configureStore(initialState: EngineState, additionalMiddlewares?: Middleware[]) {
-	const store = createStore(
-		createCombinedReducer(initialState),
-		applyMiddleware(...(additionalMiddlewares || []), ...createEngineMiddlewares())
-	);
-	return store;
+	const engineReducer = createCombinedReducer(initialState);
+	const rootReducer: Reducer<EngineState> = (state, action) => {
+		const next = engineReducer(state, action);
+
+		return { ...next, activities: {} };
+	};
+
+	return createStore(rootReducer, applyMiddleware(...(additionalMiddlewares || []), ...createEngineMiddlewares()));
 }
 
 const FormEngineConnected = connect<DefaultStateProps, DefaultDispatchProps, DefaultOwnProps, EngineState>(

@@ -1,8 +1,7 @@
 {
 	"extends": "../tsconfig",
-	"include": ["src"],
+	"exclude": ["src/test"],
 	"compilerOptions": {
-		"outDir": "lib",
 		"types": ["node"],
 		"paths": {
 			"test-utils": ["./src/test/utils/rtl/test-utils.ts"]

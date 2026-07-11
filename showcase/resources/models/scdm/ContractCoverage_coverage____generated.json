@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ContractCoverage_coverage____generated",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -16,15 +16,10 @@
 			{
 				"name": "application",
 				"value": ""
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
 			{
-				"alias": "Coverage-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Coverage-document"
@@ -57,7 +52,9 @@
 								"name": "coverage",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Coverage-document"
+									"includeConfig": {
+										"reference": "Coverage-document"
+									}
 								}
 							}
 						]

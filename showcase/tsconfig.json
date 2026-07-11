@@ -1,8 +1,15 @@
 {
 	"extends": "../tsconfig",
-	"include": ["src"],
+	"include": ["${configDir}/src/**/*.ts", "${configDir}/src/**/*.tsx", "${configDir}/src/**/*.json"],
 	"compilerOptions": {
-		"noEmit": true
+		"noEmit": true,
+		"noUncheckedSideEffectImports": false,
+		"resolveJsonModule": true
 	},
-	"references": [{ "path": "./tsconfig.dev.json" }]
+	"references": [
+		{ "path": "./tsconfig.dev.json" },
+		{ "path": "../core" },
+		{ "path": "../crud" },
+		{ "path": "../services-utils" }
+	]
 }

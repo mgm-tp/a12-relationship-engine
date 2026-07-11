@@ -4,15 +4,18 @@
 		{
 			"type": "chrome",
 			"request": "launch",
-			"name": "Launch (chrome)",
-			"url": "http://localhost:17000",
+			"name": "Launch Chrome Debugging",
+			"url": "http://localhost:17000/composable",
 			"webRoot": "${workspaceFolder}/showcase",
-			"runtimeArgs": [
-				"--remote-debugging-port=9222",
-				"--new-window",
-				"--disable-background-networking",
-				"--user-data-dir=${userHome}/.vscode/chrome"
-			]
+			"preLaunchTask": "Start",
+			"sourceMapPathOverrides": {
+				"webpack://@com.mgmtp.a12.relationshipengine/relationshipengine-core/*": "${workspaceFolder}/core/*",
+				"webpack://@com.mgmtp.a12.crud/crud-core/*": "${workspaceFolder}/crud/*"
+			},
+			"skipFiles": ["<node_internals>/**", "${workspaceFolder}/**/node_modules/**"],
+			"trace": true,
+			"userDataDir": "${userHome}/.vscode/chrome",
+			"runtimeArgs": ["--new-window", "--disable-background-networking", "--profile-directory=debug-profile"]
 		}
 	]
 }

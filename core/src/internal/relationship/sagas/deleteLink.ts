@@ -34,23 +34,21 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { call, type SagaGenerator, select, takeLatest } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { call, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
-import { assertObject } from "../../shared/assertion.js";
-
-import { RelationshipActions } from "../actions.js";
 import { TABLE_LIST } from "../constants.js";
-import { type Relationship } from "../relationship.js";
+import { RelationshipActions } from "../actions.js";
+import type { Relationship } from "../relationship.js";
+import { assertObject } from "../../shared/assertion.js";
 import { AdapterLinkSelectors } from "../ui/components/adapter/adapterLinkSelectors.js";
 
 import { synchronizeRelevantDataHolders } from "./utils.js";
 
 /** @internal */
-export function* deleteLinkSaga(): SagaIterator<void> {
+export function* deleteLinkSaga(): SagaGenerator<void> {
 	yield* takeLatest(RelationshipActions.Commands.deleteLink, handleDeleteLink);
 }
 
@@ -144,6 +142,7 @@ function calculatePagination(
 	// Case 2
 	if (pageNumber > maxPageNumber) {
 		pageNumber = maxPageNumber;
+
 		return {
 			pageClause: {
 				offset: Math.max(0, offset - pageSize),

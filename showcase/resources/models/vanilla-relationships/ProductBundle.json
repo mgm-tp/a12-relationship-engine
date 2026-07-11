@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ProductBundle",
 		"modelType": "relationship",
-		"modelVersion": "3.0.0",
+		"modelVersion": "4.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -14,12 +14,7 @@
 				"text": "ProductBundle"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "guest,anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "Document model",
@@ -43,10 +38,7 @@
 	},
 	"content": {
 		"duplicatesAllowed": true,
-		"associationType": "SHARED",
-		"storage": "EXTERNAL",
 		"linkDocumentModel": "ProductBundle_AdditionalFieldsModel",
-		"embeddedGroupPath": "",
 		"labels": [
 			{
 				"locale": "en",
@@ -58,47 +50,35 @@
 				"role": "Product",
 				"documentModel": "Product-document",
 				"ordered": false,
-				"navigable": true,
-				"linkConstraints": {
-					"multiplicity": {
-						"lowerLimit": 0,
-						"unbounded": true,
-						"upperLimit": null
-					}
-				},
-				"candidateConstraints": {
-					"population": "",
-					"populationParameters": []
-				},
 				"labels": [
 					{
 						"locale": "en",
 						"text": "consists of"
 					}
-				]
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
 			},
 			{
 				"role": "Bundle",
 				"documentModel": "Bundle-document",
 				"ordered": false,
-				"navigable": true,
-				"linkConstraints": {
-					"multiplicity": {
-						"lowerLimit": 0,
-						"unbounded": true,
-						"upperLimit": null
-					}
-				},
-				"candidateConstraints": {
-					"population": "",
-					"populationParameters": []
-				},
 				"labels": [
 					{
 						"locale": "en",
 						"text": "is part of"
 					}
-				]
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
 			}
 		]
 	}

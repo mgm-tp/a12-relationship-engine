@@ -33,8 +33,8 @@
 // tag::content[]
 import React from "react";
 
-import { FrameFactories, type View } from "@com.mgmtp.a12.client/client-core";
 import { CRUDViews } from "@com.mgmtp.a12.crud/crud-core";
+import { type View, FrameFactories } from "@com.mgmtp.a12.client/client-core";
 
 export function viewProvider(componentName: string): React.ComponentType<View> {
 	return FrameFactories.viewProvider(componentName) || crudViewProvider(componentName) || Placeholder;

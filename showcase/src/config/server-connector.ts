@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { ConnectorLocator, RestServerConnector } from "@com.mgmtp.a12.utils/utils-connector/lib/main/index.js";
+import { ConnectorLocator, RestServerConnector } from "@com.mgmtp.a12.utils/utils-connector";
 
 const serverConnector = new RestServerConnector(window.location.pathname.replace(/\/$/, "") + "/api");
 ConnectorLocator.createInstance(serverConnector);

@@ -7,10 +7,11 @@
 import { A12ApplicationConfig } from '@com.mgmtp.a12.client/client-core';
 import { ApplicationWithConfiguredFeature } from '@com.mgmtp.a12.client/client-core';
 import { FormEngineViews } from '@com.mgmtp.a12.formengine/formengine-core';
-import { Middleware } from 'redux';
+import type { Middleware } from 'redux';
 import { OverviewEngineFactories } from '@com.mgmtp.a12.overviewengine/overviewengine-core';
+import type { default as React_2 } from 'react';
 import { RequireFeatures } from '@com.mgmtp.a12.client/client-core';
-import { SagaIterator } from 'redux-saga';
+import { SagaGenerator } from 'typed-redux-saga';
 import { View } from '@com.mgmtp.a12.client/client-core';
 
 // @public
@@ -40,15 +41,31 @@ export const CRUD_RESOURCE_KEYS: {
 export namespace CRUDFactories {
     export function createCRUDMiddleware(): Middleware;
     export function createCRUDRenderer(componentName: string): React.ComponentType<View> | undefined;
-    export function createSagas(): (() => SagaIterator<void>)[];
+    export function createSagas(): (() => SagaGenerator<void>)[];
+}
+
+// @public (undocumented)
+export namespace CRUDFormEngineView {
+    // (undocumented)
+    export type Props = View & FormEngineViews.FormEngineProps;
+}
+
+// @public (undocumented)
+export namespace CRUDOverviewView {
+    // (undocumented)
+    export interface Props extends OverviewEngineFactories.ViewComponentProps, View {
+        // (undocumented)
+        readonly eventHandlers?: {
+            onEventButtonClick?(eventName: string): void;
+        };
+    }
 }
 
 // @public
 export namespace CRUDViews {
-    const FormEngineView: React.ComponentType<Omit<FormEngineViews.FormEngineProps, "widgetMap" | "formModelMap">>;
-    const OverviewEngineView: React.ComponentType<OverviewEngineFactories.ViewComponentProps> & {
-        handleProgressIndicator?: boolean;
-    };
+    const FormEngineView: React_2.FC<LegacyRelationshipFormEngineView.Props>;
+    const FormEngineWithRelationshipEngineView: React_2.FC<CRUDFormEngineView.Props>;
+    const OverviewEngineView: React_2.FC<CRUDOverviewView.Props>;
 }
 
 // @public
@@ -59,6 +76,12 @@ export namespace EventNames {
     const FORM_CANCEL = "event_cancel";
     const OVERVIEW_ADD = "add";
     const OVERVIEW_DELETE = "delete";
+}
+
+// @public
+export namespace LegacyRelationshipFormEngineView {
+    // (undocumented)
+    export type Props = View & Omit<FormEngineViews.FormEngineProps, "widgetMap" | "formModelMap">;
 }
 
 // @public

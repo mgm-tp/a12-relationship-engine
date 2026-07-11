@@ -30,13 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Header } from "@com.mgmtp.a12.base/base-model-api/lib/main/header/index.js";
+import type { Header } from "@com.mgmtp.a12.base/base-model-api";
 
 /** @internal */
 export function getDocumentModelReference({ header }: { readonly header: Header }): string {
 	const { reference } = header.modelReferences?.find((x) => x.modelType === "document") || {};
+
 	if (reference === undefined) {
 		throw new Error(`Could not find any document model reference in ${header.id}.`);
 	}
+
 	return reference;
 }

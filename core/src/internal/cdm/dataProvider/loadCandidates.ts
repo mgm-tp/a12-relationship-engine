@@ -36,21 +36,19 @@
  * @experimental
  */
 
-import { type SagaIterator } from "redux-saga";
-import { call, put, type SagaGenerator, select, takeEvery } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { put, call, select, takeEvery, type SagaGenerator } from "typed-redux-saga";
 
-import { ActivitySelectors, ModelSelectors, StoreSagas } from "@com.mgmtp.a12.client/client-core";
-import { type FormModel, isFormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-
-import { assertObject } from "../../shared/assertion.js";
-import { InternalModelSelectors } from "../../shared/selectors.js";
-import { type Relationship } from "../../relationship/index.js";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import { isFormModel, type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import { StoreSagas, ModelSelectors, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { CddActions } from "../cdd/redux/index.js";
-import { initAndLoadCandidates, type MergePayload } from "../cdd/redux/actions.js";
+import { assertObject } from "../../shared/assertion.js";
+import type { Relationship } from "../../relationship/index.js";
+import { InternalModelSelectors } from "../../shared/selectors.js";
+import { type MergePayload, initAndLoadCandidates } from "../cdd/redux/actions.js";
 
-export function* createCandidateDataHoldersSaga(): SagaIterator<void> {
+export function* createCandidateDataHoldersSaga(): SagaGenerator<void> {
 	yield* takeEvery([CddActions.merge, CddActions.setSubActivityData], initializeAndLoadCandidateDataHolders);
 }
 
@@ -80,8 +78,10 @@ function* initializeAndLoadCandidateDataHolders(action: Action<MergePayload>): S
 
 function resolveBindings(formModel: FormModel): Relationship.UiConfigurationBinding[] {
 	const bcAnnotation = formModel.header.annotations?.find((a) => a.name === "bindingConfiguration")?.value;
+
 	if (!bcAnnotation) {
 		return [];
 	}
+
 	return JSON.parse(bcAnnotation) as Relationship.UiConfigurationBinding[];
 }

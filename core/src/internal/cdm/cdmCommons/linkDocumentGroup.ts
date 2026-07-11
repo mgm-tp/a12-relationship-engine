@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel, type EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { findModelElementByPath } from "../commons/modelUtils.js";
 
@@ -40,6 +40,7 @@ import { isRelationshipGroup } from "./relationshipGroup.js";
 /** @internal */
 export function isLinkDocGroup(element: DocumentModel.Element, path: EntityInstancePath, cdm: DocumentModel): boolean {
 	const parentElement = findModelElementByPath(cdm, path.slice(0, -1));
+
 	return (
 		element.type === "Group" &&
 		element.name === LINKDOC_GROUPNAME &&

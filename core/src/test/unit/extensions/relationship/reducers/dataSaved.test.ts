@@ -30,23 +30,23 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
 
-import { type Relationship, RelationshipActions } from "../../../../../internal/relationship/index.js";
+import { createDataHolder } from "../../../../utils/activity.js";
 import { handleDataSaved } from "../../../../../internal/relationship/reducers/dataSaved.js";
+import { type Relationship, RelationshipActions } from "../../../../../internal/relationship/index.js";
 import {
+	createMutation,
 	createCandidate,
-	createCandidateDataholder,
-	createCandidatePayload,
+	createLinkPayload,
 	createDocumentModel,
 	createLinkDataholder,
-	createLinkPayload,
+	createCandidatePayload,
 	createLinkWithDocument,
-	createMutation
+	createCandidateDataholder
 } from "../../../../mocks/relationships/mocks.js";
-import { createDataHolder } from "../../../../utils/activity.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.reducers", () => {
 	describe("dataSaved", () => {

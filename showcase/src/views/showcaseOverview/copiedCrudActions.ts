@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { actionCreatorFactory } from "typescript-fsa";
+import { actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 /**
  * Copies of the crud action creators, which trigger the real CRUD Sagas.

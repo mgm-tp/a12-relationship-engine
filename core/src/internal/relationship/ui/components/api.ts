@@ -37,9 +37,9 @@
  * Attention: All code in this file is experimental and subject to
  * breaking changes even in minor releases.
  */
-import { type OverviewEngineApi, type OverviewEngineState } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { OverviewEngineApi, OverviewEngineState } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { type Relationship } from "../../relationship.js";
+import type { Relationship } from "../../relationship.js";
 
 export interface EditDocumentProps<T> {
 	readonly editItemDocumentJson?: object;
@@ -165,6 +165,9 @@ export interface SingleSelectionProps extends EditDocumentProps<SingleSelectionI
 
 	/** Callback for handling load more candidates */
 	onLoadMore?(): void;
+
+	/** Minimum number of characters required for a search to be executed. If set, a hint message is shown when the input is below this limit. */
+	readonly minSearchableTokenSize?: number;
 }
 
 export interface SingleSelectionItem {
@@ -265,6 +268,8 @@ export interface MultiSelectionItem {
 
 export interface RelationshipDocument {
 	readonly id: string;
+	/** @internal */
+	readonly modelId: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	readonly [key: string]: any | undefined;
 }

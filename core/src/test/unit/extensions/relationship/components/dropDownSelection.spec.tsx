@@ -30,16 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { configure, render, screen, within } from "@testing-library/react";
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
+import { render, screen, within, configure } from "@testing-library/react";
 
-import { DropDownSelection, type Relationship } from "../../../../../internal/relationship/index.js";
-import {
-	type Items,
-	type SingleSelectionItem,
-	type SingleSelectionProps
-} from "../../../../../internal/relationship/ui/components/api.js";
 import { TestWrapper } from "../../../../utils/rtl/testWrapper.js";
+import { DropDownSelection, type Relationship } from "../../../../../internal/relationship/index.js";
+import type {
+	Items,
+	SingleSelectionItem,
+	SingleSelectionProps
+} from "../../../../../internal/relationship/ui/components/api.js";
 
 configure({ testIdAttribute: "data-role" });
 
@@ -58,7 +58,7 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.DropDownSele
 			);
 
 			const autocomplete = screen.getByTestId("autocomplete");
-			const autocompleteInput = within(autocomplete).getByTestId("textline-input");
+			const autocompleteInput = within(autocomplete).getByTestId("text-field-input");
 
 			expect(autocompleteInput).toHaveAttribute("readonly");
 		});
@@ -83,6 +83,7 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.DropDownSele
 					[button["ariaLabel"], button["title"]].includes(ADDITIONAL_PROPERTIES_TITLE)
 				);
 
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 				expect(additionalPropertiesButton).to.not.be.undefined;
 			});
 		});
@@ -95,6 +96,7 @@ function createTestProps(params: {
 	editItemFormModelsPresent?: boolean;
 }): SingleSelectionProps {
 	const { readonly, itemSelected, editItemFormModelsPresent } = params ?? {};
+
 	return {
 		label: TEST_LABEL,
 		items: createTestItems(),
@@ -130,6 +132,7 @@ function createTestItems(): Items<SingleSelectionItem[]> {
 		]
 	};
 }
+
 function createTestSelectedItem(): Items<SingleSelectionItem | undefined> {
 	return {
 		loadingState: "loaded",

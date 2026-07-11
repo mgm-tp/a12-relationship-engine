@@ -36,7 +36,7 @@
  * @experimental
  */
 
-import { type Activity, ActivitySelectors, type Selector } from "@com.mgmtp.a12.client/client-core";
+import { type Activity, type Selector, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { isSetCddInActivity } from "../isCddActivity.js";
 

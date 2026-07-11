@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect, test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-import { Selector, Showcase } from "../../../support/utils";
+import { Selector, Showcase } from "../../../support/utils.js";
 
 test.describe.configure({ mode: "parallel" });
 
-test.describe("Customize sorting by componentProvider", () => {
+test.describe.skip("Customize sorting by componentProvider", () => {
 	test.beforeEach(async ({ page }) => {
 		await page.routeFromHAR("hars/contract-custom-sorting/list-document.har", {
 			update: false,

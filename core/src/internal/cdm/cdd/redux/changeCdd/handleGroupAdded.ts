@@ -39,17 +39,16 @@
 import fastDeepEqual from "fast-deep-equal";
 
 import { DocumentPath } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertCondition, assertObjectType } from "../../../../shared/assertion.js";
 import { DocumentUtils } from "../../../../shared/utils.js";
+import type { CdmData } from "../../../cddUtils/cdmData.js";
+import type { ScdmDataHolderShape } from "../dhReducersImpl.js";
 import { addGroupInstance } from "../../../cddUtils/addGroupInstance.js";
-import { type CdmData } from "../../../cddUtils/cdmData.js";
 import { DOCUMENT_SERVICE } from "../../../cdmCommons/documentService.js";
+import { assertCondition, assertObjectType } from "../../../../shared/assertion.js";
 
-import { type ScdmDataHolderShape } from "../dhReducersImpl.js";
-
-import { type HandleArgs } from "./handleArgs.js";
+import type { HandleArgs } from "./handleArgs.js";
 
 /**
  * We can assume the following precondition is met:
@@ -67,6 +66,7 @@ export function handleGroupAdded(initialState: ScdmDataHolderShape, args: Handle
 	const { document, documentModels, modelGraph, change } = args;
 
 	const initialData = initialState.data;
+
 	if (!initialData) {
 		return initialState;
 	}

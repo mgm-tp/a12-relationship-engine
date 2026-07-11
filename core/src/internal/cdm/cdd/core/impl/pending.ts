@@ -29,16 +29,15 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module cdm/cdd
  * @experimental
  */
-import { type DocRef, type LoadingState, type RelshPath } from "../../../../documentGraph/core/index.js";
-import { type QueryPath } from "../../../cdmCommons/queryPath.js";
 
-import { type PartialCddState, type PendingCddRelshUsages, type PendingRelshUsage } from "../cddState.js";
+import type { QueryPath } from "../../../cdmCommons/queryPath.js";
+import type { DocRef, RelshPath, LoadingState } from "../../../../documentGraph/core/index.js";
+import type { PartialCddState, PendingRelshUsage, PendingCddRelshUsages } from "../cddState.js";
 
 /**
  * @internal
@@ -78,6 +77,7 @@ export function addMissingPaths(
 	} else {
 		draftPendingUsages.push({ key, relshUsages: missingPaths });
 	}
+
 	return {
 		...cddState,
 		pendingUsages: draftPendingUsages
@@ -109,6 +109,7 @@ export function updatePending(
 	const idx = pending.findIndex(
 		(usage) => usage.key.relshName === key.relshName && usage.key.targetDocRef === key.targetDocRef
 	);
+
 	if (idx >= 0) {
 		const usage = pending[idx];
 		pending = [...pending.slice(0, idx), ...pending.slice(idx + 1)];
@@ -124,6 +125,7 @@ export function updatePending(
 			},
 			[]
 		);
+
 		if (relshUsages.length > 0) {
 			pending = [...pending, { ...usage, relshUsages: relshUsages }];
 		}
@@ -152,10 +154,12 @@ export function collectMissingPaths(arg: PartialCddState | DocRef): QueryPath[] 
 					return prev;
 				}
 			}, []);
+
 			return [...collectedPaths, ...r];
 		},
 		[]
 	);
+
 	return paths;
 }
 

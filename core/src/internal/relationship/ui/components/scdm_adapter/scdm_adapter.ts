@@ -36,47 +36,46 @@
  * @experimental
  */
 
-import { type Action } from "typescript-fsa";
-
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import type { Locale, Localizable } from "@com.mgmtp.a12.utils/utils-localization";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
 	Activity,
+	ModelSelectors,
 	ActivityActions,
-	ActivitySelectors,
 	LocaleSelectors,
-	ModelSelectors
+	ActivitySelectors
 } from "@com.mgmtp.a12.client/client-core";
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
 import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type Locale, type Localizable } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+	type FormModel,
+	isFormModelControl,
+	isFormModelDetachedRepeat,
+	isFormModelCustomScreenElement
+} from "@com.mgmtp.a12.formengine/formengine-core";
 
-import { assertCondition, assertObject } from "../../../../shared/assertion.js";
+import { Relationship } from "../../../relationship.js";
+import { DUAL_PANE_SELECTION } from "../../../constants.js";
+import { PaginationUtils } from "../../../paginationUtils.js";
+import { RelationshipSelectors } from "../../../selectors.js";
+import { CddSelectors } from "../../../../cdm/cdd/redux/index.js";
+import { newDocRef } from "../../../../cdm/cdd/redux/newDocRef.js";
+import type { AdapterLink } from "../adapter/adapterLinkSelectors.js";
+import { assertObject, assertCondition } from "../../../../shared/assertion.js";
+import { otherEntity } from "../../../../cdm/commons/relationshipModelUtils.js";
+import { isScdmDataHolderShape } from "../../../../cdm/cdd/redux/dhReducersImpl.js";
+import { getBindingConfiguration } from "../../../../shared/BindingConfiguration.js";
+import type { Items, AdapterCandidate, OwnProps as CommonOwnProps } from "../adapter/adapter.js";
+import { createUiConfigurationKey, createEntityDisplayLabelLocalizable } from "../../../localization.js";
+import type { RelationshipGroupInformation } from "../../../../cdm/cdmCommons/relationshipAnnotations.js";
+import { computeSubActivityData } from "../../../../cdm/dataProvider/subactivity/computeSubActivityData.js";
 import {
-	getDocRefByCddPath,
 	getDocRefTopDown,
+	getDocRefByCddPath,
 	getSourceDocRefFromTargetDocPath
 } from "../../../../cdm/cdd/core/index.js";
-import { CddSelectors } from "../../../../cdm/cdd/redux/index.js";
-import { isScdmDataHolderShape } from "../../../../cdm/cdd/redux/dhReducersImpl.js";
-import { newDocRef } from "../../../../cdm/cdd/redux/newDocRef.js";
-import { type RelationshipGroupInformation } from "../../../../cdm/cdmCommons/relationshipAnnotations.js";
-import { otherEntity } from "../../../../cdm/commons/relationshipModelUtils.js";
-import { computeSubActivityData } from "../../../../cdm/dataProvider/subactivity/computeSubActivityData.js";
-import { DUAL_PANE_SELECTION } from "../../../constants.js";
-import { createEntityDisplayLabelLocalizable, createUiConfigurationKey } from "../../../localization.js";
-import { PaginationUtils } from "../../../paginationUtils.js";
-import { Relationship } from "../../../relationship.js";
-import { RelationshipSelectors } from "../../../selectors.js";
-import { getBindingConfiguration } from "../../../../shared/BindingConfiguration.js";
-
-import { type AdapterCandidate, type OwnProps as CommonOwnProps, type Items } from "../adapter/adapter.js";
-import { type AdapterLink } from "../adapter/adapterLinkSelectors.js";
 
 /**
  * @internal
@@ -146,6 +145,7 @@ export function mapStateToAdapterProps<T>(state: {}, ownProps: OwnProps<T>): Sta
 	};
 
 	const activity = ActivitySelectors.activityById(activityId)(state);
+
 	if (!activity) {
 		return emptyStateProps;
 	}
@@ -153,6 +153,7 @@ export function mapStateToAdapterProps<T>(state: {}, ownProps: OwnProps<T>): Sta
 	const relshModel = ModelSelectors.modelGraph()(state).relationshipModels.find(
 		(rm) => rm.header.id === config.relationship
 	);
+
 	if (relshModel === undefined) {
 		return emptyStateProps;
 	}
@@ -394,21 +395,23 @@ export function findSourceDocRef(
 	relationshipName: string
 ): string | undefined {
 	let sourceDocRef: string | undefined;
-	if (FormModel.DetachedRepeat.isInstance(formModelElement)) {
+
+	if (isFormModelDetachedRepeat(formModelElement)) {
 		const pathToBoundGroupInCdd = formModelElement.groupPath;
 		const pathToParentGroup =
 			pathToBoundGroupInCdd.length > 0 ? pathToBoundGroupInCdd.slice(0, -1) : pathToBoundGroupInCdd;
 		sourceDocRef = getDocRefByCddPath(extendPathInContext(pathToParentGroup), cdd, cdm);
-	} else if (FormModel.Control.isInstance(formModelElement)) {
+	} else if (isFormModelControl(formModelElement)) {
 		const pathToFieldInCdd = formModelElement.elementPath;
 		sourceDocRef = getSourceDocRefFromTargetDocPath(extendPathInContext(pathToFieldInCdd), cdd, cdm);
-	} else if (FormModel.CustomScreenElement.isInstance(formModelElement)) {
+	} else if (isFormModelCustomScreenElement(formModelElement)) {
 		const modelPathOfTargetEntity = undefined; // lookup in new BC property;
 		sourceDocRef =
 			modelPathOfTargetEntity !== undefined
 				? getSourceDocRefFromTargetDocPath(extendPathInContext(modelPathOfTargetEntity), cdd, cdm)
 				: getDocRefTopDown(dataContext, relationshipName, cdd, cdm);
 	}
+
 	return sourceDocRef;
 
 	function extendPathInContext(path: ModelPath): EntityInstancePath {
@@ -428,9 +431,11 @@ export const modelsSelector =
 	(state: object) => {
 		const bindingConfig = getBindingConfiguration(formModel);
 		const binding = bindingConfig?.find((b) => b.elementId === formModelElement);
+
 		if (binding === undefined) {
 			throw new Error(`Binding not found: "${formModelElement}"`);
 		}
+
 		const models = Relationship.UiConfiguration.isInstance(binding.details)
 			? RelationshipSelectors.overviewModels({
 					activityId,
@@ -450,12 +455,15 @@ export const modelsSelector =
 export function getBindingDetails(formModel: FormModel, formModelElement: string): Relationship.UiConfiguration {
 	const bindingConfig = getBindingConfiguration(formModel);
 	const binding = bindingConfig?.find((b) => b.elementId === formModelElement);
+
 	if (binding === undefined) {
 		throw new Error(`Binding not found: "${formModelElement}"`);
 	}
+
 	if (Relationship.UiConfiguration.isInstance(binding.details)) {
 		return binding.details;
 	}
+
 	throw new Error(`Incomplete details of binding "${formModelElement}"`);
 }
 

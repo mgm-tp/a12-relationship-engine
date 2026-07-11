@@ -35,7 +35,7 @@
  * @module documentGraph/core
  * @experimental
  */
-import { type Change, type ChangeLog, type DocumentChange, type LinkChange, type Marker } from "./changeLog.js";
+import type { Change, Marker, ChangeLog, LinkChange, DocumentChange } from "./changeLog.js";
 
 // These "reducer helpers" work in on the ChangeLogSlice structure of an Activity's DataHolder
 
@@ -50,6 +50,7 @@ export function applyChanges<S>(changeLog: ChangeLog<S>, changes: Change<S>[]): 
 		// Skip the first change of given changes, and apply same optimization on the rest of changes.
 		// The change counter has to be increased anyway, otherwise the changes might not be propagated
 		const updatedChangeLog = applyChanges(changeLog, changes.slice(1));
+
 		return {
 			...updatedChangeLog,
 			changeCounter: updatedChangeLog.changeCounter + Math.max(changes.length - 1, 1)
@@ -67,12 +68,15 @@ export function applyChanges<S>(changeLog: ChangeLog<S>, changes: Change<S>[]): 
 	function isChangeCollapsingAllowed(): boolean {
 		const len = changeLog.changes.length;
 		const firstNewChange = changes[0];
+
 		if (firstNewChange.kind === "docChanged" && len > 0) {
 			const lastLoggedChange = changeLog.changes[len - 1];
+
 			if (lastLoggedChange.kind === "docChanged" && lastLoggedChange.docRef === firstNewChange.docRef) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 }
@@ -104,9 +108,11 @@ export function isDocumentRelatedChange<S>(change: Change<S>): change is Documen
  */
 export function clearMarker<S>(changeLog: ChangeLog<S>): ChangeLog<S> {
 	const markerIndex = findMarkerIndex(changeLog.changes);
+
 	if (markerIndex < 0) {
 		return changeLog;
 	}
+
 	return {
 		...changeLog,
 		changes: changeLog.changes.filter((c, i) => i !== markerIndex)
@@ -119,9 +125,11 @@ export function clearMarker<S>(changeLog: ChangeLog<S>): ChangeLog<S> {
  */
 export function trim<S>(changeLog: ChangeLog<S>): ChangeLog<S> {
 	const markerIndex = findMarkerIndex(changeLog.changes);
+
 	if (markerIndex < 0) {
 		return changeLog;
 	}
+
 	return {
 		...changeLog,
 		changes: changeLog.changes.slice(0, markerIndex),
@@ -135,9 +143,11 @@ export function trim<S>(changeLog: ChangeLog<S>): ChangeLog<S> {
  */
 export function findMarker<S>(changeLog: ChangeLog<S>, id?: string): Marker<S> | undefined {
 	const markerIndex = findMarkerIndex(changeLog.changes, id);
+
 	if (markerIndex < 0) {
 		return undefined;
 	}
+
 	return changeLog.changes[markerIndex] as Marker<S>;
 }
 
@@ -152,9 +162,11 @@ function findMarkerIndex(changes: Change<unknown>[], id?: string): number {
 		const change = changes[i];
 		const idMatch = change.kind === "marker" && id !== undefined && change.id === id;
 		const typeMatch = change.kind === "marker" && id === undefined;
+
 		if (idMatch || typeMatch) {
 			return i;
 		}
 	}
+
 	return -1;
 }

@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ContractClaim_claim_SelectedItemsOverview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,12 +12,7 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -28,11 +23,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": false,
-			"showFullTextSearch": false,
-			"pagingSize": 50
-		},
 		"columns": [
 			{
 				"id": "column-e6558",
@@ -44,12 +34,17 @@
 		],
 		"rowActionGroup": {},
 		"subHeaderBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
 		},
 		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": false,
+			"pagingSize": 50
 		}
 	}
 }

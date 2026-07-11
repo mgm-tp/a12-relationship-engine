@@ -36,7 +36,7 @@
  * @experimental
  */
 
-import { type DgChangeLogSlice, type DgSlice } from "../../../documentGraph/core/index.js";
+import type { DgSlice, DgChangeLogSlice } from "../../../documentGraph/core/index.js";
 
 import { dgForNewEntity } from "./dg-for-new-entity.js";
 

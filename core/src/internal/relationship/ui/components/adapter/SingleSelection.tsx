@@ -35,31 +35,31 @@
  * @module relationship
  */
 
-import React, { useContext } from "react";
 import { connect } from "react-redux";
+import React, { useContext } from "react";
 
-import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { ExpressionBuilder, ExpressionInterpreter } from "@com.mgmtp.a12.expression/expression-core";
+import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { defaultValueParser } from "@com.mgmtp.a12.formengine/formengine-core";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Localizer, ValueConversion } from "@com.mgmtp.a12.utils/utils-localization";
+import { ExpressionBuilder, ExpressionInterpreter } from "@com.mgmtp.a12.expression/expression-core";
+import { OverviewModel, LocalizableFactory } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
 	type DocumentModel,
+	type GroupInstance,
+	DocumentServiceFactory,
 	type EntityInstancePath,
-	type FieldInstanceValue,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/facade.js";
-import { LocalizableFactory, OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type Localizer, type ValueConversion } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+	type FieldInstanceValue
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertCondition } from "../../../../shared/assertion.js";
 import { RelationshipActions } from "../../../actions.js";
+import { RelationshipSelectors } from "../../../selectors.js";
+import { assertCondition } from "../../../../shared/assertion.js";
 import { type Converter, createConverter } from "../../../converter.js";
 import { Relationship as RelationshipClientApi } from "../../../relationship.js";
-import { RelationshipSelectors } from "../../../selectors.js";
-
-import { type RelationshipDocument, type SingleSelectionItem, type SingleSelectionProps } from "../api.js";
+import type { SingleSelectionItem, RelationshipDocument, SingleSelectionProps } from "../api.js";
 
 import * as RelationshipUiAdapter from "./adapter.js";
 
@@ -68,6 +68,7 @@ interface StateProps extends RelationshipUiAdapter.StateProps {
 	readonly candidateModels?: RelationshipClientApi.OverviewModels;
 	readonly candidatesFullCount: number;
 	readonly editLinkModels?: RelationshipClientApi.FormModels;
+	readonly minSearchableTokenSize?: number;
 }
 
 interface DispatchProps {
@@ -122,6 +123,7 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 		if (selectedItem.loadingState !== "loaded") {
 			throw new Error("Item has been selected even if previous hasn't been loaded yet.");
 		}
+
 		if (
 			selectedItem.data &&
 			isCandidateSingleSelectionItem(item) &&
@@ -140,6 +142,7 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 			if (props.editLinkModels === undefined && selectedItem.data) {
 				props.onRemoveLink(selectedItem.data.link);
 			}
+
 			props.onSelectLink(item.candidate as RelationshipClientApi.Candidate);
 		} else if (selectedItem.data) {
 			props.onRemoveLink(selectedItem.data.link);
@@ -168,6 +171,7 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 				if (links.length > 0) {
 					props.onRemoveLink(links[0]);
 				}
+
 				props.onSubmitEditNewLink(modifiedLink);
 			}
 		}
@@ -196,6 +200,7 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 			onSelectItem={onSelect}
 			onSearchItem={props.onSearch}
 			onLoadMore={props.onLoadMore}
+			minSearchableTokenSize={props.minSearchableTokenSize}
 			{...props.templateComponentProps}
 		/>
 	);
@@ -246,6 +251,7 @@ export function createDisplayValueProvider(
 	const columns = models.overviewModel.content.columns;
 
 	const firstColumn = columns.length > 0 ? columns[0] : undefined;
+
 	if (firstColumn === undefined) {
 		return () => "";
 	}
@@ -254,6 +260,7 @@ export function createDisplayValueProvider(
 
 	if (OverviewModel.ReferenceColumn.isAssignableFrom(firstColumn)) {
 		const fieldPath = dmSearchService.getPathById(firstColumn.elementRef);
+
 		if (fieldPath === undefined) {
 			return () => "";
 		}
@@ -272,7 +279,7 @@ export function createDisplayValueProvider(
 				converter
 			});
 		};
-	} else {
+	} else if (OverviewModel.ExpressionColumn.isAssignableFrom(firstColumn)) {
 		const expressionTree = ExpressionBuilder.build(firstColumn.expression, {
 			rootPath: [],
 			valueParser: defaultValueParser(models.documentModel)
@@ -310,6 +317,8 @@ export function createDisplayValueProvider(
 				: "";
 		};
 	}
+
+	return () => "";
 }
 
 function getValue(
@@ -322,6 +331,7 @@ function getValue(
 	}
 
 	const next = (obj as GroupInstance)[path[0].elementName];
+
 	if (next === undefined) {
 		return fieldType === "BooleanType" ? false : null;
 	}
@@ -354,6 +364,7 @@ function getTargetDocRef(
 ): string {
 	const targetEntity = entities.find((e) => e.role === targetRole);
 	assertCondition(typeof targetEntity?.docRef === "string", "Expected docRef to exist!");
+
 	return targetEntity.docRef;
 }
 
@@ -384,8 +395,8 @@ export function convertLinkToSingleSelectionItem(
 }
 
 /** @internal */
-export const SingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProps>(
-	function mapStateToProps(state, ownProps): StateProps {
+export const SingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProps, object>(
+	function mapStateToProps(state: object, ownProps): StateProps {
 		const { activityId, instanceId, componentConfiguration: componentConfig } = ownProps;
 
 		const linkModels = RelationshipSelectors.overviewModels({
@@ -405,12 +416,17 @@ export const SingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProp
 
 		const relationshipInstance = RelationshipSelectors.relationshipInstance(activityId, instanceId)(state);
 
+		const minSearchableTokenSizeStr = DataServicesSelectors.configurationByKey(
+			"mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize"
+		)(state);
+
 		return {
 			...coreProps,
 			linkModels,
 			candidateModels,
 			editLinkModels,
-			candidatesFullCount: relationshipInstance?.candidatePagination.fullCount ?? 0
+			candidatesFullCount: relationshipInstance?.candidatePagination.fullCount ?? 0,
+			minSearchableTokenSize: minSearchableTokenSizeStr ? Number(minSearchableTokenSizeStr) : undefined
 		};
 	},
 	function mapDispatchToProps(dispatch, ownProps): DispatchProps {

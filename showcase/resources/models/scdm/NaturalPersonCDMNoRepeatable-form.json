@@ -2,7 +2,7 @@
 	"header": {
 		"id": "NaturalPersonCDMNoRepeatable-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "bindingConfiguration",
 				"value": "[{\"details\":{\"name\":\"postal-address-section\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"modificationConfiguration\":{\"addButtonLabel\":[{\"locale\":\"en\",\"text\":\"Add Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift hinzufügen\"}],\"editButtonLabel\":[{\"locale\":\"en\",\"text\":\"Edit Postal Address\"},{\"locale\":\"de\",\"text\":\"Postanschrift bearbeiten\"}],\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"post-address-select\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-62cf2\"}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
@@ -47,6 +43,11 @@
 				"modelType": "overview",
 				"purpose": "bindingReference",
 				"reference": "PostAddressLinks-overview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "NaturalPersonCDMNoRepeatable-form-binding-postal-address-section_RuM"
 			}
 		]
 	},
@@ -258,21 +259,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-62cf2",
 						"name": "postal-address-section",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "postal-address-section"
-									},
-									{
-										"locale": "de",
-										"text": "postal-address-section"
-									}
-								]
-							}
-						}
+						"reference": "NaturalPersonCDMNoRepeatable-form-binding-postal-address-section_RuM"
 					},
 					{
 						"type": "ControlGrid",

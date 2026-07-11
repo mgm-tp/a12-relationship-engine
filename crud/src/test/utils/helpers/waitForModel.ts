@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type AnyAction, type Store } from "redux";
+import type { Store, UnknownAction } from "redux";
 
 import { ModelSelectors } from "@com.mgmtp.a12.client/client-core";
 
@@ -43,11 +43,13 @@ interface Options {
 }
 export type WaitForModelFunc = (options: Options) => Promise<boolean | undefined>;
 
-export function waitForModelWithStore(store: Store<object, AnyAction>): WaitForModelFunc {
+export function waitForModelWithStore(store: Store<object, UnknownAction>): WaitForModelFunc {
 	const waitFor = waitForWithStore(store);
+
 	return function waitForModel({ name }) {
 		return waitFor((state) => {
 			const modelError = ModelSelectors.modelErrorByName(name)(state);
+
 			if (modelError !== undefined) {
 				Promise.reject(modelError);
 			}

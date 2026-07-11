@@ -1,0 +1,77 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= Breaking Change Management
+
+For the general definition of breaking and non-breaking changes in the A12 platform, as well as frontend and backend perspectives, see the
+link:/docs/OVERALL/breaking_change_management/index.html[A12 Breaking Change Management] page.
+
+The following section describes how this general definition is interpreted for the Relationship Engine.
+
+== Public API Surface
+
+The public API is defined by the exports in `index.ts`.
+Any removal or incompatible change to an exported symbol is a *breaking change*.
+Additions to the public API are *non-breaking*.
+
+Exports annotated `@experimental` may change in minor releases without being considered breaking.
+Exports annotated `@internal` are not part of the public API and carry no stability guarantee.
+
+== Resource Keys
+
+Adding new entries to `RELATIONSHIP_RESOURCE_KEYS` or `CDM_RESOURCE_KEYS` is *non-breaking*:
+applications that do not override those keys continue to receive the default translation.
+Removing or renaming an existing key is a *breaking change* for any application that provides a custom translation for it.
+
+== Redux State Shape and Action Types
+
+The Redux action `type` strings and the reducer state shape are part of the public contract.
+Renaming or removing an action type, or restructuring the state in a way that breaks existing selectors, is a *breaking change*.
+
+Selectors and sagas that are part of the public API follow the standard public-API rule above.
+
+== Composable Factory
+
+The signature of `withRelationshipEngine()` is public API.
+Any change to its parameter types or return type that requires call-site updates is a *breaking change*.
+New optional parameters are *non-breaking*.
+
+== UI Model Format
+
+Only changes that are incompatible with existing Relationship UI Models or CDM models are *breaking*: for example, removing a required field or changing the semantics of an existing field.
+
+Adding an optional field is *non-breaking* even though it triggers a model schema version bump and a corresponding migration step.
+When such a change is introduced, the `@com.mgmtp.a12.relationshipengine/relationshipengine-ui-model-migration` CLI tool handles the version upgrade automatically.
+
+== Server Protocol
+
+Changes to the wire format between the client-side `server-connectors` and the Java backend (request/response shape, query parameters, endpoint URLs) are *breaking* on both the frontend and backend sides.
+
+== Form Engine Integration
+
+The custom widget contract between the Relationship Engine and `@com.mgmtp.a12.formengine` is part of the public API.
+Changes that require updates in the Form Engine integration layer are *breaking changes*.
+
+== Non-Breaking Examples
+
+The following types of changes are consistently treated as *non-breaking* in the Relationship Engine:
+
+* Adding a new optional configuration field to an existing API
+* Adding new `RELATIONSHIP_RESOURCE_KEYS` or `CDM_RESOURCE_KEYS` entries
+* Introducing a new `@experimental` export
+* Internal refactoring under `core/src/internal/` that does not affect public exports
+* Bumping a transitive dependency with no visible API impact

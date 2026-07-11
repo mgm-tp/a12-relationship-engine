@@ -36,11 +36,11 @@
  * @experimental
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { resolveAnnotation, resolveAnnotationOrUndefined } from "../commons/modelUtils.js";
 
-import { type RelationshipGroupAnnotation, type RelationshipGroupInformation } from "./relationshipAnnotations.js";
+import type { RelationshipGroupAnnotation, RelationshipGroupInformation } from "./relationshipAnnotations.js";
 
 /** @internal */
 export function isRelationshipGroup(element: DocumentModel.Element): boolean {
@@ -59,6 +59,7 @@ export function dmGroup2RelationshipGroupInfo(relationshipGroup: DocumentModel.G
 	const targetDocumentModel = resolveRelationshipGroupAnnotation(relationshipGroup, "cdm.targetDocumentModel");
 	const multiplicity = relationshipGroup.repeatability;
 	const cdmGroupName = relationshipGroup.name;
+
 	return {
 		relationship,
 		sourceRole,
@@ -83,9 +84,11 @@ export function findAllRelationshipGroups(documentModel: DocumentModel): Documen
 
 	function findRelshGroupsRecursively(group: DocumentModel.Group): DocumentModel.Group[] {
 		const relationshipGroups: DocumentModel.Group[] = [];
+
 		if (isRelationshipGroup(group)) {
 			relationshipGroups.push(group);
 		}
+
 		for (const element of group.elements) {
 			if (element.type === "Group") {
 				relationshipGroups.push(...findRelshGroupsRecursively(element));

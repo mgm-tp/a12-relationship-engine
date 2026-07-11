@@ -29,15 +29,15 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module documentGraph/core
  * @experimental
  */
-import { type Change, type ChangeLog } from "./changeLog/changeLog.js";
-import { type DocumentGraph } from "./documentGraph.js";
-import { type DeepReadonly } from "./utilityTypes.js";
+
+import type { DeepReadonly } from "./utilityTypes.js";
+import type { DocumentGraph } from "./documentGraph.js";
+import type { Change, ChangeLog } from "./changeLog/changeLog.js";
 
 export type _ChangeLogT_ = DeepReadonly<DocumentGraph>;
 

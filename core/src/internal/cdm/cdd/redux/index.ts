@@ -36,9 +36,9 @@
  * @experimental
  */
 import * as CddActions from "./actions.js";
+import { CddSelectors } from "./selectors.js";
 import { dhReducers as cddReducers } from "./dhReducers.js";
 import { cddActivityStateAdapter } from "./cddMiddlewareAdapterFactory.js";
 import { dataHolderReducerExtension as cddDataHolderReducerExtension } from "./dhReducersImpl.js";
-import { CddSelectors } from "./selectors.js";
 
 export { cddReducers, cddDataHolderReducerExtension, CddSelectors, CddActions, cddActivityStateAdapter };

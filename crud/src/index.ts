@@ -32,7 +32,7 @@
 
 export { RESOURCE_KEYS as CRUD_RESOURCE_KEYS } from "./internal/languages/index.js";
 export { CRUDFactories } from "./internal/factories.js";
-export { CRUDViews } from "./internal/views.js";
+export * from "./internal/views.js";
 export { EventNames } from "./internal/events.js";
 
 // Composable application factory exports

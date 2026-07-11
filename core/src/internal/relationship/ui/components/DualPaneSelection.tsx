@@ -35,53 +35,54 @@
  * @module relationship
  */
 
-import React, { Component, useContext } from "react";
+import type React from "react";
+import { Component, useContext } from "react";
 
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { AriaLevelContext } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { type Localizable, localizableFromModel } from "@com.mgmtp.a12.utils/utils-localization";
 import {
-	type OverviewEngineApi,
-	type FilterButton,
+	noop,
+	Icon,
+	Counter,
+	addPrefix,
+	LayoutGrid,
+	ButtonGroup,
+	InputElements,
+	type CounterProps,
+	ContentBoxElements,
+	type LayoutGridProps,
+	Button as WidgetsButton
+} from "@com.mgmtp.a12.widgets/widgets-core";
+import {
 	type Footer,
 	type Heading,
-	type RowActionGroup,
+	OverviewModel,
 	type TableBody,
-	type TableBodyCell,
-	DefaultComponentMap,
 	OverviewEngine,
-	type OverviewEngineState,
-	OverviewModel
+	type FilterButton,
+	type TableBodyCell,
+	type RowActionGroup,
+	DefaultComponentMap,
+	type OverviewEngineApi,
+	type OverviewEngineState
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type Localizable, localizableFromModel } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import {
-	Button as WidgetsButton,
-	ButtonGroup,
-	addPrefix,
-	noop,
-	ContentBoxElements,
-	type CounterProps,
-	Counter,
-	Icon,
-	InputElements,
-	type LayoutGridProps,
-	LayoutGrid
-} from "@com.mgmtp.a12.widgets/widgets-core";
 
+import type { Relationship } from "../../relationship.js";
 import { assertObject } from "../../../shared/assertion.js";
 import { DocumentModelUtils } from "../../../shared/utils.js";
 import {
+	descriptorSelectedItems,
 	descriptorAvailableItems,
-	descriptorCandidateTableEmptyMessage,
 	descriptorLinkTableEmptyMessage,
-	descriptorSelectedItems
+	descriptorCandidateTableEmptyMessage
 } from "../../localization.js";
-import { type Relationship } from "../../relationship.js";
 
-import { type MultiSelectionItem, type MultiSelectionProps } from "./api.js";
 import FormEngineModal from "./FormEngineModal.js";
 import { ProgressIndicator } from "./ProgressIndicator.js";
-import { omitActionColumnWidth, type DocumentId, type LocalizedLabelConfig } from "./util.js";
+import type { MultiSelectionItem, MultiSelectionProps } from "./api.js";
+import { type DocumentId, normalizeCssLength, omitActionColumnWidth, type LocalizedLabelConfig } from "./util.js";
 
 interface DualPaneSelectionItem extends MultiSelectionItem {
 	readonly type: Relationship.LinkMutationState | "existing" | "disabled_candidate" | "candidate";
@@ -90,31 +91,27 @@ interface DualPaneSelectionItem extends MultiSelectionItem {
 export interface DualPaneSelectionProps extends MultiSelectionProps {
 	readonly availableItemsTable?: LocalizedLabelConfig;
 	readonly selectedItemsTable?: LocalizedLabelConfig;
-	readonly height?: number;
+	/**
+	 * Height of each DualPane column as a CSS length value, passed through directly.
+	 * Leave unset to let the column grow with its content.
+	 */
+	readonly height?: string;
 }
 
 const columnSize: LayoutGridProps.ColumnSize = { lg: 6, md: 6, sm: 6 };
-/**
- * Before introducing the height prop, the column had a height of 328.
- * That's why we keep this odd number as default.
- */
-const defaultColumnHeight: LayoutGridProps.ColumnHeight = {
-	xs: 328,
-	sm: 328,
-	md: 328,
-	lg: 328
-};
+
+function toColumnHeight(height: string | undefined): LayoutGridProps.ColumnHeight | undefined {
+	if (height === undefined) {
+		return undefined;
+	}
+
+	const normalizedHeight = normalizeCssLength(height);
+
+	return { xs: normalizedHeight, sm: normalizedHeight, md: normalizedHeight, lg: normalizedHeight };
+}
 
 export function DualPaneSelection(props: DualPaneSelectionProps): React.ReactNode {
-	const columnHeight: LayoutGridProps.ColumnHeight =
-		props.height !== undefined
-			? {
-					xs: props.height,
-					sm: props.height,
-					md: props.height,
-					lg: props.height
-				}
-			: defaultColumnHeight;
+	const columnHeight = toColumnHeight(props.height);
 
 	return (
 		<>
@@ -164,6 +161,7 @@ function CandidateTable(props: DualPaneSelectionProps): React.ReactNode {
 		if (item === undefined) {
 			throw new Error(`Could not find document with id ${params.documentId}`);
 		}
+
 		props.onAddAssignment(item);
 	};
 
@@ -442,8 +440,10 @@ export class DualPaneOverviewTable extends Component<DualPaneOverviewTableProps,
 
 	handleColumnClick = (columnIndex: number) => {
 		const col = this.props.overviewModel.content.columns[columnIndex];
+
 		if (OverviewModel.ReferenceColumn.isAssignableFrom(col)) {
 			const path = DocumentModelUtils.getElementPathForId(col.elementRef, this.props.documentModel);
+
 			if (this.props.onSortingChange) {
 				this.props.onSortingChange({
 					path,
@@ -604,6 +604,7 @@ export class DualPaneOverviewTable extends Component<DualPaneOverviewTableProps,
 		const toggleIcon = rowItem.type === "added" || rowItem.type === "existing" ? "remove_circle" : "add_circle";
 
 		const editAllowed = rowItem.type === "added" || rowItem.type === "existing";
+
 		return (
 			<div className={addPrefix("-u-flex")}>
 				<ButtonGroup alignment="right">
@@ -615,6 +616,7 @@ export class DualPaneOverviewTable extends Component<DualPaneOverviewTableProps,
 								if (this.props.onEdit && editAllowed) {
 									this.props.onEdit(rowItem);
 								}
+
 								event.stopPropagation();
 							}}
 						/>

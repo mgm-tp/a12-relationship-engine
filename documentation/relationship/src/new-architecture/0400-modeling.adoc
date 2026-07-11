@@ -1,0 +1,89 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= Modeling
+
+The Relationship Engine is configured by A12 models, not by code or annotation strings. Each relationship UI is described by a *Relationship UI Model*. Wherever a Relationship UI Model fetches data, it does so through a *Query Model*. Pane-based Relationship UI Models additionally compose with an *Overview Model* per pane. This chapter explains the responsibilities of each model and how they react to one another.
+
+== Relationship UI Model
+
+The Relationship UI Model defines a single relationship UI, that is one Dual Pane, one Table List, or one Dropdown. It is a standard A12 base model, stored as its own model file under the application's model resources. Multiple relationship UIs on the same form are multiple UI models; they are no longer collapsed into a single annotation on the Form Engine model.
+
+A UI model captures:
+
+Component shape::
+The kind of relationship UI (Dual Pane, Table List, Dropdown) and the configuration shared by every variant of that kind, including labels, action buttons, the relationship name and roles it represents, whether duplicates are allowed, and so on.
+
+Model references::
+Named references to the dependent models (Query Models, Overview Models, link-document Form Models). The Relationship UI Model itself does not embed these; it points at them by name and version, the same way other A12 features reference base models. This is what makes versioning, schema validation and tooling possible.
+
+Behavior switches::
+Per-model choices that influence runtime behavior: whether a link document is required, which roles are involved, whether a `groupPath` enables Composed Document Model sub-document-graph loading, and similar.
+
+Because the UI model is a regular A12 model, it is loaded with the model graph at application start, validated against its schema, and resolved by name when an activity is opened.
+
+== Query Model
+
+A Query Model is the single mechanism through which a Relationship UI Model fetches documents. It encapsulates a query definition (constraint, projection, ordering, paging) and is referenced by name from the Relationship UI Model.
+
+Each Relationship UI Model variant references Query Models in slightly different shapes:
+
+Dropdown::
+References Query Models *directly* in the UI model: one for the candidate set (what the user can pick) and one for the selected item (what is currently chosen). The dropdown does not go through an Overview Model.
+
+Dual Pane::
+References Query Models *via the Overview Model* of each pane. The selected items pane and the available items pane each have their own Overview Model, and each Overview Model carries the Query Model that drives its data.
+
+Table List::
+References Query Models via the Overview Model of the list. If the Table List allows editing through a dialog with selection, the dialog references additional Query Models the same way a Dual Pane would.
+
+=== Query variables placeholders
+
+A query alone rarely makes sense in isolation: the candidates for "products in this category" depend on which category the user is currently editing. Query Models therefore allow variables placeholders inside their constraints, that the engine substitutes at runtime with the actual document reference of the surrounding activity.
+
+This indirection is deliberate. It keeps Query Models reusable across activities, keeps the constraint declarative, and isolates the runtime substitution to a single layer of the engine.
+
+== Overview Model
+
+For pane-based Relationship UI Models (Dual Pane, Table List), each pane is rendered by Overview Engine. The Overview Model defines that pane's table, including its columns, sorting and paging defaults, and the Query Model it draws from, exactly as it would for a stand-alone Overview Engine activity.
+
+This is what allows the Relationship Engine to delegate rendering to Overview Engine without forking it: a Relationship Engine pane is, structurally, an "embedded" Overview Engine view component fed by an "embedded" Overview Engine data holder. Customizations applied to Overview Engine columns and cell widgets propagate into the Relationship Engine without further work; see <<_view_customization,View Customization>>.
+
+== Composed Document Model
+
+Composed Document Model is an opt-in modelling layer for use cases where one root document needs to be edited together with a tree of related child documents in a single activity. It does not introduce new Relationship UI Models; instead, it requires the application's data model to declare a Composed Document Model, that is the shape of the tree, and it changes the activity setup so that:
+
+* the activity loads the entire Composed Document Model tree at init time as a Document Graph,
+* Relationship UI Models whose relationships are part of the tree resolve their source document by walking the relationship chain rather than from a single form document,
+* drafting entries (e.g.: documents created locally before being persisted) become possible.
+
+== How the models react together
+
+.Modeling hierarchy: `RelationshipUiModel` is the root model. Its `ComponentConfiguration` branches into DualPane/TableList bindings (via OverviewModels and QueryModels) and DropDown bindings (via QueryModels directly). The optional `linkFormModel` activates a DynamicConfiguration for Form Engine rendering.
+image::assets/images/new-architecture/modeling-hierarchy.png[Modeling hierarchy diagram showing RelationshipUiModel and referenced models]
+
+A typical Dual Pane wires up like this at runtime:
+
+. The activity is opened. The model graph supplies the activity's Form Engine model and every Relationship UI Model referenced from it.
+. The Relationship Engine creates one set of data holders per Relationship UI Model (selected items instance, available items instance, optional dropdown selection) using the UI model's relationship metadata.
+. The available items pane's Overview Model resolves its Query Model; query variables are substituted from the activity descriptor or, for Composed Document Model activities, or from the resolved source document on the Document Graph.
+. The selected items pane's Overview Model is similarly resolved. The Relationship Engine additionally extends the selected items pane query at runtime when there are pending but unsaved targets, so the selected pane can accurately reflect the changelog together with the persisted data.
+. User actions in either pane produce changelog entries; selectors recompute drafting rows, lifecycle badges and effective changes for the next save.
+
+The Dropdown variant skips steps that involve Overview Models, going directly from the UI Model to the Query Model. The Table List variant uses one pane plus an optional edit dialog whose data fetching follows the Dual Pane pattern.
+
+The shared rule is that a Relationship UI Model's runtime behavior is fully determined by its referenced models.

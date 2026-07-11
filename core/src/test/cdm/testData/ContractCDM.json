@@ -21,25 +21,21 @@
 		],
 		"modelReferences": [
 			{
-				"alias": "Contract-document.json",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Contract-document"
 			},
 			{
-				"alias": "BusinessPartner-document.json",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "BusinessPartner-document"
 			},
 			{
-				"alias": "Address-document.json",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Address-document"
 			},
 			{
-				"alias": "CoInsurerAdditionalFields.json",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "CoInsurerAdditionalFields"

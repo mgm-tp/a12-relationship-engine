@@ -1,0 +1,63 @@
+/*
+ * SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+ *
+ * Copyright (c) 2012-2026 mgm technology partners GmbH
+ *
+ * Dual License
+ * ------------
+ * This source file is part of the mgm A12 Platform and available under
+ * a choice of two different licenses:
+ *
+ * 1. Open-Source License - EUPL v1.2
+ *    You may redistribute and/or modify this file under the terms of the
+ *    European Union Public License, version 1.2 - see https://eupl.eu/.
+ *
+ * 2. Commercial License
+ *    Alternatively, you may obtain a commercial license from
+ *    mgm technology partners GmbH, that permits use of this software
+ *    under different terms (including support and maintenance services).
+ *
+ *    Please contact a12-license@mgm-tp.com for more information.
+ *
+ * You must select and comply with exactly one of the above license options.
+ *
+ * Warranty Disclaimer (applies to either option)
+ * ----------------------------------------------
+ * THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND,
+ * WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
+ * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+ */
+
+import type { ModelAttributeAccessor } from "@com.mgmtp.a12.migrationtool/migrationtool-core/types";
+
+import { LEGACY_BINDING_FORM_MODEL_VERSION } from "./versions.js";
+import { getHeader } from "./model-accessors/header-accessors.js";
+import { hasBindingAnnotation } from "./model-accessors/type-guards.js";
+
+export const extractionModelAttributeAccessor: ModelAttributeAccessor = {
+	isTargetModel(model) {
+		const header = getHeader(model);
+
+		return header?.modelType === "form" && hasBindingAnnotation(header);
+	},
+	/** Checks whether model extraction ignores this model. */
+	isIgnoredModel(_model) {
+		return false;
+	},
+	getId(model) {
+		return getHeader(model)?.id ?? "";
+	},
+	getVersion(model) {
+		const header = getHeader(model);
+
+		return hasBindingAnnotation(header)
+			? LEGACY_BINDING_FORM_MODEL_VERSION
+			: (header?.modelVersion ?? LEGACY_BINDING_FORM_MODEL_VERSION);
+	},
+	/** Sets model version marker for migration output. */
+	setVersion(model, _version) {
+		return model;
+	}
+};

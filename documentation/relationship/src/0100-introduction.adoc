@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -9,11 +9,11 @@ You may redistribute and/or modify this file under the terms of the European Uni
 Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
 
 Please contact a12-license@mgm-tp.com for more information.
-    
+
 You must select and comply with exactly one of the above license options.
 
 Warranty Disclaimer (applies to either option)
-THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
 ////
 = Introduction
 
@@ -22,3 +22,8 @@ The _Relationship Engine_ package provides an extension that allows users to man
 A general documentation describing the basic concepts of the Relationship feature can be found in the mgm A12 overall documentation.
 
 It also provides the Simple Composed Data Model (SCDM) extension which is currently an experimental feature that builds on the relationships extension and the new documentGraph extension and provides an optimized UI for editing sets of documents in the context of a certain use case of the target application.
+
+[NOTE]
+====
+The new architecture is available as the recommended approach and is the successor to the legacy setup. It is documented in the <<_new_architecture,New Architecture>> section at the end of this guide. New applications should use it; existing applications can continue with the legacy architecture and migrate when ready — see the migration tool described in that section.
+====

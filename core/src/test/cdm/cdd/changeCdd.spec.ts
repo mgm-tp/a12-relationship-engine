@@ -33,37 +33,37 @@
 import * as Fs from "node:fs";
 import * as Path from "node:path";
 
-import { describe, test, expect, assert, it } from "vitest";
 import fastDeepEqual from "fast-deep-equal";
+import { it, test, expect, assert, describe } from "vitest";
 
+import type { ModelType } from "@com.mgmtp.a12.base/base-model-api";
 import { type Change, DocumentPath } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { ModelGraph, Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
 	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type ModelGraph, type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import type { ModelType } from "@com.mgmtp.a12.base/base-model-api/lib/main/header/index.js";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+	type GroupInstance,
+	DocumentServiceFactory,
+	type EntityInstancePath
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertCondition, assertObject } from "../../../internal/shared/assertion.js";
+import { createDataHolder } from "../../utils/activity.js";
+import dg from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
 import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
-import { type CddState } from "../../../internal/cdm/cdd/core/cddState.js";
-import { newCddState } from "../../../internal/cdm/cdd/core/impl/cddStateImpl.js";
-import { type ChangeHandler } from "../../../internal/cdm/cdd/redux/changeCdd/changeCddImpl.js";
-import { handleGroupAdded } from "../../../internal/cdm/cdd/redux/changeCdd/handleGroupAdded.js";
-import { handleGroupMoved } from "../../../internal/cdm/cdd/redux/changeCdd/handleGroupMoved.js";
-import { handleGroupRemoved } from "../../../internal/cdm/cdd/redux/changeCdd/handleGroupRemoved.js";
-import { handleValueChanged } from "../../../internal/cdm/cdd/redux/changeCdd/handleValueChanged.js";
-import { type ScdmDataHolderShape } from "../../../internal/cdm/cdd/redux/dhReducersImpl.js";
-import { CDD_DOC_REF, LINKDOC_GROUPNAME } from "../../../internal/cdm/cdmCommons/cddTechnical.js";
-import { type DeepReadonly, type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import { newChangeLog } from "../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
+import type { CddState } from "../../../internal/cdm/cdd/core/cddState.js";
 import { readDocumentAndValidationModel } from "../../mocks/ModelsUtil.js";
 import { MOCK_MODEL_GRAPH } from "../../mocks/relationships/ModelGraph.js";
+import { newCddState } from "../../../internal/cdm/cdd/core/impl/cddStateImpl.js";
+import { assertObject, assertCondition } from "../../../internal/shared/assertion.js";
 import dgCopyRow from "../../mocks/scdm/loadDG/dg-copyRow.json" with { type: "json" };
-import dg from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
-import { createDataHolder } from "../../utils/activity.js";
+import type { ScdmDataHolderShape } from "../../../internal/cdm/cdd/redux/dhReducersImpl.js";
+import { newChangeLog } from "../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
+import type { ChangeHandler } from "../../../internal/cdm/cdd/redux/changeCdd/changeCddImpl.js";
+import { handleGroupAdded } from "../../../internal/cdm/cdd/redux/changeCdd/handleGroupAdded.js";
+import { handleGroupMoved } from "../../../internal/cdm/cdd/redux/changeCdd/handleGroupMoved.js";
+import type { DeepReadonly, DocumentGraph } from "../../../internal/documentGraph/core/index.js";
+import { CDD_DOC_REF, LINKDOC_GROUPNAME } from "../../../internal/cdm/cdmCommons/cddTechnical.js";
+import { handleGroupRemoved } from "../../../internal/cdm/cdd/redux/changeCdd/handleGroupRemoved.js";
+import { handleValueChanged } from "../../../internal/cdm/cdd/redux/changeCdd/handleValueChanged.js";
 
 describe.skip("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 	describe("ChangeCDD", () => {
@@ -94,6 +94,7 @@ describe.skip("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 				getTestGroups: () => object[];
 			}) {
 				const { changedPath, makeFEDoc, makeLinkSpecs, getTestGroups } = params;
+
 				return () => {
 					const { dataHolder, cdd: initialCdd } = initDataHolder();
 					const dgBefore = testProps(dataHolder.data?.documentGraph as DocumentGraph);
@@ -131,11 +132,13 @@ describe.skip("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 					).to.equal(dgBefore.links.length + newLinkSpecs.length);
 
 					const newLinks = newLinkSpecs.map((spec) => dgResult.links.find(dgLinkComparator(spec)));
+
 					for (const newLink of newLinks) {
 						expect(newLink, "new DG link with expected specs").to.not.equal(undefined);
 					}
 				};
 			}
+
 			it(
 				"adds a group as a document+link",
 				makeTest({
@@ -329,6 +332,7 @@ describe.skip("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 						updatedDocument
 					};
 				}
+
 				test("updates the surrounding document to contain the group instance copy as last element in the respective array", () => {
 					const { updatedDocument } = copyGroupFixture();
 
@@ -461,6 +465,7 @@ describe.skip("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 					expect(dgResult.links.length, "no link added").to.equal(dgBefore.links.length);
 
 					const cddDoc = dgResult.documents.find((d) => d.docRef === CDD_DOC_REF);
+
 					if (cddDoc?.loadingState === "loaded") {
 						expect((cddDoc.document.PolicyHolder as GroupInstance).hasPostalAddress).to.be.equal(hasPostalAddress);
 					} else {
@@ -774,6 +779,7 @@ describe.skip("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 	 */
 	const dgLinkComparator = (specs: Relationship.LinkEntitySpec[]) => (link: { linkRef: Relationship.LinkRef }) => {
 		const linkEntities = link.linkRef.linkDescriptor.entities;
+
 		return specs.length === linkEntities.length && specs.every((s) => linkEntities.some(linkEntityComparator(s)));
 	};
 
@@ -789,6 +795,7 @@ interface ModelDescriptor {
 
 function removeDuplicateDescriptors(modelDescriptors: ModelDescriptor[]): ModelDescriptor[] {
 	const uniqueDescriptorsByName = new Map(modelDescriptors.map((md) => [md.name, md]));
+
 	return [...uniqueDescriptorsByName.values()];
 }
 
@@ -797,6 +804,7 @@ function expandDescriptors(modelDescriptors: ModelDescriptor[], modelGraph: Mode
 		(newDescriptors, modelDescriptor) => [...newDescriptors, ...expandRecursive(modelGraph, modelDescriptor)],
 		[] as ModelDescriptor[]
 	);
+
 	return removeDuplicateDescriptors(expandedDescriptors);
 }
 
@@ -809,6 +817,7 @@ function expandRecursive(modelGraph: ModelGraph, modelDescriptor: ModelDescripto
 			modelType: r.modelType
 		})
 	);
+
 	return expandedDescriptors.concat(referencedDescriptors ?? []);
 }
 
@@ -819,6 +828,7 @@ function findModelReferences({ modelType, name }: ModelDescriptor, modelGraph: M
 			: modelType === "relationship"
 				? modelGraph.relationshipModels.find((rm) => rm.header.id === name)
 				: modelGraph.genericModels?.find((m) => m.modelId === name);
+
 	// DS does not provide typeguards for this (A12S-4623)
 	return match && "header" in match ? match.header.modelReferences : match?.modelReferences;
 }

@@ -1,0 +1,125 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= Changelog and Document Graph (Internal Reference)
+
+[NOTE]
+====
+This page is an internal reference for contributors maintaining the Relationship Engine. It documents `@internal` machinery that is not part of the public API and is intentionally excluded from the published documentation index. Behavior described here may change without a major version bump.
+====
+
+This document is the long-form companion to the State Management chapter. It enumerates the changelog entry kinds, describes how each is applied to the Document Graph, and walks through the seeding, merging, checkpoints and sub-document-graph caching paths used during save and rollback.
+
+== Changelog entry kinds
+
+The change kinds carried by the changelog are:
+
+`linkAdded`::
+A new relationship link. Carries the link id, the link reference (relationship model + entities), and optionally an embedded link document. When the affected SelectedItemsOverview uses `exclude: true` (i.e. the relationship has `duplicatesAllowed: true`), the entry additionally captures a snapshot of the target document and its model name; this snapshot powers the drafting-link row, since the standard query-extension path is voided in exclude mode.
+
+`linkDeleted`::
+Removal of an existing link. Carries the link id and link reference.
+
+`linkDocChanged`::
+A field-level update or wholesale replacement of a link document. Carries the link id, link reference, and either a path / value pair for a field update or a complete `linkDocument` for a replacement.
+
+`docAdded`::
+A drafting child document created locally. CDM only. Carries the document reference, the document body, and the document model name.
+
+`docChanged`::
+A field-level update of an existing CDM document. Carries the document reference, model name, path, and value.
+
+`cdmRootComputed`::
+A cached SCDM computation result. Transient — excluded from `effectiveChanges`, included in seeding so child replays remain synchronous.
+
+`subDocumentGraphAdded`::
+A cached sub-document-graph slice fetched for a freshly-added link target. Transient in the same sense as `cdmRootComputed`.
+
+Every entry can additionally carry an `inherited` flag. Inherited entries are seeded from a parent activity's changelog or injected via the Parent Link Descriptor. They apply to the Document Graph normally so the form sees them; they are filtered out of `mergeableChanges` when merging back to the parent (with the single exception of the Parent Link Descriptor's `linkAdded`, which represents the child's own parent-facing link and must be persisted); and they do not, on their own, mark an activity dirty.
+
+== Applying changes to the Document Graph
+
+`applyChange(currentDG, change, modelsInScene, modelGraph?)` returns a new `DocumentGraph` with the change folded in. Behaviour by kind:
+
+* `docAdded` inserts a node into `documents.byDocRef`.
+* `docChanged` patches a field on an existing loaded document.
+* `linkAdded` inserts a link into `links.byId`, updates `links.linkIdsByDocId`, and creates missing document stubs as needed.
+* `linkDeleted` removes the link and prunes empty entries from `links.linkIdsByDocId`.
+* `linkDocChanged` updates link-document fields or replaces the link document outright.
+
+Each application increments `changelogIndex` so consumers can detect whether the in-memory snapshot is in sync with a given changelog length.
+
+== Effective-changes deduplication
+
+The save path does not use the raw changelog. The `effectiveChanges` selector collapses redundancy:
+
+* multiple `docChanged` entries for the same document collapse into a single net `docChanged`;
+* a `docAdded` overrides any subsequent `docChanged` for the same document — at save time the document is read in full from the live Document Graph;
+* a `linkAdded` followed by `linkDocChanged` entries for the same link collapses into a single `linkAdded` carrying the final link document;
+* a `linkAdded` followed by `linkDeleted` for the same link is neutralised and removed from the result;
+* a `linkDeleted` followed by a fresh `linkAdded` for the same link is preserved as both — a delete-then-add rather than a no-op;
+* the resulting list is ordered deletions, modifications, additions per source document.
+
+The transient `cdmRootComputed` and `subDocumentGraphAdded` entries fall through the `default` case and are silently dropped.
+
+== Checkpoints
+
+A checkpoint stack supports transactional scopes — most importantly Form Engine's detached repeat groups.
+
+* `pushChangelogCheckpoint` records the current change count under a scope id.
+* `resolveChangelogCheckpoint` with `outcome: "commit"` pops the checkpoint without changing the changelog body.
+* `resolveChangelogCheckpoint` with `outcome: "rollback"` trims `changes` back to the recorded count, then replays the trimmed list through `applyChange` starting from the pristine baseline `initialDocumentGraph` captured at load time. The replay is purely synchronous, so any sub-document-graph slices needed during the replay must already be cached in the trimmed changelog as `subDocumentGraphAdded` entries.
+
+Both `mergeChangelog` and `resolveChangelogCheckpoint` follow the typescript-fsa async action pattern — the saga performs the work and dispatches `.done` with the pre-computed result; the reducer applies that result atomically without doing any computation of its own.
+
+== Sub-document-graph caching
+
+When a CDM link is added and its Relationship UI Model declares a `groupPath`, the engine must fetch the linked target's sub-document-graph slice from DataServices. Re-fetching that slice every time the changelog is replayed (rollback, child-to-parent merge) would defeat the synchronous-replay design, so the result is cached as a `subDocumentGraphAdded` entry on the changelog.
+
+The flow for an interactive link add:
+
+. The link-lifecycle saga detects a `groupPath` on the new `linkAdded`.
+. It dispatches a `loadSubDocumentGraphs.started` action and triggers `ActivityActions.loadData` carrying a `LoadSubDocumentGraphPayload`.
+. The data provider routes the request to `LoadSubDocumentGraphHandler` ahead of any normal data-holder loading. The handler batches all required subtree fetches into one `Dispatcher.rpc` call, resolves each projection into a `SubDocumentGraphAdded` fragment, and dispatches `loadSubDocumentGraphs.done`.
+. The reducer appends the fragments to the changelog and folds them into the Document Graph. SCDM computation and source-entity propagation then run.
+
+For child-to-parent merges and for rollbacks the cached `subDocumentGraphAdded` entries replay synchronously through `applyChange`; no RPC is issued.
+
+== Child-activity bootstrap (seeding and merging)
+
+A CDM child activity opened from a parent activity is seeded from the parent's changelog so the child immediately sees its inherited context.
+
+. `resolveSeedFromParent` walks the activity ancestor chain to find the nearest RE ancestor.
+. It copies the parent's `changes` into the child, marking each with `inherited: true`. Any entity reference that pointed at the parent's real root is rewritten to the child's virtual `ROOT_DOC_REF` so source-entity resolution stays inside the child's slice. The reverse remap happens during merge.
+. For CDM, the seed walks outward (BFS) from the child's target document reference to build a pruned `DocumentGraph` slice. The walk stops at links anchored on the parent root so the parent's full graph never leaks into the child.
+. The result is fed into `seedChangelog`, which replaces the child's changelog wholesale; for CDM the pruned Document Graph is installed as the initial baseline.
+
+On save, `resolveSaveState` decides between:
+
+* *merge* — the parent has an RE changelog. `mergeableChanges` filters the child's changelog: drops `cdmRootComputed`, `subDocumentGraphAdded`, root-document changes, and inherited entries (except the Parent Link Descriptor's `linkAdded`); strips the `inherited` flag from the surviving entries. `mergeChangelogSaga` appends them to the parent's changelog and replays the parent's changelog from its baseline through `applyChange` to recompute the parent's Document Graph and SCDM result.
+* *persist* — the parent is non-RE (Tree Engine, master) or absent. `effectiveChanges` includes inherited entries so a Parent-Link-Descriptor-injected `linkAdded` is persisted along with the new document and its links in a single batched DataServices RPC.
+* *noop* — no effective changes.
+
+If any pending `linkAdded` requires a link document but does not yet have one, `SaveHandler` runs `collectMissingLinkDocuments` and surfaces a prompt before routing. Confirming the prompt patches the changelog with a `linkDocChanged`; cancelling aborts the save while leaving `dirty = true`.
+
+== Worked example: drafting a child, editing it, saving up
+
+. *T1 — parent drafts a child.* The "Add" action emits a `docAdded` for the new child, followed by a `linkAdded` from the parent root to the new child. `applyChange` updates the parent Document Graph; the drafting-document selector emits a row.
+. *T2 — user clicks the drafting row.* The link-row middleware opens a child activity. `resolveSeedFromParent` returns the parent's reachable slice; `seedChangelog` marks every entry inherited and rewrites root references. The child Document Graph is built; the child is not dirty.
+. *T3 — user edits fields.* Each field change appends a non-inherited `docChanged` to the child's changelog. The child Document Graph is updated through `applyChange`.
+. *T4 — child saves.* `resolveSaveState` returns "merge". `mergeableChanges` strips inherited entries and emits the local `docChanged` entries with `inherited` cleared. `mergeChangelogSaga` appends them to the parent's changelog; the parent's Document Graph is recomputed by replaying its changelog from baseline.
+. *T5 — parent saves.* `effectiveChanges` collapses the parent's `docAdded` + the merged `docChanged` entries into one `addDocument` RPC; the document body sent to DataServices is read from the live Document Graph rather than from any individual changelog entry. `linkAdded` produces an `addLink` RPC, with the child's drafting document reference replaced by a SpEL placeholder so the server resolves it from the immediately preceding `addDocument` response. Everything is batched into a single DataServices RPC.

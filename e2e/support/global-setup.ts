@@ -29,10 +29,12 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
+import { handleSeed } from "@com.mgmtp.a12.relationshipengine/relationshipengine-services-utils/lib/commands/seed.js";
 
-// import { clean, seed } from "./commands";
+export default async function setup() {
+	if (!process.env.BASE_URL) {
+		throw new Error("BASE_URL environment variable is not set");
+	}
 
-export default function setup() {
-	// clean();
-	// seed();
+	await handleSeed({ waitOn: false, presets: ["all"], baseUrl: process.env.BASE_URL });
 }

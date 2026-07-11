@@ -35,10 +35,10 @@
  * @module shared
  */
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
 import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
 
-import { type Relationship } from "../relationship/relationship.js";
+import type { Relationship } from "../relationship/relationship.js";
 
 /**
  *
@@ -47,6 +47,7 @@ import { type Relationship } from "../relationship/relationship.js";
  */
 export function getBindingConfiguration(model: ModelAPI): Relationship.UiConfigurationBinding[] | undefined {
 	const bindingAnnotation = model.header.annotations?.find(({ name }) => name === "bindingConfiguration");
+
 	if (bindingAnnotation?.value === undefined) {
 		return undefined;
 	}
@@ -59,6 +60,7 @@ export function getBindingConfiguration(model: ModelAPI): Relationship.UiConfigu
 			model,
 			error
 		);
+
 		return undefined;
 	}
 }

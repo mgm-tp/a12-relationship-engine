@@ -35,21 +35,20 @@
  * @module relationship
  */
 
-import React, { useContext } from "react";
 import { connect } from "react-redux";
+import React, { useContext } from "react";
 
 import { Activity, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type OverviewEngineState, type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { OverviewEngineApi, OverviewEngineState } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { RelationshipActions } from "../../../actions.js";
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
 import { RelationshipSelectors } from "../../../selectors.js";
-
-import { type MultiSelectionItem, type MultiSelectionProps, type RelationshipDocument } from "../api.js";
-import { getCandidatePaginationProps, getFilterProps, getSortingProps } from "../util.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
+import { getFilterProps, getSortingProps, getCandidatePaginationProps } from "../util.js";
+import type { MultiSelectionItem, MultiSelectionProps, RelationshipDocument } from "../api.js";
 
 import * as RelationshipUiAdapter from "./adapter.js";
 import { type AdapterLink, AdapterLinkSelectors } from "./adapterLinkSelectors.js";
@@ -86,6 +85,7 @@ function paginationPropsEqual(
 	if (prevProps === undefined && curProps === undefined) {
 		return true;
 	}
+
 	return (
 		prevProps?.pageCount === curProps?.pageCount &&
 		prevProps?.pageNumber === curProps?.pageNumber &&
@@ -116,6 +116,7 @@ export interface DispatchProps {
 /** @internal */
 export function MultiSelectionWrapper(props: StateProps & DispatchProps & OwnProps): React.ReactNode {
 	const localizer = useContext(LocalizerContext).localizer;
+
 	if (props.linkModels === undefined || props.candidateModels === undefined) {
 		return null;
 	}
@@ -131,11 +132,13 @@ export function MultiSelectionWrapper(props: StateProps & DispatchProps & OwnPro
 			props.onAddExistingLink(item.link);
 		}
 	}
+
 	function onRemoveExistingAssignment(item: MultiSelectionItem) {
 		if (isLinkMultiSelectionItem(item)) {
 			props.onRemoveExistingLink(item.link);
 		}
 	}
+
 	function onEditItem(item: MultiSelectionItem) {
 		if (isLinkMultiSelectionItem(item)) {
 			props.onEditLink(item.link);
@@ -220,6 +223,7 @@ export function convertLinkToMultiSelectionItem(link: AdapterLink, targetRole?: 
 		link: link,
 		documentJson: {
 			id: link.linkRef.id,
+			modelId: link.document.modelId as string,
 			...link.document
 		},
 		visible: link.visible,
@@ -268,8 +272,8 @@ export function retrieveTargetDocRef(linkDescriptor: Relationship.LinkDescriptor
 const NO_FILTER = {};
 
 /** @internal */
-export const MultiSelectionAdapter = connect<StateProps, DispatchProps, OwnProps>(
-	function mapStateToProps(state, ownProps): StateProps {
+export const MultiSelectionAdapter = connect<StateProps, DispatchProps, OwnProps, object>(
+	function mapStateToProps(state: object, ownProps): StateProps {
 		const { activityId, instanceId, componentConfiguration: componentConfig } = ownProps;
 
 		const linkModels = RelationshipSelectors.overviewModels({

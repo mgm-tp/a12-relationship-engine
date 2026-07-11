@@ -1,0 +1,33 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#dbeafe","primaryTextColor":"#1e3a5f","primaryBorderColor":"#3b82f6","lineColor":"#64748b","secondaryColor":"#dcfce7","tertiaryColor":"#fef9c3"}}}%%
+flowchart TB
+    FM["<b>FormModel</b>\nScreen, Control, CustomScreenElement, DetachedRepeat"]
+
+    FM --> RUM["<b>RelationshipUiModel</b>\nrelationshipName, targetRole"]
+
+    RUM --> CC["<b>ComponentConfiguration</b>
+componentType: DropDown, DualPane, TableList"]
+
+    CC --> GRP_DP["<b>DualPane / TableList</b>\nselectedItemsOverviewModel, availableItemsOverviewModel, editConfiguration"]
+
+    CC --> GRP_DD["<b>DropDown</b>\navailableItemsQueryModel, selectedItemQueryModel, elementRef"]
+
+    CC --> LFM["<b>linkFormModel</b>\n→ FE FormModel"]
+
+    GRP_DP --> OEM["<b>OverviewModel</b>\ncolumns, sorting, filters, pagination"]
+    OEM --> QM["<b>QueryModel</b>\ntargetDocumentModel, constraint, links, paging"]
+
+    GRP_DD --> QM
+
+    LFM --> DC["<b>DynamicConfiguration</b>\nrendered at RelationshipEngineLinkFormRegion"]
+
+    RUM --> MOD["<b>modificationConfiguration?</b>\nSupport for child activity"]
+
+    style FM fill:#f1f5f9,stroke:#94a3b8,color:#475569
+    style RUM fill:#fdf0ff,stroke:#9b59b6
+    style CC fill:#eef6ff,stroke:#4a90d9
+    style GRP_DP fill:#fff9e6,stroke:#f0c040
+    style GRP_DD fill:#e8f5e9,stroke:#4caf50
+    style OEM fill:#fff9e6,stroke:#f0c040
+    style QM fill:#f0fff0,stroke:#4caf50
+    style DC fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    style MOD fill:#fef3c7,stroke:#d97706,color:#78350f

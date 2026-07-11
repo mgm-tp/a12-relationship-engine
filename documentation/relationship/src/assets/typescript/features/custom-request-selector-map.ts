@@ -35,9 +35,9 @@
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
 	createCddDataProvider,
-	DefaultRequestSelectorMap,
 	RelationshipFactories,
-	type RequestSelectorMap
+	type RequestSelectorMap,
+	DefaultRequestSelectorMap
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
 
 /**
@@ -60,10 +60,12 @@ export const CustomRequestSelectorMap: RequestSelectorMap = {
 						nullHandling: Query.NullHandling.NULLS_LAST
 					}
 				];
+
 		return DefaultRequestSelectorMap.loadCandidates({ ...config, sort: customSort });
 	},
 	loadLinks: (config) => {
 		let constraint = config.constraint;
+
 		if (config.targetDocumentModel === "Contract-document") {
 			const mustBeActive: Query.ExactMatchOperator = {
 				operator: Query.OPERATORS.EXACT_MATCH_OPERATOR,
@@ -74,6 +76,7 @@ export const CustomRequestSelectorMap: RequestSelectorMap = {
 				? { operator: Query.OPERATORS.AND_OPERATOR, operands: [constraint, mustBeActive] }
 				: mustBeActive;
 		}
+
 		return DefaultRequestSelectorMap.loadLinks({ ...config, constraint });
 	}
 };

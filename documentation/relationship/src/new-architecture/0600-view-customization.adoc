@@ -1,0 +1,57 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= View Customization
+
+The Relationship Engine view layer follows the same pattern as Form Engine, Overview Engine and Tree Engine: a `ComponentMap` for replacing top-level components, a `WidgetMap` for replacing individual widgets inside them, and a context provider that merges application-supplied overrides on top of the defaults.
+
+== ComponentMap
+
+.View layer architecture: the Relationship Engine overrides three FormModelMap slots (Screen, CustomScreenElement, DetachRepeat) and dispatches to component-specific implementations. DualPane and TableList render via Overview Engine internally; link forms are spawned as Form Engine activities in a modal region.
+image::assets/images/new-architecture/view-customization.png[FormModelMap overrides and component resolution diagram]
+
+The `ComponentMap` exposes the top-level Relationship Engine components. Each entry has a default implementation shipped with the package and can be replaced individually:
+
+* `DualPane`, the two-pane selection UI with the selected items pane on one side and the available items pane on the other.
+* `TableList`, a single-pane list with inline add, edit and delete actions.
+* `DropDown`, an autocomplete-style single-select dropdown.
+* `OverviewEngine`, the wrapper used internally by `DualPane` and `TableList` to render the Overview Engine backed table for a pane. Replacing this entry lets an application customize Overview Engine rendering for every Relationship Engine pane in one place; the wrapper receives a `paneType` of `"link"` or `"candidate"` so the override can branch per pane.
+* `Button`, a renderer for a single button element from the UI model.
+
+Application-supplied entries are merged on top of the defaults: any entry left out keeps its default. The merging is memoised so replacing one component does not invalidate the others.
+
+== WidgetMap
+
+The `WidgetMap` extends the Overview Engine `WidgetMap` with the widgets the Relationship Engine itself needs. Because the Relationship Engine renders Overview Engine view components inside its panes and forwards its `WidgetMap` to them, any Overview Engine cell-widget customization defined in the Relationship Engine `WidgetMap` propagates automatically into Relationship Engine rendered tables.
+
+The Form Engine widget map is a separate concern: the Relationship Engine delegates link-document forms to Form Engine, and the Form Engine `WidgetMap` continues to govern field rendering inside those forms.
+
+== Context provider
+
+The context provider accepts partial `ComponentMap` and `WidgetMap` overrides and merges them with the defaults. Inside Relationship Engine components (and inside any custom replacement) the merged maps are read through a selector hook, so a re-render is triggered only for consumers that read the specific entry that changed.
+
+The provider is meant to wrap the part of the React tree that contains Relationship Engine rendered components. In a typical A12 client setup it is mounted near the top of the application alongside the other engine providers.
+
+== Inherited links
+
+Custom replacements of `DualPane`, `TableList` and `DropDown` are expected to honor the inherited-row protocol described in <<_state_management,State Management>>. The link target lifecycle selector exposes an `inherited` set; rows whose target reference is in that set must not expose the delete, restore or edit-link-document actions. The default implementations enforce this through their internal row-action state hook; custom components reusing the defaults inherit the behavior automatically and only need to handle it explicitly when reimplementing the row from scratch.
+
+== Hooking into engine events
+
+Customizing the rendered components covers most integrations. When the end-to-end application also needs to react to user actions outside the panes, such as trigger an analytic, navigation or side panels, both the Relationship Engine and Overview Engine expose dedicated public events that can be observed from a custom middleware or saga registered as part of the application setup.
+
+An end-to-end application can attach to either set of events by registering an additional middleware in the application setup; middlewares compose additively with the ones contributed by the engines.

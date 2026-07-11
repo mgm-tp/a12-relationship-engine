@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Bundle-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Paketliste"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,51 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"showFullTextSearch": true,
-			"pagingSize": 10,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all"
-			}
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Add"
-						},
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						}
-					],
-					"event": "event_add",
-					"icon": {
-						"name": "add"
-					},
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-3e781",
@@ -174,6 +124,52 @@
 					"primary": false
 				}
 			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"event": "event_add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"initialSorting": [{ "idref": "column-3e781" }],
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			}
 		}
 	}
 }

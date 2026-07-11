@@ -30,23 +30,24 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type PropsWithChildren } from "react";
-import { StyleSheetManager, ThemeProvider } from "styled-components";
+import type { PropsWithChildren } from "react";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { LocalizerContextProps } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
+	type Locale,
 	defaultDataFormats,
-	defaultLocalizerFactory,
 	defaultValueConversion,
-	type Locale
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+	defaultLocalizerFactory
+} from "@com.mgmtp.a12.utils/utils-localization";
 import {
-	shouldForwardProp,
 	SizeContext,
-	type SizeContextProps,
-	useWindowSize,
 	GlobalStyles,
-	defaultTheme
+	defaultTheme,
+	useWindowSize,
+	shouldForwardProp,
+	type SizeContextProps
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
 export function TestWrapper(props: PropsWithChildren) {
@@ -56,7 +57,7 @@ export function TestWrapper(props: PropsWithChildren) {
 	const locale: Locale = { language: "en", country: "US" };
 	const dataFormats = defaultDataFormats(locale);
 	const conversion = defaultValueConversion(dataFormats);
-	const localizerContextValue: LocalizerContext.Type = {
+	const localizerContextValue: LocalizerContextProps = {
 		locale,
 		dataFormats,
 		conversion,

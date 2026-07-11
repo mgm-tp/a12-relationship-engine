@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Person-document",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -12,15 +12,9 @@
 			}
 		],
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
-				"alias": "AddressPerson-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "AddressPerson-document"
@@ -206,7 +200,9 @@
 								"name": "Addresses",
 								"Group": {
 									"repeatability": 5,
-									"modelAlias": "AddressPerson-document"
+									"includeConfig": {
+										"reference": "AddressPerson-document"
+									}
 								}
 							},
 							{

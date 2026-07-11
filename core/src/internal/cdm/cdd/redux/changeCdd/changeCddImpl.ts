@@ -29,30 +29,28 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module cdm/cdd
  * @experimental
  */
-import { type Action } from "typescript-fsa";
 
-import { isActivityActionWithModelsInScenePayload, Model } from "@com.mgmtp.a12.client/client-core";
-import { type Change } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { Change } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import { Model, isActivityActionWithModelsInScenePayload } from "@com.mgmtp.a12.client/client-core";
 
+import { newDocRef } from "../newDocRef.js";
+import type { ChangeCddDocumentPayload } from "../actions.js";
 import { assertCondition } from "../../../../shared/assertion.js";
 import { createPresentRelationshipsCache } from "../../../cddUtils/setValue.js";
-
-import { type ChangeCddDocumentPayload } from "../actions.js";
 import { type ScdmDataHolderShape, updateLoadingStateAndBusy } from "../dhReducersImpl.js";
-import { newDocRef } from "../newDocRef.js";
 
-import { type HandleArgs } from "./handleArgs.js";
+import type { HandleArgs } from "./handleArgs.js";
 import { handleGroupAdded } from "./handleGroupAdded.js";
 import { handleGroupMoved } from "./handleGroupMoved.js";
+import { preProcessChanges } from "./preProcessChanges.js";
 import { handleGroupRemoved } from "./handleGroupRemoved.js";
 import { handleValueChanged } from "./handleValueChanged.js";
-import { preProcessChanges } from "./preProcessChanges.js";
 
 /**
  * @internal
@@ -70,6 +68,7 @@ export function handleChangeCddDocument(
 	action: Action<ChangeCddDocumentPayload>
 ): ScdmDataHolderShape {
 	const cddState = dataHolder.data?.cddState;
+
 	if (cddState === undefined) {
 		return dataHolder;
 	}
@@ -84,6 +83,7 @@ export function handleChangeCddDocument(
 
 	const cache = createPresentRelationshipsCache();
 	const preProcessedChanges = preProcessChanges(changes, document);
+
 	for (const change of preProcessedChanges) {
 		const args: HandleArgs = {
 			activityId,
@@ -98,6 +98,7 @@ export function handleChangeCddDocument(
 	}
 
 	const dhResult = currentState;
+
 	if (preProcessed && dhResult.data?.cddState && dhResult.data.cddState.preProcessed !== true) {
 		return updateLoadingStateAndBusy({
 			...dhResult,
@@ -107,11 +108,13 @@ export function handleChangeCddDocument(
 			}
 		});
 	}
+
 	return updateLoadingStateAndBusy(dhResult);
 }
 
 function handleChange(state: ScdmDataHolderShape, args: HandleArgs): ScdmDataHolderShape {
 	const handler = handlers[args.change.type] ?? IdentityHandler;
+
 	return handler(state, args);
 }
 

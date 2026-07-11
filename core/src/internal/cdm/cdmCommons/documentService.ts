@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/facade.js";
+import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /** @internal */
 export const DOCUMENT_SERVICE = new DocumentServiceFactory().getDocumentService();

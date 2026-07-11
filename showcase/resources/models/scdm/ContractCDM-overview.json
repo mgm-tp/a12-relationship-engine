@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ContractCDM-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "de"
@@ -21,12 +21,7 @@
 				"text": "ContractCDM Overview"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,90 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all",
-				"sectionData": [
-					{
-						"id": "section-3c8ba",
-						"label": [
-							{
-								"locale": "de",
-								"text": "String Field with Multi-select"
-							},
-							{
-								"locale": "en",
-								"text": "String Field with Multi-select"
-							}
-						],
-						"fields": [
-							{
-								"fieldId": "include_ebe85_field_0beef"
-							},
-							{
-								"fieldId": "include_1b2a0_field_4e3fe"
-							}
-						]
-					}
-				],
-				"enumeratedStringFilter": {
-					"fields": [
-						{
-							"fieldId": "include_ebe85_field_0beef"
-						},
-						{
-							"fieldId": "include_1b2a0_field_4e3fe"
-						}
-					],
-					"pagingSize": 10
-				}
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 5,
-			"initialSorting": [
-				{
-					"idref": "column-1949c"
-				}
-			]
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"label": [
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						},
-						{
-							"locale": "en",
-							"text": "Add"
-						}
-					],
-					"type": "button",
-					"event": "add",
-					"icon": {
-						"name": "add"
-					},
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-1949c",
@@ -310,6 +221,90 @@
 					"labelHidden": true,
 					"destructive": false,
 					"primary": false
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"label": [
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						},
+						{
+							"locale": "en",
+							"text": "Add"
+						}
+					],
+					"type": "button",
+					"event": "add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all",
+				"sectionData": [
+					{
+						"id": "section-3c8ba",
+						"label": [
+							{
+								"locale": "de",
+								"text": "String Field with Multi-select"
+							},
+							{
+								"locale": "en",
+								"text": "String Field with Multi-select"
+							}
+						],
+						"fields": [
+							{
+								"fieldId": "include_ebe85_field_0beef"
+							},
+							{
+								"fieldId": "include_1b2a0_field_4e3fe"
+							}
+						]
+					}
+				],
+				"enumeratedStringFilter": {
+					"fields": [
+						{
+							"fieldId": "include_ebe85_field_0beef"
+						},
+						{
+							"fieldId": "include_1b2a0_field_4e3fe"
+						}
+					],
+					"pagingSize": 10
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 5,
+			"initialSorting": [
+				{
+					"idref": "column-1949c"
 				}
 			]
 		}

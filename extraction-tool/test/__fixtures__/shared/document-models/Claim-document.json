@@ -1,0 +1,314 @@
+{
+	"header": {
+		"id": "Claim-document",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Claim"
+			},
+			{
+				"locale": "de",
+				"text": "Anspruch"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "Claim-document",
+			"immutable": false,
+			"joinedModelsInfo": "Claim-document-document-meta-data+Add"
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "group_2b496",
+					"name": "claim",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_3dddf",
+								"name": "description",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "description"
+										},
+										{
+											"locale": "de",
+											"text": "Beschreibung"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_ca9bf",
+								"name": "provideAmount",
+								"Field": {
+									"fieldType": {
+										"type": "ConfirmType"
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "provide amount"
+										},
+										{
+											"locale": "de",
+											"text": "Schadensbetrag angeben"
+										}
+									]
+								}
+							},
+							{
+								"type": "Field",
+								"id": "field_c0084",
+								"name": "amount",
+								"Field": {
+									"fieldType": {
+										"type": "NumberType",
+										"NumberType": {
+											"minFractionalDigits": 2,
+											"maxFractionalDigits": 2,
+											"trait": "amount"
+										}
+									},
+									"label": [
+										{
+											"locale": "en",
+											"text": "amount"
+										},
+										{
+											"locale": "de",
+											"text": "Schadensbetrag"
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "group_dbeda",
+								"name": "attachments",
+								"Group": {
+									"repeatability": 99,
+									"elements": [
+										{
+											"type": "Group",
+											"id": "group_543b6",
+											"name": "attachment",
+											"Group": {
+												"repeatability": 1,
+												"usageType": "attachment",
+												"elements": [
+													{
+														"type": "Field",
+														"id": "field_ca7cf",
+														"name": "original_filename",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_dee85",
+														"name": "internal_filename",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_f91b9",
+														"name": "content",
+														"Field": {
+															"fieldType": {
+																"type": "StringType",
+																"StringType": {
+																	"lineBreaksPermitted": true,
+																	"noValueValidation": true
+																}
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_682b7",
+														"name": "attachment_id",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_743ba",
+														"name": "size",
+														"Field": {
+															"fieldType": {
+																"type": "NumberType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_10bdd",
+														"name": "mime_type",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_6df95",
+														"name": "category",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Field",
+														"id": "field_3adf2",
+														"name": "description",
+														"Field": {
+															"fieldType": {
+																"type": "StringType"
+															}
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_88b1f",
+														"name": "AttachmentInternalFilenameRequired",
+														"Rule": {
+															"errorEntityRelPath": "../internal_filename",
+															"errorCode": "Error rule_88b1f",
+															"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(internal_filename)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: Field internal_filename of customType attachment is not filled."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: Field internal_filename of customType attachment is not filled."
+																}
+															]
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_9403c",
+														"name": "AttachmentMimeTypeRequired",
+														"Rule": {
+															"errorEntityRelPath": "../mime_type",
+															"errorCode": "Error rule_9403c",
+															"errorCondition": "GroupFilled(RuleGroup) and FieldNotFilled(mime_type)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: Field mime_type of customType attachment is not filled."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: Field mime_type of customType attachment is not filled."
+																}
+															]
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_89bf8",
+														"name": "AttachmentIdOrContentFilled",
+														"Rule": {
+															"errorEntityRelPath": "../content",
+															"errorCode": "Error rule_89bf8",
+															"errorCondition": "GroupFilled(RuleGroup) and NotExactlyOneFieldFilled(attachment_id, content)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: Either attachment_id or content must be filled in a customType attachment, but not both."
+																}
+															]
+														}
+													},
+													{
+														"type": "Rule",
+														"id": "rule_750ce",
+														"name": "SizeOfContentFilled",
+														"Rule": {
+															"errorEntityRelPath": "../content",
+															"errorCode": "Error rule_750ce",
+															"errorCondition": "FieldFilled(content) and FieldNotFilled(size)",
+															"severity": "ERROR",
+															"errorMessage": [
+																{
+																	"locale": "en",
+																	"text": "Internal Error: If the content is filled, the size must be also filled."
+																},
+																{
+																	"locale": "de",
+																	"text": "Internal Error: If the content is filled, the size must be also filled."
+																}
+															]
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

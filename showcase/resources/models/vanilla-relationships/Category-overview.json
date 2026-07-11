@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Category-overview",
 		"modelType": "overview",
-		"modelVersion": "38.3.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -21,12 +21,7 @@
 				"text": "Kategorienliste"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "document-model-for-overview",
@@ -37,90 +32,6 @@
 		]
 	},
 	"content": {
-		"configuration": {
-			"enableFilter": true,
-			"filterConfiguration": {
-				"showFilterButton": true,
-				"showFilterBar": true,
-				"filterMode": "all"
-			},
-			"multiSelection": {
-				"collapseOption": "collapsible_collapsed",
-				"counterOption": "simple",
-				"buttons": [
-					{
-						"confirmation": {
-							"message": [
-								{
-									"locale": "en",
-									"text": "Delete selected?"
-								},
-								{
-									"locale": "de",
-									"text": "Ausgewählte löschen?"
-								}
-							]
-						},
-						"destructive": true,
-						"label": [
-							{
-								"locale": "en",
-								"text": "Delete"
-							},
-							{
-								"locale": "de",
-								"text": "Löschen"
-							}
-						],
-						"event": "delete_selected",
-						"primary": false
-					}
-				],
-				"clearConfirmation": {
-					"enabled": true
-				}
-			},
-			"showFullTextSearch": true,
-			"pagingSize": 10
-		},
-		"subHeaderBox": {
-			"majorElements": [
-				{
-					"type": "search"
-				},
-				{
-					"type": "filter"
-				}
-			],
-			"minorElements": [
-				{
-					"type": "multi_selection"
-				},
-				{
-					"type": "button",
-					"label": [
-						{
-							"locale": "en",
-							"text": "Add"
-						},
-						{
-							"locale": "de",
-							"text": "Hinzufügen"
-						}
-					],
-					"event": "event_add",
-					"icon": {
-						"name": "add"
-					},
-					"destructive": false,
-					"primary": false
-				}
-			]
-		},
-		"footerBox": {
-			"majorElements": [],
-			"minorElements": []
-		},
 		"columns": [
 			{
 				"id": "column-c27fc",
@@ -132,6 +43,26 @@
 		],
 		"rowActionGroup": {
 			"actions": [
+				{
+					"icon": {
+						"name": "add",
+						"theme": "outlined"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add sub category"
+						},
+						{
+							"locale": "de",
+							"text": "Unterkategorie hinzufügen"
+						}
+					],
+					"event": "add-child",
+					"labelHidden": true,
+					"destructive": false,
+					"primary": false
+				},
 				{
 					"icon": {
 						"name": "launch",
@@ -193,6 +124,91 @@
 					"primary": false
 				}
 			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [
+				{
+					"type": "multi_selection"
+				},
+				{
+					"type": "button",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					],
+					"event": "event_add",
+					"icon": {
+						"name": "add"
+					},
+					"destructive": false,
+					"primary": false
+				}
+			],
+			"rightSlot": [
+				{
+					"type": "search"
+				},
+				{
+					"type": "filter"
+				}
+			]
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": true,
+			"filterConfiguration": {
+				"showFilterButton": true,
+				"showFilterBar": true,
+				"filterMode": "all"
+			},
+			"multiSelection": {
+				"collapseOption": "collapsible_collapsed",
+				"counterOption": "simple",
+				"buttons": [
+					{
+						"confirmation": {
+							"message": [
+								{
+									"locale": "en",
+									"text": "Delete selected?"
+								},
+								{
+									"locale": "de",
+									"text": "Ausgewählte löschen?"
+								}
+							]
+						},
+						"destructive": true,
+						"label": [
+							{
+								"locale": "en",
+								"text": "Delete"
+							},
+							{
+								"locale": "de",
+								"text": "Löschen"
+							}
+						],
+						"event": "delete_selected",
+						"primary": false
+					}
+				],
+				"clearConfirmation": {
+					"enabled": true
+				}
+			},
+			"showFullTextSearch": true,
+			"pagingSize": 10,
+			"initialSorting": [{ "idref": "column-c27fc" }]
 		}
 	}
 }

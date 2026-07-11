@@ -1,0 +1,17 @@
+{
+	"extends": "../tsconfig",
+	"compilerOptions": {
+		"types": ["node"],
+		"strict": true,
+		"composite": false,
+		"rootDir": "${configDir}",
+		"noEmit": true
+	},
+	"include": [
+		"${configDir}/src/**/*.ts",
+		"${configDir}/src/**/*.tsx",
+		"${configDir}/src/**/*.json",
+		"${configDir}/test/**/*.ts"
+	],
+	"exclude": ["${configDir}/src/internal/target"]
+}

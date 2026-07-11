@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import type { EngineStore } from "@com.mgmtp.a12.formengine/formengine-core";
 
 import { isAttachmentStateEqual } from "../../../../internal/utils/are-state-props-equal.js";

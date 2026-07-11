@@ -31,7 +31,7 @@
  */
 
 import { Activity, type ActivityMap } from "@com.mgmtp.a12.client/client-core";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 export interface TestActivityProps extends Partial<Activity> {
 	readonly id: string;

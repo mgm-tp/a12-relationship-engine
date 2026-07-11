@@ -36,26 +36,26 @@
  * @experimental
  */
 
-import { type ActivityReducers } from "@com.mgmtp.a12.client/client-core";
+import type { ActivityReducers } from "@com.mgmtp.a12.client/client-core";
 
-import {
-	addCddLink,
-	changeCddDocument,
-	initAndLoadCandidates,
-	merge,
-	removedCddLink,
-	saveSubActivity,
-	setSubActivityData
-} from "./actions.js";
 import { handleChangeCddDocument } from "./changeCdd/changeCddImpl.js";
 import {
-	type ScdmDataHolderShape,
+	merge,
+	addCddLink,
+	removedCddLink,
+	saveSubActivity,
+	changeCddDocument,
+	setSubActivityData,
+	initAndLoadCandidates
+} from "./actions.js";
+import {
+	handleMergeDg,
 	handleCddAddLinks,
 	handleInitCandidates,
-	handleMergeDg,
+	handleCddRemoveLinks,
 	handleSaveSubActivity,
-	handleSetSubActivityData,
-	handleCddRemoveLinks
+	type ScdmDataHolderShape,
+	handleSetSubActivityData
 } from "./dhReducersImpl.js";
 
 /**

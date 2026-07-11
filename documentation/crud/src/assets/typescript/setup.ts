@@ -32,11 +32,11 @@
 
 // tag::main[]
 
-import { type Middleware } from "redux";
-import { type SagaIterator } from "redux-saga";
+import type { Middleware } from "redux";
+import type { SagaGenerator } from "typed-redux-saga";
 
-import { ApplicationFactories, type ApplicationSetup } from "@com.mgmtp.a12.client/client-core";
 import { CRUDFactories } from "@com.mgmtp.a12.crud/crud-core";
+import { ApplicationFactories, type ApplicationSetup } from "@com.mgmtp.a12.client/client-core";
 
 export function setup(): ApplicationSetup {
 	return ApplicationFactories.createApplicationSetup({
@@ -49,6 +49,6 @@ export function setup(): ApplicationSetup {
 // end::main[]
 
 const otherMiddlewares: Middleware[] = [];
-const otherPlatformSagas: (() => SagaIterator<void>)[] = [];
+const otherPlatformSagas: (() => SagaGenerator<void>)[] = [];
 
 declare const otherConfigurations: Parameters<typeof ApplicationFactories.createApplicationSetup>[0];

@@ -36,26 +36,26 @@
  * @experimental
  */
 import deepEqual from "fast-deep-equal";
-import { type AnyAction, type Middleware } from "redux";
+import { isAction, type Middleware, type UnknownAction } from "redux";
 
-import { Activity, ActivitySelectors, ModelSelectors, StoreFactories } from "@com.mgmtp.a12.client/client-core";
+import { Activity, ModelSelectors, StoreFactories, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import {
-	type Change,
 	Commands,
+	type Change,
+	type FormModel,
+	computeDocument,
 	type EngineStore,
 	UiStateSelectors,
-	computeDocument,
-	FormEngineSelectors,
 	preProcessDocument,
-	type FormModel,
+	FormEngineSelectors,
 	type ReadonlyObjectMap
 } from "@com.mgmtp.a12.formengine/formengine-core";
 
 import * as CddActions from "./actions.js";
-import { cddStateAdapter } from "./cddMiddlewareAdapterFactory.js";
-import { type ScdmDataHolderShape } from "./dhReducersImpl.js";
-import { type CdmMiddlewareOptions } from "./middleware-options.js";
 import { isNewDocRef } from "./newDocRef.js";
+import type { ScdmDataHolderShape } from "./dhReducersImpl.js";
+import { cddStateAdapter } from "./cddMiddlewareAdapterFactory.js";
+import type { CdmMiddlewareOptions } from "./middleware-options.js";
 
 /**
  * Middleware to execute computations in the CDD _after_ the DG has changed.
@@ -76,27 +76,30 @@ export const createScdmComputationMiddleware = (middlewareOptions?: CdmMiddlewar
 	StoreFactories.createMiddleware((api, next, action) => {
 		const result = next(action);
 
-		if (!isRelevantAction(action)) {
+		if (!isAction(action) || !isRelevantAction(action)) {
 			return result;
 		}
 
-		const activityId = action.payload.activityId;
+		const activityId = (action as any).payload.activityId;
 		const clientState = api.getState();
 
 		const activity = ActivitySelectors.activityById(activityId)(clientState);
 		const defaultDataHolder = Activity.findDefaultDataHolder(activity);
 		const isLoadingData = defaultDataHolder?.loadingState === "loading";
+
 		if (!defaultDataHolder || isLoadingData) {
 			return result;
 		}
 
 		// using the cdm in the data holder to retrieve the validation code
 		const cdm = (defaultDataHolder as ScdmDataHolderShape).data?.cddState.cdm;
+
 		if (!cdm) {
 			return result;
 		}
 
 		const cdd = (defaultDataHolder as ScdmDataHolderShape).data?.cddState.cachedCdd?.cdd;
+
 		if (!cdd) {
 			return result;
 		}
@@ -123,7 +126,7 @@ export const createScdmComputationMiddleware = (middlewareOptions?: CdmMiddlewar
 					document: cdd,
 					models: { ...models, formModel: adaptFormModelForCdmDefault(models.formModel), validatorProvider },
 					isNewInstance: isNewDocRef(defaultDataHolder.descriptor["instance"] ?? ""),
-					now: engineState ? middlewareOptions?.nowProvider?.(engineState) : undefined
+					kernelOptions: engineState ? middlewareOptions?.kernelOptionsProvider?.(engineState) : undefined
 				});
 				updatedDocument = computed.document;
 				messages = computed.messages ?? {};
@@ -133,9 +136,7 @@ export const createScdmComputationMiddleware = (middlewareOptions?: CdmMiddlewar
 				const computed = computeDocument({
 					document: cdd,
 					validatorProvider,
-					kernelConfiguration: {
-						now: engineState ? middlewareOptions?.nowProvider?.(engineState) : undefined
-					}
+					kernelOptions: engineState ? middlewareOptions?.kernelOptionsProvider?.(engineState) : undefined
 				});
 				updatedDocument = computed.document;
 				changes = computed.changes;
@@ -163,7 +164,7 @@ export const createScdmComputationMiddleware = (middlewareOptions?: CdmMiddlewar
 		return result;
 	});
 
-function isRelevantAction(action: AnyAction): boolean {
+function isRelevantAction(action: UnknownAction): boolean {
 	return (
 		[CddActions.merge, CddActions.addCddLink, CddActions.saveSubActivity, CddActions.removedCddLink].some((a) =>
 			a.match(action)
@@ -179,7 +180,7 @@ function isRelevantAction(action: AnyAction): boolean {
  * It is assumed that the computation only creates 'ValueChanged' changes,
  * otherwise we would get an endless loop.
  */
-function isChangeCddDocActionWithGroupAdded(action: AnyAction): boolean {
+function isChangeCddDocActionWithGroupAdded(action: UnknownAction): boolean {
 	return (
 		CddActions.changeCddDocument.match(action) &&
 		Object.values(action.payload.changes).some((change) => change?.type === "GroupAdded")

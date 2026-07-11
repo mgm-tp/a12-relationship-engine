@@ -30,16 +30,17 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
-import { type Action } from "typescript-fsa";
+import { test, expect, describe } from "vitest";
 
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+
+import { createLinkDescriptor } from "../../mocks/relationships/mocks.js";
 import {
 	addCddLink,
-	type AddCddLinkPayload,
 	changeCddDocument,
+	type AddCddLinkPayload,
 	type ChangeCddDocumentPayload
 } from "../../../internal/cdm/cdd/redux/actions.js";
-import { createLinkDescriptor } from "../../mocks/relationships/mocks.js";
 
 describe("Change cdd actions", () => {
 	describe("addCddLink is an ActionCreator which", () => {

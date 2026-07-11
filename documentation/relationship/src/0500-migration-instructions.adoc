@@ -1,4 +1,4 @@
-//// 
+////
 SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
 Copyright (c) 2012-2026 mgm technology partners GmbH
 Dual License
@@ -17,12 +17,107 @@ THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPR
 ////
 = Migration Instructions
 
+TIP: For migrating from the current architecture to the new architecture, see the <<_migration,Migration>> chapter in the <<_new_architecture,New Architecture>> section.
+
+== 2026.06
+
+CAUTION: Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
+for an explanation of general steps.
+
+=== 3.0.0
+
+==== React peer dependency raised to 19.2
+
+*Tooling:* none — manual change.
+
+The minimum supported React version has been raised from `^19.0.0` to `^19.2.6`. Ensure your project's `package.json` meets this minimum:
+
+[source,json]
+----
+{
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}
+----
+
+==== Redux 5 upgrade
+
+*Tooling:* Client codemod (`@com.mgmtp.a12.client/client-codemod migrateTypescriptFsaImports`), *optional* — automates the `typescript-fsa` import rewrite only (see <<recipe-migrate-typescript-fsa-imports>>). The dependency updates and `AnyAction` → `UnknownAction` changes are manual.
+
+The `relationshipengine-core` package now requires Redux 5 (peer dependency `redux@^5.0.0`).
+This is a breaking change for consumers still on Redux 4.
+
+Affected public types in `relationshipengine-core`:
+
+* `typescript-fsa` types (`Action`, `ActionCreator`) are now re-exported from `@com.mgmtp.a12.client/typescript-fsa-redux-5-compat` instead of `typescript-fsa` directly.
+* `AnyAction` is replaced by `UnknownAction` from `redux`. For example, `cddDataHolderReducerExtension` now accepts `UnknownAction` instead of `AnyAction`.
+
+Recommended steps for consumers:
+
+. Update `redux`, `react-redux`, and `redux-saga` to versions compatible with Redux 5 in your host application.
+. Replace imports of `typescript-fsa` types with the `@com.mgmtp.a12.client/typescript-fsa-redux-5-compat` shim.
+. Replace `AnyAction` usages with `UnknownAction` from `redux`.
+
+[[recipe-migrate-typescript-fsa-imports]]
+===== Codemod: `migrateTypescriptFsaImports`
+
+The optional Client codemod automates a single change category:
+
+* *Rewrites `typescript-fsa` import paths* — every `import ... from "typescript-fsa"` is repointed to the compat shim `@com.mgmtp.a12.client/typescript-fsa-redux-5-compat`. Example:
++
+[source,typescript,title="Before"]
+----
+import { actionCreatorFactory, type Action } from "typescript-fsa";
+----
++
+[source,typescript,title="After"]
+----
+import { actionCreatorFactory, type Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+----
+
+Run it from your consuming project:
+
+[source,bash]
+----
+pnpm dlx @com.mgmtp.a12.client/client-codemod migrateTypescriptFsaImports
+----
+
+The codemod does *not* touch dependency versions or `AnyAction` → `UnknownAction` usages — those remain manual.
+
+==== Replace `SagaIterator` with `SagaGenerator`
+
+*Tooling:* none — manual change.
+
+All saga return types have been changed from `SagaIterator` (from `redux-saga`) to `SagaGenerator` (from `typed-redux-saga`).
+This affects the public API of `cdmSagas()` and `RelationshipFactories.createSagas()`.
+
+If you have custom sagas that explicitly type their return type as `SagaIterator`, update them to use `SagaGenerator` instead:
+
+[source,typescript]
+----
+// Before
+import { SagaIterator } from "redux-saga";
+
+function* mySaga(): SagaIterator<void> { /* ... */ }
+
+// After
+import { SagaGenerator } from "typed-redux-saga";
+
+function* mySaga(): SagaGenerator<void> { /* ... */ }
+----
+
+`typed-redux-saga` is already a transitive dependency via `@com.mgmtp.a12.client/client-core`.
+
 == 2025.06
 
 CAUTION: Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
 for an explanation of general steps.
 
-=== Migration to ESM
+=== 2.0.0
+
+==== Migrate to ESM
 
 The npm artifact `@com.mgmtp.a12.relationshipengine/relationshipengine-core` was migrated
 from CommonJS to link:https://nodejs.org/api/esm.html#modules-ecmascript-modules[ESM].
@@ -35,12 +130,12 @@ If your tests depend on mocking/stubbing Relationship Engine API, consult the do
 
 Migrating your own application to ESM is not required, but recommended. Consult the documentation of your bundler for specifics.
 
-=== Updating to ES2024
+==== Update JavaScript output to ES2024
 
 The javascript output of the npm artifacts was updated from `ES2020` to `ES2024` to be able to use latest language features.
 When using supported browsers, there is no change necessary. If support for older browsers is required, make sure to include necessary polyfills.
 
-=== React 19 upgrade
+==== React 19 upgrade
 
 We dropped the support for React 18 and older and now require React 19 as our peerDependency.
 This means you have to perform the React 19 migration, which is described in great detail in the official
@@ -64,7 +159,7 @@ One solution is to override the dependency in your package.json. You also have t
 }
 ----
 
-=== Remove the option to enable Query API
+==== Remove the option to enable Query API
 
 Since the Data Services Query API is integrated by default, the option to enable Query API have been removed.
 
@@ -80,16 +175,16 @@ const dataHandlers: DataHandler[] = [
 ];
 ----
 
-=== Replace `cddDataProvider` by `createCddDataProvider()`
+==== Replace `cddDataProvider` with `createCddDataProvider()`
 
 The `cddDataProvider` has been moved to internal. Use `createCddDataProvider()` instead.
 
-=== Removal of Quadro Pane
+==== Remove the Quadro Pane
 
 In 2025.06, the *Quadro Pane* is completely removed.
 For more details, refer to 2024.06 documentation.
 
-=== Customizing the Progress Indicator After Client Container API Removal
+==== Customize the progress indicator after Client Container API removal
 
 Since the Client Container API has been removed in this release,
 customizing the progress indicators requires wrapping the desired React component with the `ProgressIndicatorContextProvider`, as shown below:
@@ -122,7 +217,7 @@ export const RelationshipComponent: React.FC<Container> = (props) => {
 };
 ----
 
-=== Sorting behavior
+==== Sorting behavior
 
 From 2025.06 version, sorting behavior for the candidate list is changed.
 

@@ -30,19 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type FieldInstanceValue,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type {
+	DocumentModel,
+	GroupInstance,
+	EntityInstancePath,
+	FieldInstanceValue
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { type CdmData } from "./cdmData.js";
+import type { CdmData } from "./cdmData.js";
 import { DocumentQuery } from "./documentQuery.js";
-import { type EntityInstance } from "./entityInstance.js";
 import { getUpdateValue } from "./getUpdateValue.js";
-import { type PresentRelationshipsCache, setValue } from "./setValue.js";
+import type { EntityInstance } from "./entityInstance.js";
+import { setValue, type PresentRelationshipsCache } from "./setValue.js";
 
 /** @internal */
 export function setValuesOfGroupInstance(
@@ -65,6 +65,7 @@ export function setValuesOfGroupInstance(
 		const { path, element, modelElement } = visit;
 
 		const value = getUpdateValue(modelElement.type, element);
+
 		if (value !== undefined) {
 			entityInstancesToAdd.push({
 				path: [...groupInstancePath, ...path],
@@ -72,6 +73,7 @@ export function setValuesOfGroupInstance(
 			});
 		}
 	}
+
 	DocumentQuery.walk(groupInstance, group, visitor);
 
 	return entityInstancesToAdd.reduce(

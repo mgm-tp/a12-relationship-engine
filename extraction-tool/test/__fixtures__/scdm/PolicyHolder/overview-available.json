@@ -1,0 +1,61 @@
+{
+	"header": {
+		"id": "PolicyHolder_AvailableItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "PolicyHolder_AvailableItemsOverview"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "PolicyHolder-document"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": true,
+			"showFullTextSearch": true,
+			"pagingSize": 10
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-field_holderName",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_holderName",
+				"sortable": false
+			},
+			{
+				"id": "column-field_holderNumber",
+				"width": 1,
+				"styles": {},
+				"elementRef": "field_holderNumber",
+				"sortable": false
+			}
+		]
+	}
+}

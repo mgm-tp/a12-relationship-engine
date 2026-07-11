@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ContractCDM",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -16,47 +16,67 @@
 			{
 				"name": "cdm.queryRoot",
 				"value": "Contract-document"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
 			{
-				"alias": "Contract-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Contract-document"
 			},
 			{
-				"alias": "Address-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Address-document"
 			},
 			{
-				"alias": "BusinessPartner-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "BusinessPartner-document"
 			},
 			{
-				"alias": "CoInsurerAdditionalFields",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "CoInsurerAdditionalFields"
 			},
 			{
-				"alias": "Claim-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Claim-document"
 			},
 			{
-				"alias": "Coverage-document",
 				"modelType": "document",
 				"purpose": "include",
+				"reference": "Coverage-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "Contract-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "Address-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "BusinessPartner-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "CoInsurerAdditionalFields"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
+				"reference": "Claim-document"
+			},
+			{
+				"modelType": "document",
+				"purpose": "composedData",
 				"reference": "Coverage-document"
 			}
 		]
@@ -81,7 +101,9 @@
 					"name": "contract",
 					"Group": {
 						"repeatability": 1,
-						"modelAlias": "Contract-document"
+						"includeConfig": {
+							"reference": "Contract-document"
+						}
 					}
 				},
 				{
@@ -140,7 +162,9 @@
 											"name": "address",
 											"Group": {
 												"repeatability": 1,
-												"modelAlias": "Address-document"
+												"includeConfig": {
+													"reference": "Address-document"
+												}
 											}
 										},
 										{
@@ -211,7 +235,9 @@
 											"name": "address",
 											"Group": {
 												"repeatability": 1,
-												"modelAlias": "Address-document"
+												"includeConfig": {
+													"reference": "Address-document"
+												}
 											}
 										},
 										{
@@ -244,7 +270,9 @@
 								"name": "businessPartner",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "BusinessPartner-document"
+									"includeConfig": {
+										"reference": "BusinessPartner-document"
+									}
 								}
 							},
 							{
@@ -358,7 +386,9 @@
 											"name": "additionalFields",
 											"Group": {
 												"repeatability": 1,
-												"modelAlias": "CoInsurerAdditionalFields"
+												"includeConfig": {
+													"reference": "CoInsurerAdditionalFields"
+												}
 											}
 										}
 									]
@@ -395,7 +425,9 @@
 											"name": "address",
 											"Group": {
 												"repeatability": 1,
-												"modelAlias": "Address-document"
+												"includeConfig": {
+													"reference": "Address-document"
+												}
 											}
 										}
 									]
@@ -432,7 +464,9 @@
 											"name": "address",
 											"Group": {
 												"repeatability": 1,
-												"modelAlias": "Address-document"
+												"includeConfig": {
+													"reference": "Address-document"
+												}
 											}
 										},
 										{
@@ -465,7 +499,9 @@
 								"name": "businessPartner",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "BusinessPartner-document"
+									"includeConfig": {
+										"reference": "BusinessPartner-document"
+									}
 								}
 							},
 							{
@@ -513,7 +549,9 @@
 								"name": "claim",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Claim-document"
+									"includeConfig": {
+										"reference": "Claim-document"
+									}
 								}
 							},
 							{
@@ -547,7 +585,9 @@
 											"name": "address",
 											"Group": {
 												"repeatability": 1,
-												"modelAlias": "Address-document"
+												"includeConfig": {
+													"reference": "Address-document"
+												}
 											}
 										}
 									]
@@ -642,7 +682,9 @@
 								"name": "coverage",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Coverage-document"
+									"includeConfig": {
+										"reference": "Coverage-document"
+									}
 								}
 							}
 						]

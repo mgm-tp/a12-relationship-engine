@@ -30,21 +30,20 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { assertObject } from "../../shared/assertion.js";
-import { type RelshPath } from "../../documentGraph/core/index.js";
-import * as DocOps from "../../documentGraph/core/impl/docs.js";
-import { addDocument, addLink } from "../../documentGraph/core/reducers.js";
-
-import { type PartialCddState } from "../cdd/core/cddState.js";
-import { collectRelshPathsForRelsh } from "../cdd/core/converter/relshPath.js";
-import { addMissingPaths } from "../cdd/core/impl/pending.js";
 import { queryRootName } from "../commons/modelUtils.js";
+import { addMissingPaths } from "../cdd/core/impl/pending.js";
+import type { PartialCddState } from "../cdd/core/cddState.js";
+import * as DocOps from "../../documentGraph/core/impl/docs.js";
+import type { RelshPath } from "../../documentGraph/core/index.js";
+import { addLink, addDocument } from "../../documentGraph/core/reducers.js";
+import { collectRelshPathsForRelsh } from "../cdd/core/converter/relshPath.js";
 
-import { type CdmData } from "./cdmData.js";
 import { updateCdd } from "./updateCdd.js";
+import type { CdmData } from "./cdmData.js";
 
 /** @internal */
 export interface AddLinksToCddArgs {
@@ -63,6 +62,7 @@ export function addLinksToCdd(data: CdmData, args: AddLinksToCddArgs): CdmData {
 	const { linkDescriptor, linkDoc, targetRole, targetDoc, candidateDoc } = args;
 
 	const targetDocRef = linkDescriptor.entities.find((entity) => entity.role === targetRole)?.docRef;
+
 	if (targetDocRef === undefined || targetDocRef === null) {
 		throw new Error("DocRef for targetRole not found in candidate: " + JSON.stringify(linkDescriptor, undefined, 2));
 	}
@@ -127,6 +127,7 @@ function addCreatedDocument(
 		document: targetDoc.document,
 		documentModelName: targetDoc.documentModelName
 	};
+
 	return { ...data, ...addDocument(data, addDocumentArgs) };
 }
 
@@ -137,5 +138,6 @@ function cddStateWithMissingPath(
 ): PartialCddState {
 	const relshName = linkDescriptor.relationshipModel;
 	const relshPaths: RelshPath[] = collectRelshPathsForRelsh(data.cddState.cdm.content.modelRoot, relshName);
+
 	return addMissingPaths(data.cddState, { relshName, targetDocRef }, relshPaths);
 }

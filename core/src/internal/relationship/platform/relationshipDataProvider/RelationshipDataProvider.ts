@@ -37,15 +37,15 @@
 import deepEqual from "fast-deep-equal";
 import { call, type SagaGenerator } from "typed-redux-saga";
 
-import { type Activity, type DataProvider } from "@com.mgmtp.a12.client/client-core";
+import type { Activity, DataProvider } from "@com.mgmtp.a12.client/client-core";
 
 import { assertUnreachable } from "../../../shared/assertion.js";
-import { DefaultRequestSelectorMap, type RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
 import { Relationship as RelationshipClientApi } from "../../relationship.js";
+import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
 
-import { deleteData } from "./delete.js";
 import { loadData } from "./load.js";
 import { saveData } from "./save.js";
+import { deleteData } from "./delete.js";
 
 function isRelevantDataHolder(dataHolder: Activity.DataHolder): boolean {
 	return (
@@ -56,6 +56,7 @@ function isRelevantDataHolder(dataHolder: Activity.DataHolder): boolean {
 
 function isRelationshipActivity(activity: Activity): boolean {
 	const dataHolders = activity.dataHolders ?? [];
+
 	return (
 		dataHolders.some((dh) => RelationshipClientApi.LinkDataHolder.isInstance(dh)) &&
 		dataHolders.some((dh) => RelationshipClientApi.CandidateDataHolder.isInstance(dh))
@@ -67,6 +68,7 @@ function isRelationshipActivity(activity: Activity): boolean {
  */
 export function createRelationshipDataProvider(options?: { requestSelectorMap?: RequestSelectorMap }): DataProvider {
 	const requestSelectorMap = options?.requestSelectorMap ?? DefaultRequestSelectorMap;
+
 	return {
 		name: "RelationshipDataProvider",
 		canHandle({ activityId, operation, dataHolder, activities }: DataProvider.CanHandleConfig): boolean {
@@ -76,6 +78,7 @@ export function createRelationshipDataProvider(options?: { requestSelectorMap?: 
 				case "save":
 				case "delete": {
 					const activity = activities[activityId];
+
 					if (activity === undefined) {
 						return false;
 					}
@@ -86,6 +89,7 @@ export function createRelationshipDataProvider(options?: { requestSelectorMap?: 
 
 					return isRelevantDataHolder(dataHolder) || deepEqual(dataHolder.descriptor, activity.descriptor);
 				}
+
 				default:
 					return false;
 			}
@@ -96,14 +100,17 @@ export function createRelationshipDataProvider(options?: { requestSelectorMap?: 
 					yield* call(loadData, config, requestSelectorMap);
 					break;
 				}
+
 				case "save": {
 					yield* call(saveData, config, requestSelectorMap);
 					break;
 				}
+
 				case "delete": {
 					yield* call(deleteData, config, requestSelectorMap);
 					break;
 				}
+
 				default:
 					assertUnreachable(config);
 			}

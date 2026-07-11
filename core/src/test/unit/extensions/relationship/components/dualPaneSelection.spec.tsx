@@ -30,17 +30,17 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { configure, render, screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { describe, test, expect, beforeAll, vi, type Mock } from "vitest";
+import { vi, test, expect, describe, beforeAll, type Mock } from "vitest";
+import { render, screen, within, configure } from "@testing-library/react";
 
-import { type IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { DualPaneSelection, type Relationship } from "../../../../../internal/relationship/index.js";
-import { type Items, type MultiSelectionItem } from "../../../../../internal/relationship/ui/components/api.js";
-import { type DualPaneSelectionProps } from "../../../../../internal/relationship/ui/components/DualPaneSelection.js";
 import { TestWrapper } from "../../../../utils/rtl/testWrapper.js";
+import { DualPaneSelection, type Relationship } from "../../../../../internal/relationship/index.js";
+import type { Items, MultiSelectionItem } from "../../../../../internal/relationship/ui/components/api.js";
+import type { DualPaneSelectionProps } from "../../../../../internal/relationship/ui/components/DualPaneSelection.js";
 
 import { createDocumentModelMock, createOverviewModelMock } from "./componentTestUtils.js";
 
@@ -186,6 +186,7 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.DualPaneSele
 
 function createTestProps(params: { readonly: boolean }): DualPaneSelectionProps {
 	const { readonly } = params;
+
 	return {
 		label: TEST_LABEL,
 		readonly: readonly,
@@ -265,7 +266,7 @@ function createAvailableItemsFilters(): OverviewEngineApi.FilterMap {
 }
 
 function createMultiSelectionItem(id: string): MultiSelectionItem {
-	return { documentJson: { id }, selectionAllowed: true, reassigned: false, visible: true };
+	return { documentJson: { id, modelId: "test-model-id" }, selectionAllowed: true, reassigned: false, visible: true };
 }
 
 function createAvailableItemsPagination(): OverviewEngineApi.Pagination {

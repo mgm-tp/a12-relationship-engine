@@ -32,13 +32,13 @@
 
 import React from "react";
 
-import { FrameFactories, type View } from "@com.mgmtp.a12.client/client-core";
 import { CRUDFactories } from "@com.mgmtp.a12.crud/crud-core";
 import { FormEngineViews } from "@com.mgmtp.a12.formengine/formengine-core";
+import { type View, FrameFactories } from "@com.mgmtp.a12.client/client-core";
 
+import { ShowcaseOverviewView } from "./views/showcaseOverview/ShowcaseOverviewView.js";
 import { sortedRelationshipFormEngineProvider } from "./modules/relationships/simpleCDM/index.js";
 import { createRelationshipStandaloneViewProvider } from "./modules/relationships/standalone/index.js";
-import { ShowcaseOverviewView } from "./views/showcaseOverview/ShowcaseOverviewView.js";
 
 export function createViewProvider() {
 	const formEngineViewProvider = createFormEngineViewProvider();
@@ -80,6 +80,7 @@ function createOverviewEngineViewProvider(): (componentName: string) => React.Co
 			return <ShowcaseOverviewView {...props} />;
 		}
 	};
+
 	return function overviewEngineProvider(name) {
 		return components[name];
 	};

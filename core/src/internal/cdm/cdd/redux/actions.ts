@@ -36,32 +36,36 @@
  * @experimental
  */
 
-import { type Action, type AnyAction, actionCreatorFactory } from "typescript-fsa";
+import type { UnknownAction } from "redux";
 
+import type { Change, ReadonlyObjectMap } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { DocumentModel, GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { type Action, actionCreatorFactory } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { ActivityActions, type ActivityActionWithModelsInScenePayload } from "@com.mgmtp.a12.client/client-core";
-import {
-	type ModelGraph,
-	type Relationship as RelationshipServerApi
+import type {
+	ModelGraph,
+	Relationship as RelationshipServerApi
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Change, type ReadonlyObjectMap } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
-import {
-	type ChangeLog,
-	type DeepReadonly,
-	type DgChangeLog,
-	type DocRef,
-	type DocumentGraph,
-	type RelshPath
+import type { Relationship } from "../../../relationship/relationship.js";
+import type {
+	DocRef,
+	ChangeLog,
+	RelshPath,
+	DgChangeLog,
+	DeepReadonly,
+	DocumentGraph
 } from "../../../documentGraph/core/index.js";
-import { type Relationship } from "../../../relationship/relationship.js";
 
 const acf = actionCreatorFactory("cdd");
 
-export function initAndLoadCandidates(payload: InitializeAndLoadCandidatesPayload) {
+export function initAndLoadCandidates(
+	payload: InitializeAndLoadCandidatesPayload
+): ReturnType<typeof ActivityActions.loadData> {
 	return ActivityActions.loadData(payload);
 }
-initAndLoadCandidates.match = (action: AnyAction): action is Action<InitializeAndLoadCandidatesPayload> => {
+
+initAndLoadCandidates.match = (action: UnknownAction): action is Action<InitializeAndLoadCandidatesPayload> => {
 	return ActivityActions.loadData.match(action) && "bindings" in action.payload && "modelGraph" in action.payload;
 };
 

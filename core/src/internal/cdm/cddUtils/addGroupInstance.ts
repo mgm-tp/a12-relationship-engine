@@ -30,22 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { DocumentPath } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type FieldInstanceValue,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type {
+	DocumentModel,
+	GroupInstance,
+	EntityInstancePath,
+	FieldInstanceValue
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { assertObjectType } from "../../shared/assertion.js";
 import { DocumentUtils } from "../../shared/utils.js";
-
+import { assertObjectType } from "../../shared/assertion.js";
 import { findModelElementByPath } from "../commons/modelUtils.js";
 
-import { type CdmData } from "./cdmData.js";
-import { type PresentRelationshipsCache } from "./setValue.js";
+import type { CdmData } from "./cdmData.js";
+import type { PresentRelationshipsCache } from "./setValue.js";
 import { setValuesOfGroupInstance } from "./setValuesOfGroupInstance.js";
 
 /**
@@ -73,6 +72,7 @@ export function addGroupInstance(
 	assertObjectType(value, DocumentUtils.isGroupInstance, `group not found: ${DocumentPath.toString(path)}`);
 
 	const modelElement = findModelElementByPath(cdm, path);
+
 	if (!modelElement || modelElement.type !== "Group") {
 		throw new Error(`Could not find group for path '${path}'`);
 	}

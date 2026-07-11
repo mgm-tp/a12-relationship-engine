@@ -32,16 +32,16 @@
 
 import React, { useContext } from "react";
 
-import { VariantSelection, type VariantSelectionProps } from "@com.mgmtp.a12.client/client-core/heterogeneity";
 import { CRUD_RESOURCE_KEYS } from "@com.mgmtp.a12.crud/crud-core";
-import { localizableFromLocalizationTreeMap } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { localizableFromLocalizationTreeMap } from "@com.mgmtp.a12.utils/utils-localization";
+import { VariantSelection, type VariantSelectionProps } from "@com.mgmtp.a12.client/client-core/heterogeneity";
 import {
-	Button as ButtonWidget,
+	Icon,
+	ModalOverlay,
 	ActionContentbox,
 	ContentBoxElements,
-	Icon,
-	ModalOverlay
+	Button as ButtonWidget
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { DEFAULT_TRANSLATIONS } from "./localization.js";
@@ -57,7 +57,7 @@ export function VariantSelectionModal(props: VariantSelectionModalProps): React.
 	const { localizer } = useContext(LocalizerContext);
 
 	return (
-		<ModalOverlay closeOnEsc onClose={props.onClose}>
+		<ModalOverlay closeOnEsc closeOnOutsideClick onClose={props.onClose}>
 			<ActionContentbox
 				headingElements={
 					<ContentBoxElements.Title

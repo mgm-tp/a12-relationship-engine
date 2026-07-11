@@ -36,19 +36,16 @@
  */
 import deepEqual from "fast-deep-equal";
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Activity, type Model } from "@com.mgmtp.a12.client/client-core";
-import {
-	type JsonRpc2ResponseError,
-	type Relationship as RelationshipServerApi,
-	type RelationshipModel
+import type { Model, Activity } from "@com.mgmtp.a12.client/client-core";
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel, IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { OverviewModel, OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type {
+	RelationshipModel,
+	JsonRpc2ResponseError,
+	Relationship as RelationshipServerApi
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type IGeneratedCodeAccessor
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type OverviewEngineApi, type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { isRecord } from "../shared/utils.js";
 
@@ -356,6 +353,7 @@ export namespace Relationship {
 		 */
 		export function isInstance(config: object): config is UiConfiguration {
 			const { name, relationshipName, targetRole, components, metaInformation }: Partial<UiConfiguration> = config;
+
 			if (
 				typeof name === "string" &&
 				typeof relationshipName === "string" &&
@@ -364,12 +362,14 @@ export namespace Relationship {
 				typeof metaInformation === "object"
 			) {
 				const { version } = metaInformation;
+
 				if (version !== "1.0.0") {
 					// This is the same as the global Error. However, due to a namespace with the same name I had to rename it.
 					throw new NativeError(
 						`The version of the relationship UiConfiguration ${name} is not compatible! ("${version}" !== "1.0.0")`
 					);
 				}
+
 				return true;
 			}
 

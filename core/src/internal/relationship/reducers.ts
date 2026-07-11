@@ -35,33 +35,33 @@
  * @module relationship
  */
 
-import { type Activity, type ActivityReducers, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
-import {
-	type ModelGraph,
-	type Relationship as RelationshipServerApi
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Activity, ActivityReducers } from "@com.mgmtp.a12.client/client-core";
+import { OverviewModel, OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type {
+	ModelGraph,
+	Relationship as RelationshipServerApi
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { OverviewEngineApi, OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { DocumentModelUtils } from "../shared/utils.js";
 
+import { Relationship } from "./relationship.js";
 import { RelationshipActions } from "./actions.js";
 import { DEFAULT_PAGE_SIZE } from "./constants.js";
 import { handleAddLink } from "./reducers/addLink.js";
+import { handleSetSort } from "./reducers/setSort.js";
+import { handleSetLinks } from "./reducers/setLinks.js";
 import { handleDataSaved } from "./reducers/dataSaved.js";
+import { handleSetFilter } from "./reducers/setFilter.js";
 import { handleDeleteLink } from "./reducers/deleteLink.js";
 import { handleModifyLink } from "./reducers/modifyLink.js";
 import { handleRelinkLink } from "./reducers/relinkLink.js";
-import { handleResetMutations } from "./reducers/resetMutations.js";
 import { handleRestoreLink } from "./reducers/restoreLink.js";
-import { handleSetCandidatePage } from "./reducers/setCandidatePage.js";
-import { handleSetCandidates } from "./reducers/setCandidates.js";
 import { handleSetEditLink } from "./reducers/setEditLink.js";
-import { handleSetFilter } from "./reducers/setFilter.js";
 import { handleSetLinkPage } from "./reducers/setLinkPage.js";
-import { handleSetLinks } from "./reducers/setLinks.js";
-import { handleSetSort } from "./reducers/setSort.js";
-import { Relationship } from "./relationship.js";
+import { handleSetCandidates } from "./reducers/setCandidates.js";
+import { handleResetMutations } from "./reducers/resetMutations.js";
+import { handleSetCandidatePage } from "./reducers/setCandidatePage.js";
 
 /** @internal */
 export interface RelationshipStore {
@@ -263,7 +263,7 @@ function convertToDHs({
 	const result: DataHolderItem[] = [];
 	details.components.forEach((componentConfig, index) => {
 		const sourceEntity: RelationshipServerApi.LinkEntitySpec = {
-			docRef: sourceDocId === NEW_INSTANCE_IDENTIFIER ? null : sourceDocId,
+			docRef: sourceDocId,
 			role: sourceEntityCharacteristic.role
 		};
 

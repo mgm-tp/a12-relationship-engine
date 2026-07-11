@@ -35,13 +35,13 @@
  * @module server-connectors
  */
 
-import { type JsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+import type { JsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
 	ConnectorLocator,
 	type RestRequestPayload,
 	type RestServerConnector
-} from "@com.mgmtp.a12.utils/utils-connector/lib/main/index.js";
-import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+} from "@com.mgmtp.a12.utils/utils-connector";
 
 const logger = LoggerFactory.getLogger("extensions/platform-server-connectors");
 

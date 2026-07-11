@@ -31,26 +31,21 @@
  */
 
 import { NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { createEmptyDocument, type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { type FormModel, createEmptyDocument } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import {
-	type DeepReadonly,
-	type DgChangeLog,
-	type DgChangeLogSlice,
-	type DgSlice,
-	type DocumentGraph
-} from "../../documentGraph/core/index.js";
-import { applyChanges } from "../../documentGraph/core/changeLog/changeLogImpl.js";
 import * as DgOps from "../../documentGraph/core/impl/dg.js";
+import { applyChanges } from "../../documentGraph/core/changeLog/changeLogImpl.js";
+import type {
+	DgSlice,
+	DgChangeLog,
+	DeepReadonly,
+	DocumentGraph,
+	DgChangeLogSlice
+} from "../../documentGraph/core/index.js";
 
 import { type CdmData, createEmptyCdmData } from "./cdmData.js";
-import { createPresentRelationshipsCache } from "./setValue.js";
 import { setValuesOfGroupInstance } from "./setValuesOfGroupInstance.js";
 
 /**
@@ -160,7 +155,6 @@ function createInitializedCdmData(
 				rootGroup,
 				documentModelsInScene,
 				modelGraph,
-				"initializing",
-				createPresentRelationshipsCache()
+				"initializing"
 			);
 }

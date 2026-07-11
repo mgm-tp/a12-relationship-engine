@@ -30,21 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeEach } from "vitest";
+import { test, expect, describe, beforeEach } from "vitest";
 
+import { replaceLinkRanksInDg } from "../../cdd/cddUtils/testUtils.js";
 import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
+import { newChangeLog } from "../../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
 import {
 	computeSubActivityData,
 	type NewLinkDescriptorSpecs
 } from "../../../../internal/cdm/dataProvider/subactivity/computeSubActivityData.js";
 import {
 	createDG,
-	type DgChangeLogSlice,
 	type DgSlice,
+	type DgChangeLogSlice,
 	resetAddedLinkIndexForTesting
 } from "../../../../internal/documentGraph/core/index.js";
-import { newChangeLog } from "../../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
-import { replaceLinkRanksInDg } from "../../cdd/cddUtils/testUtils.js";
 
 describe("com.mgmtp.a12.client.extensions.cdm.subactivity", () => {
 	describe("computeSubActivityData", () => {

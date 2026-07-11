@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ContractClaim_contract____generated",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -16,15 +16,10 @@
 			{
 				"name": "application",
 				"value": ""
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
 			{
-				"alias": "Contract-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "Contract-document"
@@ -57,7 +52,9 @@
 								"name": "contract",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "Contract-document"
+									"includeConfig": {
+										"reference": "Contract-document"
+									}
 								}
 							}
 						]

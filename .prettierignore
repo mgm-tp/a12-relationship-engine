@@ -1,3 +1,7 @@
-e2e/hars
 pnpm-lock.yaml
+schema.json
 *.api.md
+.claude/worktrees
+
+migration-tool/src/models/form-model.ts
+migration-tool/src/models/overview-model.ts

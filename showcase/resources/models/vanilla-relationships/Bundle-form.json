@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Bundle-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -24,11 +24,7 @@
 		"annotations": [
 			{
 				"name": "bindingConfiguration",
-				"value": "[{\"type\":\"relationship\",\"elementId\":\"section-41059\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"95facc\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"linkPageSize\":2,\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Bundle_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-ae2a3\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"def5a7\",\"linkPageSize\":2,\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Bundle_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
+				"value": "[{\"type\":\"relationship\",\"elementId\":\"section-41059\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"95facc\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":10,\"linkPageSize\":10,\"props\":{\"height\":\"45%\"},\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Bundle_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-ae2a3\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"def5a7\",\"linkPageSize\":2,\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"models\":[{\"name\":\"Product_Bundle_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Bundle_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}}]"
 			}
 		],
 		"modelReferences": [
@@ -52,6 +48,16 @@
 				"modelType": "form",
 				"purpose": "bindingReference",
 				"reference": "ProductBundle-LinkForm"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Bundle-form-binding-Relations_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Bundle-form-binding-Relations-section-ae2a3_RuM"
 			}
 		]
 	},
@@ -288,21 +294,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-41059",
 						"name": "Relations",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "Relations"
-									},
-									{
-										"locale": "de",
-										"text": "Relations"
-									}
-								]
-							}
-						}
+						"reference": "Bundle-form-binding-Relations_RuM"
 					}
 				]
 			},
@@ -426,21 +418,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-ae2a3",
 						"name": "Relations",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "Relations"
-									},
-									{
-										"locale": "de",
-										"text": "Relations"
-									}
-								]
-							}
-						}
+						"reference": "Bundle-form-binding-Relations-section-ae2a3_RuM"
 					}
 				]
 			}

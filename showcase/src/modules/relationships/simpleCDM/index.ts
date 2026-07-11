@@ -32,12 +32,12 @@
 
 import type * as React from "react";
 
-import { type ApplicationModel, type View } from "@com.mgmtp.a12.client/client-core";
+import type { View, ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 
-import { type SampleAppModule } from "../../../utils/SampleAppModule.js";
+import type { SampleAppModule } from "../../../utils/SampleAppModule.js";
 
-import { CustomRelationshipFormEngine } from "./CustomRelationshipFormEngine.js";
 import appmodel from "./SimpleCDM.appmodel.json" with { type: "json" };
+import { CustomRelationshipFormEngine } from "./CustomRelationshipFormEngine.js";
 
 const SimpleCDMModule: SampleAppModule = {
 	id: "relationships.scdm",

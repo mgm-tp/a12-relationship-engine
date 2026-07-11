@@ -36,42 +36,42 @@
  * @experimental
  */
 
-import { type Action, type AnyAction } from "typescript-fsa";
+import type { UnknownAction } from "redux";
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Activity, Model, type ModelTypeGuard, ReferencedModel } from "@com.mgmtp.a12.client/client-core";
-import {
-	type ModelGraph,
-	type Relationship as RelationshipServerApi
-} from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { isOverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import { Model, type Activity, ReferencedModel, type ModelTypeGuard } from "@com.mgmtp.a12.client/client-core";
+import type {
+	ModelGraph,
+	Relationship as RelationshipServerApi
+} from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { assertObject } from "../../../shared/assertion.js";
-import { isRecord } from "../../../shared/utils.js";
-import { type DgChangeLogSlice, type DgSlice } from "../../../documentGraph/core/index.js";
-import { DgActions, DgReducers } from "../../../documentGraph/redux/index.js";
-import { type DataHolderTuple, isSetDgCl } from "../../../documentGraph/redux/dhReducersImpl.js";
-import { DEFAULT_PAGE_SIZE, TABLE_LIST } from "../../../relationship/constants.js";
-import { getInitialCandidateSorts } from "../../../relationship/reducers.js";
-import { Relationship } from "../../../relationship/relationship.js";
-import { addLinksToCdd, type AddLinksToCddArgs } from "../../cddUtils/addLinksToCdd.js";
-import { removeLinkFromCdd } from "../../cddUtils/removeLinkFromCdd.js";
-import { otherEntity } from "../../commons/relationshipModelUtils.js";
-
-import { extractRelshNameFromRelshPath } from "../core/index.js";
 import { toCdd } from "../core/adapter/toCdd.js";
-import { type CddState, type PartialCddState } from "../core/cddState.js";
-import { newCddState, reduceCddState } from "../core/impl/cddStateImpl.js";
+import { isRecord } from "../../../shared/utils.js";
+import { assertObject } from "../../../shared/assertion.js";
+import { extractRelshNameFromRelshPath } from "../core/index.js";
 import { anyPending, updatePending } from "../core/impl/pending.js";
+import { Relationship } from "../../../relationship/relationship.js";
+import type { CddState, PartialCddState } from "../core/cddState.js";
+import { otherEntity } from "../../commons/relationshipModelUtils.js";
+import { removeLinkFromCdd } from "../../cddUtils/removeLinkFromCdd.js";
+import { newCddState, reduceCddState } from "../core/impl/cddStateImpl.js";
+import { getInitialCandidateSorts } from "../../../relationship/reducers.js";
+import { DgActions, DgReducers } from "../../../documentGraph/redux/index.js";
+import { TABLE_LIST, DEFAULT_PAGE_SIZE } from "../../../relationship/constants.js";
+import type { DgSlice, DgChangeLogSlice } from "../../../documentGraph/core/index.js";
+import { addLinksToCdd, type AddLinksToCddArgs } from "../../cddUtils/addLinksToCdd.js";
+import { isSetDgCl, type DataHolderTuple } from "../../../documentGraph/redux/dhReducersImpl.js";
 
-import {
-	type AddCddLinkPayload,
-	type InitializeAndLoadCandidatesPayload,
-	type MergePayload,
-	type RemoveCddLinkPayload,
-	type SaveSubActivityPayload,
-	type SetSubActivityDataPayload
+import type {
+	MergePayload,
+	AddCddLinkPayload,
+	RemoveCddLinkPayload,
+	SaveSubActivityPayload,
+	SetSubActivityDataPayload,
+	InitializeAndLoadCandidatesPayload
 } from "./actions.js";
 
 //#region ==== Slice types ====
@@ -128,9 +128,8 @@ function resolveSourceEntity(
 
 	return {
 		// the docRef is optional and is only validated by the server if it is set
-		docRef: null,
 		role: sourceEntity.role
-	} as RelationshipServerApi.LinkEntitySpec;
+	} as unknown as RelationshipServerApi.LinkEntitySpec;
 }
 
 function isLoadedType<T extends ModelAPI>(
@@ -169,10 +168,13 @@ function createInitialDataHolderData(
 ): Relationship.CandidateInstance | undefined {
 	const { components } = details;
 	const candidateComponent = components.find((component) => component.models.some((item) => item.use === "candidate"));
+
 	if (!candidateComponent) {
 		return undefined;
 	}
+
 	const instanceId = candidateComponent.id === components[0].id ? elementId : `${elementId}_${candidateComponent.name}`;
+
 	return {
 		id: instanceId,
 		uiConfiguration: details,
@@ -264,6 +266,7 @@ export function handleMergeDg(dataHolder: ScdmDataHolderShape, action: Action<Me
 	const activityId = action.payload.activityId;
 	// Delegate to DocumentGraph handlers...
 	let dhResult: ScdmDataHolderShape;
+
 	if (path === "") {
 		// If path is empty (= root), then set new DG and setup new CDD state
 		const updatedCddState: PartialCddState = newCddState(rootDoc, cdm, selectedLinkId);
@@ -301,12 +304,14 @@ export function handleMergeDg(dataHolder: ScdmDataHolderShape, action: Action<Me
 			updatedCddState
 		) as ScdmDataHolderShape;
 	}
+
 	return updateLoadingStateAndBusy(dhResult);
 }
 
 /** @internal */
 export function updateLoadingStateAndBusy(dataholder: ScdmDataHolderShape): ScdmDataHolderShape {
 	const isPending = dataholder.data?.cddState && anyPending(dataholder.data.cddState);
+
 	return {
 		...dataholder,
 		loadingState: isPending ? "loading" : "loaded",
@@ -320,6 +325,7 @@ export function handleCddAddLinks(
 	action: Action<AddCddLinkPayload>
 ): ScdmDataHolderShape {
 	const data = dataHolder.data;
+
 	if (data?.cddState === undefined) {
 		return dataHolder;
 	}
@@ -354,6 +360,7 @@ export function handleCddRemoveLinks(
 	action: Action<RemoveCddLinkPayload>
 ): ScdmDataHolderShape {
 	const data = dataHolder.data;
+
 	if (data?.cddState === undefined) {
 		return dataHolder;
 	}
@@ -412,13 +419,15 @@ export function handleSaveSubActivity(
 
 export function dataHolderReducerExtension(
 	{ prev, next }: DataHolderTuple,
-	action?: AnyAction,
+	action?: UnknownAction,
 	updatePartialCddState?: PartialCddState
 ): ScdmDataHolderShape {
 	const dg = next.data?.documentGraph;
+
 	if (dg === undefined) {
 		return next as ScdmDataHolderShape;
 	}
+
 	const newChangeCounter = next.data?.changeLog?.changeCounter;
 	const cddState = reduceCddState(
 		dg,
@@ -430,6 +439,7 @@ export function dataHolderReducerExtension(
 	if (!next.data) {
 		return next as ScdmDataHolderShape;
 	}
+
 	return {
 		...next,
 		data: {

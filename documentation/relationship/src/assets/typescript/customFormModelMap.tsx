@@ -34,8 +34,8 @@
 
 import React from "react";
 
-import { type FormModel, DefaultFormModelMap, type FormModelMap } from "@com.mgmtp.a12.formengine/formengine-core";
 import { RelationshipFormModelMap } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+import { type FormModel, type FormModelMap, DefaultFormModelMap } from "@com.mgmtp.a12.formengine/formengine-core";
 
 export const CustomFormModelMap: FormModelMap = {
 	...DefaultFormModelMap,

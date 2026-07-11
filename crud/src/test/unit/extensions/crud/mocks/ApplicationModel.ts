@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 
 export const applicationModules: ApplicationModel.Module[] = [
 	{

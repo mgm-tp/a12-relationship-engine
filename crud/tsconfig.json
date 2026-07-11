@@ -1,8 +1,7 @@
 {
 	"extends": "../tsconfig",
-	"include": ["src"],
+	"references": [{ "path": "../core" }],
 	"compilerOptions": {
-		"outDir": "lib",
 		"types": ["node"]
 	},
 	"typedocOptions": {

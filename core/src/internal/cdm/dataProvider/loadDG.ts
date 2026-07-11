@@ -36,26 +36,25 @@
  * @experimental
  */
 
-import { call, type SagaGenerator, select } from "typed-redux-saga";
+import { call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { Model, ModelSelectors, LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
 import {
-	Dispatcher,
 	Query,
+	Dispatcher,
+	DocumentSpec,
 	type QueryJsonRpc2Response,
-	type LoadThumbnailUrlsJsonRpc2,
-	DocumentSpec
+	type LoadThumbnailUrlsJsonRpc2
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { assertNotNullish, assertObject } from "../../shared/assertion.js";
-import { type RelshPath } from "../../documentGraph/core/index.js";
-import { type RequestSelectorMap } from "../../server-connectors/request-selector-map.js";
-import { RequestBuilder } from "../../server-connectors/requestBuilder.js";
-import { isValidLink } from "../../relationship/platform/relationshipDataProvider/server/utils.js";
-
 import { relshPathToModelPath } from "../cdd/core/index.js";
-import { type QueryPath } from "../cdmCommons/queryPath.js";
+import type { QueryPath } from "../cdmCommons/queryPath.js";
+import type { RelshPath } from "../../documentGraph/core/index.js";
+import { assertObject, assertNotNullish } from "../../shared/assertion.js";
+import { RequestBuilder } from "../../server-connectors/requestBuilder.js";
+import type { RequestSelectorMap } from "../../server-connectors/request-selector-map.js";
+import { isValidLink } from "../../relationship/platform/relationshipDataProvider/server/utils.js";
 
 /** @internal */
 export interface CDDQuery {
@@ -141,6 +140,7 @@ export function* loadDG(
 			documentModelName: item.documentModelName
 		};
 	});
+
 	if (response.result.entries && response.result.entries.length > 0) {
 		for (const entry of response.result.entries) {
 			if (entry && DocumentSpec.isInstance(entry)) {

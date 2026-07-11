@@ -36,13 +36,13 @@
  * @internal
  */
 
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import {
 	type DocumentModel,
-	type EntityInstancePath,
-	type GroupInstance
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/facade.js";
-import { ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
+	type GroupInstance,
+	DocumentServiceFactory,
+	type EntityInstancePath
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 /** @internal */
 export function isRecord(value: unknown): value is Record<string, unknown> {
@@ -96,6 +96,7 @@ export const DocumentModelUtils = {
 		if (path === undefined) {
 			throw new Error(`Element with ref ${elementRef} could not be found in the DocumentModel`);
 		}
+
 		return ModelPath.toString(path);
 	}
 };
@@ -105,17 +106,20 @@ export const DocumentModelUtils = {
  */
 export function comparePaths(a: EntityInstancePath, b: EntityInstancePath) {
 	const comparedLength = compareValue(a.length, b.length);
+
 	if (comparedLength) {
 		return comparedLength;
 	}
 
 	for (let i = 0; i < a.length; i++) {
 		const comparedElementName = compareValue(a[i].elementName, b[i].elementName);
+
 		if (comparedElementName) {
 			return comparedElementName;
 		}
 
 		const comparedIndex = compareValue(a[i].index, b[i].index);
+
 		if (comparedIndex) {
 			return comparedIndex;
 		}

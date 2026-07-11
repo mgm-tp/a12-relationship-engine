@@ -2,7 +2,7 @@
 	"header": {
 		"id": "Product-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "de"
@@ -24,11 +24,7 @@
 		"annotations": [
 			{
 				"name": "bindingConfiguration",
-				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"ProductBrand-UiConfig-1\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Brand\",\"components\":[{\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Product_Brand_SingleSelection_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"Brand_Product_SingleSelection_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_763b0\"},{\"type\":\"relationship\",\"name\":\"ProductBrand-UiConfig-2\",\"elementId\":\"section-c628f\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Brand\",\"components\":[{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":2,\"models\":[{\"name\":\"Brand_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Brand_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-f40bc\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Bundle\",\"components\":[{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":2,\"props\":{\"height\":250},\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Bundle_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-eb522\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Bundle\",\"components\":[{\"id\":\"fb34a1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"editDialogTitle\":{\"label\":[{\"locale\":\"de\",\"text\":\"Relationship Links bearbeiten\"},{\"locale\":\"en\",\"text\":\"Edit relationship links\"}]},\"editDialogCancelButtonLabel\":{\"label\":[{\"locale\":\"de\",\"text\":\"Änderungen abbrechen\"},{\"locale\":\"en\",\"text\":\"Cancel changes\"}]},\"editDialogCloseButtonLabel\":{\"label\":[{\"locale\":\"de\",\"text\":\"Dialog schließen\"},{\"locale\":\"en\",\"text\":\"Close dialog\"}]},\"editDialogWidth\":999},\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Bundle_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
+				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"ProductBrand-UiConfig-1\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Brand\",\"components\":[{\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Product_Brand_SingleSelection_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"Brand_Product_SingleSelection_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_763b0\"},{\"type\":\"relationship\",\"name\":\"ProductBrand-UiConfig-2\",\"elementId\":\"section-c628f\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Brand\",\"components\":[{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":10,\"models\":[{\"name\":\"Brand_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Brand_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-f40bc\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Bundle\",\"components\":[{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":10,\"linkPageSize\":7,\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Bundle_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}},{\"type\":\"relationship\",\"elementId\":\"section-eb522\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBundle\",\"targetRole\":\"Bundle\",\"components\":[{\"id\":\"fb34a1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"editDialogTitle\":{\"label\":[{\"locale\":\"de\",\"text\":\"Relationship Links bearbeiten\"},{\"locale\":\"en\",\"text\":\"Edit relationship links\"}]},\"editDialogCancelButtonLabel\":{\"label\":[{\"locale\":\"de\",\"text\":\"Änderungen abbrechen\"},{\"locale\":\"en\",\"text\":\"Cancel changes\"}]},\"editDialogCloseButtonLabel\":{\"label\":[{\"locale\":\"de\",\"text\":\"Dialog schließen\"},{\"locale\":\"en\",\"text\":\"Close dialog\"}]},\"editDialogWidth\":\"80%\",\"editDialogMaxWidth\":\"1400px\",\"editDialogMaxHeight\":\"90vh\"},\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":3,\"models\":[{\"name\":\"Bundle_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Bundle_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBundle-LinkForm\",\"use\":\"link\"}]}]}}]"
 			}
 		],
 		"modelReferences": [
@@ -77,6 +73,26 @@
 				"modelType": "form",
 				"purpose": "bindingReference",
 				"reference": "ProductBundle-LinkForm"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Product-form-binding-ProductBrand-UiConfig-1_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Product-form-binding-Relations_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Product-form-binding-Relations-section-f40bc_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "Product-form-binding-Relations-section-eb522_RuM"
 			}
 		]
 	},
@@ -404,21 +420,7 @@
 								"type": "CustomScreenElement",
 								"id": "customscreenelement_763b0",
 								"name": "ProductBrand-UiConfig-1",
-								"title": {
-									"type": "Multilingual",
-									"multilingualText": {
-										"text": [
-											{
-												"locale": "de",
-												"text": "ProductBrand-UiConfig-1"
-											},
-											{
-												"locale": "en",
-												"text": "ProductBrand-UiConfig-1"
-											}
-										]
-									}
-								}
+								"reference": "Product-form-binding-ProductBrand-UiConfig-1_RuM"
 							},
 							{
 								"type": "ControlGrid",
@@ -600,21 +602,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-c628f",
 						"name": "Relations",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "de",
-										"text": "Relations"
-									},
-									{
-										"locale": "en",
-										"text": "Relations"
-									}
-								]
-							}
-						}
+						"reference": "Product-form-binding-Relations_RuM"
 					}
 				]
 			},
@@ -680,22 +668,8 @@
 						"type": "CustomScreenElement",
 						"id": "section-f40bc",
 						"name": "Relations",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "de",
-										"text": "Relations"
-									},
-									{
-										"locale": "en",
-										"text": "Relations"
-									}
-								]
-							}
-						},
-						"height": 250
+						"height": 250,
+						"reference": "Product-form-binding-Relations-section-f40bc_RuM"
 					}
 				]
 			},
@@ -761,21 +735,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-eb522",
 						"name": "Relations",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "de",
-										"text": "Relations"
-									},
-									{
-										"locale": "en",
-										"text": "Relations"
-									}
-								]
-							}
-						}
+						"reference": "Product-form-binding-Relations-section-eb522_RuM"
 					}
 				]
 			}

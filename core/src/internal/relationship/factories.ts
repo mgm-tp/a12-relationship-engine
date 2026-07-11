@@ -35,29 +35,29 @@
  * @module relationship
  */
 
-import { type SagaIterator } from "redux-saga";
+import type { SagaGenerator } from "typed-redux-saga";
 
-import { type ApplicationSaga, type DataProvider } from "@com.mgmtp.a12.client/client-core";
+import type { DataProvider, ApplicationSaga } from "@com.mgmtp.a12.client/client-core";
 
-import { type RequestSelectorMap } from "../server-connectors/request-selector-map.js";
+import type { RequestSelectorMap } from "../server-connectors/request-selector-map.js";
 
-import * as RelationshipDataProvider from "./platform/relationshipDataProvider/RelationshipDataProvider.js";
 import { addLinkSaga } from "./sagas/addLink.js";
-import { addLinkDoneSaga } from "./sagas/addLinkDone.js";
-import { addLinkRequestedSaga } from "./sagas/addLinkRequest.js";
 import { deleteLinkSaga } from "./sagas/deleteLink.js";
-import { filterChangedSaga } from "./sagas/filterChanged.js";
-import { initializeDataHoldersSaga } from "./sagas/initializeDataHolders.js";
+import { addLinkDoneSaga } from "./sagas/addLinkDone.js";
 import { pageChangedSaga } from "./sagas/pageChanged.js";
-import { pageExpandedSaga } from "./sagas/pageExpanded.js";
 import { sortChangedSaga } from "./sagas/sortChanged.js";
+import { pageExpandedSaga } from "./sagas/pageExpanded.js";
+import { filterChangedSaga } from "./sagas/filterChanged.js";
+import { addLinkRequestedSaga } from "./sagas/addLinkRequest.js";
+import { initializeDataHoldersSaga } from "./sagas/initializeDataHolders.js";
+import * as RelationshipDataProvider from "./platform/relationshipDataProvider/RelationshipDataProvider.js";
 
 /**
  * Configuration of factories for relationship components
  */
 export namespace RelationshipFactories {
 	/** Creates a list of necessary sagas for the relationship extension. */
-	export function createSagas(config: ApplicationSaga.Configuration): (() => SagaIterator<void>)[] {
+	export function createSagas(config: ApplicationSaga.Configuration): (() => SagaGenerator<void>)[] {
 		return [
 			addLinkSaga,
 			addLinkRequestedSaga,

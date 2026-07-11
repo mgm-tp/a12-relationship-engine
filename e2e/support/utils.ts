@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 export namespace Selector {
 	export const BUTTON = dataRole("button");
@@ -44,6 +44,9 @@ export namespace Selector {
 	export const COUNTER = dataRole("counter");
 
 	export const DROPDOWN_TEXT = dataRole("dropdown-text");
+	export const AUTOCOMPLETE_INPUT = `[data-role='autocomplete'] input`;
+	export const DROPDOWN_ITEM = `[data-role='dropdown-item']`;
+	export const CLEAR_BUTTON = `[data-role='autocomplete'] button[aria-label='Clear text']`;
 
 	export const FILTER_BAR = dataRole("filterbar");
 	export const FILTER_CONTENT = dataRole("filter-content");
@@ -67,7 +70,7 @@ export namespace Selector {
 	export const TABLE_HEADER_CELL = dataRole("table-header-cell");
 	export const TABLE_HEADER_ROW = dataRole("table-header-row");
 
-	export const TEXTLINE_CONTROL = dataRole("textline-control");
+	export const TEXT_FIELD_CONTROL = dataRole("text-field-control");
 
 	export function buttonContains(text: string) {
 		return `button:contains(${text})`;
@@ -93,12 +96,18 @@ export enum Showcase {
 	STANDALONE_RELATIONSHIP = "#section:Relationships,feature:Standalone,model:Product"
 }
 
+export function assertCondition(condition: boolean, message?: string): asserts condition {
+	if (!condition) {
+		throw new Error(message ?? "Generic assertion error - given condition is not met.");
+	}
+}
+
 export namespace PWUtils {
 	export function selectDropDown(page: Page, label: string) {
 		return page.locator(Selector.DROPDOWN_TEXT).getByText(label).locator("..");
 	}
 
-	export function selectTextlineByLabel(page: Page, label: string) {
-		return page.locator(Selector.TEXTLINE_CONTROL).locator("label").getByText(label).locator("..");
+	export function selectTextFieldByLabel(page: Page, label: string) {
+		return page.locator(Selector.TEXT_FIELD_CONTROL).locator("label").getByText(label).locator("..");
 	}
 }

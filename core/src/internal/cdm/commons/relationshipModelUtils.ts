@@ -38,11 +38,11 @@
 
 import {
 	Relationship,
-	type EntityCharacteristics,
-	type RelationshipModel
+	type RelationshipModel,
+	type EntityCharacteristics
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { type DeepReadonly, type DocRef } from "../../documentGraph/core/index.js";
+import type { DocRef, DeepReadonly } from "../../documentGraph/core/index.js";
 
 import LinkDescriptor = Relationship.LinkDescriptor;
 

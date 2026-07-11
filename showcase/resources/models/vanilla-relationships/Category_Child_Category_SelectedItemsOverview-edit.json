@@ -1,0 +1,105 @@
+{
+	"header": {
+		"id": "Category_Child_Category_SelectedItemsOverview-edit",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Selected Items"
+			},
+			{
+				"locale": "de",
+				"text": "Ausgewählte Einträge"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Category_Child_Category_SelectedItemsOverview-query"
+			}
+		]
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-b854a",
+				"elementRef": "F1",
+				"sortable": false,
+				"width": 1,
+				"linkReferences": [
+					{
+						"relationship": "CategoryCategory",
+						"targetRole": "ChildCategory",
+						"type": "CHILD"
+					}
+				]
+			}
+		],
+		"rowActionGroup": {
+			"actions": [
+				{
+					"event": "event_delete_link",
+					"icon": {
+						"name": "remove_circle"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Remove"
+						},
+						{
+							"locale": "de",
+							"text": "Entfernen"
+						}
+					],
+					"labelHidden": true
+				},
+				{
+					"event": "event_restore_link",
+					"icon": {
+						"name": "add_circle"
+					},
+					"label": [
+						{
+							"locale": "en",
+							"text": "Restore"
+						},
+						{
+							"locale": "de",
+							"text": "Wiederherstellen"
+						}
+					],
+					"labelHidden": true
+				}
+			]
+		},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"pagingSize": 10,
+			"showFullTextSearch": false,
+			"enableFilter": false
+		},
+		"rowActivation": {
+			"type": "event",
+			"event": "event_delete_link"
+		}
+	}
+}

@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type EngineStore, type DefaultStateProps } from "@com.mgmtp.a12.formengine/formengine-core";
+import { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
+import type { EngineStore, DefaultStateProps } from "@com.mgmtp.a12.formengine/formengine-core";
 
 /**
  * The state props are re-recreated by the mapping in
@@ -48,6 +48,7 @@ export function areStatePropsEqual(
 	if (prevProps.state === undefined || curProps.state === undefined) {
 		return prevProps.state === curProps.state;
 	}
+
 	if (prevProps.config === undefined || curProps.config === undefined) {
 		return prevProps.config === curProps.config;
 	}
@@ -82,5 +83,6 @@ export function isAttachmentStateEqual(a1?: EngineStore.AttachmentState, a2?: En
 function arePropsEqual<T extends object>(d1: T, d2: T): boolean {
 	const k1 = Object.keys(d1) as (keyof T)[];
 	const k2 = Object.keys(d2);
+
 	return k1.length === k2.length && k1.every((p1) => d1[p1] === d2[p1]);
 }

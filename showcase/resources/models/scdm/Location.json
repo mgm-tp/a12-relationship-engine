@@ -2,14 +2,9 @@
 	"header": {
 		"id": "Location",
 		"modelType": "relationship",
-		"modelVersion": "3.0.0",
+		"modelVersion": "4.0.0",
 		"labels": [],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"locales": [
 			{
 				"code": "en"
@@ -21,29 +16,14 @@
 		"modelReferences": []
 	},
 	"content": {
-		"associationType": "SHARED",
 		"linkDocumentModel": null,
 		"duplicatesAllowed": false,
-		"storage": "EXTERNAL",
-		"embeddedGroupPath": null,
 		"labels": [],
 		"entityCharacteristics": [
 			{
 				"role": "businessPartner",
 				"documentModel": "BusinessPartner-document",
 				"ordered": false,
-				"navigable": true,
-				"linkConstraints": {
-					"multiplicity": {
-						"lowerLimit": 0,
-						"unbounded": false,
-						"upperLimit": 1
-					}
-				},
-				"candidateConstraints": {
-					"population": null,
-					"populationParameters": []
-				},
 				"labels": [
 					{
 						"locale": "en",
@@ -53,24 +33,18 @@
 						"locale": "de",
 						"text": ""
 					}
-				]
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": false,
+						"upperLimit": 1
+					}
+				}
 			},
 			{
 				"role": "address",
 				"documentModel": "Address-document",
 				"ordered": false,
-				"navigable": true,
-				"linkConstraints": {
-					"multiplicity": {
-						"lowerLimit": 0,
-						"unbounded": true,
-						"upperLimit": null
-					}
-				},
-				"candidateConstraints": {
-					"population": null,
-					"populationParameters": []
-				},
 				"labels": [
 					{
 						"locale": "en",
@@ -80,7 +54,13 @@
 						"locale": "de",
 						"text": "Unternehmensstandorte"
 					}
-				]
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
 			}
 		]
 	}

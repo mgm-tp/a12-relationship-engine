@@ -30,11 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { legacy_configureStore as configureStore, type MockStore } from "redux-mock-store";
+import { type MockStore, legacy_configureStore as configureStore } from "redux-mock-store";
 
-import { Activity, type ActivityMap, type View } from "@com.mgmtp.a12.client/client-core";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { Activity, type View, type ActivityMap } from "@com.mgmtp.a12.client/client-core";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
 import { US_LOCALE } from "./localization.js";
 

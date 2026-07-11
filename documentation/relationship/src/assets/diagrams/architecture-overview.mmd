@@ -1,0 +1,102 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#dbeafe","primaryTextColor":"#1e3a5f","primaryBorderColor":"#3b82f6","lineColor":"#64748b","secondaryColor":"#dcfce7","tertiaryColor":"#fef9c3"}}}%%
+flowchart LR
+    subgraph new["<b>New · Single unified implementation</b>"]
+        direction TB
+
+        UA[User Action]
+
+        subgraph new_middle[" "]
+            direction TB
+            MW[Actions<br>Middlewares<br>Sagas]
+            DP[DataProvider]
+            MW --> DP
+            DP --> MW
+        end
+
+        UA --> new_middle
+        new_middle --> CL[<b>Changelog.Change</b><small>\nLinkCRUD\nDocCRUD\nCdmRootComputed\nSubDocumentGraphAdded</small>]
+
+        CL --> DG[DocumentGraph<br>CDD computation]
+        DG --> UI[React UI]
+
+        BADGE["non-CDM"]
+        CL --> BADGE
+        BADGE --> UI
+    end
+
+    subgraph non_cdm["Legacy · Non-CDM path"]
+        direction TB
+        NC1[User Action]
+
+        subgraph nc_middle["Redux&emsp;&emsp;&emsp;&emsp;&emsp;"]
+            direction TB
+            NC2[Middlewares + Sagas\nReducers + Actions]
+            NC3[Activity DataHolders]
+            NC4[RelationshipDataProvider]
+
+            NC2 --> NC3
+            NC2 --> NC4
+            NC4 --> NC2
+        end
+
+        NC31[Relationship Engine<br>render adapter]
+        NC5[React UI]
+
+        NC1 --> NC2
+        NC3 --> NC31
+        NC31 --> NC5
+    end
+
+    subgraph cdm["Legacy · CDM path"]
+        direction TB
+        C1[User Action]
+
+        subgraph c_middle["Redux"]
+            direction TB
+            C21[Form Engine<br>adapter]
+            C22[Overview Engine<br>adapter]
+            C4[DgActions]
+            C6[CddDataProvider]
+            C3[CDD state]
+
+            C21 --> C4
+            C22 --> C4
+            C4 --> C6
+            C6 --> C4
+            C4 --> C3
+        end
+
+        C31[CDD Engine<br>render adapter]
+        C5[React UI]
+
+        C1 --> C21
+        C1 --> C22
+        C3 --> C31
+        C31 --> C5
+    end
+
+    new ~~~ non_cdm ~~~ cdm
+
+    classDef legacyNode fill:#9ca3af,stroke:#6b7280,color:#1f2937
+    classDef userAction fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef sagaNode fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f
+classDef viewNode fill:#ccfbf1,stroke:#0d9488,color:#134e4a
+    classDef cdmSpecific fill:#e0e7ff,stroke:#6366f1,color:#312e81
+    classDef badgeNode fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke:none
+
+    class NC1,NC2,NC3,NC4,NC31,NC5 legacyNode
+    class C1,C21,C22,C3,C4,C5,C6,C31 legacyNode
+    class UA,C1,NC1 userAction
+    class MW sagaNode
+    style new_middle fill:#e8edf5,stroke:#94a3b8,color:#475569
+    class CL cdmSpecific
+    class DG cdmSpecific
+    class CDM_NEW cdmSpecific
+    class UI viewNode
+    class BADGE badgeNode
+
+    style non_cdm fill:#f1f5f9,stroke:#cbd5e1,color:#64748b
+    style cdm fill:#f1f5f9,stroke:#cbd5e1,color:#64748b
+    style nc_middle fill:#e8edf5,stroke:#94a3b8,color:#475569
+    style c_middle fill:#e8edf5,stroke:#94a3b8,color:#475569
+    style new fill:#eff6ff,stroke:#3b82f6,color:#1e40af

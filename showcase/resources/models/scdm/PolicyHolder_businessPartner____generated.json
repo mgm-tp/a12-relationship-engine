@@ -2,7 +2,7 @@
 	"header": {
 		"id": "PolicyHolder_businessPartner____generated",
 		"modelType": "document",
-		"modelVersion": "28.4.0",
+		"modelVersion": "29.4.0",
 		"locales": [
 			{
 				"code": "en"
@@ -16,15 +16,10 @@
 			{
 				"name": "application",
 				"value": ""
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
 			{
-				"alias": "BusinessPartner-document",
 				"modelType": "document",
 				"purpose": "include",
 				"reference": "BusinessPartner-document"
@@ -58,7 +53,9 @@
 								"name": "businessPartner",
 								"Group": {
 									"repeatability": 1,
-									"modelAlias": "BusinessPartner-document"
+									"includeConfig": {
+										"reference": "BusinessPartner-document"
+									}
 								}
 							}
 						]

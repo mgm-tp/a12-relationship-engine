@@ -35,7 +35,7 @@
  * @module cdm/cdmCommons
  * @experimental
  */
-import { type DocRef, type RelshPath } from "../../documentGraph/core/index.js";
+import type { DocRef, RelshPath } from "../../documentGraph/core/index.js";
 
 export interface QueryPath {
 	readonly docRef: DocRef;

@@ -30,23 +30,19 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { configure, render, screen } from "@testing-library/react";
-import { describe, test, expect, vi, beforeAll, type Mock } from "vitest";
+import { render, screen, configure } from "@testing-library/react";
+import { vi, test, expect, describe, beforeAll, type Mock } from "vitest";
 
-import { type IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { type OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 
-import { type Relationship } from "../../../../../internal/relationship/index.js";
-import {
-	type Items,
-	type ListItem,
-	type MultiSelectionItem
-} from "../../../../../internal/relationship/ui/components/api.js";
+import { TestWrapper } from "../../../../utils/rtl/testWrapper.js";
+import type { Relationship } from "../../../../../internal/relationship/index.js";
+import type { Items, ListItem, MultiSelectionItem } from "../../../../../internal/relationship/ui/components/api.js";
 import {
 	LinkTableTemplate,
 	type TableListProps
 } from "../../../../../internal/relationship/ui/components/TableList.js";
-import { TestWrapper } from "../../../../utils/rtl/testWrapper.js";
 
 import { createDocumentModelMock, createOverviewModelMock } from "./componentTestUtils.js";
 
@@ -122,6 +118,7 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.TableList", 
 
 function createTestProps(params: { readonly: boolean; rowsReadonlyInteractive?: boolean }): TableListProps {
 	const { readonly } = params;
+
 	return {
 		label: TEST_LABEL,
 		readonly,
@@ -163,7 +160,7 @@ function createItems(): Items<ListItem[]> {
 }
 
 function createMultiSelectionItem(id: string): MultiSelectionItem {
-	return { documentJson: { id }, selectionAllowed: true, reassigned: false, visible: true };
+	return { documentJson: { id, modelId: "test-model-id" }, selectionAllowed: true, reassigned: false, visible: true };
 }
 
 function createPagination(): OverviewEngineApi.Pagination {

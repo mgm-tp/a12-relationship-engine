@@ -34,18 +34,18 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { all, call, put, select, takeEvery } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { all, put, call, select, takeEvery, type SagaGenerator } from "typed-redux-saga";
+
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 import { RelationshipActions } from "../actions.js";
-import { type Relationship } from "../relationship.js";
+import type { Relationship } from "../relationship.js";
 import { RelationshipSelectors } from "../selectors.js";
 
 import { loadData } from "./utils.js";
 
 /** @internal */
-export function* sortChangedSaga(): SagaIterator<void> {
+export function* sortChangedSaga(): SagaGenerator<void> {
 	yield* takeEvery(RelationshipActions.Events.sortChanged, handleSortChanged);
 }
 
@@ -53,6 +53,7 @@ function* handleSortChanged({ payload }: Action<RelationshipActions.Events.SortC
 	const { instanceId, activityId, type, sort } = payload;
 
 	const candidateDataHolder = yield* select(RelationshipSelectors.candidateDataHolder(activityId, instanceId));
+
 	if (candidateDataHolder?.data === undefined) {
 		throw new Error(`No instance with id ${instanceId} found.`);
 	}

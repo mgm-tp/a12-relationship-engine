@@ -32,20 +32,16 @@
 
 import assert from "node:assert";
 
-import { describe, test } from "vitest";
+import { test, describe } from "vitest";
 
-import { NEW_INSTANCE_IDENTIFIER, type Model } from "@com.mgmtp.a12.client/client-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { type Model, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
 
-import { toCdd } from "../../../../internal/cdm/cdd/core/adapter/toCdd.js";
-import { type CddState } from "../../../../internal/cdm/cdd/core/cddState.js";
-import { type CdmData, createEmptyCdmData } from "../../../../internal/cdm/cddUtils/cdmData.js";
-import {
-	type DeepReadonly,
-	type DgChangeLog,
-	type DocumentGraph
-} from "../../../../internal/documentGraph/core/index.js";
 import { createTestModels } from "../../../mocks/ModelsUtil.js";
+import { toCdd } from "../../../../internal/cdm/cdd/core/adapter/toCdd.js";
+import type { CddState } from "../../../../internal/cdm/cdd/core/cddState.js";
+import { type CdmData, createEmptyCdmData } from "../../../../internal/cdm/cddUtils/cdmData.js";
+import type { DgChangeLog, DeepReadonly, DocumentGraph } from "../../../../internal/documentGraph/core/index.js";
 
 describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 	describe("cddUtils.createInitialCdmData", () => {

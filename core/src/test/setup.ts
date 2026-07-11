@@ -36,12 +36,12 @@
  */
 import "./mocks/config.js";
 
-import { Settings } from "@com.mgmtp.a12.utils/utils-logging/lib/Settings.js";
-import { ConsoleLoggingStrategy } from "@com.mgmtp.a12.utils/utils-logging";
+import { Settings, ConsoleLoggingStrategy } from "@com.mgmtp.a12.utils/utils-logging";
 
 const logStrategy = new ConsoleLoggingStrategy(console);
 logStrategy.digest = function (...params: any[]) {
 	// do nothing
 };
+
 // Silence all logger for all tests
 Settings.LogStrategy = logStrategy;

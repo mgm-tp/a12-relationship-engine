@@ -35,33 +35,31 @@
  * @module relationship
  */
 
-import { call, type SagaGenerator, select } from "typed-redux-saga";
+import { call, select, type SagaGenerator } from "typed-redux-saga";
 
 import { LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
+import type { Document as KernelDocument } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
-	Dispatcher,
-	LoadThumbnailUrlsJsonRpc2,
-	type JsonRpc2Request,
-	type JsonRpc2Response,
-	type QueryJsonRpc2Response,
 	Query,
-	Relationship
+	Dispatcher,
+	Relationship,
+	type JsonRpc2Response,
+	LoadThumbnailUrlsJsonRpc2,
+	type QueryJsonRpc2Response
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Document as KernelDocument } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
-import { DocumentUtils, partitionList } from "../../../../shared/utils.js";
-import { type RelationshipActions } from "../../../actions.js";
 import { PaginationUtils } from "../../../paginationUtils.js";
-import { type Relationship as RelationshipClientApi } from "../../../relationship.js";
+import type { RelationshipActions } from "../../../actions.js";
 import { removeModelNameFromEntities } from "../../../shared.js";
-import { type RelationshipDocument } from "../../../ui/components/api.js";
 import { DocumentProcessors } from "../../document-processor.js";
-import { RequestBuilder } from "../../../../server-connectors/requestBuilder.js";
-
 import { RelationshipDataProviderSelectors } from "../selectors.js";
+import type { RelationshipDocument } from "../../../ui/components/api.js";
+import { DocumentUtils, partitionList } from "../../../../shared/utils.js";
+import { RequestBuilder } from "../../../../server-connectors/requestBuilder.js";
+import type { Relationship as RelationshipClientApi } from "../../../relationship.js";
 
-import { type LoadResponseResult, type RequestConfig, type ResultPayloads } from "./types.js";
-import { getLink, getModelName, isValidLink } from "./utils.js";
+import { getLink, isValidLink, getModelName } from "./utils.js";
+import type { RequestConfig, ResultPayloads, LoadResponseResult } from "./types.js";
 
 /* @internal */
 export function* convertResponses(params: LoadResponseResult): SagaGenerator<ResultPayloads> {
@@ -90,6 +88,7 @@ export function* convertResponses(params: LoadResponseResult): SagaGenerator<Res
 		const { entries: serverLinks, pageSpec } = findResultEntries(mergedResponses, linkRequests, instanceId);
 
 		const resultDocumentModel = linkResultDocumentModels.find((model) => model.instanceId === instanceId);
+
 		if (resultDocumentModel === undefined) {
 			throw new Error(`No result document model found for instance ${instanceId}`);
 		}
@@ -101,19 +100,23 @@ export function* convertResponses(params: LoadResponseResult): SagaGenerator<Res
 			) as KernelDocument;
 
 			// if the link contains a link document, add metadata to it
-			const document = DocumentUtils.isGroupInstance(processedDocument.relationship)
-				? {
-						...processedDocument,
-						relationship: {
-							...processedDocument.relationship,
-							id: serverLink.linkRef.linkDescriptor.linkDocumentDocRef,
-							modelId: RelationshipDataProviderSelectors.selectLinkDocumentModelName(
-								state,
-								serverLink.linkRef.linkDescriptor.relationshipModel
-							)
+			const document =
+				DocumentUtils.isGroupInstance(processedDocument.relationship) &&
+				DocumentUtils.isGroupInstance(processedDocument.relationship.__meta) &&
+				"docRef" in processedDocument.relationship.__meta &&
+				typeof processedDocument.relationship.__meta.docRef === "string"
+					? {
+							...processedDocument,
+							relationship: {
+								...processedDocument.relationship,
+								id: processedDocument.relationship.__meta.docRef,
+								modelId: RelationshipDataProviderSelectors.selectLinkDocumentModelName(
+									state,
+									serverLink.linkRef.linkDescriptor.relationshipModel
+								)
+							}
 						}
-					}
-				: processedDocument;
+					: processedDocument;
 
 			return {
 				linkRef: {
@@ -131,6 +134,7 @@ export function* convertResponses(params: LoadResponseResult): SagaGenerator<Res
 		const { entries: serverCandidates, pageSpec } = findResultEntries(responses, candidateRequests, instanceId);
 
 		const resultDocumentModel = candidateResultDocumentModels.find((model) => model.instanceId === instanceId);
+
 		if (resultDocumentModel === undefined) {
 			throw new Error(`No result document model found for instance ${instanceId}`);
 		}
@@ -189,6 +193,7 @@ function* handlePageUpdate(
 		linkRequests,
 		responses
 	);
+
 	return [
 		handleInvalidInstancesResult.setPagePayloads,
 		[...validLinkResponses, ...handleInvalidInstancesResult.updatedResponses]
@@ -215,6 +220,7 @@ function createNextRequest(invalidRequest: RequestConfig, paging: Query.Paging):
 	const {
 		request: { params }
 	} = invalidRequest;
+
 	return {
 		...invalidRequest,
 		request: {
@@ -241,10 +247,12 @@ function* handleInvalidInstances(
 }> {
 	const nextRequests: RequestConfig[] = [];
 	const setPagePayloads: RelationshipActions.Commands.SetPagePayload[] = [];
+
 	for (const instance of invalidInstance) {
 		const instanceId = instance.id;
 		const { pageSpec } = findResultEntries(responses, requests, instanceId);
 		const invalidRequest = requests.find((r) => r.id === instanceId);
+
 		if (!invalidRequest) {
 			continue;
 		}
@@ -284,7 +292,7 @@ function* handleInvalidInstances(
 
 interface ResultEntries {
 	entries: Relationship.LinkWithDocument[] | Relationship.Candidate[];
-	pageSpec: Required<JsonRpc2Request.PageSpec> & { fullCount: number };
+	pageSpec: { offset: number; limit: number; fullCount: number };
 }
 
 type ResponseResult = QueryJsonRpc2Response<QueryJsonRpc2Response.BaseEntry[], QueryJsonRpc2Response.Link[]>;
@@ -296,13 +304,17 @@ function findResultEntries(
 ): ResultEntries {
 	const requestConfig = requestConfigs.find((rc) => rc.id === instanceId);
 	const emptyResult = { entries: [], pageSpec: { limit: 0, fullCount: 0, offset: 0 } };
+
 	if (requestConfig === undefined) {
 		return emptyResult;
 	}
+
 	const singleResponse = responses.find((sr) => sr.id === requestConfig.request.id);
+
 	if (singleResponse === undefined) {
 		return emptyResult;
 	}
+
 	return mapResponse(requestConfig, singleResponse as ResponseResult);
 }
 
@@ -314,6 +326,7 @@ function mapResponse(requestConfig: RequestConfig, response: ResponseResult): Re
 	if (!isValidEntries(entries)) {
 		throw Error("Invalid entries response");
 	}
+
 	if (!links.every(isValidLink)) {
 		throw Error("Invalid entries response");
 	}
@@ -332,13 +345,15 @@ function mapResponse(requestConfig: RequestConfig, response: ResponseResult): Re
 		}
 	};
 }
+
 function createLinkDescriptor(params: {
 	relationshipModel: string;
 	sourceEntity: Relationship.LinkEntitySpec;
 	targetRole: string;
-	targetDocRef: string | undefined;
+	targetDocRef: string;
 }): Relationship.LinkDescriptorResponse {
 	const { relationshipModel, sourceEntity, targetRole, targetDocRef } = params;
+
 	return {
 		relationshipModel,
 		entities: [
@@ -349,7 +364,7 @@ function createLinkDescriptor(params: {
 			},
 			{
 				role: targetRole,
-				docRef: targetDocRef ?? null,
+				docRef: targetDocRef,
 				modelName: getModelName(targetDocRef)
 			}
 		],
@@ -367,9 +382,11 @@ function getLinkId(
 	}
 ): string | null {
 	const { sourceDocRef, targetDocRef, relationshipModel } = params;
+
 	if (!targetDocRef) {
 		return null;
 	}
+
 	const linkResponse = links.find(
 		(link) =>
 			link.sourceDocRef === sourceDocRef &&
@@ -377,6 +394,7 @@ function getLinkId(
 			link.relationshipModel === relationshipModel &&
 			link.type === "CHILD"
 	);
+
 	return linkResponse?.linkId ?? null;
 }
 

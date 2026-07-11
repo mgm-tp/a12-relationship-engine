@@ -2,7 +2,7 @@
 	"header": {
 		"id": "ContractCDM-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "bindingConfiguration",
 				"value": "[{\"details\":{\"name\":\"detached-repeat-r_coInsurer\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"CoInsurer\",\"targetRole\":\"businessPartner\",\"modificationConfiguration\":{\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"unused\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"buttonLabels\":{\"add\":[{\"locale\":\"en\",\"text\":\"Add CoInsurer\"},{\"locale\":\"de\",\"text\":\"Mitversicherten hinzufügen\"}],\"edit\":[{\"locale\":\"en\",\"text\":\"Edit CoInsurer\"},{\"locale\":\"de\",\"text\":\"Mitversicherten bearbeiten\"}]}},\"models\":[{\"name\":\"CoInsurerLinks-overview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"BusinessPartner_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"CoInsurerLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-53225\"},{\"details\":{\"name\":\"coInsured-postalAddress-select\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"customscreenelement_e968c\"},{\"details\":{\"name\":\"detached-repeat-r_location\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]},{\"id\":\"1\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-bdba7\"},{\"details\":{\"name\":\"binding-ContractClaim\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ContractClaim\",\"targetRole\":\"claim\",\"components\":[{\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"buttonLabels\":{\"add\":[{\"locale\":\"en\",\"text\":\"New\"},{\"locale\":\"de\",\"text\":\"New\"}],\"edit\":[{\"locale\":\"en\",\"text\":\"Modify List\"},{\"locale\":\"de\",\"text\":\"Modify List\"}]}},\"models\":[{\"name\":\"ContractClaim_claim_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"ContractClaim_claim_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ContractClaim_claim_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat_7ab01\"},{\"details\":{\"name\":\"binding-ClaimLocation\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ClaimLocation\",\"targetRole\":\"location\",\"components\":[{\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"ClaimLocation_location_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"ClaimLocation_location_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat_c5080\"},{\"details\":{\"name\":\"ContractCoverage_Binding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ContractCoverage\",\"targetRole\":\"coverage\",\"modificationConfiguration\":{\"extendParentActivityDescriptor\":true},\"components\":[{\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"ContractCoverage_coverage_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"models\":[{\"name\":\"ContractCoverage_coverage_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ContractCoverage_coverage_SelectedItemsOverview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat_576fc\"},{\"type\":\"relationship\",\"details\":{\"name\":\"policy-holder-selection\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PolicyHolder\",\"targetRole\":\"businessPartner\",\"modificationConfiguration\":{\"addButtonLabel\":[{\"locale\":\"en\",\"text\":\"Add Policy Holder\"},{\"locale\":\"de\",\"text\":\"Versicherungsnehmer hinzufügen\"}],\"editButtonLabel\":[{\"locale\":\"en\",\"text\":\"Edit Policy Holder\"},{\"locale\":\"de\",\"text\":\"Versicherungsnehmer bearbeiten\"}],\"extendParentActivityDescriptor\":true},\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"candidatePageSize\":2,\"models\":[{\"name\":\"BusinessPartner_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"PolicyHolderLinks-overview\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_4a7bd\"},{\"type\":\"relationship\",\"details\":{\"name\":\"postal-address-selection\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"elementId\":\"customscreenelement_4bec2\"},{\"details\":{\"name\":\"detached-repeat-r_location\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\"},\"models\":[{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"candidatePageSize\":4,\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"detachedrepeat-004cb\"}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
@@ -92,6 +88,51 @@
 				"modelType": "overview",
 				"purpose": "bindingReference",
 				"reference": "BusinessPartner_AvailableItemsOverview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-detached-repeat-r-coInsurer_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-coInsured-postalAddress-select_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-detached-repeat-r-location_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-binding-ContractClaim_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-binding-ClaimLocation_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-ContractCoverage-Binding_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-policy-holder-selection_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-postal-address-selection_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ContractCDM-form-binding-detached-repeat-r-location-detachedrepeat-004cb_RuM"
 			}
 		]
 	},
@@ -490,21 +531,7 @@
 											"type": "CustomScreenElement",
 											"id": "customscreenelement_e968c",
 											"name": "coInsured-postalAddress-select",
-											"title": {
-												"type": "Multilingual",
-												"multilingualText": {
-													"text": [
-														{
-															"locale": "en",
-															"text": "coInsured-postalAddress-select"
-														},
-														{
-															"locale": "de",
-															"text": "coInsured-postalAddress-select"
-														}
-													]
-												}
-											}
+											"reference": "ContractCDM-form-binding-coInsured-postalAddress-select_RuM"
 										},
 										{
 											"type": "ControlGrid",
@@ -628,7 +655,13 @@
 														"verticalAlignment": "TOP"
 													}
 												]
-											}
+											},
+											"annotations": [
+												{
+													"name": "a12-relationship-ui-model-reference",
+													"value": "ContractCDM-form-binding-detached-repeat-r-location_RuM"
+												}
+											]
 										},
 										{
 											"type": "InlineRepeat",
@@ -680,7 +713,13 @@
 											"enableCopy": false
 										}
 									]
-								}
+								},
+								"annotations": [
+									{
+										"name": "a12-relationship-ui-model-reference",
+										"value": "ContractCDM-form-binding-detached-repeat-r-coInsurer_RuM"
+									}
+								]
 							}
 						]
 					},
@@ -897,12 +936,24 @@
 																]
 															}
 														]
-													}
+													},
+													"annotations": [
+														{
+															"name": "a12-relationship-ui-model-reference",
+															"value": "ContractCDM-form-binding-binding-ClaimLocation_RuM"
+														}
+													]
 												}
 											]
 										}
 									]
-								}
+								},
+								"annotations": [
+									{
+										"name": "a12-relationship-ui-model-reference",
+										"value": "ContractCDM-form-binding-binding-ContractClaim_RuM"
+									}
+								]
 							}
 						]
 					},
@@ -936,7 +987,13 @@
 									"id": "screen_f3208",
 									"name": "Details",
 									"screenElements": []
-								}
+								},
+								"annotations": [
+									{
+										"name": "a12-relationship-ui-model-reference",
+										"value": "ContractCDM-form-binding-ContractCoverage-Binding_RuM"
+									}
+								]
 							}
 						]
 					}
@@ -961,21 +1018,7 @@
 						"type": "CustomScreenElement",
 						"id": "customscreenelement_4a7bd",
 						"name": "policy-holder-selection",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "policy-holder-selection"
-									},
-									{
-										"locale": "de",
-										"text": "policy-holder-selection"
-									}
-								]
-							}
-						}
+						"reference": "ContractCDM-form-binding-policy-holder-selection_RuM"
 					},
 					{
 						"type": "ControlGrid",
@@ -1043,21 +1086,7 @@
 						"type": "CustomScreenElement",
 						"id": "customscreenelement_4bec2",
 						"name": "postal-address-selection",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "postal-address-selection"
-									},
-									{
-										"locale": "de",
-										"text": "postal-address-selection"
-									}
-								]
-							}
-						}
+						"reference": "ContractCDM-form-binding-postal-address-selection_RuM"
 					},
 					{
 						"type": "ControlGrid",
@@ -1166,7 +1195,13 @@
 									"verticalAlignment": "TOP"
 								}
 							]
-						}
+						},
+						"annotations": [
+							{
+								"name": "a12-relationship-ui-model-reference",
+								"value": "ContractCDM-form-binding-detached-repeat-r-location-detachedrepeat-004cb_RuM"
+							}
+						]
 					},
 					{
 						"type": "InlineRepeat",

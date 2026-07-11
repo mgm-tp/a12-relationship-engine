@@ -29,18 +29,18 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module cdm/cdd
  * @experimental
  */
-import { type DocumentGraph } from "../../../../documentGraph/core/documentGraph.js";
-import { type DgChangeLog } from "../../../../documentGraph/core/slices.js";
-import { type DeepReadonly } from "../../../../documentGraph/core/utilityTypes.js";
 
-import { documentsWithMetaData, type DocumentWithMutationMetadata } from "./documentsWithMetaData.js";
+import type { DgChangeLog } from "../../../../documentGraph/core/slices.js";
+import type { DeepReadonly } from "../../../../documentGraph/core/utilityTypes.js";
+import type { DocumentGraph } from "../../../../documentGraph/core/documentGraph.js";
+
 import { linksWithMetaData, type LinkWithMutationMetadataAndTime } from "./linksWithMetaData.js";
+import { documentsWithMetaData, type DocumentWithMutationMetadata } from "./documentsWithMetaData.js";
 
 /**
  * @internal

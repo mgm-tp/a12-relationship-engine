@@ -35,9 +35,8 @@
  * @module shared
  */
 
-import { type Header } from "@com.mgmtp.a12.base/base-model-api/lib/main/header/index.js";
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type ApplicationModel, Model, ModelSelectors, type Selector } from "@com.mgmtp.a12.client/client-core";
+import type { Header, Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import { Model, type Selector, ModelSelectors, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 
 type ModelTypeGuard<T extends ModelAPI> = (m: ModelAPI) => m is T;
 
@@ -59,16 +58,19 @@ export const InternalModelSelectors = {
 	}: ApplicationModel.SceneReference): Selector<ApplicationModel.Scene> {
 		return (state: object) => {
 			const module = InternalModelSelectors.modules()(state).find(({ name }) => name === moduleName);
+
 			if (module === undefined) {
 				throw new Error(`No module with the name "${moduleName}" exists.`);
 			}
 
 			const flow = module.flows.find(({ name }) => name === flowName);
+
 			if (flow === undefined) {
 				throw new Error(`No flow with the name "${flowName}" exists in the module "${moduleName}".`);
 			}
 
 			const scene = flow.scenes.find(({ name }) => name === sceneName);
+
 			if (scene === undefined) {
 				throw new Error(
 					`No scene with the name "${sceneName}" exists in the flow "${flowName}" of the module "${moduleName}".`
@@ -92,14 +94,17 @@ export const InternalModelSelectors = {
 	): Selector<ModelResult.ModelsLoaded<T>> {
 		return (state) => {
 			const uiModelResult = ModelSelectors.modelLoaded(identifier, typeGuard)(state);
+
 			if (uiModelResult.returnValue === undefined || Model.Error.isInstance(uiModelResult.returnValue)) {
 				return { stateChanged: uiModelResult.stateChanged, returnValue: uiModelResult.returnValue };
 			}
+
 			const uiModel = uiModelResult.returnValue.model;
 
 			const documentModelName = InternalModelSelectors.getDocumentModelReference(uiModel);
 
 			const result = ModelSelectors.modelLoaded(documentModelName, Model.isDocumentAndValidationModel)(state);
+
 			if (result.returnValue === undefined || Model.Error.isInstance(result.returnValue)) {
 				return { stateChanged: result.stateChanged, returnValue: result.returnValue };
 			}
@@ -129,14 +134,17 @@ export const InternalModelSelectors = {
 		return (state) => {
 			const criteria = { activityId, ...modelDescriptor };
 			const uiModel = ModelSelectors.modelInScene(criteria, typeGuard)(state);
+
 			if (uiModel === undefined) {
 				const error = ModelSelectors.modelErrorInScene(criteria)(state);
+
 				return { stateChanged: error !== undefined, returnValue: error };
 			}
 
 			const documentModelName = InternalModelSelectors.getDocumentModelReference(uiModel);
 
 			const result = ModelSelectors.modelLoaded(documentModelName, Model.isDocumentAndValidationModel)(state);
+
 			if (result.returnValue === undefined || Model.Error.isInstance(result.returnValue)) {
 				return { stateChanged: result.stateChanged, returnValue: result.returnValue };
 			}
@@ -149,15 +157,18 @@ export const InternalModelSelectors = {
 	},
 	getDocumentModelReference({ header }: { readonly header: Header }): string {
 		const { reference } = header.modelReferences?.find((x) => x.modelType === "document") || {};
+
 		if (reference === undefined) {
 			throw new Error(`Could not find any document model reference in ${header.id}.`);
 		}
+
 		return InternalModelSelectors.guessModelNameFromFileReferenceButSeriouslyRemoveThisUglyHack(reference);
 	},
 	guessModelNameFromFileReferenceButSeriouslyRemoveThisUglyHack(ref: string): string {
 		const refn = ref.replace(/\\/g, "/");
 		const lastSlash = refn.lastIndexOf("/");
 		const jsonSuffix = refn.lastIndexOf(".json");
+
 		return refn.slice(lastSlash >= 0 ? lastSlash + 1 : 0, jsonSuffix >= 0 ? jsonSuffix : undefined);
 	}
 };

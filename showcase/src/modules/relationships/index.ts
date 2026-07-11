@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Module } from "@com.mgmtp.a12.client/client-core";
+import type { Module } from "@com.mgmtp.a12.client/client-core";
 
 import FormModule from "./form/index.js";
 import SimpleCDMModule from "./simpleCDM/index.js";

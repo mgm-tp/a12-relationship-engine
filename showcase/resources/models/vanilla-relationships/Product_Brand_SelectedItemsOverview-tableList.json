@@ -1,0 +1,77 @@
+{
+	"header": {
+		"id": "Product_Brand_SelectedItemsOverview-tableList",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "query-model-for-overview",
+				"modelType": "query",
+				"reference": "Product_Brand_SelectedItemsOverview-query"
+			}
+		],
+		"labels": []
+	},
+	"content": {
+		"columns": [
+			{
+				"id": "column-b8549",
+				"width": 1,
+				"elementRef": "F4",
+				"sortable": false
+			},
+			{
+				"id": "column-21b4b",
+				"width": 1,
+				"elementRef": "F5",
+				"sortable": false
+			},
+			{
+				"id": "column-38ed3",
+				"width": 1,
+				"elementRef": "F5",
+				"sortable": false,
+				"linkReferences": [
+					{
+						"relationship": "ProductBrand",
+						"targetRole": "Brand",
+						"type": "LINK"
+					}
+				]
+			},
+			{
+				"id": "column-05916",
+				"width": 1,
+				"styles": {},
+				"elementRef": "group_95309",
+				"sortable": false
+			}
+		],
+		"rowActionGroup": {},
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"configuration": {
+			"enableFilter": false,
+			"pagingSize": 10,
+			"showFullTextSearch": false
+		},
+		"rowActivation": {
+			"type": "non_interactive"
+		}
+	}
+}

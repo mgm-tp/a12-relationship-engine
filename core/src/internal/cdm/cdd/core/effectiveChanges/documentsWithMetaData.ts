@@ -36,11 +36,11 @@
  * @experimental
  */
 
-import { assertCondition, assertObject, assertUnreachable } from "../../../../shared/assertion.js";
+import type { DgChangeLog } from "../../../../documentGraph/core/slices.js";
+import type { DeepReadonly } from "../../../../documentGraph/core/utilityTypes.js";
+import type { DocumentGraph } from "../../../../documentGraph/core/documentGraph.js";
+import { assertObject, assertCondition, assertUnreachable } from "../../../../shared/assertion.js";
 import { isDocumentRelatedChange } from "../../../../documentGraph/core/changeLog/changeLogImpl.js";
-import { type DocumentGraph } from "../../../../documentGraph/core/documentGraph.js";
-import { type DgChangeLog } from "../../../../documentGraph/core/slices.js";
-import { type DeepReadonly } from "../../../../documentGraph/core/utilityTypes.js";
 
 /**
  * @internal
@@ -99,6 +99,7 @@ export function documentsWithMetaData(
 				actualDocument.loadingState === "loaded",
 				"An added or changed document must be in loadingState 'loaded'."
 			);
+
 			switch (kind) {
 				case "docChanged":
 					acc[docRef] = {

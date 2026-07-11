@@ -33,14 +33,14 @@
 import { compose, type Dispatch } from "redux";
 
 import { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { ConnectorLocator, type RestServerConnector } from "@com.mgmtp.a12.utils/utils-connector";
 import {
 	ModelActions,
-	NotificationActions,
 	ApplicationActions,
+	NotificationActions,
 	type ComposeEnhancer,
 	type A12ApplicationConfig
 } from "@com.mgmtp.a12.client/client-core";
-import { ConnectorLocator, type RestServerConnector } from "@com.mgmtp.a12.utils/utils-connector/lib/main/index.js";
 
 export async function fetchModelGraph(dispatch: Dispatch): Promise<void> {
 	try {

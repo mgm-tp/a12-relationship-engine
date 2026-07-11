@@ -35,26 +35,29 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { type View, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import {
-	FormEngineActions,
-	FormEngineStateAdapter,
-	FormEngineViews,
-	DefaultFormModelMap,
-	type FormModelMap
-} from "@com.mgmtp.a12.formengine/formengine-core";
-import {
 	cddActivityStateAdapter,
 	RelationshipFormModelMap
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+import {
+	FormEngineViews,
+	FormEngineActions,
+	type FormModelMap,
+	DefaultFormModelMap,
+	FormEngineStateAdapter
+} from "@com.mgmtp.a12.formengine/formengine-core";
 
 // tag::main[]
 
 export function FormEngineWithRelationship(props: View): React.JSX.Element {
 	const stateProps = useSelector((state: object) => {
 		const activity = ActivitySelectors.activityById(props.activityId)(state);
+
 		if (!activity) {
 			return;
 		}
+
 		const adaptedState = cddActivityStateAdapter(activity)(state);
+
 		return FormEngineStateAdapter.mapStateToProps(adaptedState, { ...props, formModelMap: CustomFormModelMap });
 	});
 	const dispatch = useDispatch();

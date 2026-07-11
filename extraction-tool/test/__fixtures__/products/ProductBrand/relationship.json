@@ -1,0 +1,109 @@
+{
+	"header": {
+		"id": "ProductBrand",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "ProductBrand"
+			},
+			{
+				"locale": "de",
+				"text": "ProductBrand"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "Brand",
+				"reference": "Brand-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "Product",
+				"reference": "Product-document"
+			},
+			{
+				"purpose": "Link Document model",
+				"modelType": "document",
+				"alias": "Link Model",
+				"reference": "ProductBrand_AdditionalFieldsModel"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"linkDocumentModel": "ProductBrand_AdditionalFieldsModel",
+		"labels": [
+			{
+				"locale": "en",
+				"text": "ProductBrand"
+			},
+			{
+				"locale": "de",
+				"text": "ProductBrand"
+			}
+		],
+		"entityCharacteristics": [
+			{
+				"role": "Brand",
+				"documentModel": "Brand-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "Brand"
+					},
+					{
+						"locale": "de",
+						"text": "Brand"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			},
+			{
+				"role": "Product",
+				"documentModel": "Product-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "Product"
+					},
+					{
+						"locale": "de",
+						"text": "Product"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			}
+		]
+	}
+}

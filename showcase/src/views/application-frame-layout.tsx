@@ -33,13 +33,14 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 
-import { FrameViews, Model } from "@com.mgmtp.a12.client/client-core";
-import { Locale } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { HeaderTrigger, GlobalMessageBox, Icon, List, PopUpMenu } from "@com.mgmtp.a12.widgets/widgets-core";
+import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { Model, FrameViews } from "@com.mgmtp.a12.client/client-core";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { Icon, List, PopUpMenu, HeaderTrigger, GlobalMessageBox } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { LOCALE_KEY, THEME_KEY, THEMES, useShowcaseContext } from "../context.js";
 import { MainMenu } from "../main-menu.js";
+
+import { THEMES, THEME_KEY, LOCALE_KEY, useShowcaseContext } from "../context.js";
 
 declare const __VERSION__: string;
 const version = typeof __VERSION__ !== "undefined" ? __VERSION__ : "Unknown version";
@@ -125,6 +126,7 @@ const ThemeItem: React.FC<{
 		setTheme(theme);
 		localStorage.setItem(THEME_KEY, theme);
 	}, [setTheme, theme]);
+
 	return (
 		<List.Item text={theme} onClick={handleClick} meta={currentTheme === theme ? <Icon>check</Icon> : undefined} />
 	);
@@ -139,6 +141,7 @@ export namespace ModelSlice {
 		if (typeof slice !== "object" || slice === null) {
 			return false;
 		}
+
 		return "models" in slice && ModelMap.isInstance(slice.models);
 	}
 
@@ -157,6 +160,7 @@ export namespace ModelSlice {
 			if (!("models" in state) || !ModelSlice.isInstance(state.models)) {
 				return undefined;
 			}
+
 			const modelMap = state.models.models;
 			const result = Object.entries(modelMap)
 				.filter(([, details]) => {
@@ -166,12 +170,14 @@ export namespace ModelSlice {
 					if (!Model.Error.isInstance(details)) {
 						throw new Error("Invalid model error, expect an error.");
 					}
+
 					return { name: model, message: details.message };
 				});
 
 			if (result.length === 0) {
 				return undefined;
 			}
+
 			return result;
 		};
 	};

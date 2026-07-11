@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect, test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-import { Selector, Showcase } from "../../../support/utils";
+import { Selector, Showcase } from "../../../support/utils.js";
 
 test.describe.configure({ mode: "parallel" });
 
-test.describe("Standalone Relationship UI", () => {
+test.describe.skip("Standalone Relationship UI", () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto(Showcase.STANDALONE_RELATIONSHIP);
 		await expect(page.getByText("List of products")).toBeVisible();

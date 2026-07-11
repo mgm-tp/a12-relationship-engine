@@ -1,0 +1,71 @@
+{
+	"header": {
+		"id": "ClaimLocation_claim____generated",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "application",
+				"value": ""
+			},
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Claim-document"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "ClaimLocation_claim____generated",
+			"immutable": false
+		},
+		"modelConfig": {
+			"timeZone": "UTC",
+			"decimalSeparator": ".",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "target",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "I4",
+								"name": "claim",
+								"Group": {
+									"repeatability": 1,
+									"includeConfig": {
+										"reference": "Claim-document"
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

@@ -38,7 +38,7 @@
 import { changeCounter } from "../core/changeLog/changeLogImpl.js";
 
 import * as DgActions from "./actions.js";
-import { dhReducersFactory as dgReducerFactory } from "./dhReducers.js";
 import * as DgReducers from "./dhReducersImpl.js";
+import { dhReducersFactory as dgReducerFactory } from "./dhReducers.js";
 
 export { changeCounter, DgReducers, DgActions, dgReducerFactory };

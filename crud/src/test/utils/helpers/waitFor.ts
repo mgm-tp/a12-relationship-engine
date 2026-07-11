@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type AnyAction, type Store } from "redux";
+import type { Store, UnknownAction } from "redux";
 
 import { observeStore } from "./observeStore.js";
 
@@ -40,7 +40,7 @@ interface Options {
 
 export type WaitForFunc = (assertCallback: (state: object) => void, options?: Options) => Promise<boolean>;
 
-export function waitForWithStore(store: Store<object, AnyAction>): WaitForFunc {
+export function waitForWithStore(store: Store<object, UnknownAction>): WaitForFunc {
 	return function waitFor(assertCallback, options = {}) {
 		return new Promise((resolve, reject) => {
 			let lastError: unknown;
@@ -53,12 +53,14 @@ export function waitForWithStore(store: Store<object, AnyAction>): WaitForFunc {
 				setImmediate(() => {
 					unsubscribe();
 				});
+
 				if (result) {
 					resolve(result);
 				} else {
 					reject(error);
 				}
 			}
+
 			function onChange(currentState: object): void {
 				try {
 					assertCallback(currentState);
@@ -67,11 +69,13 @@ export function waitForWithStore(store: Store<object, AnyAction>): WaitForFunc {
 					lastError = error;
 				}
 			}
+
 			function onTimeout() {
 				onDone({
 					error: lastError || new Error("Timed out in waitForElement.")
 				});
 			}
+
 			onChange(store.getState());
 		});
 	};

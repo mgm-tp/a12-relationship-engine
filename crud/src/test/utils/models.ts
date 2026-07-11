@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type ApplicationModel, type Model } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import type { Model, ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 export interface ModelMap {
 	readonly [id: string]: ModelAPI | Model.Error | undefined;

@@ -33,25 +33,24 @@
 import * as Fs from "node:fs";
 import * as Path from "node:path";
 
-import { isModelInstance, type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Model } from "@com.mgmtp.a12.client/client-core";
+import type { Model } from "@com.mgmtp.a12.client/client-core";
+import { isModelInstance, type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import { isOverviewModel, type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
-	defaultValueParser,
-	type FormModel,
 	isFormModel,
+	type FormModel,
+	defaultValueParser,
 	unmarshallFormModel
 } from "@com.mgmtp.a12.formengine/formengine-core";
-import { DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
 import {
 	type DocumentModel,
-	type IGeneratedCodeAccessor
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { GeneratedCodeAccessorFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/facade.js";
-import { isOverviewModel, type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+	DocumentServiceFactory,
+	type IGeneratedCodeAccessor,
+	GeneratedCodeAccessorFactory
+} from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
+import type { ModelMap } from "../utils/models.js";
 import { InternalModelSelectors } from "../../internal/shared/selectors.js";
-
-import { type ModelMap } from "../utils/models.js";
 
 export function createTestModels(modelDescriptors: Model.Descriptor[]): ModelAPI[] {
 	return modelDescriptors.map(({ name, modelType }) => readModelType(name, modelType));
@@ -63,15 +62,17 @@ export function createA12TestModels(documentModelName: string, formModelName: st
 
 export function modelListToMap(models: ModelAPI[]): ModelMap {
 	let map = {};
+
 	for (const m of models) {
 		map = { ...map, [m.header.id]: m };
 	}
+
 	return map;
 }
 
 export function readModelFile(modelName: string): string {
 	return Fs.readFileSync(
-		Path.join(import.meta.dirname, "..", "..", "..", "..", "showcase", "target", "models", modelName),
+		Path.join(import.meta.dirname, "..", "..", "..", "..", "showcase", "target", "data", "models", modelName),
 		"utf8"
 	);
 }
@@ -118,9 +119,13 @@ export function readFormModel(modelName: string): FormModel {
 		throw new Error(`Model "${modelName}" is not a form model!`);
 	}
 
-	const { generatedCodeAccessor, ...documentModel } = readDocumentAndValidationModel(
-		InternalModelSelectors.getDocumentModelReference(formModel)
-	);
+	const documentModelRef = InternalModelSelectors.getDocumentModelReference(formModel);
+
+	if (!documentModelRef) {
+		throw new Error(`No document model reference found in form model "${modelName}"!`);
+	}
+
+	const { generatedCodeAccessor, ...documentModel } = readDocumentAndValidationModel(documentModelRef);
 
 	return unmarshallFormModel(formModel, documentModel, defaultValueParser(documentModel));
 }

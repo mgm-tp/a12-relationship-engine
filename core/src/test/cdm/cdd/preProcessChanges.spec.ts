@@ -32,13 +32,13 @@
 
 import assert from "node:assert";
 
-import { describe, test } from "vitest";
+import { test, describe } from "vitest";
 
 import {
 	type Change,
-	type GroupMoved,
 	type Revert,
 	DocumentPath,
+	type GroupMoved,
 	type ReadonlyObjectMap
 } from "@com.mgmtp.a12.formengine/formengine-core";
 

@@ -36,47 +36,45 @@
  * @experimental
  */
 
-import { type Action } from "redux-saga";
-import { call, put, type SagaGenerator, select } from "typed-redux-saga";
+import type { Action } from "redux-saga";
+import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import {
-	Activity,
-	ActivityActions,
-	ActivitySelectors,
-	NEW_INSTANCE_IDENTIFIER,
-	type DataProvider,
-	LocaleSelectors,
-	Model,
-	ModelSelectors
-} from "@com.mgmtp.a12.client/client-core";
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import { setThumbnails, convertThumbnailResponse } from "@com.mgmtp.a12.client/client-core/a12internal";
 import {
 	Dispatcher,
-	AddDocumentJsonRpc2Response,
-	type DocumentJsonRpc2Request,
 	type JsonRpc2Request,
-	type JsonRpc2Response
+	type JsonRpc2Response,
+	AddDocumentJsonRpc2Response,
+	type DocumentJsonRpc2Request
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { setThumbnails } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/action.js";
-import { convertThumbnailResponse } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import {
+	Model,
+	Activity,
+	ModelSelectors,
+	ActivityActions,
+	LocaleSelectors,
+	ActivitySelectors,
+	type DataProvider,
+	NEW_INSTANCE_IDENTIFIER
+} from "@com.mgmtp.a12.client/client-core";
 
 import { assertObject } from "../../shared/assertion.js";
-import { type RequestSelectorMap } from "../../server-connectors/request-selector-map.js";
-import { RelationshipDataProviderSelectors } from "../../relationship/platform/relationshipDataProvider/selectors.js";
-import { wrapIfServerError } from "../../relationship/platform/relationshipDataProvider/server/wrapIfServerError.js";
-
-import { type DocumentGraphReferences, fromCdd } from "../cdd/core/adapter/fromCdd.js";
-import { type DocumentWithMutationMetadata } from "../cdd/core/effectiveChanges/documentsWithMetaData.js";
-import { type LinkWithMutationMetadataAndTime } from "../cdd/core/effectiveChanges/linksWithMetaData.js";
-import { type EffectiveChangeList } from "../cdd/core/effectiveChanges/toEffectiveChanges.js";
 import { CddActions, CddSelectors } from "../cdd/redux/index.js";
-import { isScdmDataHolder, type ScdmDataHolderShape } from "../cdd/redux/dhReducersImpl.js";
 import { createInitialDgCl } from "../cddUtils/createInitialDgCl.js";
+import { fromCdd, type DocumentGraphReferences } from "../cdd/core/adapter/fromCdd.js";
+import type { RequestSelectorMap } from "../../server-connectors/request-selector-map.js";
+import { isScdmDataHolder, type ScdmDataHolderShape } from "../cdd/redux/dhReducersImpl.js";
+import type { EffectiveChangeList } from "../cdd/core/effectiveChanges/toEffectiveChanges.js";
+import type { LinkWithMutationMetadataAndTime } from "../cdd/core/effectiveChanges/linksWithMetaData.js";
+import type { DocumentWithMutationMetadata } from "../cdd/core/effectiveChanges/documentsWithMetaData.js";
+import { wrapIfServerError } from "../../relationship/platform/relationshipDataProvider/server/wrapIfServerError.js";
+import { RelationshipDataProviderSelectors } from "../../relationship/platform/relationshipDataProvider/selectors.js";
 
-import { type CddDataHandler, type LoadType, type Models } from "./CddDataHandler.js";
+import { loadDG, type CDDQuery } from "./loadDG.js";
+import type { Models, LoadType, CddDataHandler } from "./CddDataHandler.js";
 import { convertMutations, type ModelTypeGuard } from "./convertMutations.js";
 import { convertToInternalRepresentation } from "./convertToInternalRepresentation.js";
-import { type CDDQuery, loadDG } from "./loadDG.js";
 
 /**
  * @internal
@@ -154,6 +152,7 @@ export function* load(
 	requestSelectorMap: RequestSelectorMap
 ): SagaGenerator<void> {
 	const missingPaths = yield* select(CddSelectors.missingPathSelector(activity.id));
+
 	if (missingPaths.length === 0) {
 		throw new Error(`Nothing to be loaded, since there is no missing path.`);
 	}
@@ -210,6 +209,7 @@ function applyCddFilter(
 ): EffectiveChangeList {
 	assertObject(dataHolder.data);
 	const cddReferences = fromCdd(dataHolder.data.cddState);
+
 	return toCddChanges(effectiveChangeList, cddReferences);
 }
 
@@ -260,6 +260,7 @@ function* persistChanges(
 	const modelProvider = <T extends ModelAPI = ModelAPI>(id: string, typeGuard: ModelTypeGuard<T>) => {
 		return ModelSelectors.modelByName<T>(id, typeGuard)(state);
 	};
+
 	const linkDocumentModelProvider = (relationshipModelName: string) => {
 		return RelationshipDataProviderSelectors.selectLinkDocumentModel(state, relationshipModelName);
 	};
@@ -274,9 +275,11 @@ function* persistChanges(
 			state,
 			requestSelectorMap
 		);
+
 		if (requests.length === 0) {
 			// nothing to do - terminate early
 			yield* put(saving.done({}));
+
 			return;
 		}
 
@@ -300,10 +303,12 @@ function* persistChanges(
 
 		if (configToHandleNewRoot?.mergeAction) {
 			const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 			if (activity) {
 				yield* put(configToHandleNewRoot.mergeAction);
 			}
 		}
+
 		if (relatedActivityId) {
 			yield* put(ActivityActions.reloadData({ activityId: relatedActivityId }));
 		}
@@ -328,6 +333,7 @@ function getInstanceAndUpdatedActionForNewRootDocRef(
 
 		if (cddState.rootDocRef === NEW_INSTANCE_IDENTIFIER) {
 			const rootDoc = documentGraph.documents.byDocRef[cddState.rootDocRef];
+
 			if (rootDoc.loadingState === "loaded") {
 				const rootDocModel = rootDoc.documentModelName;
 				const rootDocRequest = requests.find(
@@ -338,6 +344,7 @@ function getInstanceAndUpdatedActionForNewRootDocRef(
 
 				if (rootDocRequest) {
 					const rootDocResponse = responses.find((resp) => resp.id === rootDocRequest.id);
+
 					if (rootDocResponse && AddDocumentJsonRpc2Response.isInstance(rootDocResponse)) {
 						return {
 							mergeAction: CddActions.merge({
@@ -355,5 +362,6 @@ function getInstanceAndUpdatedActionForNewRootDocRef(
 			}
 		}
 	}
+
 	return undefined;
 }

@@ -30,16 +30,16 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
 import { Query } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
-	FieldBasedFiltering,
 	SortingOrder,
-	type OverviewModel
+	type OverviewModel,
+	FieldBasedFiltering
 } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
 
-import { type Relationship } from "../relationship/index.js";
+import type { Relationship } from "../relationship/index.js";
 
 // Temporary workaround to because the toOperators function shouldn't read an OverviewModel anyway
 // The upcoming RE will support query model as a mandatory feature so this will be reworked soon
@@ -51,11 +51,10 @@ export function createFilterOperand(
 	documentModel: DocumentModel,
 	locale: Locale
 ): Query.Operator | undefined {
-	const filters = FieldBasedFiltering.toOperators(
-		linkQuery.filter?.filters ?? {},
-		{ overviewModel: EMPTY_OVERVIEW_MODEL, documentModel },
-		locale
-	);
+	const filters = FieldBasedFiltering.toOperators(linkQuery.filter?.filters ?? {}, {
+		overviewModel: EMPTY_OVERVIEW_MODEL,
+		documentModel
+	});
 
 	if (linkQuery.filter?.fulltext && linkQuery.filter.fulltext !== "") {
 		filters.push({

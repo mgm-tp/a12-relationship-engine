@@ -34,18 +34,20 @@
 import "./config/dev.config.js";
 
 import React from "react";
-import * as ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { StyleSheetManager, ThemeProvider } from "styled-components";
-import "@com.mgmtp.a12.widgets/widgets-core/lib/theme/basic.css";
+import * as ReactDOM from "react-dom/client";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 
-import { shouldForwardProp, SizeContext, useWindowSize, GlobalStyles } from "@com.mgmtp.a12.widgets/widgets-core";
+import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
+import { loadDataServicesConfiguration } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { SizeContext, GlobalStyles, useWindowSize, shouldForwardProp } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { setup } from "./appsetup.js";
-import { ShowcaseContextProvider, THEMES, useShowcaseContext } from "./context.js";
 import { Page } from "./page.js";
+import { setup } from "./appsetup.js";
+import { THEMES, useShowcaseContext, ShowcaseContextProvider } from "./context.js";
 
 const { store, initialStoreActions } = setup();
+loadDataServicesConfiguration(store);
 
 const ResizablePage = () => {
 	const { breakPoint } = useWindowSize();
@@ -59,6 +61,7 @@ const ResizablePage = () => {
 
 function StyledPage(): React.ReactNode {
 	const theme = useShowcaseContext((context) => context.theme);
+
 	return (
 		<StyleSheetManager shouldForwardProp={shouldForwardProp}>
 			<ThemeProvider theme={THEMES[theme]}>

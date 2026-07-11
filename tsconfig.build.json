@@ -1,0 +1,13 @@
+// Solution-style config for `tsc --build`. References all packages.
+{
+	"files": [],
+	"references": [
+		{ "path": "./core" },
+		{ "path": "./crud" },
+		{ "path": "./extraction-tool/tsconfig.build.json" },
+		{ "path": "./migration-tool" },
+		{ "path": "./services-utils" },
+		{ "path": "./showcase" },
+		{ "path": "./documentation" }
+	]
+}

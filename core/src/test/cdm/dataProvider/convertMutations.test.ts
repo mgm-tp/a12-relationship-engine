@@ -30,25 +30,21 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeAll, vi } from "vitest";
+import { vi, test, expect, describe, beforeAll } from "vitest";
 
 import { LocaleSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	type DocumentModel,
-	DocumentServiceFactory
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
-
-import {
-	type DocumentMutation,
-	type DocumentWithMutationMetadata
-} from "../../../internal/cdm/cdd/core/effectiveChanges/documentsWithMetaData.js";
-import { convertMutations } from "../../../internal/cdm/dataProvider/convertMutations.js";
-import { createLinkDescriptor, createLinkRef } from "../../mocks/relationships/mocks.js";
-import { MOCK_MODEL_GRAPH } from "../../mocks/relationships/ModelGraph.js";
-import { DefaultRequestSelectorMap } from "../../../internal/server-connectors/request-selector-map.js";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { type DocumentModel, DocumentServiceFactory } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import TestDmJson from "../testData/TestDM.json" with { type: "json" };
+import { MOCK_MODEL_GRAPH } from "../../mocks/relationships/ModelGraph.js";
+import { createLinkRef, createLinkDescriptor } from "../../mocks/relationships/mocks.js";
+import { convertMutations } from "../../../internal/cdm/dataProvider/convertMutations.js";
+import { DefaultRequestSelectorMap } from "../../../internal/server-connectors/request-selector-map.js";
+import type {
+	DocumentMutation,
+	DocumentWithMutationMetadata
+} from "../../../internal/cdm/cdd/core/effectiveChanges/documentsWithMetaData.js";
 
 import { createLinkMutation } from "./testSetup.js";
 

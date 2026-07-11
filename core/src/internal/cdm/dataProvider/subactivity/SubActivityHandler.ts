@@ -36,35 +36,34 @@
  * @experimental
  */
 
-import { call, put, type SagaGenerator, select } from "typed-redux-saga";
+import { put, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { type Activity, type DataProvider, Model, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
-import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { Model, type Activity, ModelSelectors, type DataProvider } from "@com.mgmtp.a12.client/client-core";
 
-import { assertCondition, assertObject } from "../../../shared/assertion.js";
-import {
-	type Change,
-	type DeepReadonly,
-	type DgChangeLog,
-	type DgDocument,
-	type DocumentGraph
-} from "../../../documentGraph/core/index.js";
-import { applyChanges } from "../../../documentGraph/core/changeLog/changeLogImpl.js";
+import { load } from "../StandaloneActivityHandler.js";
+import type { CdmData } from "../../cddUtils/cdmData.js";
+import { queryRootName } from "../../commons/modelUtils.js";
+import { CDD_DOC_REF } from "../../cdmCommons/cddTechnical.js";
 import { DgReducers } from "../../../documentGraph/redux/index.js";
 import { CddActions, CddSelectors } from "../../cdd/redux/index.js";
-import { isScdmDataHolder, isScdmDataHolderShape } from "../../cdd/redux/dhReducersImpl.js";
-import { type CdmData } from "../../cddUtils/cdmData.js";
 import { createInitialDgCl } from "../../cddUtils/createInitialDgCl.js";
+import { assertObject, assertCondition } from "../../../shared/assertion.js";
+import type { Models, LoadType, CddDataHandler } from "../CddDataHandler.js";
+import { applyChanges } from "../../../documentGraph/core/changeLog/changeLogImpl.js";
+import { isScdmDataHolder, isScdmDataHolderShape } from "../../cdd/redux/dhReducersImpl.js";
+import type { RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
 import { filterCdmDataByRelevance } from "../../cddUtils/notRelevant/filterCdmDataByRelevance.js";
-import { CDD_DOC_REF } from "../../cdmCommons/cddTechnical.js";
-import { queryRootName } from "../../commons/modelUtils.js";
-import { type RequestSelectorMap } from "../../../server-connectors/request-selector-map.js";
-
-import { type CddDataHandler, type LoadType, type Models } from "../CddDataHandler.js";
-import { load } from "../StandaloneActivityHandler.js";
+import type {
+	Change,
+	DgDocument,
+	DgChangeLog,
+	DeepReadonly,
+	DocumentGraph
+} from "../../../documentGraph/core/index.js";
 
 /**
  * @internal
@@ -147,6 +146,7 @@ function* initializeCdd(activity: Activity, models: Models): SagaGenerator<void>
 	);
 
 	const queryRoot = yield* call(queryRootName, documentModel);
+
 	if (queryRoot) {
 		yield* put(
 			CddActions.merge({

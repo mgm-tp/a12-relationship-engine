@@ -29,16 +29,16 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module documentGraph/core
  * @experimental
  */
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 
-import { type DocRef } from "./utilityTypes.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
+import type { DocRef } from "./utilityTypes.js";
 
 /**
  * The Document Graph (DG) is the pure data structure and operations on it.

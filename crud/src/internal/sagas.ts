@@ -30,19 +30,18 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type SagaIterator } from "redux-saga";
-import { call, put, select, takeLatest } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { put, call, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
-import {
-	ActivityActions,
-	ActivitySagas,
-	ActivitySelectors,
-	NEW_INSTANCE_IDENTIFIER,
-	ModelSelectors
-} from "@com.mgmtp.a12.client/client-core";
 import { LoggerFactory } from "@com.mgmtp.a12.utils/utils-logging";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import { OverviewActivity } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import {
+	ActivitySagas,
+	ModelSelectors,
+	ActivityActions,
+	ActivitySelectors,
+	NEW_INSTANCE_IDENTIFIER
+} from "@com.mgmtp.a12.client/client-core";
 
 import { CRUDActions } from "./actions.js";
 import { assertObject } from "./utils/assertion.js";
@@ -50,23 +49,24 @@ import { assertObject } from "./utils/assertion.js";
 const logger = LoggerFactory.getLogger("extensions/crud");
 
 /** @internal */
-export function* createNewDocumentSaga(): SagaIterator<void> {
+export function* createNewDocumentSaga(): SagaGenerator<void> {
 	yield* takeLatest(CRUDActions.createNewDocument, createNewDocument);
 }
 
 /** @internal */
-export function* selectRowSaga(): SagaIterator<void> {
+export function* selectRowSaga(): SagaGenerator<void> {
 	yield* takeLatest(CRUDActions.selectRow, selectRow);
 }
 
 /** @internal */
-export function* deleteRowSaga(): SagaIterator<void> {
+export function* deleteRowSaga(): SagaGenerator<void> {
 	yield* takeLatest(CRUDActions.deleteRow, deleteRow);
 }
 
 /** @internal */
-export function* createNewDocument(action: Action<CRUDActions.CreateNewDocumentPayload>): SagaIterator<void> {
+export function* createNewDocument(action: Action<CRUDActions.CreateNewDocumentPayload>): SagaGenerator<void> {
 	const activity = yield* select(ActivitySelectors.activityById(action.payload.activityId));
+
 	if (activity === undefined) {
 		throw new Error(`Activity [id: ${action.payload.activityId}] does not exist in the store anymore.`);
 	}
@@ -87,9 +87,10 @@ export function* createNewDocument(action: Action<CRUDActions.CreateNewDocumentP
 	yield* call(cancelDocumentActivityIfPresent, activity.id, createActivity);
 }
 
-function* selectRow(action: Action<CRUDActions.SelectRowPayload>): SagaIterator<void> {
+function* selectRow(action: Action<CRUDActions.SelectRowPayload>): SagaGenerator<void> {
 	const { instanceId, activityId } = action.payload;
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 	if (activity === undefined) {
 		throw new Error(`Activity [id: ${activityId}] does not exist in the store anymore.`);
 	}
@@ -99,8 +100,10 @@ function* selectRow(action: Action<CRUDActions.SelectRowPayload>): SagaIterator<
 	if (!OverviewActivity.Data.DocumentListData.isInstance(activity.dataHolders[0].data)) {
 		throw new Error(`Activity [id: ${activityId}] does not contain a document list.`);
 	}
+
 	const documents = activity.dataHolders[0].data.documents;
 	const modelId = documents?.find((item) => item?.id === instanceId)?.modelId;
+
 	if (modelId === undefined) {
 		throw new Error(`Cannot find modelId for document ${instanceId}, activity [id: ${activityId}]`);
 	}
@@ -127,20 +130,23 @@ function* selectRow(action: Action<CRUDActions.SelectRowPayload>): SagaIterator<
 	yield* call(cancelDocumentActivityIfPresent, activityId, createActivity);
 }
 
-function* deleteRow(action: Action<CRUDActions.DeleteRowPayload>): SagaIterator<void> {
+function* deleteRow(action: Action<CRUDActions.DeleteRowPayload>): SagaGenerator<void> {
 	const { activityId, instanceId } = action.payload;
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
+
 	if (activity === undefined) {
 		throw new Error(`Activity [id: ${activityId}] not found.`);
 	}
 
 	const activityWithInstance = yield* select(ActivitySelectors.childActivityWithInstance(activity.id));
+
 	if (activityWithInstance?.descriptor.instance === instanceId) {
 		logger.log("Cancel document before delete");
 
 		yield* put(ActivityActions.cancelRequested({ activityIds: [activityWithInstance.id] }));
 
 		const cancelled = yield* call(ActivitySagas.waitForResponseCancelRequested);
+
 		if (!cancelled) {
 			return;
 		}
@@ -152,11 +158,12 @@ function* deleteRow(action: Action<CRUDActions.DeleteRowPayload>): SagaIterator<
 function* cancelDocumentActivityIfPresent(
 	activityId: string,
 	action: Action<ActivityActions.PushPayload>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const activity = yield* select(ActivitySelectors.activityById(activityId));
 	assertObject(activity);
 
 	const activityWithInstance = yield* select(ActivitySelectors.childActivityWithInstance(activity.id));
+
 	if (activityWithInstance) {
 		logger.log("cancel document");
 
@@ -168,6 +175,7 @@ function* cancelDocumentActivityIfPresent(
 		);
 
 		const cancelled = yield* call(ActivitySagas.waitForResponseCancelRequested);
+
 		if (!cancelled) {
 			return;
 		}

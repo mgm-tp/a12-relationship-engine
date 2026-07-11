@@ -30,29 +30,32 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type PropsWithChildren } from "react";
 import { Provider } from "react-redux";
-import { legacy_configureStore as configureStore } from "redux-mock-store";
-import { StyleSheetManager, ThemeProvider } from "styled-components";
+import type { PropsWithChildren } from "react";
+import type { MockStore } from "redux-mock-store";
+import { ThemeProvider, StyleSheetManager } from "styled-components";
 
+import { LocalizerContext, type LocalizerContextProps } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
+	type Locale,
 	defaultDataFormats,
-	defaultLocalizerFactory,
 	defaultValueConversion,
-	type Locale
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+	defaultLocalizerFactory
+} from "@com.mgmtp.a12.utils/utils-localization";
 import {
-	shouldForwardProp,
 	SizeContext,
-	type SizeContextProps,
-	useWindowSize,
 	GlobalStyles,
-	defaultTheme
+	defaultTheme,
+	useWindowSize,
+	shouldForwardProp,
+	type SizeContextProps
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
-export function TestWrapper(props: PropsWithChildren): React.ReactNode {
-	const store = configureStore<object>()();
+import { createGeneralStore } from "../../mocks/store/store.js";
+
+export function TestWrapper(props: PropsWithChildren & { store?: MockStore<object> }): React.ReactNode {
+	const store = props.store ?? createGeneralStore();
+
 	return (
 		<Provider store={store}>
 			<TestInnerWrapper>{props.children}</TestInnerWrapper>
@@ -67,7 +70,7 @@ function TestInnerWrapper(props: PropsWithChildren) {
 	const locale: Locale = { language: "en", country: "US" };
 	const dataFormats = defaultDataFormats(locale);
 	const conversion = defaultValueConversion(dataFormats);
-	const localizerContextValue: LocalizerContext.Type = {
+	const localizerContextValue: LocalizerContextProps = {
 		locale,
 		dataFormats,
 		conversion,

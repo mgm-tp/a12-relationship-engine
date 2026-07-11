@@ -30,16 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-
-import { createDG, type DgChangeLogSlice, type DgSlice } from "../../documentGraph/core/index.js";
-import * as DocOps from "../../documentGraph/core/impl/docs.js";
-import { addDocument } from "../../documentGraph/core/reducers.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
 import { toCdd } from "../cdd/core/adapter/toCdd.js";
-import { type CddState } from "../cdd/core/cddState.js";
-import { newCddState } from "../cdd/core/impl/cddStateImpl.js";
+import type { CddState } from "../cdd/core/cddState.js";
 import { CDD_DOC_REF } from "../cdmCommons/cddTechnical.js";
+import { newCddState } from "../cdd/core/impl/cddStateImpl.js";
+import * as DocOps from "../../documentGraph/core/impl/docs.js";
+import { addDocument } from "../../documentGraph/core/reducers.js";
+import { createDG, type DgSlice, type DgChangeLogSlice } from "../../documentGraph/core/index.js";
 
 /**
  * Data structure for the data of a cdm activity consisting of the document graph,

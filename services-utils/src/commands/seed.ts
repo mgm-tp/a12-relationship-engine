@@ -32,21 +32,22 @@
 
 import { inspect } from "node:util";
 
-import { type CommandModule } from "yargs";
+import type { CommandModule } from "yargs";
 
-import { type JsonRpc2Request, JsonRpc2Response } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { JsonRpc2Response, type JsonRpc2Request } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
+import CDMRequest from "../utils/data/cdmRequests.json" with { type: "json" };
 import {
+	rpcRequest,
 	BaseUrlOption,
-	type PresetMap,
 	PresetsOption,
+	type PresetMap,
 	resolvePresets,
 	type RequestsCreator,
-	rpcRequest
+	createRelationshipGraph
 } from "../utils/index.js";
-import CDMRequest from "../utils/data/cdmRequests.json" with { type: "json" };
-import RelationshipRequest from "../utils/data/relationshipRequest.json" with { type: "json" };
 
+import { handleClean } from "./clean.js";
 import { handleWaitOn } from "./wait-on.js";
 
 interface Options extends BaseUrlOption, PresetsOption {
@@ -68,10 +69,13 @@ export const seedCommand: CommandModule<unknown, Options> = {
 	handler: handleSeed
 };
 
-async function handleSeed(options: Options) {
+export async function handleSeed(options: Options) {
 	if (options.waitOn) {
 		await handleWaitOn(options);
 	}
+
+	console.log("== Cleaning existing documents before seeding ==");
+	await handleClean(options);
 
 	await Promise.all(
 		resolvePresets({ ...options, presetMap }).map(async (requestsCreator) => {
@@ -86,15 +90,15 @@ async function handleSeed(options: Options) {
 				);
 				process.exit(1);
 			} else {
-				console.log(inspect(responses, { depth: 10 }));
+				console.log("== Successfully seeded with ", responses.length, " requests ==");
 			}
 		})
 	);
 
-	console.log("== Seeding Finished ==");
+	console.log("== Seed Finished ==");
 }
 
 const presetMap: PresetMap<RequestsCreator> = {
 	cdm: [() => CDMRequest as JsonRpc2Request[]],
-	relationship: [() => RelationshipRequest as JsonRpc2Request[]]
+	relationship: [() => createRelationshipGraph()]
 };

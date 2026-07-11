@@ -34,15 +34,16 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 
 import { ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
-import { JsonRpc2Response, type JsonRpc2ResponseError } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Localizer } from "@com.mgmtp.a12.utils/utils-localization";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { Relationship } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
-import { type Localizer } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
 import { Icon, List, MessageBox, TextOutput } from "@com.mgmtp.a12.widgets/widgets-core";
+import { JsonRpc2Response, type JsonRpc2ResponseError } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 /** @internal */
 export function ErrorPanel({ activityId }: { activityId: string }): React.ReactNode {
 	const activityError = useSelector(ActivitySelectors.error(activityId));
+
 	if (!activityError) {
 		return null;
 	}
@@ -68,15 +69,19 @@ function ServerErrorPanel({ serverErrors }: { serverErrors: JsonRpc2ResponseErro
 	const warnings = allErrors.filter((error) => error.level === "WARNING");
 	const infos = allErrors.filter((error) => error.level === "INFO" || error.level === "DEBUG");
 	const messageBoxes: React.ReactNode[] = [];
+
 	if (errors.length > 0) {
 		messageBoxes.push(<ServerErrorBox type="error" exceptions={errors} key="error" />);
 	}
+
 	if (warnings.length > 0) {
 		messageBoxes.push(<ServerErrorBox type="warning" exceptions={warnings} key="warning" />);
 	}
+
 	if (infos.length > 0) {
 		messageBoxes.push(<ServerErrorBox type="info" exceptions={infos} key="info" />);
 	}
+
 	return <>{messageBoxes}</>;
 }
 
@@ -91,6 +96,7 @@ function ServerErrorBox({
 	const messages = exceptions.map(convertToMessage(localizer));
 	let content: React.ReactNode;
 	let label: React.ReactNode | string | undefined;
+
 	if (messages.length === 1) {
 		label = messages[0];
 		content = null;
@@ -118,5 +124,6 @@ const convertToMessage = (localizer: Localizer) => (error: JsonRpc2Response.Exce
 		key: error.description.key,
 		defaults: { en: error.description.default }
 	});
+
 	return <TextOutput label={title}>{description}</TextOutput>;
 };

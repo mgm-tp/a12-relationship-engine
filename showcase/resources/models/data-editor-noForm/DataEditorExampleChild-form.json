@@ -2,7 +2,7 @@
 	"header": {
 		"id": "DataEditorExampleChild-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -11,12 +11,7 @@
 				"code": "de"
 			}
 		],
-		"annotations": [
-			{
-				"name": "roles",
-				"value": "anonymous"
-			}
-		],
+		"annotations": [],
 		"modelReferences": [
 			{
 				"alias": "DM",

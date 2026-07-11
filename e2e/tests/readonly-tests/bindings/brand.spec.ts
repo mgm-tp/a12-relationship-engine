@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect, test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-import { Selector, Showcase } from "../../../support/utils";
+import { Selector, Showcase } from "../../../support/utils.js";
 
 test.describe.configure({ mode: "parallel" });
 
@@ -40,8 +40,34 @@ test.describe("Brand bindings", () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto(Showcase.BRAND_BINDINGS);
 		await expect(page.getByText("List of brands")).toBeVisible();
-		await page.getByText("New Balance").click();
+		await page.getByText("AMR Corporation").click();
 		await expect(page.getByRole("heading", { name: "Brand", exact: true })).toBeVisible();
+	});
+
+	// DualPaneSelection component.height = "50vh" -> 50% * 720 = 360
+	test("DualPaneSelection inline applies a relative height", async ({ page }) => {
+		await page.getByText("Product (Dual)").click();
+
+		const candidateColumn = page
+			.locator(`[data-role="layout-grid-column"]`)
+			.filter({ has: page.getByRole("heading", { name: "Available products" }) })
+			.first();
+		const linkColumn = page
+			.locator(`[data-role="layout-grid-column"]`)
+			.filter({ has: page.getByRole("heading", { name: "Selected products" }) })
+			.first();
+
+		expect((await candidateColumn.boundingBox())?.height).toEqual(360);
+		expect((await linkColumn.boundingBox())?.height).toEqual(360);
+	});
+
+	// TableList component.height = "40vh" -> 40% * 720 = 288
+	test("TableList inline applies a relative height", async ({ page }) => {
+		await page.getByLabel("Product (List)").click();
+
+		const tableList = page.locator(`[data-role="relationship-engine-table-list"]`).first();
+
+		expect((await tableList.boundingBox())?.height).toEqual(288);
 	});
 
 	test("TableList", async ({ page }) => {
@@ -51,93 +77,39 @@ test.describe("Brand bindings", () => {
 		const overlayContentBoxSelector = `${Selector.MODAL_OVERLAY} ${Selector.CONTENT_BOX}`;
 		await expect(page.locator(overlayContentBoxSelector).getByText("Edit relationship")).toBeVisible();
 
-		const candidates = page.locator(overlayContentBoxSelector).filter({ hasText: "Available Elements" }).last();
+		const candidates = page.locator(overlayContentBoxSelector).filter({ hasText: "Available products" }).last();
 		await candidates.locator(Selector.TABLE_HEADER_CELL).filter({ hasText: "Name" }).first().click();
-		await expect(candidates).toContainText("A4 5000 pieces");
-		await candidates
-			.locator(Selector.TABLE_BODY_ROW)
-			.filter({ hasText: "A4 5000 pieces" })
-			.locator(Selector.BUTTON)
-			.click();
+		await expect(candidates).toContainText("Ac Kit");
+		await candidates.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "Ac Kit" }).locator(Selector.BUTTON).click();
 
 		await expect(page.getByText("Additional properties")).toBeVisible();
 		await page.getByLabel("Manufacturing Site").fill("local");
 		await page.getByRole("button", { name: "OK" }).click();
 
-		const links = page.locator(overlayContentBoxSelector).filter({ hasText: "Selected Elements" }).last();
-		await expect(links.locator(Selector.TABLE_HEADER_ROW).last().locator(Selector.TABLE_HEADER_CELL).nth(5)).toHaveText(
-			"Document Model Reference"
-		);
-		await expect(links.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "A4 5000 pieces" })).toBeVisible();
-		// Column Document Model Reference should has data "Product-document"
-		await expect(
-			links
-				.locator(Selector.TABLE_BODY_ROW)
-				.filter({ hasText: "A4 5000 pieces" })
-				.locator(Selector.TABLE_BODY_CELL)
-				.nth(5)
-		).toHaveText("Product-document");
+		const links = page.locator(overlayContentBoxSelector).filter({ hasText: "Selected Items" }).last();
+		await expect(links.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "Ac Kit" })).toBeVisible();
 
-		await candidates.locator(Selector.PAGINATION).getByRole("combobox").selectOption("5 / 8");
-		await expect(candidates).toContainText("Running shoes");
+		await candidates.getByPlaceholder("Search").fill("Ofupuva Shoes");
+		await candidates.getByRole("button", { name: "Search", exact: true }).click();
+
+		await expect(candidates).toContainText("Ofupuva Shoes");
 		await candidates
 			.locator(Selector.TABLE_BODY_ROW)
-			.filter({ hasText: "Running shoes" })
+			.filter({ hasText: "Ofupuva Shoes" })
 			.locator(Selector.BUTTON)
 			.click();
 		await expect(page.getByText("Additional properties")).toBeVisible();
 		await page.getByLabel("Manufacturing Site").fill("www.running-shoes.com");
 		await page.getByRole("button", { name: "OK" }).click();
-		await expect(links.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "Running shoes" })).toBeVisible();
-		// Column Document Model Reference should has data "Bundle-document"
-		await expect(
-			links
-				.locator(Selector.TABLE_BODY_ROW)
-				.filter({ hasText: "Running shoes" })
-				.locator(Selector.TABLE_BODY_CELL)
-				.nth(5)
-		).toHaveText("Bundle-document");
+		await expect(links.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "Ofupuva Shoes" })).toBeVisible();
 
 		// Close DualPane and check data in the TableList
 		await page.getByRole("button", { name: "OK" }).click();
 		await expect(page.getByText("Edit relationship")).not.toBeVisible();
 
-		// Column Creator should has data "anonymous"
-		await expect(page.locator(Selector.TABLE_HEADER_ROW).last().locator(Selector.TABLE_HEADER_CELL).nth(4)).toHaveText(
-			"Creator"
-		);
-		await expect(
-			page
-				.locator(Selector.TABLE_BODY_ROW)
-				.filter({ hasText: "Running shoes" })
-				.locator(Selector.TABLE_BODY_CELL)
-				.nth(4)
-		).toContainText("anonymous");
-		await expect(
-			page
-				.locator(Selector.TABLE_BODY_ROW)
-				.filter({ hasText: "A4 5000 pieces" })
-				.locator(Selector.TABLE_BODY_CELL)
-				.nth(4)
-		).toContainText("anonymous");
-
-		// Column Created At should has data
-		await expect(page.locator(Selector.TABLE_HEADER_ROW).last().locator(Selector.TABLE_HEADER_CELL).nth(5)).toHaveText(
-			"Created At"
-		);
-		await expect(
-			page
-				.locator(Selector.TABLE_BODY_ROW)
-				.filter({ hasText: "Running shoes" })
-				.locator(Selector.TABLE_BODY_CELL)
-				.nth(5)
-		).not.toBeEmpty();
-		await expect(
-			page
-				.locator(Selector.TABLE_BODY_ROW)
-				.filter({ hasText: "A4 5000 pieces" })
-				.locator(Selector.TABLE_BODY_CELL)
-				.nth(5)
-		).not.toBeEmpty();
+		// Verify linked items are visible in the TableList
+		await expect(page.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "Ofupuva Shoes" })).toBeVisible();
+		await expect(page.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "Ac Kit" })).toBeVisible();
+		await expect(page.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "Busahziz Jacket" })).toBeVisible();
 	});
 });

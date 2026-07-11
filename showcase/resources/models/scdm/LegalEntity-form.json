@@ -2,7 +2,7 @@
 	"header": {
 		"id": "LegalEntity-form",
 		"modelType": "form",
-		"modelVersion": "37.4.0",
+		"modelVersion": "39.0.0",
 		"locales": [
 			{
 				"code": "en"
@@ -25,10 +25,6 @@
 			{
 				"name": "bindingConfiguration",
 				"value": "[{\"details\":{\"name\":\"PostalAddressBinding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"PostAddress\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DropDownSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"PostAddressLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-52795\"},{\"details\":{\"name\":\"LocationBinding\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"Location\",\"targetRole\":\"address\",\"components\":[{\"id\":\"-1\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Address-overview\",\"use\":\"candidate\"},{\"name\":\"LocationLinks-overview\",\"use\":\"link\"}]}]},\"type\":\"relationship\",\"elementId\":\"section-880c7\"}]"
-			},
-			{
-				"name": "roles",
-				"value": "anonymous"
 			}
 		],
 		"modelReferences": [
@@ -52,6 +48,16 @@
 				"modelType": "overview",
 				"purpose": "bindingReference",
 				"reference": "LocationLinks-overview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "LegalEntity-form-binding-PostalAddressBinding_RuM"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "LegalEntity-form-binding-LocationBinding_RuM"
 			}
 		]
 	},
@@ -275,21 +281,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-52795",
 						"name": "PostalAddressBinding",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "PostalAddressBinding"
-									},
-									{
-										"locale": "de",
-										"text": "PostalAddressBinding"
-									}
-								]
-							}
-						}
+						"reference": "LegalEntity-form-binding-PostalAddressBinding_RuM"
 					}
 				]
 			},
@@ -381,21 +373,7 @@
 						"type": "CustomScreenElement",
 						"id": "section-880c7",
 						"name": "LocationBinding",
-						"title": {
-							"type": "Multilingual",
-							"multilingualText": {
-								"text": [
-									{
-										"locale": "en",
-										"text": "LocationBinding"
-									},
-									{
-										"locale": "de",
-										"text": "LocationBinding"
-									}
-								]
-							}
-						}
+						"reference": "LegalEntity-form-binding-LocationBinding_RuM"
 					}
 				]
 			}

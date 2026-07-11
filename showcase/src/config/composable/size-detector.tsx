@@ -32,8 +32,8 @@
 
 import React from "react";
 
-import { type Container, SizeContext, useWindowSize } from "@com.mgmtp.a12.widgets/widgets-core";
 import { addWrapper, type A12ApplicationConfig } from "@com.mgmtp.a12.client/client-core";
+import { SizeContext, useWindowSize, type Container } from "@com.mgmtp.a12.widgets/widgets-core";
 
 export const SizeProvider: React.FC<Container> = ({ children }) => {
 	const { breakPoint } = useWindowSize();

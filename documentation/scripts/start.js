@@ -30,13 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import Fs from "node:fs/promises";
 import Path from "node:path";
+import Fs from "node:fs/promises";
 
 import { create } from "browser-sync";
 
-import { compileDoc } from "./compile.js";
 import Config from "./config.js";
+import { compileDoc } from "./compile.js";
 
 const browserSync = create();
 

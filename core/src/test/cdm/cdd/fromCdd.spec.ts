@@ -30,12 +30,11 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
 import { fromCdd } from "../../../internal/cdm/cdd/core/adapter/fromCdd.js";
-import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
-
 import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
+import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
 
 import Contract24Cdd from "./Contract24Cdd.json" with { type: "json" };
 

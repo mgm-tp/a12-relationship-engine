@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import Fs from "node:fs/promises";
 import Path from "node:path";
+import Fs from "node:fs/promises";
 
 import asciidoctor0 from "asciidoctor";
 import highlightJsExt from "asciidoctor-highlight.js";

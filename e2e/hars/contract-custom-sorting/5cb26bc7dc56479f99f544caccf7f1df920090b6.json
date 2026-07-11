@@ -1,1 +1,0 @@
-[{"jsonrpc":"2.0","id":"listModels-0","method":"LIST_MODELS_INTERNAL","params":{"modelNames":["Contract-overview","Contract-document"]}},{"jsonrpc":"2.0","id":"listCodes-1","method":"LIST_DOCUMENT_VALIDATION_CODES_INTERNAL","params":{"documentModelNames":["Contract-document"]}}]

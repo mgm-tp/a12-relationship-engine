@@ -1,0 +1,74 @@
+{
+	"header": {
+		"id": "ProductBundle_Product_SelectedItemsOverview",
+		"modelType": "overview",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Bundled products"
+			},
+			{
+				"locale": "de",
+				"text": "Gebündelte Produkte"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-overview",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "ProductBundle_Product_SelectedItemsOverview____generated"
+			}
+		]
+	},
+	"content": {
+		"configuration": {
+			"enableFilter": false,
+			"showFullTextSearch": false,
+			"pagingSize": 10
+		},
+		"rowActionGroup": {
+			"actions": []
+		},
+		"columns": [
+			{
+				"id": "column-product",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I4_F1",
+				"sortable": false,
+				"linkReferences": []
+			},
+			{
+				"id": "column-bundle-quantity",
+				"width": 1,
+				"styles": {},
+				"elementRef": "I5_F1",
+				"sortable": false
+			}
+		],
+		"subHeaderBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		},
+		"footerBox": {
+			"leftSlot": [],
+			"rightSlot": []
+		}
+	}
+}

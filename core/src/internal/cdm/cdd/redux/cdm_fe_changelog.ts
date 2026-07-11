@@ -36,8 +36,8 @@
  * @experimental
  */
 
-import { Activity, ActivitySelectors, StoreFactories } from "@com.mgmtp.a12.client/client-core";
 import { Commands, FormEngineActions } from "@com.mgmtp.a12.formengine/formengine-core";
+import { Activity, StoreFactories, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 import { DgActions } from "../../../documentGraph/redux/index.js";
 import { isSetDgCl } from "../../../documentGraph/redux/dhReducersImpl.js";
@@ -72,12 +72,14 @@ const cdmFormEngineChangeLogMiddleware = StoreFactories.createMiddleware((api, n
 			);
 		}
 	}
+
 	return next(action);
 });
 
 const isDgActivity = (activityId: string) => (state: object) => {
 	const activity = ActivitySelectors.activityById(activityId)(state);
 	const dataHolder = Activity.findDefaultDataHolder(activity);
+
 	return isSetDgCl(dataHolder?.data);
 };
 

@@ -35,26 +35,26 @@
  * @module cdm/cdd
  * @experimental
  */
-import { type Action, type Dispatch, type Middleware, type MiddlewareAPI } from "redux";
+import type { Action, Middleware, MiddlewareAPI } from "redux";
 
 import {
 	Activity,
-	ActivityActions,
-	ActivitySelectors,
+	type Selector,
 	ModelSelectors,
-	type Selector
+	ActivityActions,
+	ActivitySelectors
 } from "@com.mgmtp.a12.client/client-core";
 import {
 	Commands,
 	type EngineState,
-	getAllCommandActions,
-	getAllEventActions,
 	FormEngineActions,
-	FormEngineSelectors
+	getAllEventActions,
+	FormEngineSelectors,
+	getAllCommandActions
 } from "@com.mgmtp.a12.formengine/formengine-core";
 
-import { assertObject } from "../../../shared/assertion.js";
 import { toChangeMap } from "../../commons/utils.js";
+import { assertObject } from "../../../shared/assertion.js";
 
 import * as CddActions from "./actions.js";
 import { CddSelectors } from "./selectors.js";
@@ -74,9 +74,11 @@ export function cddFormEngineMiddlewareAdapterFactory(
 		if (!FormEngineActions.event.match(action) && !FormEngineActions.command.match(action)) {
 			return result;
 		}
+
 		const { activityId, engineEvent } = action.payload;
 
 		const activity = ActivitySelectors.activityById(activityId)(api.getState());
+
 		if (activity === undefined) {
 			return result;
 		}
@@ -105,9 +107,11 @@ export function createMiddlewareAPIWrapper(
 	function getStateWrapper(): EngineState {
 		const clientState = cddStateAdapter(activityId)(api.getState());
 		const state = engineStateSelector(clientState);
+
 		if (state === undefined) {
 			throw new Error(`EngineState is not available in activity ${activityId}.`);
 		}
+
 		return state;
 	}
 
@@ -122,9 +126,11 @@ export function createMiddlewareAPIWrapper(
 		getState: getStateWrapper,
 		dispatch(engineEvent) {
 			const clientState = api.getState();
+
 			if (Commands.setDocument.match(engineEvent)) {
 				const payload = engineEvent.payload;
 				const document = payload.changes ? payload.document : payload;
+
 				if (CddSelectors.cdd(activityId)(clientState)) {
 					const modelGraph = ModelSelectors.modelGraph()(clientState);
 
@@ -164,8 +170,8 @@ export function createMiddlewareAPIWrapper(
 /**
  * This function combines a chain of middlewares to a single dispatch function.
  */
-function createDispatcher(api: MiddlewareAPI, middlewares: Middleware[]): Dispatch {
-	return middlewares.reduceRight<Dispatch>(
+function createDispatcher(api: MiddlewareAPI, middlewares: Middleware[]): (action: unknown) => unknown {
+	return middlewares.reduceRight<(action: unknown) => unknown>(
 		(dispatcher, middleware) => middleware(api)(dispatcher),
 		(action) => action
 	);
@@ -181,6 +187,7 @@ const allEngineCommandTypes = getAllCommandActions().map((a) => a().type);
 export function cddStateAdapter(activityId: string): Selector<object> {
 	return (state) => {
 		const activity = activitySelector(activityId)(state);
+
 		return cddActivityStateAdapter(activity)(state);
 	};
 }
@@ -188,6 +195,7 @@ export function cddStateAdapter(activityId: string): Selector<object> {
 function activitySelector(activityId: string): Selector<Activity> {
 	return (state) => {
 		const activity = ActivitySelectors.activityById(activityId)(state);
+
 		if (activity === undefined) {
 			throw new Error(`Activity with id ${activityId} does not exist.`);
 		}

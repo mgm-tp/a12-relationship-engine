@@ -30,9 +30,9 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { expect, test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-import { Showcase } from "../../../support/utils";
+import { Showcase } from "../../../support/utils.js";
 
 test.describe("Natural Person CDM", () => {
 	test.beforeEach(async ({ page }) => {
@@ -48,6 +48,7 @@ test.describe("Natural Person CDM", () => {
 		await expect(page.locator("select[id^='a12-Gender-include']")).toHaveValue("1");
 
 		await page.getByText("Mark Zuckerberg").click();
+		await page.getByRole("button", { name: "Discard changes" }).click();
 		await expect(page.getByText("Natural Person CDM")).toBeVisible();
 
 		await expect(page.locator("select[id^='a12-GenderPreProcessing']")).toHaveValue("");

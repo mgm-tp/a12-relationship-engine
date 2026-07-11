@@ -5,51 +5,52 @@
 ```ts
 
 import { A12ApplicationConfig } from '@com.mgmtp.a12.client/client-core';
-import { Action } from 'typescript-fsa';
-import { ActionCreator } from 'typescript-fsa';
+import { Action } from '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat';
+import { ActionCreator } from '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat';
 import { Activity } from '@com.mgmtp.a12.client/client-core';
 import { ActivityActions } from '@com.mgmtp.a12.client/client-core';
 import { ActivityActionWithModelsInScenePayload } from '@com.mgmtp.a12.client/client-core';
-import { ActivityReducers } from '@com.mgmtp.a12.client/client-core';
-import { AnyAction } from 'typescript-fsa';
-import { ApplicationSaga } from '@com.mgmtp.a12.client/client-core';
+import type { ActivityReducers } from '@com.mgmtp.a12.client/client-core';
+import type { ApplicationSaga } from '@com.mgmtp.a12.client/client-core';
 import { ApplicationWithConfiguredFeature } from '@com.mgmtp.a12.client/client-core';
-import { Change as Change_2 } from '@com.mgmtp.a12.formengine/formengine-core';
+import type { Change as Change_2 } from '@com.mgmtp.a12.formengine/formengine-core';
 import { Component as Component_2 } from 'react';
 import { Container } from '@com.mgmtp.a12.widgets/widgets-core';
 import { DataProvider } from '@com.mgmtp.a12.client/client-core';
-import { DocumentJsonRpc2Request } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { DocumentModel } from '@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js';
-import { EntityInstancePath } from '@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js';
+import type { DocumentJsonRpc2Request } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import { DocumentModel } from '@com.mgmtp.a12.kernel/kernel-md-facade';
+import type { EntityInstancePath } from '@com.mgmtp.a12.kernel/kernel-md-facade';
 import { FormEngineSagaOptions } from '@com.mgmtp.a12.formengine/formengine-core';
-import { FormEngineSelectors } from '@com.mgmtp.a12.formengine/formengine-core';
+import type { FormEngineSelectors } from '@com.mgmtp.a12.formengine/formengine-core';
 import { FormModel } from '@com.mgmtp.a12.formengine/formengine-core';
 import { FormModelMap } from '@com.mgmtp.a12.formengine/formengine-core';
-import { GroupInstance } from '@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js';
-import { IGeneratedCodeAccessor } from '@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js';
-import { JsonRpc2ResponseError } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { LocalizedModelText } from '@com.mgmtp.a12.utils/utils-localization/lib/main/index.js';
-import { LocalizerContext } from '@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js';
-import { Middleware } from 'redux';
-import { MiddlewareOptions } from '@com.mgmtp.a12.formengine/formengine-core';
-import { Model } from '@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js';
-import { Model as Model_2 } from '@com.mgmtp.a12.client/client-core';
-import { ModelGraph } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { ModelPath } from '@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js';
-import { OverviewEngineApi } from '@com.mgmtp.a12.overviewengine/overviewengine-core';
-import { OverviewEngineState } from '@com.mgmtp.a12.overviewengine/overviewengine-core';
-import { OverviewModel } from '@com.mgmtp.a12.overviewengine/overviewengine-core';
-import { Query } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { QueryJsonRpc2Request } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { GroupInstance } from '@com.mgmtp.a12.kernel/kernel-md-facade';
+import type { Header } from '@com.mgmtp.a12.base/base-model-api';
+import type { IGeneratedCodeAccessor } from '@com.mgmtp.a12.kernel/kernel-md-facade';
+import type { JsonRpc2ResponseError } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { LocalizedModelText } from '@com.mgmtp.a12.utils/utils-localization';
+import { LocalizerContext } from '@com.mgmtp.a12.utils/utils-localization-react';
+import type { Middleware } from 'redux';
+import type { MiddlewareOptions } from '@com.mgmtp.a12.formengine/formengine-core';
+import type { Model } from '@com.mgmtp.a12.base/base-model-api';
+import type { Model as Model_2 } from '@com.mgmtp.a12.client/client-core';
+import type { ModelGraph } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { ModelPath } from '@com.mgmtp.a12.base/base-model-api';
+import type { OverviewEngineApi } from '@com.mgmtp.a12.overviewengine/overviewengine-core';
+import type { OverviewEngineState } from '@com.mgmtp.a12.overviewengine/overviewengine-core';
+import type { OverviewModel } from '@com.mgmtp.a12.overviewengine/overviewengine-core';
+import type { Query } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { QueryJsonRpc2Request } from '@com.mgmtp.a12.dataservices/dataservices-access';
 import { default as React_2 } from 'react';
 import * as React_3 from 'react';
-import { ReadonlyObjectMap } from '@com.mgmtp.a12.formengine/formengine-core';
-import { Relationship as Relationship_2 } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { RelationshipJsonRpc2request } from '@com.mgmtp.a12.dataservices/dataservices-access';
-import { RelationshipModel } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { ReadonlyObjectMap } from '@com.mgmtp.a12.formengine/formengine-core';
+import type { Relationship as Relationship_2 } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { RelationshipJsonRpc2request } from '@com.mgmtp.a12.dataservices/dataservices-access';
+import type { RelationshipModel } from '@com.mgmtp.a12.dataservices/dataservices-access';
 import { RequireFeatures } from '@com.mgmtp.a12.client/client-core';
-import { SagaIterator } from 'redux-saga';
+import { SagaGenerator } from 'typed-redux-saga';
 import { Selector } from '@com.mgmtp.a12.client/client-core';
+import type { UnknownAction } from 'redux';
 
 // @public (undocumented)
 const addCddLink: ActionCreator<AddCddLinkPayload>;
@@ -109,6 +110,13 @@ interface AddLinkPayload extends AbstractPayload {
     readonly setDirty?: true;
 }
 
+// @public
+export type ApplicationWithNewREConfig = RequireFeatures<A12ApplicationConfig, {
+    formEngine: true;
+    overviewEngine: true;
+    relationshipEngine?: never;
+}>;
+
 // Warning: (ae-forgotten-export) The symbol "RelationshipEngineConfigured" needs to be exported by the entry point index.d.ts
 //
 // @public
@@ -161,7 +169,7 @@ export function cddActivityStateAdapter(activity: Activity): Selector<object>;
 // Warning: (ae-forgotten-export) The symbol "ScdmDataHolderShape" needs to be exported by the entry point index.d.ts
 //
 // @public (undocumented)
-export function cddDataHolderReducerExtension(input: DataHolderTuple, action?: AnyAction, updatePartialCddState?: PartialCddState): ScdmDataHolderShape;
+export function cddDataHolderReducerExtension(input: DataHolderTuple, action?: UnknownAction, updatePartialCddState?: PartialCddState): ScdmDataHolderShape;
 
 // @public
 export const cddReducers: ActivityReducers.DataReducer[];
@@ -212,13 +220,13 @@ export const CDM_RESOURCE_KEYS: {
 };
 
 // @public
-export interface CdmMiddlewareOptions extends Pick<MiddlewareOptions, "nowProvider"> {
+export interface CdmMiddlewareOptions extends Pick<MiddlewareOptions, "kernelOptionsProvider"> {
     // (undocumented)
     readonly engineStateSelector?: FormEngineSelectors.EngineStateSelector;
 }
 
 // @public (undocumented)
-export function cdmSagas(options?: FormEngineSagaOptions): (() => SagaIterator<void>)[];
+export function cdmSagas(options?: FormEngineSagaOptions): (() => SagaGenerator<void>)[];
 
 // @public (undocumented)
 export type Change<SNAPSHOT_TYPE> = LinkAdded | LinkDeleted | LinkDocChanged | DocAdded | DocChanged | DgMerged | Marker<SNAPSHOT_TYPE>;
@@ -296,7 +304,7 @@ export type CreateRelationshipFormModelMapType = WithComponentProvider;
 // @public (undocumented)
 interface DataHolderReducerExtension {
     // (undocumented)
-    (dhs: DataHolderTuple, action: AnyAction): DgClDataHolderShape;
+    (dhs: DataHolderTuple, action: UnknownAction): DgClDataHolderShape;
 }
 
 // @public (undocumented)
@@ -483,6 +491,8 @@ export type DropDownSelectionProps = SingleSelectionProps;
 // @public (undocumented)
 export interface DropDownSelectionState {
     // (undocumented)
+    currentSearchText: string;
+    // (undocumented)
     debouncing: boolean;
 }
 
@@ -493,8 +503,7 @@ export function DualPaneSelection(props: DualPaneSelectionProps): React_2.ReactN
 export interface DualPaneSelectionProps extends MultiSelectionProps {
     // (undocumented)
     readonly availableItemsTable?: LocalizedLabelConfig;
-    // (undocumented)
-    readonly height?: number;
+    readonly height?: string;
     // (undocumented)
     readonly selectedItemsTable?: LocalizedLabelConfig;
 }
@@ -584,12 +593,12 @@ function handleRemoveLink(observer?: DataHolderReducerExtension): ReducerSignatu
 function handleSetDg(observer?: DataHolderReducerExtension): ReducerSignature<SetDGPayload>;
 
 // @public (undocumented)
-function initAndLoadCandidates(payload: InitializeAndLoadCandidatesPayload): Action<ActivityActions.LoadDataPayload>;
+function initAndLoadCandidates(payload: InitializeAndLoadCandidatesPayload): ReturnType<typeof ActivityActions.loadData>;
 
 // @public (undocumented)
 namespace initAndLoadCandidates {
     var // (undocumented)
-    match: (action: AnyAction) => action is Action<InitializeAndLoadCandidatesPayload>;
+    match: (action: UnknownAction) => action is Action<InitializeAndLoadCandidatesPayload>;
 }
 
 // @public (undocumented)
@@ -599,6 +608,9 @@ interface InitializeAndLoadCandidatesPayload extends ActivityActionWithModelsInS
     // (undocumented)
     readonly modelGraph: ModelGraph;
 }
+
+// @public
+export function isRelationshipUiModel(model: unknown): model is RelationshipUiModel;
 
 // @public (undocumented)
 function isSetDgCl(data: unknown): data is DgSlice & DgChangeLogSlice;
@@ -728,10 +740,11 @@ export interface ModelableEditDialogProps {
     readonly editDialogCancelButtonLabel?: LocalizedLabelConfig;
     // (undocumented)
     readonly editDialogCloseButtonLabel?: LocalizedLabelConfig;
+    readonly editDialogMaxHeight?: string;
+    readonly editDialogMaxWidth?: string;
     // (undocumented)
     readonly editDialogTitle?: LocalizedLabelConfig;
-    // (undocumented)
-    readonly editDialogWidth?: number;
+    readonly editDialogWidth?: string;
 }
 
 // @public (undocumented)
@@ -774,7 +787,20 @@ export interface MultiSelectionProps extends EditDocumentProps<MultiSelectionIte
 }
 
 // @public (undocumented)
-function nopObserver(dhs: DataHolderTuple, action: AnyAction): DgClDataHolderShape;
+function nopObserver(dhs: DataHolderTuple, action: UnknownAction): DgClDataHolderShape;
+
+// @public
+export interface ParentLinkDescriptor {
+    readonly parentInstance: string;
+    readonly parentRelationshipName: string;
+    readonly parentRelationshipRole: string;
+    readonly predecessor?: string;
+}
+
+// @public (undocumented)
+export namespace ParentLinkDescriptor {
+    export function isAssignableFrom(descriptor: unknown): descriptor is ParentLinkDescriptor;
+}
 
 // @public
 export type PartialCddState = Omit<CddState, "cachedCdd">;
@@ -1009,6 +1035,7 @@ export const RELATIONSHIP_RESOURCE_KEYS: {
                 "drop-down": {
                     "edit-link": string;
                     "result-count": string;
+                    "min-search-length": string;
                 };
                 "table-list": {
                     edit: string;
@@ -1066,12 +1093,53 @@ export interface RelationshipDocument {
 }
 
 // @public
+export interface RelationshipEngineDataProviderOptions {
+}
+
+// @public
+export namespace RelationshipEngineFactories {
+    // (undocumented)
+    export function createDataProviders(options?: DataProviderOptions): DataProvider[];
+    // (undocumented)
+    export function createDataReducers(): ActivityReducers.DataReducer[];
+    export function createDocumentDescriptorSelector(override?: FormEngineSagaOptions["documentDescriptorSelector"]): FormEngineSagaOptions["documentDescriptorSelector"];
+    export function createFormEngineSagaOptions(options?: FormEngineSagaOptions): FormEngineSagaOptions;
+    // (undocumented)
+    export function createFormModelMap(options?: RelationshipEngineFormModelMapOptions): RelationshipEngineFormModelMap;
+    // (undocumented)
+    export function createMiddlewares(options?: RelationshipEngineMiddlewareOptions): Middleware[];
+    // (undocumented)
+    export function createSagas(config?: ApplicationSaga.Configuration, options?: RelationshipEngineMiddlewareOptions): (() => SagaGenerator<void>)[];
+    // (undocumented)
+    export type DataProviderOptions = RelationshipEngineDataProviderOptions;
+    // (undocumented)
+    export type MiddlewareOptions = RelationshipEngineMiddlewareOptions;
+}
+
+// @public
+export interface RelationshipEngineFormModelMap extends Partial<FormModelMap> {
+    // (undocumented)
+    CustomScreenElement: FormModelMap["CustomScreenElement"];
+    // (undocumented)
+    DetachedRepeat: FormModelMap["DetachedRepeat"];
+    // (undocumented)
+    Screen: FormModelMap["Screen"];
+}
+
+// @public
+export interface RelationshipEngineFormModelMapOptions {
+}
+
+// @public
+export type RelationshipEngineMiddlewareOptions = Pick<MiddlewareOptions, "kernelOptionsProvider">;
+
+// @public
 export namespace RelationshipFactories {
     // (undocumented)
     export function createRelationshipDataProvider(options?: {
         requestSelectorMap?: RequestSelectorMap;
     }): DataProvider;
-    export function createSagas(config: ApplicationSaga.Configuration): (() => SagaIterator<void>)[];
+    export function createSagas(config: ApplicationSaga.Configuration): (() => SagaGenerator<void>)[];
 }
 
 // @public (undocumented)
@@ -1104,6 +1172,79 @@ export namespace RelationshipSelectors {
         readonly activityId: string;
     }): Selector<Relationship.UiConfigurationBinding[]>;
     export function relationshipInstance(activityId: string, instanceId: string): Selector<Relationship.Instance | undefined>;
+}
+
+// @public
+export interface RelationshipUiModel {
+    // (undocumented)
+    readonly content: RelationshipUiModel.Content;
+    // (undocumented)
+    readonly header: Header;
+}
+
+// @public (undocumented)
+export namespace RelationshipUiModel {
+    export interface ActivityDescriptor {
+        readonly [key: string]: string | undefined;
+        readonly instance?: string;
+        readonly model?: string;
+    }
+    export interface ButtonConfirmation {
+        // (undocumented)
+        readonly message?: LocalizedModelText;
+        // (undocumented)
+        readonly title?: LocalizedModelText;
+    }
+    export interface ButtonElement {
+        readonly annotations?: ReadonlyArray<Record<string, unknown>>;
+        readonly confirmation?: ButtonConfirmation;
+        readonly description?: LocalizedModelText;
+        readonly destructive?: boolean;
+        readonly event: string;
+        readonly icon?: ButtonIcon;
+        readonly label?: LocalizedModelText;
+        readonly labelHidden?: true;
+        readonly primary?: boolean;
+        readonly styles?: ReadonlyArray<string>;
+    }
+    export interface ButtonIcon {
+        // (undocumented)
+        readonly name: string;
+        // (undocumented)
+        readonly theme?: "filled" | "outlined" | "rounded" | "custom";
+    }
+    export interface ComponentConfiguration {
+        readonly availableItemsOverviewModel?: string;
+        readonly availableItemsQueryModel?: string;
+        readonly buttons?: ReadonlyArray<RelationshipUiModel.ButtonElement>;
+        readonly componentType: ComponentType;
+        readonly editConfiguration?: EditConfiguration;
+        readonly elementRef?: string;
+        readonly height?: string;
+        readonly linkFormModel?: string;
+        readonly selectedItemQueryModel?: string;
+        readonly selectedItemsOverviewModel?: string;
+    }
+    export type ComponentType = "DualPaneSelection" | "DropDownSelection" | "TableList";
+    export interface Content {
+        readonly component: ComponentConfiguration;
+        readonly modificationConfiguration?: ModificationConfiguration;
+        readonly relationshipName: string;
+        readonly targetRole: string;
+    }
+    export interface EditConfiguration {
+        readonly availableItemsOverviewModel: string;
+        readonly dialogMaxHeight?: string;
+        readonly dialogMaxWidth?: string;
+        readonly dialogTitle?: LocalizedModelText;
+        readonly dialogWidth?: string;
+        readonly height?: string;
+        readonly selectedItemsOverviewModel: string;
+    }
+    export interface ModificationConfiguration {
+        readonly activityDescriptor?: ActivityDescriptor;
+        readonly extendParentActivityDescriptor?: true;
+    }
 }
 
 // @public
@@ -1330,12 +1471,16 @@ export interface SingleSelectionProps extends EditDocumentProps<SingleSelectionI
     readonly items: Items<SingleSelectionItem[]>;
     readonly itemsFullCount: number;
     readonly label?: string;
+    readonly minSearchableTokenSize?: number;
     onLoadMore?(): void;
     onSearchItem(searchText?: string): void;
     onSelectItem(item?: SingleSelectionItem): void;
     readonly readonly?: boolean;
     readonly selectedItem: Items<SingleSelectionItem | undefined>;
 }
+
+// @public
+export const SUPPORTED_MODEL_VERSIONS = "^2.0.0";
 
 // @public (undocumented)
 export function TableList(props: TableListProps): React_2.ReactNode;
@@ -1348,6 +1493,7 @@ export interface TableListProps extends ListProps, ModelableEditDialogProps, Pic
     readonly editComponentProps?: Record<string, unknown>;
     // (undocumented)
     readonly hasChanges?: () => boolean;
+    readonly height?: string;
     // (undocumented)
     readonly onBeginEdit?: () => void;
     // (undocumented)
@@ -1365,6 +1511,9 @@ export interface WithComponentProvider {
     // (undocumented)
     componentProvider?: RelationshipViews.ComponentProvider;
 }
+
+// @public
+export function withRelationshipEngine<T extends ApplicationWithNewREConfig>(cfg: T): ApplicationWithConfiguredFeature<T, "relationshipEngine">;
 
 // @public
 export const withRelationshipEngineDataHandlers: <T extends ApplicationWithRelationshipEngineConfig>(cfg: T) => T;

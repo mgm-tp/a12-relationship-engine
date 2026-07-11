@@ -1,0 +1,102 @@
+{
+	"header": {
+		"id": "Product-form-binding-Relations-section-eb522_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "Bundle_Product_SelectedItemsOverview-tableList"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "ProductBundle-LinkForm"
+			},
+			{
+				"purpose": "availableItemsInEditModal",
+				"modelType": "overview",
+				"reference": "Product_Bundle_AvailableItemsOverview--ProductBundle"
+			},
+			{
+				"purpose": "selectedItemsInEditModal",
+				"modelType": "overview",
+				"reference": "Bundle_Product_SelectedItemsOverview-edit"
+			}
+		],
+		"annotations": []
+	},
+	"content": {
+		"relationshipName": "ProductBundle",
+		"targetRole": "Bundle",
+		"component": {
+			"componentType": "TableList",
+			"selectedItemsOverviewModel": "Bundle_Product_SelectedItemsOverview-tableList",
+			"linkFormModel": "ProductBundle-LinkForm",
+			"editConfiguration": {
+				"availableItemsOverviewModel": "Product_Bundle_AvailableItemsOverview--ProductBundle",
+				"dialogWidth": "80%",
+				"dialogMaxWidth": "1400px",
+				"dialogMaxHeight": "90vh",
+				"selectedItemsOverviewModel": "Bundle_Product_SelectedItemsOverview-edit"
+			},
+			"buttons": [
+				{
+					"event": "event_open_edit_modal",
+					"label": [
+						{
+							"locale": "de",
+							"text": "Relationship Links bearbeiten"
+						},
+						{
+							"locale": "en",
+							"text": "Edit relationship links"
+						}
+					]
+				},
+				{
+					"event": "event_add_document",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add"
+						},
+						{
+							"locale": "de",
+							"text": "Hinzufügen"
+						}
+					]
+				},
+				{
+					"event": "event_cancel_edit_modal",
+					"label": [
+						{
+							"locale": "de",
+							"text": "Änderungen abbrechen"
+						},
+						{
+							"locale": "en",
+							"text": "Cancel changes"
+						}
+					],
+					"destructive": true
+				},
+				{
+					"event": "event_submit_edit_modal",
+					"label": [
+						{
+							"locale": "de",
+							"text": "Dialog schließen"
+						},
+						{
+							"locale": "en",
+							"text": "Close dialog"
+						}
+					],
+					"primary": true
+				}
+			]
+		}
+	}
+}

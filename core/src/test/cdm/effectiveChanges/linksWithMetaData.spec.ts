@@ -30,17 +30,13 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { linksWithMetaData } from "../../../internal/cdm/cdd/core/effectiveChanges/linksWithMetaData.js";
-import {
-	type DgChangeLog,
-	type DgLinkInternal,
-	type DocumentGraph
-} from "../../../internal/documentGraph/core/index.js";
-import { type Relationship as RelationshipClientApi } from "../../../internal/relationship/relationship.js";
+import type { Relationship as RelationshipClientApi } from "../../../internal/relationship/relationship.js";
+import type { DgChangeLog, DocumentGraph, DgLinkInternal } from "../../../internal/documentGraph/core/index.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.documentGraph", () => {
 	describe("linksWithMetaData", () => {

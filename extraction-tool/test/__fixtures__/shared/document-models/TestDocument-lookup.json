@@ -1,0 +1,62 @@
+{
+	"header": {
+		"id": "test-document",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "CM_test-document",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G1",
+					"name": "root",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "G_attachment",
+								"name": "logo",
+								"Group": {
+									"repeatability": 1,
+									"usageType": "attachment",
+									"elements": []
+								}
+							},
+							{
+								"type": "Field",
+								"id": "F1",
+								"name": "name",
+								"Field": {
+									"fieldType": {
+										"type": "StringType"
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

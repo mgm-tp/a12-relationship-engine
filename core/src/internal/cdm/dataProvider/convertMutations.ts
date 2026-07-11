@@ -36,28 +36,24 @@
  * @experimental
  */
 
-import { type Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
 import { Model } from "@com.mgmtp.a12.client/client-core";
-import {
-	type DocumentModel,
-	type Document as KernelDocument
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import {
-	type DocumentJsonRpc2Request,
-	type RelationshipJsonRpc2request,
-	type ModelGraph,
-	type Relationship as RelationshipServerApi
+import type { Model as ModelAPI } from "@com.mgmtp.a12.base/base-model-api";
+import type { DocumentModel, Document as KernelDocument } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type {
+	ModelGraph,
+	DocumentJsonRpc2Request,
+	RelationshipJsonRpc2request,
+	Relationship as RelationshipServerApi
 } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import { assertObject, assertUnreachable } from "../../shared/assertion.js";
+import type { Relationship } from "../../relationship/index.js";
 import { A12InternalConstants } from "../../shared/constants.js";
-import { type RequestSelectorMap } from "../../server-connectors/request-selector-map.js";
-import { type Relationship } from "../../relationship/index.js";
+import { assertObject, assertUnreachable } from "../../shared/assertion.js";
 import { DocumentProcessors } from "../../relationship/platform/document-processor.js";
+import type { RequestSelectorMap } from "../../server-connectors/request-selector-map.js";
+import type { EffectiveChangeList } from "../cdd/core/effectiveChanges/toEffectiveChanges.js";
 import { getDocumentModelOfSuperType } from "../../relationship/platform/getDocumentModelOfSuperType.js";
-
-import { type DocumentWithMutationMetadata } from "../cdd/core/effectiveChanges/documentsWithMetaData.js";
-import { type EffectiveChangeList } from "../cdd/core/effectiveChanges/toEffectiveChanges.js";
+import type { DocumentWithMutationMetadata } from "../cdd/core/effectiveChanges/documentsWithMetaData.js";
 
 const UNDERSCORE_REGEX = new RegExp("_", "g");
 const HYPHEN_REGEX = new RegExp("-", "g");
@@ -119,6 +115,7 @@ export function convertMutations(
 				 */
 				const id = `addDocumentOperation${stripUnderscoresAndHyphens(docRef)}`;
 				docRefPlaceholders[docRef] = id;
+
 				return requestSelectorMap.addDocument({
 					activityId,
 					id,
@@ -126,6 +123,7 @@ export function convertMutations(
 					document: DocumentProcessors.preSave(content, documentModel)
 				})(state);
 			}
+
 			case "modified":
 				return requestSelectorMap.modifyDocument({
 					activityId,
@@ -174,6 +172,7 @@ export function convertMutations(
 					linkDocument
 				})(state);
 			}
+
 			case "existing": {
 				return linkMutation.modified
 					? requestSelectorMap.modifyLink({
@@ -184,6 +183,7 @@ export function convertMutations(
 						})(state)
 					: undefined;
 			}
+
 			case "removed": {
 				return requestSelectorMap.deleteLink({
 					activityId,
@@ -191,6 +191,7 @@ export function convertMutations(
 					linkRef: link.linkRef
 				})(state);
 			}
+
 			default:
 				assertUnreachable(linkMutation.mutationState);
 		}
@@ -206,6 +207,7 @@ export function convertMutations(
 					const docRef = docRefPlaceholders[currentDocRef]
 						? `#{#${docRefPlaceholders[currentDocRef]}.${A12InternalConstants.LINK_ENTITY_DOC_REF_SPEC}}`
 						: currentDocRef;
+
 					return {
 						...entity,
 						docRef

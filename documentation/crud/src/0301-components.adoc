@@ -1,0 +1,61 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+    
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS. 
+////
+== Components
+
+The components which are needed to resemble the CRUD UI are:
+
+* The Overview Engine CRUD view from this CRUD extension
+* The Form Engine view from the client extension of the form engine package.
+* CRUD Sagas and a CRUD Middleware from this CRUD extension
+
+=== Overview Component
+
+The Overview Engine view, available via `CRUDFactories.createCRUDRenderer` with the name "OverviewCRUD", is already connected to the store and is pre-configured for the CRUD functionality. It needs the CRUD Sagas to be registered in the application setup, which provide CRUD specific Redux backend functionality.
+
+The OverviewCRUD view handles via the CRUD sagas the following CRUD events from the Overview Model:
+
+* *add:* Initiate an Activity to add a new document
+* *delete:* Delete the selected document, which will try to cancel the current detail activity if it has the same instance with the selected document
+
+Clicking on an overview row triggers the default row action of selecting and opening the document in the Form Engine view. Custom default row actions are not supported by the CRUD extension.
+
+=== Form Component
+
+The Form Engine view is also provided as a connected component. It requires the CRUD middleware to be registered in the application setup in order to provide the CRUD functionality.
+
+For the basic Form Engine functionality, a middleware, a saga and special reducers need to be registered in the application setup. Please consult the link:/docs/form_engine/formengine-documentation-bundle/index.html#_migration_instructions[Form Engine Documentation] for more details.
+
+The Form Engine view handles via the CRUD middleware the following CRUD events from the Form Model:
+
+* *CRUD::SAVE:* Saves the current data of the Activity
+* *event_submit / event_save:* Commit the current Activity
+* *event_cancel:* Cancel the current Activity
+
+The submit/save events will also trigger a _full validation_ in the A12 Form Engine. Note that the further behavior depends on the configured DataProviders, DataLoaders and DataEditors. See link:/docs/CLIENT/client-documentation-bundle/index.html[Client Documentation].
+
+The CRUD extension via the `CRUDViews` namespace also provides the `FormEngineView`, a basic drop-in Form Engine view which has built-in support for rendering relationship ui components.
+
+The CRUD Engines must be used together in order to work correctly.
+
+=== Customizing Not Supported
+
+This extension combines a set of features to provide a functionality which is mostly useful for analysts / modelers.
+
+In case you need a different look or behavior, please use the components provided by the overview engine and form engine that are meant for customization.
+
+The CRUD extension exports the namespace `EventNames`, which contains constants for event names of the typical crud events described above and we recommend to use those instead of hard coding the crud event name strings into your custom component.

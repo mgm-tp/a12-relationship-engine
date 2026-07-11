@@ -1,0 +1,51 @@
+{
+	"header": {
+		"id": "PlainDM",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [],
+		"annotations": [],
+		"modelReferences": []
+	},
+	"content": {
+		"modelInfo": {
+			"name": "CM_PlainDM",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G1",
+					"name": "root",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "G_plain",
+								"name": "G_plain",
+								"Group": {
+									"repeatability": 1,
+									"elements": []
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

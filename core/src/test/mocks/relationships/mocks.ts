@@ -32,27 +32,19 @@
 
 import * as TypeMoq from "typemoq";
 
-import { type OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type Header } from "@com.mgmtp.a12.base/base-model-api/lib/main/header/index.js";
-import { type Model } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
-import { type Activity, type ActivityMap, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
-import { type Models, type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type IGeneratedCodeAccessor
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import {
-	type RelationshipModel,
-	type ModelGraph,
-	type Relationship
-} from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Model, Header } from "@com.mgmtp.a12.base/base-model-api";
+import type { Models, FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { OverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import type { Activity, ActivityMap, ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { DocumentModel, IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelGraph, Relationship, RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
-import {
-	type RelationshipActions,
-	type Relationship as RelationshipClientApi
-} from "../../../internal/relationship/index.js";
+import type { ModelState } from "../../utils/models.js";
 import { createActivity, createDataHolder, setupActivityMap } from "../../utils/activity.js";
-import { type ModelState } from "../../utils/models.js";
+import type {
+	RelationshipActions,
+	Relationship as RelationshipClientApi
+} from "../../../internal/relationship/index.js";
 
 export const ACTIVITY_ID = "1";
 
@@ -228,6 +220,7 @@ function createModel(params: {
 			annotations: params.annotations
 		}));
 	mock.setup((x) => x.content).returns(() => ({}));
+
 	return [{ ...mock.object }, ...docModel];
 }
 
@@ -236,6 +229,7 @@ export function getMockModels(column: OverviewModel.Column): RelationshipClientA
 	mockDM
 		.setup((x) => x.content)
 		.returns(() => ({
+			documentUniquenessCriteria: [],
 			modelInfo: TypeMoq.Mock.ofType<DocumentModel.DocumentModelInfo>().object,
 			modelConfig: TypeMoq.Mock.ofType<DocumentModel.DocumentModelConfig>().object,
 			modelRoot: {
@@ -332,7 +326,8 @@ export function createDocumentModel(): DocumentModel {
 						}
 					}
 				]
-			}
+			},
+			documentUniquenessCriteria: []
 		}
 	};
 }
@@ -492,6 +487,7 @@ export function createLinkRef(params: {
 	relationshipModel: string;
 }): Relationship.LinkRef {
 	const { id, docRef1, role1, docRef2, role2, relationshipModel } = params;
+
 	return {
 		id,
 		linkDescriptor: createLinkDescriptor(relationshipModel, docRef1, role1, docRef2, role2)
@@ -507,6 +503,7 @@ export function createLinkRefResponse(params: {
 	relationshipModel: string;
 }): Relationship.LinkRefResponse {
 	const { id, docRef1, role1, docRef2, role2, relationshipModel } = params;
+
 	return {
 		id,
 		linkDescriptor: createLinkDescriptorResponse(relationshipModel, docRef1, role1, docRef2, role2)

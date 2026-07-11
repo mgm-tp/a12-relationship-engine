@@ -1,0 +1,102 @@
+{
+	"header": {
+		"id": "ContractCDM-form-binding-detached-repeat-r-coInsurer_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "CoInsurerLinks-overview-tableList"
+			},
+			{
+				"purpose": "availableItemsInEditModal",
+				"modelType": "overview",
+				"reference": "BusinessPartner_AvailableItemsOverview--CoInsurer"
+			},
+			{
+				"purpose": "selectedItemsInEditModal",
+				"modelType": "overview",
+				"reference": "CoInsurerLinks-overview-edit"
+			},
+			{
+				"purpose": "link",
+				"modelType": "form",
+				"reference": "CoInsurer-LinkForm"
+			}
+		],
+		"annotations": []
+	},
+	"content": {
+		"relationshipName": "CoInsurer",
+		"targetRole": "businessPartner",
+		"component": {
+			"componentType": "TableList",
+			"selectedItemsOverviewModel": "CoInsurerLinks-overview-tableList",
+			"editConfiguration": {
+				"availableItemsOverviewModel": "BusinessPartner_AvailableItemsOverview--CoInsurer",
+				"selectedItemsOverviewModel": "CoInsurerLinks-overview-edit"
+			},
+			"buttons": [
+				{
+					"event": "event_open_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Edit CoInsurer"
+						},
+						{
+							"locale": "de",
+							"text": "Mitversicherten bearbeiten"
+						}
+					]
+				},
+				{
+					"event": "event_add_document",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add CoInsurer"
+						},
+						{
+							"locale": "de",
+							"text": "Mitversicherten hinzufügen"
+						}
+					]
+				},
+				{
+					"event": "event_cancel_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "Cancel"
+						},
+						{
+							"locale": "de",
+							"text": "Abbrechen"
+						}
+					],
+					"destructive": true
+				},
+				{
+					"event": "event_submit_edit_modal",
+					"label": [
+						{
+							"locale": "en",
+							"text": "OK"
+						},
+						{
+							"locale": "de",
+							"text": "OK"
+						}
+					],
+					"primary": true
+				}
+			],
+			"linkFormModel": "CoInsurer-LinkForm"
+		},
+		"modificationConfiguration": {
+			"extendParentActivityDescriptor": true
+		}
+	}
+}

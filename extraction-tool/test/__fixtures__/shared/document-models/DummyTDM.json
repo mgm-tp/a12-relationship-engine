@@ -1,0 +1,13 @@
+{
+	"header": { "id": "DummyTDM", "modelType": "document", "modelVersion": "29.4.0" },
+	"content": {
+		"typeDefinitions": [
+			{
+				"id": "typedef_abc_location",
+				"name": "Location",
+				"fieldType": { "type": "StringType", "StringType": {} }
+			}
+		],
+		"modelRoot": { "rootGroups": [] }
+	}
+}

@@ -34,22 +34,20 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { call, type SagaGenerator, takeLatest } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { call, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
-
-import { assertObject } from "../../shared/assertion.js";
+import type { Activity } from "@com.mgmtp.a12.client/client-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 import { RelationshipActions } from "../actions.js";
-import { DUAL_PANE_SELECTION, TABLE_LIST } from "../constants.js";
-import { type Relationship } from "../relationship.js";
+import type { Relationship } from "../relationship.js";
+import { assertObject } from "../../shared/assertion.js";
+import { TABLE_LIST, DUAL_PANE_SELECTION } from "../constants.js";
 
 import { calculatePageClause, synchronizeRelevantDataHolders } from "./utils.js";
 
 /** @internal */
-export function* addLinkDoneSaga(): SagaIterator<void> {
+export function* addLinkDoneSaga(): SagaGenerator<void> {
 	yield* takeLatest(RelationshipActions.Commands.addLink, handleAddLinkDone);
 }
 
@@ -95,6 +93,7 @@ function* getSetPagePayload(
 		...overridePayload,
 		type: "link" as const
 	});
+
 	if (pageClause) {
 		return {
 			...overridePayload,

@@ -33,11 +33,12 @@
 import { useContext } from "react";
 import { useSelector } from "react-redux";
 
-import { Activity, ActivitySelectors, ViewViews } from "@com.mgmtp.a12.client/client-core";
-import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/lib/core/activity/a12-internal/thumbnails/slice.js";
+import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
+import { Activity, ViewViews, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
 export function useThumbnails(): Record<string, string> | undefined {
 	const activityId = useContext(ViewViews.ActivityContext)?.activityId;
+
 	return useSelector(
 		ActivitySelectors.activityPropById(
 			activityId ?? "",

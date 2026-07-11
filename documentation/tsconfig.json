@@ -1,8 +1,11 @@
 {
 	"extends": "../tsconfig",
-	"include": ["crud", "relationship", "scripts"],
+	"include": ["crud", "relationship", "scripts", "package.json"],
 	"exclude": ["**/generated/"],
+	"references": [{ "path": "../core" }, { "path": "../crud" }],
 	"compilerOptions": {
-		"noEmit": true
+		"rootDir": "${configDir}",
+		"noEmit": true,
+		"resolveJsonModule": true
 	}
 }

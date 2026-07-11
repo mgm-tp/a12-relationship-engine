@@ -35,11 +35,11 @@ import Path from "node:path";
 import Process from "node:process";
 import { inspect } from "node:util";
 
-import { sync as globSync } from "glob";
 import JSZip from "jszip";
-import { type CommandModule } from "yargs";
+import { sync as globSync } from "glob";
+import type { CommandModule } from "yargs";
 
-import { isModelInstance, type Model } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
+import { type Model, isModelInstance } from "@com.mgmtp.a12.base/base-model-api";
 
 import { BaseUrlOption } from "../utils/index.js";
 
@@ -71,12 +71,17 @@ async function handleUploadModels(options: UploadModelsOptions) {
 		const fullPath = Path.join(resolvedDir, filePath);
 
 		const fileContent = JSON.parse(Fs.readFileSync(fullPath, "utf8"));
-		if (isModelInstance(fileContent)) {
-			models.push(fileContent);
+
+		if (
+			isModelInstance(fileContent) &&
+			fileContent.header.modelType !== "document" &&
+			fileContent.header.modelType !== "relationship"
+		) {
+			models.push(applyRoleAnnotation(fileContent));
 		}
 	}
 
-	console.log("Found", models.length, "model files.");
+	console.log("Found", models.length, "UI model files.");
 	console.log("Preparing the bulk upload process...");
 
 	try {
@@ -89,6 +94,24 @@ async function handleUploadModels(options: UploadModelsOptions) {
 	}
 }
 
+/**
+ * Mirrors the build-time WCF converter chain (see showcase-models-converters) so
+ * that runtime uploads (e2e overrides, ad-hoc seed) match what `:server:convertModels`
+ * would emit. Currently only injects the `roles: anonymous` annotation required by
+ * the showcase's anonymous auth setup. Extend here when new WCF converters are added.
+ */
+function applyRoleAnnotation(model: Model): Model {
+	const header = model?.header;
+
+	const annotations = header.annotations ?? [];
+
+	if (annotations.some((a) => a?.name === "roles")) {
+		return model;
+	}
+
+	return { ...model, header: { ...header, annotations: [...annotations, { name: "roles", value: "anonymous" }] } };
+}
+
 async function bulkModelUploadRequest(options: BaseUrlOption, models: Model[]): Promise<string[]> {
 	const arrayBuffer = await createArrayBuffer(models);
 	const response = await fetch(`${options.baseUrl}/api/v2/models`, {
@@ -96,12 +119,14 @@ async function bulkModelUploadRequest(options: BaseUrlOption, models: Model[]): 
 		body: arrayBuffer,
 		headers: { Accept: "*/*" }
 	});
+
 	return response.json();
 }
 
 async function createArrayBuffer(models: Model[]): Promise<ArrayBuffer> {
 	const zip = new JSZip();
 	models.forEach((model) => zip.file(`${model.header.id}.json`, JSON.stringify(model)));
+
 	return zip
 		.generateAsync({ type: "blob", compression: "DEFLATE" })
 		.then((blob) => (blob as AugmentedBlob).arrayBuffer());

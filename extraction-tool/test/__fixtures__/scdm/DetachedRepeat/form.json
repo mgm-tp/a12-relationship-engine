@@ -1,0 +1,89 @@
+{
+	"header": {
+		"id": "DetachedRepeat-form",
+		"modelType": "form",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "DetachedRepeat-form"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			},
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"type\":\"relationship\",\"elementId\":\"detached-repeat-items\",\"details\":{\"name\":\"DetachedPolicyItemBinding\",\"relationshipName\":\"DetachedPolicyItem\",\"targetRole\":\"item\",\"metaInformation\":{\"version\":\"1.0.0\"},\"components\":[{\"id\":\"DetachedPolicyItemBinding-component\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"DetachedPolicyItem_AvailableItemsOverview\",\"use\":\"candidate\"}]}]}}]"
+			}
+		],
+		"modelReferences": [
+			{
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Policy-document"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "DetachedPolicyItem_AvailableItemsOverview"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox1",
+			"majorButtons": {
+				"button": []
+			}
+		},
+		"screens": [
+			{
+				"id": "screen-main",
+				"name": "Main",
+				"screenElements": [
+					{
+						"type": "DetachedRepeat",
+						"id": "detached-repeat-items",
+						"name": "Detached policy items",
+						"annotations": [
+							{
+								"name": "a12-relationship-ui-model-reference",
+								"value": "DetachedPolicyItemBinding_RuM"
+							}
+						],
+						"detailScreen": {
+							"id": "detached-repeat-items-detail",
+							"screenElements": [],
+							"name": "Detail"
+						},
+						"groupRef": "detached-repeat-group"
+					}
+				]
+			}
+		],
+		"footerBox": {
+			"id": "footerBox1",
+			"majorButtons": {
+				"button": []
+			}
+		},
+		"fieldConfiguration": {
+			"field": []
+		},
+		"groupConfiguration": {
+			"group": []
+		},
+		"defaults": {}
+	}
+}

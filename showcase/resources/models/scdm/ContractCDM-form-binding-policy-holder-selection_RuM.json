@@ -1,0 +1,62 @@
+{
+	"header": {
+		"id": "ContractCDM-form-binding-policy-holder-selection_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItemsQuery",
+				"modelType": "query",
+				"reference": "ContractCDM-form-binding-policy-holder-selection-available-query"
+			},
+			{
+				"purpose": "selectedItemQuery",
+				"modelType": "query",
+				"reference": "ContractCDM-form-binding-policy-holder-selection-selected-query"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Policy Holder"
+			},
+			{
+				"locale": "de",
+				"text": "Policeninhaber"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "PolicyHolder",
+		"targetRole": "businessPartner",
+		"component": {
+			"buttons": [
+				{
+					"event": "event_add_document",
+					"icon": {
+						"name": "add"
+					},
+					"labelHidden": true,
+					"label": [
+						{
+							"locale": "en",
+							"text": "Add Policy Holder"
+						},
+						{
+							"locale": "de",
+							"text": "Versicherungsnehmer hinzufügen"
+						}
+					]
+				}
+			],
+			"componentType": "DropDownSelection",
+			"availableItemsQueryModel": "ContractCDM-form-binding-policy-holder-selection-available-query",
+			"selectedItemQueryModel": "ContractCDM-form-binding-policy-holder-selection-selected-query",
+			"elementRef": "field_4e3fe"
+		},
+		"modificationConfiguration": {
+			"extendParentActivityDescriptor": true
+		}
+	}
+}

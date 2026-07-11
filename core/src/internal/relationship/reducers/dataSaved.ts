@@ -35,19 +35,18 @@
  * @module relationship
  */
 
-import { type Action } from "typescript-fsa";
+import type { FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
+import { type Activity, NEW_INSTANCE_IDENTIFIER } from "@com.mgmtp.a12.client/client-core";
 
-import { type Activity } from "@com.mgmtp.a12.client/client-core";
-import { type FormActivity } from "@com.mgmtp.a12.formengine/formengine-core";
-
-import { type RelationshipActions } from "../actions.js";
+import type { RelationshipActions } from "../actions.js";
 import { DocumentProcessors } from "../platform/document-processor.js";
 import { Relationship as RelationshipClientApi } from "../relationship.js";
 
-import { handleSetCandidatePage } from "./setCandidatePage.js";
-import { handleSetCandidates } from "./setCandidates.js";
-import { handleSetLinkPage } from "./setLinkPage.js";
 import { handleSetLinks } from "./setLinks.js";
+import { handleSetLinkPage } from "./setLinkPage.js";
+import { handleSetCandidates } from "./setCandidates.js";
+import { handleSetCandidatePage } from "./setCandidatePage.js";
 
 /**
  * Updates dataholders after a document was changed/created
@@ -137,7 +136,7 @@ function updateSourceEntityDocRefIfNotSet<T extends Pick<RelationshipClientApi.L
 	dh: Activity.DataHolder<T>,
 	savePayload: RelationshipActions.Commands.DataSavedPayload
 ) {
-	if (dh.data && !dh.data.sourceEntity.docRef && savePayload.documentId) {
+	if (dh.data && dh.data.sourceEntity.docRef === NEW_INSTANCE_IDENTIFIER && savePayload.documentId) {
 		return {
 			...dh,
 			data: {
@@ -149,5 +148,6 @@ function updateSourceEntityDocRefIfNotSet<T extends Pick<RelationshipClientApi.L
 			}
 		};
 	}
+
 	return dh;
 }

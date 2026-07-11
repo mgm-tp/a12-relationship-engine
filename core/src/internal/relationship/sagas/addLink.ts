@@ -34,31 +34,30 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { call, put, select, takeLatest } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { put, call, select, takeLatest, type SagaGenerator } from "typed-redux-saga";
 
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 import {
 	type Activity,
+	ModelSelectors,
 	ActivityActions,
-	NEW_INSTANCE_IDENTIFIER,
-	ModelSelectors
+	NEW_INSTANCE_IDENTIFIER
 } from "@com.mgmtp.a12.client/client-core";
 
-import { RelationshipActions } from "../actions.js";
 import { Relationship } from "../relationship.js";
+import { RelationshipActions } from "../actions.js";
 import { RelationshipSelectors } from "../selectors.js";
-import { type RelationshipDocument } from "../ui/components/api.js";
+import type { RelationshipDocument } from "../ui/components/api.js";
 
 /** @internal */
-export function* addLinkSaga(): SagaIterator<void> {
+export function* addLinkSaga(): SagaGenerator<void> {
 	yield* takeLatest(RelationshipActions.Events.linkAdded, handleAddLink);
 }
 
 /** @internal */
 export function* handleAddLink(
 	action: Action<RelationshipActions.Events.AddLinkRequestedPayLoad | RelationshipActions.Events.LinkAddedPayload>
-): SagaIterator<void> {
+): SagaGenerator<void> {
 	const { activityId, candidate, instanceId } = action.payload;
 
 	try {
@@ -79,11 +78,13 @@ export function* handleAddLink(
 					relationship: relationshipName
 				})
 			);
+
 			if (mutations === undefined) {
 				throw new Error(`Mutations for relationship ${relationshipName} cannot be found.`);
 			}
 
 			const relinkableLink = yield* call(findRelinkableLink, activityId, candidate as Relationship.Candidate);
+
 			if (relinkableLink) {
 				yield* put(
 					RelationshipActions.Commands.relinkLink({
@@ -110,7 +111,7 @@ export function* handleAddLink(
 }
 
 /** @internal */
-export function* isDuplicatesAllowed(relationshipName: string): SagaIterator<boolean> {
+export function* isDuplicatesAllowed(relationshipName: string): SagaGenerator<boolean> {
 	const model = yield* select(ModelSelectors.modelByName(relationshipName, Relationship.isRelationshipModel));
 
 	if (model === undefined) {
@@ -124,7 +125,7 @@ export function* isDuplicatesAllowed(relationshipName: string): SagaIterator<boo
 export function* findRelinkableLink(
 	activityId: string,
 	candidate: Relationship.Candidate
-): SagaIterator<Relationship.LinkWithDocument | undefined> {
+): SagaGenerator<Relationship.LinkWithDocument | undefined> {
 	const {
 		linkRef: {
 			linkDescriptor: { relationshipModel: relationshipName }
@@ -137,6 +138,7 @@ export function* findRelinkableLink(
 			relationship: relationshipName
 		})
 	);
+
 	if (mutations === undefined) {
 		throw new Error(`Mutations for relationship ${relationshipName} cannot be found.`);
 	}
@@ -150,7 +152,7 @@ export function* findRelinkableLink(
 	return relinkableMutation && relinkableMutation.link;
 }
 
-function* createLink(activityId: string, instanceId: string, candidate: Relationship.Candidate): SagaIterator<void> {
+function* createLink(activityId: string, instanceId: string, candidate: Relationship.Candidate): SagaGenerator<void> {
 	const linkDocument =
 		candidate.document.relationship !== undefined
 			? candidate.document.relationship
@@ -172,16 +174,18 @@ function* createLink(activityId: string, instanceId: string, candidate: Relation
 export function* createLinkDocument(
 	activityId: string,
 	candidate: Relationship.Candidate
-): SagaIterator<Activity.Data.Document | undefined> {
+): SagaGenerator<Activity.Data.Document | undefined> {
 	const linkDocumentModelName = yield* call(findLinkDocumentModelName, candidate);
+
 	if (!linkDocumentModelName) {
 		return undefined;
 	}
+
 	return { id: NEW_INSTANCE_IDENTIFIER, modelId: linkDocumentModelName };
 }
 
 /** @internal */
-export function* findLinkDocumentModelName(candidate: Relationship.Candidate): SagaIterator<string | null> {
+export function* findLinkDocumentModelName(candidate: Relationship.Candidate): SagaGenerator<string | null> {
 	const {
 		linkRef: {
 			linkDescriptor: { relationshipModel: relationshipName }

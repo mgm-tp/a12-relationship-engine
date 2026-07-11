@@ -30,15 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import {
-	ApplicationFactories,
-	type ApplicationSetup,
-	type DataHandler,
-	type ApplicationModel
-} from "@com.mgmtp.a12.client/client-core";
 import { createPlatformServerModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
 // tag::setup[]
-import { RelationshipFactories, RelationshipReducers } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+import { RelationshipReducers, RelationshipFactories } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
+import {
+	type DataHandler,
+	ApplicationFactories,
+	type ApplicationSetup,
+	type ApplicationModel
+} from "@com.mgmtp.a12.client/client-core";
 
 export function setup(model: ApplicationModel): ApplicationSetup {
 	const dataHandlers: DataHandler[] = [

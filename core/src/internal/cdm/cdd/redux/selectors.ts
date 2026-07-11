@@ -36,35 +36,34 @@
  * @experimental
  */
 
+import { type Models, isFormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type {
+	ModelGraph,
+	Relationship as RelationshipServerApi
+} from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
-	Activity,
-	type ActivityMap,
-	ActivitySelectors,
 	Model,
+	Activity,
+	type Selector,
 	ModelSelectors,
 	ReferencedModel,
-	type Selector
+	type ActivityMap,
+	ActivitySelectors
 } from "@com.mgmtp.a12.client/client-core";
-import {
-	type Relationship as RelationshipServerApi,
-	type ModelGraph
-} from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Models, isFormModel } from "@com.mgmtp.a12.formengine/formengine-core";
 
+import type { CdmData } from "../../cddUtils/cdmData.js";
 import { assertObject } from "../../../shared/assertion.js";
-import { isSetDgCl } from "../../../documentGraph/redux/dhReducersImpl.js";
-import { type Relationship } from "../../../relationship/relationship.js";
-import { type CdmData } from "../../cddUtils/cdmData.js";
-import { filterCdmDataByRelevance } from "../../cddUtils/notRelevant/filterCdmDataByRelevance.js";
-import { TARGET_GROUPNAME } from "../../cdmCommons/cddTechnical.js";
-import { type QueryPath } from "../../cdmCommons/queryPath.js";
-import { isParentCdmActivity } from "../../dataProvider/subactivity/parent-activity.js";
-
-import { cddLinksWithMetadata } from "../core/adapter/toLinksWithMetadata.js";
-import { type EffectiveChangeList, toEffectiveChanges } from "../core/effectiveChanges/toEffectiveChanges.js";
 import { collectMissingPaths } from "../core/impl/pending.js";
+import type { QueryPath } from "../../cdmCommons/queryPath.js";
+import { TARGET_GROUPNAME } from "../../cdmCommons/cddTechnical.js";
+import type { Relationship } from "../../../relationship/relationship.js";
+import { isSetDgCl } from "../../../documentGraph/redux/dhReducersImpl.js";
+import { cddLinksWithMetadata } from "../core/adapter/toLinksWithMetadata.js";
+import { isParentCdmActivity } from "../../dataProvider/subactivity/parent-activity.js";
+import { filterCdmDataByRelevance } from "../../cddUtils/notRelevant/filterCdmDataByRelevance.js";
+import { toEffectiveChanges, type EffectiveChangeList } from "../core/effectiveChanges/toEffectiveChanges.js";
 
-import { type ScdmDataHolderShape } from "./dhReducersImpl.js";
+import type { ScdmDataHolderShape } from "./dhReducersImpl.js";
 
 export namespace CddSelectors {
 	/**
@@ -78,10 +77,13 @@ export namespace CddSelectors {
 			};
 
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (!activity) {
 				return emptyResult;
 			}
+
 			const defaultDataHolder = Activity.findDefaultDataHolder(activity);
+
 			if (!defaultDataHolder || !isSetDgCl(defaultDataHolder.data)) {
 				return emptyResult;
 			}
@@ -89,9 +91,11 @@ export namespace CddSelectors {
 			const documentModels = ModelSelectors.allModelsInScene(activityId)(state).filter(Model.isDocumentModel);
 			const modelGraph = ModelSelectors.modelGraph()(state);
 			const modelTuple = CddSelectors.selectModelTuple(state, activityId);
+
 			if (!modelTuple) {
 				return emptyResult;
 			}
+
 			const filteredCdmData = filterCdmDataByRelevance(
 				defaultDataHolder.data as CdmData,
 				modelTuple,
@@ -100,6 +104,7 @@ export namespace CddSelectors {
 			);
 
 			const { documentGraph, changeLog } = filteredCdmData;
+
 			return toEffectiveChanges(documentGraph, changeLog);
 		};
 	}
@@ -116,6 +121,7 @@ export namespace CddSelectors {
 			const dataholder = dataHolderFromState(state, activityId);
 			const changeLog = dataholder?.data?.changeLog;
 			const dg = dataholder?.data?.documentGraph;
+
 			return dg !== undefined && changeLog !== undefined
 				? cddLinksWithMetadata(relationshipModel, sourceDocId, targetRole, dg, changeLog)
 				: [];
@@ -124,9 +130,11 @@ export namespace CddSelectors {
 
 	function dataHolderFromState(state: object, activityId: string): ScdmDataHolderShape | undefined {
 		const activity = ActivitySelectors.activityById(activityId)(state);
+
 		if (activity === undefined) {
 			return undefined;
 		}
+
 		return Activity.findDefaultDataHolder(activity) as ScdmDataHolderShape;
 	}
 
@@ -139,6 +147,7 @@ export namespace CddSelectors {
 			const foundDataHolder = dataHolderFromState(state, activityId);
 			const dirty = foundDataHolder?.dirty;
 			const document = foundDataHolder?.data?.cddState?.cachedCdd?.cdd;
+
 			if (document !== undefined && dirty !== undefined) {
 				return {
 					document,
@@ -167,8 +176,10 @@ export namespace CddSelectors {
 			if (cache.has(key)) {
 				return cache.get(key);
 			}
+
 			const result = func.apply(this, args);
 			cache.set(key, result);
+
 			return result;
 		} as any;
 	}
@@ -186,9 +197,11 @@ export namespace CddSelectors {
 		return (state) => {
 			const foundDataHolder = dataHolderFromState(state, activityId);
 			const cddState = foundDataHolder?.data?.cddState;
+
 			if (cddState === undefined) {
 				// cddState not present (yet) -> create missing path for root doc (id derived from Activity descriptor)
 				const activity = ActivitySelectors.activityById(activityId)(state);
+
 				if (activity?.descriptor.instance) {
 					return collectMissingPaths(activity?.descriptor.instance);
 				} else {
@@ -209,6 +222,7 @@ export namespace CddSelectors {
 	): Selector<RelationshipServerApi.Candidate[] | undefined> {
 		return (state) => {
 			const candidates = candidatesSelector(activityId, usage)(state);
+
 			if (!candidates) {
 				return undefined;
 			}
@@ -230,6 +244,7 @@ export namespace CddSelectors {
 						}
 					};
 				}
+
 				return candidate;
 			});
 
@@ -243,14 +258,18 @@ export namespace CddSelectors {
 	): Selector<RelationshipServerApi.Candidate[] | undefined> {
 		return (state) => {
 			const activity = ActivitySelectors.activityById(activityId)(state);
+
 			if (activity === undefined) {
 				return undefined;
 			}
+
 			const { dataHolders = [] } = activity;
 			const candidateDh = dataHolders.find((dh) => isCandidateDataHolderForInstance(dh, usage));
+
 			if (candidateDh) {
 				return (candidateDh as Activity.DataHolder<{ candidates: RelationshipServerApi.Candidate[] }>).data?.candidates;
 			}
+
 			return undefined;
 		};
 	}
@@ -276,6 +295,7 @@ export namespace CddSelectors {
 		const activities = ActivitySelectors.activities()(state);
 
 		const maybeCdmName = cdmName(state, activityId);
+
 		return isCddActivityInternal(activities, activityId, maybeCdmName);
 	}
 
@@ -286,6 +306,7 @@ export namespace CddSelectors {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const activity = activities[activityId]!;
 		const initiatingActivity = activities[activity?.initiatingActivityId ?? ""];
+
 		return (
 			activity?.descriptor.instance !== undefined && (cdmName !== undefined || isParentCdmActivity(initiatingActivity))
 		);
@@ -343,11 +364,13 @@ export namespace CddSelectors {
 			: ReferencedModel.isNotLoaded(fm)
 				? fm.model.name
 				: undefined;
+
 		if (!fmName) {
 			return undefined;
 		}
 
 		const form = genericModels?.find((m) => m.modelId === fmName);
+
 		return form?.modelReferences?.find((ref) => ref.modelType === "document")?.reference;
 	}
 
@@ -358,21 +381,25 @@ export namespace CddSelectors {
 		const modelDescriptors = ModelSelectors.modelDescriptorsByActivityId(activityId)(state);
 
 		const formModelName = modelDescriptors.find((md) => md.modelType === "form")?.name;
+
 		if (!formModelName) {
 			return undefined;
 		}
 
 		const formModel = ModelSelectors.modelByName(formModelName, isFormModel)(state);
+
 		if (!formModel) {
 			return undefined;
 		}
 
 		const documentModelName = formModel.header.modelReferences?.find((ref) => ref.modelType === "document")?.reference;
+
 		if (!documentModelName) {
 			return undefined;
 		}
 
 		const documentModel = ModelSelectors.modelByName(documentModelName, Model.isDocumentModel)(state);
+
 		if (!documentModel) {
 			return undefined;
 		}

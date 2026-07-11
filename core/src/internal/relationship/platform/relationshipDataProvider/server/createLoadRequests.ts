@@ -35,25 +35,30 @@
  * @module relationship
  */
 
-import { all, call, type SagaGenerator, select } from "typed-redux-saga";
+import { all, call, select, type SagaGenerator } from "typed-redux-saga";
 
-import { type Activity, LocaleSelectors, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
+import type { Locale } from "@com.mgmtp.a12.utils/utils-localization";
+import { getProjectedFields } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import { Query, type RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { collectFieldsProjection } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
-import { type Locale } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
+import {
+	type Activity,
+	ModelSelectors,
+	LocaleSelectors,
+	NEW_INSTANCE_IDENTIFIER
+} from "@com.mgmtp.a12.client/client-core";
 
-import { A12InternalConstants } from "../../../../shared/constants.js";
 import { TABLE_LIST } from "../../../constants.js";
-import { Relationship as RelationshipClientApi } from "../../../relationship.js";
 import { RelationshipSelectors } from "../../../selectors.js";
-import { type RequestSelectorMap } from "../../../../server-connectors/request-selector-map.js";
+import { A12InternalConstants } from "../../../../shared/constants.js";
+import { Relationship as RelationshipClientApi } from "../../../relationship.js";
+import type { RequestSelectorMap } from "../../../../server-connectors/request-selector-map.js";
 import {
 	createFilterOperand,
 	createLinkConstraint,
 	createSortConstraint
 } from "../../../../server-connectors/queryApiRequestBuilder.js";
 
-import { type InstanceDocumentModel, type LoadRequestResult, type RequestConfig } from "./types.js";
+import type { RequestConfig, LoadRequestResult, InstanceDocumentModel } from "./types.js";
 
 /* @internal */
 export function* createLoadRequests(params: {
@@ -149,12 +154,15 @@ function* createLinkRequest(params: LinkRequestParams): SagaGenerator<RequestCon
 
 	return linkInstances.map(({ id, uiConfiguration, sourceEntity, linkQuery, linkPagination }) => {
 		const modelAndFields = linkModelsAndFields.find((model) => model.instanceId === id);
+
 		if (modelAndFields === undefined) {
 			throw new Error(`No result document model found for instance ${id}`);
 		}
+
 		const { model: documentModel, fields, linkFields } = modelAndFields;
 
 		const sourceRoleModelName = sourceRoleModelNames.find((item) => item.id === id)?.sourceRoleModelName;
+
 		if (sourceRoleModelName === undefined) {
 			throw new Error(`No source role document model found for instance ${id}`);
 		}
@@ -209,6 +217,7 @@ function* createLinkRequest(params: LinkRequestParams): SagaGenerator<RequestCon
 
 function* createCandidateRequest(params: CandidateRequestParams): SagaGenerator<RequestConfig[]> {
 	const { filteredCandidateInstances } = params;
+
 	return yield* all(
 		filteredCandidateInstances.map(
 			(candidateInstance): SagaGenerator<RequestConfig> => createSingleCandidateRequest(params, candidateInstance)
@@ -224,6 +233,7 @@ function* createSingleCandidateRequest(
 	const state = yield* select();
 	const { id, uiConfiguration, sourceEntity, candidateQuery, candidatePagination } = candidateInstance;
 	const modelAndFields = candidateModelsAndFields.find(({ instanceId }) => instanceId === id);
+
 	if (modelAndFields === undefined) {
 		throw new Error(`No result document model found for instance ${id}`);
 	}
@@ -272,6 +282,7 @@ function* createSingleCandidateRequest(
 
 	return { id, type: "candidate", request, additionalConfig };
 }
+
 function* calculateFieldsProjectionForCandidate(
 	fieldsProjections: FieldsProjection,
 	params: CandidateRequestParams,
@@ -280,6 +291,7 @@ function* calculateFieldsProjectionForCandidate(
 	if (!fieldsProjections) {
 		return undefined;
 	}
+
 	const { linkModelsAndFields, activityId } = params;
 	const {
 		id,
@@ -299,6 +311,7 @@ function* calculateFieldsProjectionForCandidate(
 		);
 
 		let linkModelsAndFieldForDualPane = linkModelsAndFields.find(({ instanceId }) => instanceId === id);
+
 		if (!linkModelsAndFieldForDualPane) {
 			linkModelsAndFieldForDualPane = yield* call(
 				collectModelsAndFieldsInfo,
@@ -308,12 +321,14 @@ function* calculateFieldsProjectionForCandidate(
 				components[1].name
 			);
 		}
+
 		linkFields.push(
 			...(linkModelsAndFieldForTableList?.fields ?? []),
 			...(linkModelsAndFieldForDualPane?.fields ?? [])
 		);
 	} else {
 		let linkModelsAndField = linkModelsAndFields.find(({ instanceId }) => instanceId === id);
+
 		if (!linkModelsAndField) {
 			linkModelsAndField = yield* call(
 				collectModelsAndFieldsInfo,
@@ -323,6 +338,7 @@ function* calculateFieldsProjectionForCandidate(
 				mainComponent.name
 			);
 		}
+
 		linkFields.push(...(linkModelsAndField?.fields ?? []));
 	}
 
@@ -343,6 +359,7 @@ function* collectModelsAndFieldsInfo(
 			if (componentName && component.name !== componentName) {
 				return false;
 			}
+
 			return component.models.some((model) => model.use === use);
 		}) ?? instance.uiConfiguration.components[0];
 
@@ -360,7 +377,7 @@ function* collectModelsAndFieldsInfo(
 		);
 	}
 
-	let targetFields = collectFieldsProjection(overviewModels.overviewModel, overviewModels.documentModel);
+	let targetFields = getProjectedFields(overviewModels.overviewModel, overviewModels.documentModel, undefined);
 
 	if (use === "link") {
 		targetFields = targetFields
@@ -384,20 +401,23 @@ function* getSourceRoleModelName(linkInstance: RelationshipClientApi.LinkInstanc
 	const relationshipModel = yield* select(
 		ModelSelectors.modelByName(relationshipName, RelationshipClientApi.isRelationshipModel)
 	);
+
 	if (relationshipModel === undefined) {
 		return {
 			id: linkInstance.id
 		};
 	}
+
 	const sourceRoleModelName = (relationshipModel as RelationshipModel).content.entityCharacteristics.find(
 		(entity) => entity.role !== targetRole
 	)?.documentModel;
+
 	return {
 		id: linkInstance.id,
 		sourceRoleModelName
 	};
 }
 
-function calculateSourceDocRef(docRef: string | null, forSave: boolean = false) {
-	return docRef || (forSave ? A12InternalConstants.SPEL_CREATED_DOC_REF : undefined);
+function calculateSourceDocRef(docRef: string, forSave: boolean = false) {
+	return docRef !== NEW_INSTANCE_IDENTIFIER ? docRef : forSave ? A12InternalConstants.SPEL_CREATED_DOC_REF : undefined;
 }

@@ -1,0 +1,64 @@
+////
+SPDX-License-Identifier: EUPL-1.2 OR LicenseRef-commercial
+Copyright (c) 2012-2026 mgm technology partners GmbH
+Dual License
+This source file is part of the mgm A12 Platform and available under a choice of two different licenses:
+1. Open-Source License - EUPL v1.2
+You may redistribute and/or modify this file under the terms of the European Union Public License, version 1.2 - see https://eupl.eu/.
+2. Commercial License
+Alternatively, you may obtain a commercial license from mgm technology partners GmbH, that permits use of this software under different terms (including support and maintenance services).
+
+Please contact a12-license@mgm-tp.com for more information.
+
+You must select and comply with exactly one of the above license options.
+
+Warranty Disclaimer (applies to either option)
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
+////
+= Breaking Change Management
+
+For the general definition of breaking and non-breaking changes in the A12 platform, as well as frontend and backend perspectives, see the
+link:/docs/OVERALL/breaking_change_management/index.html[A12 Breaking Change Management] page.
+
+The following section describes how this general definition is interpreted for the CRUD package.
+
+== Public API Surface
+
+The public API is defined by the exports in `index.ts`.
+Any removal or incompatible change to an exported symbol is a *breaking change*.
+Additions to the public API are *non-breaking*.
+
+Exports annotated `@experimental` may change in minor releases without being considered breaking.
+Exports annotated `@internal` are not part of the public API and carry no stability guarantee.
+
+== Resource Keys
+
+Adding new entries to `CRUD_RESOURCE_KEYS` is *non-breaking*:
+applications that do not override those keys continue to receive the default translation.
+Removing or renaming an existing key is a *breaking change* for any application that provides a custom translation for it.
+
+== Redux State Shape and Action Types
+
+The Redux action `type` strings and the reducer state shape are part of the public contract.
+Renaming or removing an action type, or restructuring the state in a way that breaks existing selectors, is a *breaking change*.
+
+Selectors and sagas that are part of the public API follow the standard public-API rule above.
+
+== Composable Factory and Public Exports
+
+The signatures of `withCRUD()`, `CRUDFactories`, `CRUDViews`, and `EventNames` are part of the public API.
+Any change to parameter types or return types that requires call-site updates is a *breaking change*.
+New optional parameters are *non-breaking*.
+
+A concrete example of a past breaking change: the Redux 4 → 5 upgrade required consumers to update peer dependencies and replace `AnyAction` with `UnknownAction`.
+See the <<Migration Instructions>> chapter for the migration steps.
+
+== Non-Breaking Examples
+
+The following types of changes are consistently treated as *non-breaking* in the CRUD package:
+
+* Adding a new optional configuration field to an existing API
+* Adding new `CRUD_RESOURCE_KEYS` entries
+* Introducing a new `@experimental` export
+* Internal refactoring that does not affect public exports
+* Bumping a transitive dependency with no visible API impact

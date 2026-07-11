@@ -30,40 +30,39 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeEach, vi } from "vitest";
-import { type Middleware, type MiddlewareAPI } from "redux";
-import { type MockStore } from "redux-mock-store";
+import type { MockStore } from "redux-mock-store";
+import type { Middleware, MiddlewareAPI } from "redux";
+import { vi, test, expect, describe, beforeEach } from "vitest";
 
 import { type Activity, ActivityActions, type ApplicationModel } from "@com.mgmtp.a12.client/client-core";
 import {
+	Events,
 	Commands,
 	createUIState,
-	Events,
 	FormEngineActions,
 	FormEngineSelectors
 } from "@com.mgmtp.a12.formengine/formengine-core";
 
-import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
-import { newCddState } from "../../../internal/cdm/cdd/core/impl/cddStateImpl.js";
+import { createTestModels } from "../../mocks/ModelsUtil.js";
+import { toChangeMap } from "../../../internal/cdm/commons/utils.js";
 import { CddActions } from "../../../internal/cdm/cdd/redux/index.js";
-import { createMiddlewareAPIWrapper } from "../../../internal/cdm/cdd/redux/cddMiddlewareAdapterFactory.js";
+import dg from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
+import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
+import { DgActions } from "../../../internal/documentGraph/redux/index.js";
+import { createActivity, createDataHolder } from "../../utils/activity.js";
+import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
+import { newCddState } from "../../../internal/cdm/cdd/core/impl/cddStateImpl.js";
+import { createModelGraph, createGeneralStore } from "../../mocks/store/store.js";
+import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
+import { createLinkRef, createLinkDescriptor } from "../../mocks/relationships/mocks.js";
+import { newChangeLog } from "../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
+import type { DeepReadonly, DocumentGraph } from "../../../internal/documentGraph/core/index.js";
 import cdmFormEngineChangeLogMiddleware from "../../../internal/cdm/cdd/redux/cdm_fe_changelog.js";
 import { createScdmComputationMiddleware } from "../../../internal/cdm/cdd/redux/scdm_computations.js";
-import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
-import { toChangeMap } from "../../../internal/cdm/commons/utils.js";
-import { type DeepReadonly, type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import { newChangeLog } from "../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
-import { DgActions } from "../../../internal/documentGraph/redux/index.js";
-import { createTestModels } from "../../mocks/ModelsUtil.js";
-import { createLinkDescriptor, createLinkRef } from "../../mocks/relationships/mocks.js";
-import dg from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
-import { createGeneralStore, createModelGraph } from "../../mocks/store/store.js";
-import { createActivity, createDataHolder } from "../../utils/activity.js";
+import { createMiddlewareAPIWrapper } from "../../../internal/cdm/cdd/redux/cddMiddlewareAdapterFactory.js";
 
-import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
-
-import cddDocument from "./Contract24CddWithSinceNull.json" with { type: "json" };
 import appModel from "./SimpleCDM.appmodel.json" with { type: "json" };
+import cddDocument from "./Contract24CddWithSinceNull.json" with { type: "json" };
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 	const testActivityId = "123";

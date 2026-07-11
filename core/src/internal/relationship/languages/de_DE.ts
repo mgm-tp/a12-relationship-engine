@@ -35,7 +35,7 @@
  * @module relationship
  */
 
-import { type RESOURCE_KEYS } from "./keys.js";
+import type { RESOURCE_KEYS } from "./keys.js";
 
 /**
  * @internal
@@ -55,7 +55,8 @@ export const de_DE: typeof RESOURCE_KEYS = {
 				},
 				"drop-down": {
 					"edit-link": "Weitere Eigenschaften",
-					"result-count": "$resultCount$ von $totalCount$"
+					"result-count": "$resultCount$ von $totalCount$",
+					"min-search-length": "Mindestens $count$ Zeichen eingeben"
 				},
 				"table-list": {
 					edit: "Bearbeiten",

@@ -32,7 +32,7 @@
 
 import * as React from "react";
 
-import { type Container, createContext, useContextSelector } from "@com.mgmtp.a12.widgets/widgets-core";
+import { createContext, type Container, useContextSelector } from "@com.mgmtp.a12.widgets/widgets-core";
 
 export namespace ProgressIndicatorContextProvider {
 	export interface Props extends Container, ProgressIndicatorContext.Type {}

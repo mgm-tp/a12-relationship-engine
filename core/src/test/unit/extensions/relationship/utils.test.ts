@@ -30,7 +30,7 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
 import { PaginationUtils } from "../../../../internal/relationship/paginationUtils.js";
 
@@ -115,6 +115,7 @@ namespace ReferencePaginationUtils {
 
 		const minIndex = Math.min(...missingLinksIndices);
 		const maxIndex = Math.max(...missingLinksIndices);
+
 		if (missingLinksIndices.length === 1) {
 			return { offset: minIndex, limit: 1 };
 		}

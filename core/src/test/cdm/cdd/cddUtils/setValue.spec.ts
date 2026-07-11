@@ -30,17 +30,17 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect, beforeEach } from "vitest";
+import { test, expect, describe, beforeEach } from "vitest";
 
-import { type EntityInstancePath, type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
 import { setValue } from "../../../../internal/cdm/cddUtils/setValue.js";
 import { DOCUMENT_SERVICE } from "../../../../internal/cdm/cdmCommons/documentService.js";
+import { resetDocRefCounterForTesting } from "../../../../internal/cdm/cdd/redux/newDocRef.js";
 import {
-	type DeepReadonly,
-	type DgChangeLog,
 	type DgDocument,
+	type DgChangeLog,
+	type DeepReadonly,
 	type DocumentGraph,
 	resetAddedLinkIndexForTesting
 } from "../../../../internal/documentGraph/core/index.js";
@@ -98,7 +98,6 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 					const actualCdd = actual.cddState.cachedCdd?.cdd;
 					expect(actualCdd).not.toBeUndefined();
 
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const actualCddValue = DOCUMENT_SERVICE.getAssignedObject(actualCdd!, path);
 					expect(actualCddValue).toEqual(value);
 				});
@@ -117,6 +116,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 							documentModelName: "NaturalPerson-document",
 							loadingState: "loaded"
 						};
+
 						return {
 							documents: {
 								byDocRef: {
@@ -156,7 +156,6 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 					const actualCdd = actual.cddState.cachedCdd?.cdd;
 					expect(actualCdd).not.toBeUndefined();
 
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const actualCddValue = DOCUMENT_SERVICE.getAssignedObject(actualCdd!, path);
 					expect(actualCddValue).toEqual(value);
 				});
@@ -175,6 +174,7 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 							documentModelName: "NaturalPerson-document",
 							loadingState: "loaded"
 						};
+
 						return {
 							documents: {
 								byDocRef: {
@@ -214,7 +214,6 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 					const actualCdd = actual.cddState.cachedCdd?.cdd;
 					expect(actualCdd).not.toBeUndefined();
 
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const actualCddValue = DOCUMENT_SERVICE.getAssignedObject(actualCdd!, path);
 					expect(actualCddValue).toEqual(value);
 				});

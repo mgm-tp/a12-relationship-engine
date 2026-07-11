@@ -1,0 +1,82 @@
+{
+	"header": {
+		"id": "PolicyBeneficiary",
+		"modelType": "relationship",
+		"modelVersion": "4.0.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "PolicyBeneficiary"
+			}
+		],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "policy",
+				"reference": "Policy-document"
+			},
+			{
+				"purpose": "Document model",
+				"modelType": "document",
+				"alias": "beneficiary",
+				"reference": "Beneficiary-document"
+			}
+		]
+	},
+	"content": {
+		"duplicatesAllowed": false,
+		"linkDocumentModel": null,
+		"labels": [],
+		"entityCharacteristics": [
+			{
+				"role": "policy",
+				"documentModel": "Policy-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "policy"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			},
+			{
+				"role": "beneficiary",
+				"documentModel": "Beneficiary-document",
+				"ordered": false,
+				"labels": [
+					{
+						"locale": "en",
+						"text": "beneficiary"
+					}
+				],
+				"linkConstraints": {
+					"multiplicity": {
+						"unbounded": true,
+						"upperLimit": null
+					}
+				}
+			}
+		]
+	}
+}

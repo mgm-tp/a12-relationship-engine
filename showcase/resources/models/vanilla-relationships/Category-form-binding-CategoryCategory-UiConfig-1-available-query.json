@@ -1,0 +1,42 @@
+{
+	"header": {
+		"id": "Category-form-binding-CategoryCategory-UiConfig-1-available-query",
+		"modelType": "query",
+		"modelVersion": "0.1.0",
+		"annotations": [],
+		"modelReferences": [
+			{
+				"purpose": "document-model-for-query",
+				"modelType": "document",
+				"alias": "DM",
+				"reference": "Category-document"
+			},
+			{
+				"purpose": "relationship-model-for-query",
+				"modelType": "relationship",
+				"alias": "RM",
+				"reference": "CategoryCategory"
+			}
+		]
+	},
+	"content": {
+		"targetDocumentModel": "Category-document",
+		"projectionName": "document",
+		"paging": {
+			"pageNumber": 0,
+			"pageSize": 50
+		},
+		"links": [
+			{
+				"relationshipModel": "CategoryCategory",
+				"targetRole": "ChildCategory",
+				"maxDepth": 1,
+				"constraint": {
+					"operator": "exact_match",
+					"field": "/__meta/docRef",
+					"value": "${Category-document, [/__meta/docRef]}"
+				}
+			}
+		]
+	}
+}

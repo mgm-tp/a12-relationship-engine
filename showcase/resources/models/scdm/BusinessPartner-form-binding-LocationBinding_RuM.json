@@ -1,0 +1,39 @@
+{
+	"header": {
+		"id": "BusinessPartner-form-binding-LocationBinding_RuM",
+		"modelType": "relationship-ui",
+		"modelVersion": "2.0.0",
+		"modelReferences": [
+			{
+				"purpose": "availableItems",
+				"modelType": "overview",
+				"reference": "Address-overview--Location"
+			},
+			{
+				"purpose": "selectedItems",
+				"modelType": "overview",
+				"reference": "LocationLinks-overview-edit"
+			}
+		],
+		"annotations": [],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "LocationBinding"
+			},
+			{
+				"locale": "de",
+				"text": "LocationBinding"
+			}
+		]
+	},
+	"content": {
+		"relationshipName": "Location",
+		"targetRole": "address",
+		"component": {
+			"componentType": "DualPaneSelection",
+			"availableItemsOverviewModel": "Address-overview--Location",
+			"selectedItemsOverviewModel": "LocationLinks-overview-edit"
+		}
+	}
+}

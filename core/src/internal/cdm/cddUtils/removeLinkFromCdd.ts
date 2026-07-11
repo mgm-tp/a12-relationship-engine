@@ -30,23 +30,18 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import {
-	type DocumentModel,
-	type EntityInstancePath,
-	type FieldInstanceValue
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
-import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { DocumentModel, EntityInstancePath, FieldInstanceValue } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
-import { type DeepReadonly, type DocumentGraph } from "../../documentGraph/core/index.js";
 import { removeLink } from "../../documentGraph/core/reducers.js";
-
-import { CDD_DOC_REF, getCddDoc, LINK_ID } from "../cdmCommons/cddTechnical.js";
 import { DOCUMENT_SERVICE } from "../cdmCommons/documentService.js";
+import { LINK_ID, getCddDoc, CDD_DOC_REF } from "../cdmCommons/cddTechnical.js";
+import type { DeepReadonly, DocumentGraph } from "../../documentGraph/core/index.js";
 
-import { type CdmData } from "./cdmData.js";
-import { DocumentQuery } from "./documentQuery.js";
 import { updateCdd } from "./updateCdd.js";
+import type { CdmData } from "./cdmData.js";
+import { DocumentQuery } from "./documentQuery.js";
 
 /** @internal */
 export function removeLinkFromCdd(data: CdmData, linkRef: DeepReadonly<Relationship.LinkRef>): CdmData {
@@ -72,6 +67,7 @@ function removeLinkElementFromCddDocument(
 	const rootGroup = cddState.cdm.content.modelRoot;
 	const cachedCdd = cddState.cachedCdd?.cdd;
 	const cdm = cddState.cdm;
+
 	if (!cachedCdd || !rootGroup || !cdm) {
 		return documentGraph;
 	}
@@ -88,16 +84,22 @@ function removeLinkElementFromCddDocument(
 		if (!cachedCdd) {
 			return;
 		}
+
 		const value = DOCUMENT_SERVICE.getAssignedObject(cachedCdd, path);
+
 		if (isValidLinkElement(value, linkRef.id)) {
 			removedPath = path;
 		}
 	}
+
 	DocumentQuery.walk(cachedCdd as unknown as GroupInstance, rootGroup, visitor);
+
 	if (!removedPath) {
 		return documentGraph;
 	}
+
 	const pureValue = DOCUMENT_SERVICE.getAssignedObject(cddDocument, removedPath);
+
 	if (!pureValue) {
 		return documentGraph;
 	}

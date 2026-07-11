@@ -37,19 +37,16 @@
 
 import React, { useContext } from "react";
 
+import { addPrefix, ModalOverlay } from "@com.mgmtp.a12.widgets/widgets-core";
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import type { DocumentModel, IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import {
+	Events,
 	Commands,
 	DataSelectors,
-	Events,
-	UiStateSelectors,
-	type FormModel
+	type FormModel,
+	UiStateSelectors
 } from "@com.mgmtp.a12.formengine/formengine-core";
-import {
-	type DocumentModel,
-	type IGeneratedCodeAccessor
-} from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { addPrefix, ModalOverlay } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { StandaloneFormEngine } from "./StandaloneFormEngine.js";
 
@@ -78,7 +75,7 @@ function FormEngineModal(props: FormEngineModalProps): React.ReactNode {
 	const { locale } = useContext(LocalizerContext);
 
 	return (
-		<ModalOverlay onClose={props.onCancel} closeOnEsc>
+		<ModalOverlay onClose={props.onCancel} closeOnEsc closeOnOutsideClick>
 			<div className={addPrefix("-u-height-full -u-width-full")}>
 				<StandaloneFormEngine
 					documentModel={props.documentModel}
@@ -92,19 +89,23 @@ function FormEngineModal(props: FormEngineModalProps): React.ReactNode {
 					additionalMiddlewares={[
 						(api) => (next) => (action) => {
 							const result = next(action);
+
 							if (Events.eventButton.match(action)) {
 								const eventName = action.payload.name;
+
 								if (eventName === "event_cancel") {
 									props.onCancel();
 								} else if (eventName === "event_submit" || eventName === "event_save") {
 									api.dispatch(Commands.validateFull());
 									const messages = UiStateSelectors.messages()(api.getState());
+
 									if (Object.keys(messages).length === 0) {
 										const document = DataSelectors.document()(api.getState());
 										props.onSubmit(document);
 									}
 								}
 							}
+
 							return result;
 						}
 					]}

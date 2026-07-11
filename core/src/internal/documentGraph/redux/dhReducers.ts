@@ -36,29 +36,29 @@
  * @experimental
  */
 
-import { type ActivityReducers } from "@com.mgmtp.a12.client/client-core";
+import type { ActivityReducers } from "@com.mgmtp.a12.client/client-core";
 
 import {
+	setDg,
 	addLink,
-	beginTransaction,
-	changeDocument,
-	changeLinkDoc,
-	endTransaction,
 	mergeDG,
 	removeLink,
-	setDg
+	changeLinkDoc,
+	changeDocument,
+	endTransaction,
+	beginTransaction
 } from "./actions.js";
 import {
-	type DataHolderReducerExtension,
-	type DgClDataHolderShape,
+	handleSetDg,
 	handleAddLink,
-	handleBeginTransaction,
-	handleChangeDocument,
-	handleChangeLinkDoc,
-	handleEndTransaction,
 	handleMergeDg,
 	handleRemoveLink,
-	handleSetDg
+	handleChangeLinkDoc,
+	handleChangeDocument,
+	handleEndTransaction,
+	handleBeginTransaction,
+	type DgClDataHolderShape,
+	type DataHolderReducerExtension
 } from "./dhReducersImpl.js";
 
 /**

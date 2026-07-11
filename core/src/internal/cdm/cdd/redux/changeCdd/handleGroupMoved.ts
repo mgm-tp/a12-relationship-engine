@@ -30,13 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { CdmData } from "../../../cddUtils/cdmData.js";
+import type { ScdmDataHolderShape } from "../dhReducersImpl.js";
 import { assertCondition } from "../../../../shared/assertion.js";
-import { type CdmData } from "../../../cddUtils/cdmData.js";
 import { moveGroupInstance } from "../../../cddUtils/moveGroupInstance.js";
 
-import { type ScdmDataHolderShape } from "../dhReducersImpl.js";
-
-import { type HandleArgs } from "./handleArgs.js";
+import type { HandleArgs } from "./handleArgs.js";
 
 /**
  * @internal
@@ -47,6 +46,7 @@ export function handleGroupMoved(initialState: ScdmDataHolderShape, args: Handle
 	const { documentModels, modelGraph, change } = args;
 
 	const initialData = initialState.data;
+
 	if (!initialData) {
 		return initialState;
 	}

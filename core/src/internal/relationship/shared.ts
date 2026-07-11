@@ -35,7 +35,7 @@
  * @module relationship
  */
 
-import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 /** @internal */
 import { DocumentProcessors } from "./platform/document-processor.js";

@@ -30,10 +30,10 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { describe, test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
-import { type ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { getDocumentModelOfSuperType } from "../../../../../internal/relationship/platform/getDocumentModelOfSuperType.js";
 

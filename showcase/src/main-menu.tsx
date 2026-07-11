@@ -31,27 +31,27 @@
  */
 
 import deepEqual from "fast-deep-equal";
-import React, { useContext, useEffect, useRef } from "react";
 import { connect, useDispatch } from "react-redux";
+import React, { useRef, useEffect, useContext, type ComponentType } from "react";
 
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
+import { FlyoutMenu, SlidingMenu, type MenuItem } from "@com.mgmtp.a12.widgets/widgets-core";
 import {
-	type Activity,
+	type Locale,
+	type Localizer,
+	localizableFromModel,
+	type LocalizedModelText
+} from "@com.mgmtp.a12.utils/utils-localization";
+import {
 	ActivityMap,
-	ActivitySelectors,
-	ApplicationActions,
+	type Activity,
+	ModelSelectors,
 	type FrameViews,
 	LocaleSelectors,
 	ApplicationModel,
-	ModelSelectors
+	ActivitySelectors,
+	ApplicationActions
 } from "@com.mgmtp.a12.client/client-core";
-import {
-	type Locale,
-	type LocalizedModelText,
-	type Localizer,
-	localizableFromModel
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
-import { FlyoutMenu, type MenuItem, SlidingMenu } from "@com.mgmtp.a12.widgets/widgets-core";
 
 interface MainMenuItem {
 	readonly label: string;
@@ -84,6 +84,7 @@ function MainMenuComponent(props: FrameViews.MainMenuProps & StateProps): React.
 			onClick: initialActivity
 				? () => {
 						props.onMenuItemClick();
+
 						if (Object.keys(initialActivity.descriptor).length > 0) {
 							dispatch(ApplicationActions.startMainActivityRequested(initialActivity));
 						}
@@ -92,6 +93,7 @@ function MainMenuComponent(props: FrameViews.MainMenuProps & StateProps): React.
 			children: children ? children.map(mapToWidgetItem) : undefined
 		};
 	}
+
 	const convertedMenu = convertMenuTree(mainMenu, props.appModel);
 	const items = convertedMenu
 		.map((menuItem) => createMenuItem(menuItem, [], props, localizer))
@@ -160,12 +162,18 @@ export namespace Descriptor {
 	export function equal(d1: Activity.Descriptor, d2: Activity.Descriptor): boolean {
 		const k1 = Object.keys(d1);
 		const k2 = Object.keys(d2);
+
 		return k1.length === k2.length && k1.every((p1) => d1[p1] === d2[p1]);
 	}
 }
 
-export const MainMenu = connect<StateProps, {}, FrameViews.MainMenuProps>(
-	function mapStateToProps(state) {
+export const MainMenu: ComponentType<FrameViews.MainMenuProps> = connect<
+	StateProps,
+	{},
+	FrameViews.MainMenuProps,
+	object
+>(
+	function mapStateToProps(state: object) {
 		return {
 			appModel: ModelSelectors.applicationModel()(state),
 			topLevelActivities: ActivityMap.toList(ActivitySelectors.topLevelActivities()(state)).map((a) => a.descriptor),

@@ -29,25 +29,25 @@
  * NON-INFRINGEMENT, EXCEPT WHERE SUCH DISCLAIMERS ARE HELD TO BE
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
-
 /**
  * @packageDocumentation
  * @module relationship
  */
-import { type Activity, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
-import { type Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type Localizable } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
 
-import { assertObject } from "../../../../shared/assertion.js";
-import { DROP_DOWN_SELECTION } from "../../../constants.js";
-import {
-	createEntityDisplayLabelLocalizable,
-	createUiConfigurationKey,
-	createUnknownUiConfigurationKey
-} from "../../../localization.js";
-import { PaginationUtils } from "../../../paginationUtils.js";
+import type { Localizable } from "@com.mgmtp.a12.utils/utils-localization";
+import { type Activity, ModelSelectors } from "@com.mgmtp.a12.client/client-core";
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
 import { Relationship } from "../../../relationship.js";
+import { DROP_DOWN_SELECTION } from "../../../constants.js";
+import { PaginationUtils } from "../../../paginationUtils.js";
 import { RelationshipSelectors } from "../../../selectors.js";
+import { assertObject } from "../../../../shared/assertion.js";
+import {
+	createUiConfigurationKey,
+	createUnknownUiConfigurationKey,
+	createEntityDisplayLabelLocalizable
+} from "../../../localization.js";
 
 import { AdapterLink, AdapterLinkSelectors } from "./adapterLinkSelectors.js";
 
@@ -148,6 +148,7 @@ export function mapStateToAdapterProps<T>(state: {}, ownProps: OwnProps<T>): Sta
 	};
 
 	const instance = RelationshipSelectors.relationshipInstance(activityId, instanceId)(state);
+
 	if (instance === undefined) {
 		return emptyStateProps;
 	}
@@ -156,6 +157,7 @@ export function mapStateToAdapterProps<T>(state: {}, ownProps: OwnProps<T>): Sta
 		instance.uiConfiguration.relationshipName,
 		Relationship.isRelationshipModel
 	)(state);
+
 	if (model === undefined) {
 		return emptyStateProps;
 	}
@@ -175,6 +177,7 @@ export function mapStateToAdapterProps<T>(state: {}, ownProps: OwnProps<T>): Sta
 		instance,
 		componentId: ownProps.componentConfiguration.id
 	});
+
 	if (linksAndCandidates === undefined) {
 		return emptyStateProps;
 	}
@@ -230,6 +233,7 @@ function getLinksAndCandidates(params: {
 
 	const candidateLoadingState = getLoadingState(candidateDataHolder.loadingState);
 	const candidatesData = selectCandidatesList(state, activityId, instance, componentId);
+
 	return {
 		links,
 		candidates:
@@ -250,6 +254,7 @@ function selectCandidatesList(
 	assertObject(candidatePagination);
 
 	const sliceIndices = PaginationUtils.getSlices(candidatePagination);
+
 	if (!sliceIndices) {
 		return [];
 	}

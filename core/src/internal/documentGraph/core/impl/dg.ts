@@ -37,10 +37,10 @@
  */
 import { merge } from "lodash-es";
 
-import { type DgMerged } from "../changeLog/changeLog.js";
-import { type DgDocument, type DocumentGraph } from "../documentGraph.js";
-import { type DgChange } from "../slices.js";
-import { type DeepReadonly } from "../utilityTypes.js";
+import type { DgChange } from "../slices.js";
+import type { DeepReadonly } from "../utilityTypes.js";
+import type { DgMerged } from "../changeLog/changeLog.js";
+import type { DgDocument, DocumentGraph } from "../documentGraph.js";
 
 /**
  * @returns a new {@link DocumentGraph}
@@ -70,6 +70,7 @@ export function mergeInto(args: {
 	// First merge documents including a merge of the internal structures
 	let docs = dg.documents.byDocRef;
 	const partDocs = partialDg.documents.byDocRef;
+
 	for (const docId in partDocs) {
 		if (Object.prototype.hasOwnProperty.call(partDocs, docId)) {
 			docs = {
@@ -84,6 +85,7 @@ export function mergeInto(args: {
 
 	let linkIdsByDocId = dg.links.linkIdsByDocId as { [docId: string]: string[] };
 	const partLinkIdsByDocId = partialDg.links.linkIdsByDocId;
+
 	for (const docId in partLinkIdsByDocId) {
 		if (Object.prototype.hasOwnProperty.call(partLinkIdsByDocId, docId)) {
 			const mergedList = [...(partialDg.links.linkIdsByDocId[docId] ?? []), ...(linkIdsByDocId[docId] ?? [])];
@@ -97,6 +99,7 @@ export function mergeInto(args: {
 	}
 
 	const change: DgMerged = { kind: "dgMerged" };
+
 	return [
 		{
 			documents: {
@@ -116,6 +119,7 @@ export function mergeInto(args: {
 		newDoc: DeepReadonly<DgDocument>;
 	}): DeepReadonly<DgDocument> {
 		const { doc, newDoc } = p;
+
 		if (doc === undefined) {
 			return newDoc;
 		}

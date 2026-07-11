@@ -34,16 +34,16 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type SagaIterator } from "redux-saga";
-import { call, put, takeEvery } from "typed-redux-saga";
-import { type Action } from "typescript-fsa";
+import { put, call, takeEvery, type SagaGenerator } from "typed-redux-saga";
+
+import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
 
 import { RelationshipActions } from "../actions.js";
 
 import { loadData } from "./utils.js";
 
 /** @internal */
-export function* filterChangedSaga(): SagaIterator<void> {
+export function* filterChangedSaga(): SagaGenerator<void> {
 	yield* takeEvery(RelationshipActions.Events.filterChanged, handleFilterChanged);
 }
 

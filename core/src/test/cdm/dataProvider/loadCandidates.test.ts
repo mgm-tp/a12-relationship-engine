@@ -30,33 +30,28 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import * as TypeMoq from "typemoq";
 import { expectSaga } from "redux-saga-test-plan";
 import * as matchers from "redux-saga-test-plan/matchers.js";
-import * as TypeMoq from "typemoq";
-import { describe, test, vi, beforeAll, type MockInstance } from "vitest";
+import { vi, test, describe, beforeAll, type MockInstance } from "vitest";
 
+import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
+import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
+import type { Content, ModelGraph, EntityCharacteristics } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
-	type Activity,
-	ActivitySelectors,
 	type Model,
+	StoreSagas,
+	type Activity,
 	ModelSelectors,
-	StoreSagas
+	ActivitySelectors
 } from "@com.mgmtp.a12.client/client-core";
-import {
-	type ModelGraph,
-	type Content,
-	type EntityCharacteristics
-} from "@com.mgmtp.a12.dataservices/dataservices-access";
-import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-import { type DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/index.js";
 
 import { CddActions } from "../../../internal/cdm/cdd/redux/index.js";
-import { initAndLoadCandidates } from "../../../internal/cdm/cdd/redux/actions.js";
-import { createCandidateDataHoldersSaga } from "../../../internal/cdm/dataProvider/loadCandidates.js";
-import { type DeepReadonly, type DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import { type Relationship } from "../../../internal/relationship/index.js";
-
 import documentGraph from "../testData/dg.json" with { type: "json" };
+import type { Relationship } from "../../../internal/relationship/index.js";
+import { initAndLoadCandidates } from "../../../internal/cdm/cdd/redux/actions.js";
+import type { DeepReadonly, DocumentGraph } from "../../../internal/documentGraph/core/index.js";
+import { createCandidateDataHoldersSaga } from "../../../internal/cdm/dataProvider/loadCandidates.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.loadCandidates", () => {
 	let activityByIdSelectorStub: MockInstance;
@@ -184,12 +179,14 @@ describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.loadCandidates", 
 	function ecMock(role: string): EntityCharacteristics {
 		const mock = TypeMoq.Mock.ofType<EntityCharacteristics>();
 		mock.setup((x) => x.role).returns(() => role);
+
 		return mock.object;
 	}
 
 	function rmContentMock(roles: string[]): Content {
 		const mock = TypeMoq.Mock.ofType<Content>();
 		mock.setup((x) => x.entityCharacteristics).returns(() => [ecMock(roles[0]), ecMock(roles[1])]);
+
 		return mock.object;
 	}
 
@@ -310,6 +307,7 @@ describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.loadCandidates", 
 							]
 						: undefined
 			}));
+
 		return formModelMock;
 	}
 

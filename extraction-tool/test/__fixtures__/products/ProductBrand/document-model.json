@@ -1,0 +1,119 @@
+{
+	"header": {
+		"id": "ProductBrand_Product____generated",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"locales": [
+			{
+				"code": "en"
+			},
+			{
+				"code": "de"
+			}
+		],
+		"labels": [],
+		"annotations": [
+			{
+				"name": "roles",
+				"value": "anonymous"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "Product-document",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "Product-document"
+			},
+			{
+				"alias": "ProductBrand_AdditionalFieldsModel",
+				"modelType": "document",
+				"purpose": "include",
+				"reference": "ProductBrand_AdditionalFieldsModel"
+			}
+		]
+	},
+	"content": {
+		"modelInfo": {
+			"name": "ProductBrand_Product____generated",
+			"immutable": false
+		},
+		"modelConfig": {
+			"decimalSeparator": ".",
+			"timeZone": "UTC",
+			"conditionLanguage": {
+				"code": "en_US"
+			}
+		},
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G2",
+					"name": "target",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Group",
+								"id": "I4",
+								"name": "target",
+								"Group": {
+									"repeatability": 1,
+									"includeConfig": {
+										"reference": "Product-document"
+									},
+									"elements": [
+										{
+											"type": "Field",
+											"id": "I4_F1",
+											"name": "name",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										},
+										{
+											"type": "Field",
+											"id": "I4_F2",
+											"name": "number",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										}
+									]
+								}
+							},
+							{
+								"type": "Group",
+								"id": "I5",
+								"name": "relationship",
+								"Group": {
+									"repeatability": 1,
+									"includeConfig": {
+										"reference": "ProductBrand_AdditionalFieldsModel"
+									},
+									"elements": [
+										{
+											"type": "Field",
+											"id": "I5_F1",
+											"name": "linkNote",
+											"Field": {
+												"fieldType": {
+													"type": "StringType"
+												}
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

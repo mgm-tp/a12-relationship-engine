@@ -1,0 +1,37 @@
+{
+	"header": {
+		"id": "TypeDefDM",
+		"modelType": "document",
+		"modelVersion": "29.4.0",
+		"modelReferences": [{ "purpose": "typeDefinitions", "modelType": "document", "reference": "DummyTDM" }]
+	},
+	"content": {
+		"modelInfo": { "name": "TypeDefDM" },
+		"modelConfig": { "timeZone": "UTC", "decimalSeparator": ".", "conditionLanguage": { "code": "en_US" } },
+		"modelRoot": {
+			"rootGroups": [
+				{
+					"type": "Group",
+					"id": "G1",
+					"name": "root",
+					"Group": {
+						"repeatability": 1,
+						"elements": [
+							{
+								"type": "Field",
+								"id": "field_typedef_01",
+								"name": "location",
+								"Field": {
+									"fieldType": {
+										"type": "TypeDefType",
+										"TypeDefType": { "typeDefinitionId": "typedef_abc_location" }
+									}
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

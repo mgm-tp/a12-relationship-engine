@@ -34,7 +34,7 @@
  * @packageDocumentation
  * @module relationship
  */
-import { type Relationship } from "./relationship.js";
+import type { Relationship } from "./relationship.js";
 
 /** @internal */
 export namespace PaginationUtils {
@@ -47,6 +47,7 @@ export namespace PaginationUtils {
 	 */
 	export function getMaxPageNumber(paginationParams: PaginationParams): number {
 		const totalLinks = paginationParams.fullCount + (paginationParams.newLinksCount ?? 0);
+
 		if (totalLinks % paginationParams.pageSize === 0) {
 			return Math.max(totalLinks / paginationParams.pageSize - 1, 0);
 		}
@@ -93,6 +94,7 @@ export namespace PaginationUtils {
 	 */
 	export function getQuery(paginationParams: PaginationParams, pageNumber: number): PageQuery | undefined {
 		const nextSlice = getSlices(paginationParams, pageNumber);
+
 		if (!nextSlice) {
 			return undefined;
 		}
@@ -109,6 +111,7 @@ export namespace PaginationUtils {
 			endIndex: paginationParams.offset + paginationParams.limit
 		};
 		const result = toPageQuery(nextSlice.startIndex, nextSlice.endIndex);
+
 		if (!currentSlice) {
 			return result;
 		}

@@ -35,31 +35,29 @@
  * @module cdm/data-provider
  * @experimental
  */
-import { type SagaIterator } from "redux-saga";
-import { call, fork, type SagaGenerator, select } from "typed-redux-saga";
+import { call, fork, select, type SagaGenerator } from "typed-redux-saga";
 
-import {
-	Activity,
-	ActivitySelectors,
-	NEW_INSTANCE_IDENTIFIER,
-	type DataProvider,
-	extractModelsInScenePayload,
-	Model,
-	StoreSagas
-} from "@com.mgmtp.a12.client/client-core";
 import { isFormModel } from "@com.mgmtp.a12.formengine/formengine-core";
-
-import { assertNotNullish, assertObject } from "../../shared/assertion.js";
-import { InternalModelSelectors } from "../../shared/selectors.js";
-import { DefaultRequestSelectorMap, type RequestSelectorMap } from "../../server-connectors/request-selector-map.js";
+import {
+	Model,
+	Activity,
+	StoreSagas,
+	ActivitySelectors,
+	type DataProvider,
+	NEW_INSTANCE_IDENTIFIER,
+	extractModelsInScenePayload
+} from "@com.mgmtp.a12.client/client-core";
 
 import { CddSelectors } from "../cdd/redux/index.js";
+import { InternalModelSelectors } from "../../shared/selectors.js";
+import { assertObject, assertNotNullish } from "../../shared/assertion.js";
+import { type RequestSelectorMap, DefaultRequestSelectorMap } from "../../server-connectors/request-selector-map.js";
 
-import { type CddDataHandler, type LoadType, type Models } from "./CddDataHandler.js";
 import { isSetCddInActivity } from "./isCddActivity.js";
-import { StandaloneActivityHandler } from "./StandaloneActivityHandler.js";
 import { isParentCdmActivity } from "./subactivity/parent-activity.js";
 import { SubActivityHandler } from "./subactivity/SubActivityHandler.js";
+import { StandaloneActivityHandler } from "./StandaloneActivityHandler.js";
+import type { Models, LoadType, CddDataHandler } from "./CddDataHandler.js";
 
 /**
  * Provides CDM activities with data loading and saving.
@@ -93,6 +91,7 @@ class CDDDataProvider implements DataProvider {
 			case "load": {
 				return Activity.DataHolder.hasDescriptor(activity.descriptor)(dataHolder) && shouldUseCdd(config);
 			}
+
 			case "save":
 				return isSetCddInActivity(activity);
 			case "delete":
@@ -101,15 +100,17 @@ class CDDDataProvider implements DataProvider {
 		}
 	}
 
-	*provideData(config: DataProvider.ProvideDataConfig): SagaIterator<void> {
+	*provideData(config: DataProvider.ProvideDataConfig): SagaGenerator<void> {
 		if (config.operation === "delete") {
 			throw new Error("Delete is not supported on CDM activities.");
 		}
 
 		const activity = yield* select(ActivitySelectors.activityById(config.activityId));
+
 		if (!activity) {
 			throw new Error("Cannot handle data on non-existent activity.");
 		}
+
 		const initiatingActivity = yield* select(ActivitySelectors.activityById(activity.initiatingActivityId || ""));
 
 		const activityType: ActivityType = isParentCdmActivity(initiatingActivity) ? "sub" : "standalone";
@@ -177,6 +178,7 @@ function determineHandlerForCase(
 ): CddDataHandler {
 	if ("sub" === activityType) {
 		assertObject(initiatingActivity);
+
 		return new SubActivityHandler(activity, initiatingActivity, modelsPromise, requestSelectorMap);
 	} else {
 		return new StandaloneActivityHandler(activity, modelsPromise, requestSelectorMap);
@@ -197,10 +199,13 @@ export function* resolveModels(activityId: string): SagaGenerator<Models | undef
 		isFormModel
 	);
 	const models = yield* call(() => StoreSagas.waitForStateChange(modelsLoaded));
+
 	if (models === undefined || Model.Error.isInstance(models)) {
 		throw new Error("Error during model loading for CDM activity.");
 	}
+
 	const { generatedCodeAccessor, ...documentModel } = models.documentAndValidationModel;
+
 	return { documentModel, formModel: models.uiModel };
 }
 
@@ -208,10 +213,12 @@ function shouldUseCdd({ activities, activityId, action }: DataProvider.CanHandle
 	const payload = extractModelsInScenePayload(action);
 
 	const { modelGraph, modelsInScene } = payload ?? {};
+
 	if (!modelGraph || !modelsInScene) {
 		return false;
 	}
 
 	const maybeCdmName = CddSelectors.cdmNameInternal(modelGraph, modelsInScene);
+
 	return CddSelectors.isCddActivityInternal(activities, activityId, maybeCdmName);
 }

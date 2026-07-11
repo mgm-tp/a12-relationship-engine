@@ -32,54 +32,54 @@
 
 import { compose, type Store, type Dispatch } from "redux";
 
-import {
-	ActivitySelectors,
-	ApplicationActions,
-	ApplicationFactories,
-	type ApplicationSaga,
-	type ApplicationSetup,
-	type ComposeEnhancer,
-	type Module,
-	ModuleRegistryProvider,
-	type DataHandler,
-	type ApplicationModel,
-	ModelActions,
-	NotificationActions
-} from "@com.mgmtp.a12.client/client-core";
+import { CRUDFactories } from "@com.mgmtp.a12.crud/crud-core";
 import { DeepLinkingFactories } from "@com.mgmtp.a12.client/client-core/deepLinking";
 import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
+import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
+import { ConnectorLocator, RestServerConnector } from "@com.mgmtp.a12.utils/utils-connector";
 import { createPlatformServerModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
-import { CRUDFactories } from "@com.mgmtp.a12.crud/crud-core";
-import { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { ModelGraph, DataServicesReducerMap } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
-	createEmptyDocumentDataProvider,
-	formEngineDataReducers,
 	FormModelProcessor,
+	formEngineDataReducers,
 	platformAttachmentLoader,
+	createEmptyDocumentDataProvider,
 	platformSingleDocumentDataProvider
 } from "@com.mgmtp.a12.formengine/formengine-core";
-import { OverviewEngineFactories } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
-	cddDataHolderReducerExtension,
-	cddReducers,
 	cdmSagas,
-	createCddDataProvider,
-	createCdmMiddlewares,
-	DefaultRequestSelectorMap,
+	cddReducers,
 	dgReducerFactory,
-	RelationshipFactories,
+	createCdmMiddlewares,
 	RelationshipReducers,
-	type RequestSelectorMap
+	createCddDataProvider,
+	RelationshipFactories,
+	type RequestSelectorMap,
+	DefaultRequestSelectorMap,
+	cddDataHolderReducerExtension
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
-import { ConnectorLocator, RestServerConnector } from "@com.mgmtp.a12.utils/utils-connector/lib/main/index.js";
+import {
+	type Module,
+	ModelActions,
+	type DataHandler,
+	ActivitySelectors,
+	ApplicationActions,
+	NotificationActions,
+	ApplicationFactories,
+	type ApplicationSaga,
+	type ComposeEnhancer,
+	type ApplicationSetup,
+	type ApplicationModel,
+	ModuleRegistryProvider
+} from "@com.mgmtp.a12.client/client-core";
 
-import model from "./appmodel.json" with { type: "json" };
-import { CustomFormEngineSelectors } from "./modules/examples/dynamic-models/selector.js";
 import { SampleAppModules } from "./modules/modules.js";
-import { standaloneDataProviders } from "./modules/relationships/standalone/standaloneDataProviders.js";
+import model from "./appmodel.json" with { type: "json" };
 import OverviewAppModel from "./overview-appmodel.json" with { type: "json" };
 import { handleErrorSaga } from "./views/showcaseOverview/handleErrorSaga.js";
+import { CustomFormEngineSelectors } from "./modules/examples/dynamic-models/selector.js";
 import { selectRowReadonlySaga } from "./views/showcaseOverview/showcaseOverviewSagas.js";
+import { standaloneDataProviders } from "./modules/relationships/standalone/standaloneDataProviders.js";
 
 const applicationModules: Module[] = [{ id: "OverviewAppModel", model: () => OverviewAppModel as ApplicationModel }];
 
@@ -107,6 +107,7 @@ export function setup(): {
 		...DefaultRequestSelectorMap,
 		loadCandidates: (config) => (state) => {
 			const request = DefaultRequestSelectorMap.loadCandidates(config)(state);
+
 			return request;
 		}
 	};
@@ -159,7 +160,8 @@ export function setup(): {
 			...formEngineDataReducers,
 			...dgReducers,
 			...cddReducers
-		]
+		],
+		reducerMap: { ...DataServicesReducerMap }
 	});
 
 	return { store: config.store, initialStoreActions };
@@ -208,7 +210,9 @@ window.onbeforeunload = () => {
 	if (!config) {
 		throw new Error("Application is not setup yet.");
 	}
+
 	const dirtyActivities = ActivitySelectors.allDirtyOrLockedActivities()(config.store.getState());
+
 	if (dirtyActivities.length > 0) {
 		return "There are unsaved or locked activities.";
 	}

@@ -36,8 +36,8 @@
  */
 import React, { useContext } from "react";
 
+import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { addPrefix, ProgressIndicator as BaseProgressIndicator } from "@com.mgmtp.a12.widgets/widgets-core";
-import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
 
 import { useProgressIndicatorContext } from "./ProgressIndicatorContext.js";
 

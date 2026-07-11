@@ -30,15 +30,15 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
+import type { LocalizerContextProps } from "@com.mgmtp.a12.utils/utils-localization-react";
 import {
-	defaultDataFormats,
-	defaultLocalizerFactory,
-	defaultValueConversion,
 	type Locale,
+	type Localizer,
 	type Localizable,
-	type Localizer
-} from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
-import { type LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
+	defaultDataFormats,
+	defaultValueConversion,
+	defaultLocalizerFactory
+} from "@com.mgmtp.a12.utils/utils-localization";
 
 export const US_LOCALE: Locale = { language: "en", country: "US" };
 
@@ -54,7 +54,7 @@ export const US_LOCALIZER_CTX = {
 
 export const DE_LOCALE: Locale = { language: "de", country: "DE" };
 
-export const DE_LOCALIZER_CTX: LocalizerContext.Type = {
+export const DE_LOCALIZER_CTX: LocalizerContextProps = {
 	locale: DE_LOCALE,
 	dataFormats: defaultDataFormats(DE_LOCALE),
 	localizer: defaultLocalizerFactory({
