@@ -42,6 +42,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { ModelSelectors } from "@com.mgmtp.a12.client/client-core";
 import { type VariantSelectionItem } from "@com.mgmtp.a12.client/client-core/heterogeneity";
 import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { type FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
 import { type GroupInstance } from "@com.mgmtp.a12.kernel/kernel-md-facade/lib/main/js/api.js";
 import { localizableFromModel } from "@com.mgmtp.a12.utils/utils-localization/lib/main/index.js";
@@ -70,6 +71,7 @@ import { calculateVariantSelectionItems, VariantSelectionModal } from "./variant
 interface StateProps extends ScdmRelationshipUiAdapter.StateProps {
 	readonly candidateModels?: RelationshipClientApi.OverviewModels;
 	readonly candidatesFullCount: number;
+	readonly minSearchableTokenSize?: number;
 }
 
 interface DispatchProps {
@@ -98,10 +100,15 @@ export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, Own
 		const rawCandidates = RelationshipSelectors.candidateDataHolder(activityId, ownProps.formModelElement.id)(state);
 		const candidatesFullCount = rawCandidates?.data?.candidatePagination.fullCount ?? -1;
 
+		const minSearchableTokenSizeStr = DataServicesSelectors.configurationByKey(
+			"mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize"
+		)(state);
+
 		return {
 			...coreProps,
 			candidatesFullCount,
-			candidateModels
+			candidateModels,
+			minSearchableTokenSize: minSearchableTokenSizeStr ? Number(minSearchableTokenSizeStr) : undefined
 		};
 	},
 	function mapDispatchToProps(dispatch, ownProps): DispatchProps {

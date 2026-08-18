@@ -165,6 +165,9 @@ export interface SingleSelectionProps extends EditDocumentProps<SingleSelectionI
 
 	/** Callback for handling load more candidates */
 	onLoadMore?(): void;
+
+	/** Minimum number of characters required for a search to be executed. If set, a hint message is shown when the input is below this limit. */
+	readonly minSearchableTokenSize?: number;
 }
 
 export interface SingleSelectionItem {

@@ -2,7 +2,7 @@
 	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-e2e",
 	"private": true,
 	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"description": "E2E Tests",
 	"scripts": {
 		"prepare": "playwright install chromium",

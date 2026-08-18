@@ -40,6 +40,7 @@ import { connect } from "react-redux";
 
 import { type ModelPath } from "@com.mgmtp.a12.base/base-model-api/lib/main/model/index.js";
 import { type Relationship } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { DataServicesSelectors } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { ExpressionBuilder, ExpressionInterpreter } from "@com.mgmtp.a12.expression/expression-core";
 import { defaultValueParser } from "@com.mgmtp.a12.formengine/formengine-core";
 import {
@@ -68,6 +69,7 @@ interface StateProps extends RelationshipUiAdapter.StateProps {
 	readonly candidateModels?: RelationshipClientApi.OverviewModels;
 	readonly candidatesFullCount: number;
 	readonly editLinkModels?: RelationshipClientApi.FormModels;
+	readonly minSearchableTokenSize?: number;
 }
 
 interface DispatchProps {
@@ -196,6 +198,7 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 			onSelectItem={onSelect}
 			onSearchItem={props.onSearch}
 			onLoadMore={props.onLoadMore}
+			minSearchableTokenSize={props.minSearchableTokenSize}
 			{...props.templateComponentProps}
 		/>
 	);
@@ -405,12 +408,17 @@ export const SingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProp
 
 		const relationshipInstance = RelationshipSelectors.relationshipInstance(activityId, instanceId)(state);
 
+		const minSearchableTokenSizeStr = DataServicesSelectors.configurationByKey(
+			"mgmtp.a12.dataservices.query.simpleSearch.minSearchableTokenSize"
+		)(state);
+
 		return {
 			...coreProps,
 			linkModels,
 			candidateModels,
 			editLinkModels,
-			candidatesFullCount: relationshipInstance?.candidatePagination.fullCount ?? 0
+			candidatesFullCount: relationshipInstance?.candidatePagination.fullCount ?? 0,
+			minSearchableTokenSize: minSearchableTokenSizeStr ? Number(minSearchableTokenSizeStr) : undefined
 		};
 	},
 	function mapDispatchToProps(dispatch, ownProps): DispatchProps {

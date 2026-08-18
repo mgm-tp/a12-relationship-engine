@@ -17,7 +17,7 @@ dependencyResolutionManagement {
             version('spring-boot', springBootVersion)
             version('node-gradle', '7.0.1')
             version('docker-remote-api', '9.3.7')
-            version('devtools-deployment', '0.4.8')
+            version('devtools-deployment', '0.7.0')
             version('git-version', '3.0.0')
             version('artifact-publish', '0.4.0-rc.1')
 

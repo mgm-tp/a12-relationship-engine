@@ -289,7 +289,7 @@ function EditDialog(props: EditDialogProps) {
 		</ContentBoxElements.Footer>
 	);
 	return (
-		<ModalOverlay maxWidth={props.editDialogWidth ?? 1200} onClose={props.onClose} closeOnEsc>
+		<ModalOverlay maxWidth={props.editDialogWidth ?? 1200} onClose={props.onClose} closeOnEsc closeOnOutsideClick>
 			<ActionContentbox padding="24px" headingElements={header} footer={footer}>
 				<AriaLevelContext.Provider value={{ ariaLevel: 2 }}>{props.children}</AriaLevelContext.Provider>
 			</ActionContentbox>

@@ -2,7 +2,7 @@
 	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-showcase",
 	"private": true,
 	"type": "module",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"description": "Relationship and CRUD Showcase Application",
 	"author": "mgm technology partners",
 	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
@@ -14,6 +14,7 @@
 		"start": "pnpm \"/start:/\"",
 		"start:app": "rsbuild dev",
 		"start:seed": "services-utils seed --waitOn",
+		"clean-documents": "services-utils clean-documents",
 		"dist": "rsbuild build",
 		"upload-models": "services-utils upload-models"
 	},

@@ -40,12 +40,14 @@ import { StyleSheetManager, ThemeProvider } from "styled-components";
 import "@com.mgmtp.a12.widgets/widgets-core/lib/theme/basic.css";
 
 import { shouldForwardProp, SizeContext, useWindowSize, GlobalStyles } from "@com.mgmtp.a12.widgets/widgets-core";
+import { loadDataServicesConfiguration } from "@com.mgmtp.a12.dataservices/dataservices-access";
 
 import { setup } from "./appsetup.js";
 import { ShowcaseContextProvider, THEMES, useShowcaseContext } from "./context.js";
 import { Page } from "./page.js";
 
 const { store, initialStoreActions } = setup();
+loadDataServicesConfiguration(store);
 
 const ResizablePage = () => {
 	const { breakPoint } = useWindowSize();

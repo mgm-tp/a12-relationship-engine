@@ -55,7 +55,8 @@ export const en_US: typeof RESOURCE_KEYS = {
 				},
 				"drop-down": {
 					"edit-link": "Additional properties",
-					"result-count": "$resultCount$ of $totalCount$"
+					"result-count": "$resultCount$ of $totalCount$",
+					"min-search-length": "Enter at least $count$ characters"
 				},
 				"table-list": {
 					edit: "Edit",

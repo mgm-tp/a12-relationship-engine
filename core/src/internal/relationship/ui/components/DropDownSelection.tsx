@@ -40,7 +40,12 @@ import React, { Component } from "react";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react/lib/main/index.js";
 import { Button, type DropDownItem, Icon, Autocomplete, Link } from "@com.mgmtp.a12.widgets/widgets-core";
 
-import { descriptorEditLink, descriptorLoading, descriptorResultCount } from "../../localization.js";
+import {
+	descriptorEditLink,
+	descriptorLoading,
+	descriptorMinSearchLength,
+	descriptorResultCount
+} from "../../localization.js";
 
 import { type SingleSelectionItem, type SingleSelectionProps } from "./api.js";
 import FormEngineModal from "./FormEngineModal.js";
@@ -58,6 +63,7 @@ export type DropDownSelectionProps = SingleSelectionProps;
 
 export interface DropDownSelectionState {
 	debouncing: boolean;
+	currentSearchText: string;
 }
 
 export class DropDownSelection extends Component<DropDownSelectionProps, DropDownSelectionState> {
@@ -68,7 +74,8 @@ export class DropDownSelection extends Component<DropDownSelectionProps, DropDow
 	constructor(props: SingleSelectionProps) {
 		super(props);
 		this.state = {
-			debouncing: false
+			debouncing: false,
+			currentSearchText: ""
 		};
 	}
 
@@ -92,7 +99,15 @@ export class DropDownSelection extends Component<DropDownSelectionProps, DropDow
 			return;
 		}
 
-		this.setState({ debouncing: true });
+		const minSize = this.props.minSearchableTokenSize;
+		const textLength = searchText?.length ?? 0;
+		if (minSize !== undefined && textLength > 0 && textLength < minSize) {
+			this.setState({ currentSearchText: searchText ?? "" });
+			this.lastSearchValue = searchText;
+			return;
+		}
+
+		this.setState({ debouncing: true, currentSearchText: searchText ?? "" });
 		this.debouncedOnSearch(searchText);
 		this.lastSearchValue = searchText;
 	};
@@ -119,19 +134,32 @@ export class DropDownSelection extends Component<DropDownSelectionProps, DropDow
 	}
 
 	render(): React.ReactNode {
-		const { label, disabled, readonly, itemsFullCount } = this.props;
+		const { label, disabled, readonly, itemsFullCount, minSearchableTokenSize } = this.props;
+		const { currentSearchText } = this.state;
 
-		const hintTemplate = this.context?.localizer(
-			descriptorResultCount({
-				resultCount: { type: "plain", value: "{count}" },
-				totalCount: { type: "plain", value: itemsFullCount }
-			})
-		);
+		const belowMinSearchLength =
+			minSearchableTokenSize !== undefined &&
+			currentSearchText.length > 0 &&
+			currentSearchText.length < minSearchableTokenSize;
+
+		const hintTemplate = belowMinSearchLength
+			? this.context?.localizer(
+					descriptorMinSearchLength({
+						count: { type: "plain", value: String(minSearchableTokenSize) }
+					})
+				)
+			: this.context?.localizer(
+					descriptorResultCount({
+						resultCount: { type: "plain", value: "{count}" },
+						totalCount: { type: "plain", value: itemsFullCount }
+					})
+				);
 
 		const selectedItem = this.getSelectedItem();
-		const autocompleteItems = this.getAutocompleteCandidates(selectedItem);
+		const autocompleteItems = belowMinSearchLength ? [] : this.getAutocompleteCandidates(selectedItem);
 
 		const editItem = this.props.editItem && convertSingleSelectionToDropDownItem(this.props.editItem);
+		const hasMoreItems = !belowMinSearchLength && autocompleteItems.length < itemsFullCount;
 
 		return (
 			<div>
@@ -155,9 +183,7 @@ export class DropDownSelection extends Component<DropDownSelectionProps, DropDow
 					}
 					onValueChange={this.handleOnValueChange}
 					onSearch={this.onSearch}
-					dropdownFooter={
-						autocompleteItems.length < itemsFullCount ? <Link onClick={this.props.onLoadMore}>Load More</Link> : null
-					}
+					dropdownFooter={hasMoreItems ? <Link onClick={this.props.onLoadMore}>Load More</Link> : null}
 				/>
 				{this.props.editItemFormModels &&
 					this.props.editItemFormModels.loadingState === "loaded" &&

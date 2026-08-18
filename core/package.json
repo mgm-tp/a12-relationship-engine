@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-core",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"type": "module",
 	"sideEffects": false,
 	"description": "Relationship Engine & CDM",

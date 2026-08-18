@@ -78,7 +78,7 @@ function FormEngineModal(props: FormEngineModalProps): React.ReactNode {
 	const { locale } = useContext(LocalizerContext);
 
 	return (
-		<ModalOverlay onClose={props.onCancel} closeOnEsc>
+		<ModalOverlay onClose={props.onCancel} closeOnEsc closeOnOutsideClick>
 			<div className={addPrefix("-u-height-full -u-width-full")}>
 				<StandaloneFormEngine
 					documentModel={props.documentModel}

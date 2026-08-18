@@ -50,7 +50,7 @@ import { DeepLinkingFactories } from "@com.mgmtp.a12.client/client-core/deepLink
 import { DirtyHandlingFactories } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
 import { createPlatformServerModelLoader } from "@com.mgmtp.a12.client/client-core/modelLoader";
 import { CRUDFactories } from "@com.mgmtp.a12.crud/crud-core";
-import { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import { DataServicesReducerMap, ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import {
 	createEmptyDocumentDataProvider,
 	formEngineDataReducers,
@@ -159,7 +159,8 @@ export function setup(): {
 			...formEngineDataReducers,
 			...dgReducers,
 			...cddReducers
-		]
+		],
+		reducerMap: { ...DataServicesReducerMap }
 	});
 
 	return { store: config.store, initialStoreActions };

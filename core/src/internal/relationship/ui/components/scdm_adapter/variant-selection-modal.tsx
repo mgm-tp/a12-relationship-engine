@@ -61,7 +61,7 @@ export function VariantSelectionModal(props: {
 	const title = localizer(descriptorVariantSelectionTitle());
 
 	return (
-		<ModalOverlay closeOnEsc onClose={props.onClose}>
+		<ModalOverlay closeOnEsc closeOnOutsideClick onClose={props.onClose}>
 			<ActionContentbox
 				headingElements={<ContentBoxElements.Title text={title} ariaLevel={1} />}
 				headingButtons={[

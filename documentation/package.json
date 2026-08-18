@@ -3,7 +3,7 @@
 	"private": true,
 	"license": "(EUPL-1.2 OR LicenseRef-commercial)",
 	"type": "module",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"scripts": {
 		"clean": "rimraf build/** ./**/generated/**",
 		"compile": "pnpm \"/compile:/\"",

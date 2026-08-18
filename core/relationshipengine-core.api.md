@@ -483,6 +483,8 @@ export type DropDownSelectionProps = SingleSelectionProps;
 // @public (undocumented)
 export interface DropDownSelectionState {
     // (undocumented)
+    currentSearchText: string;
+    // (undocumented)
     debouncing: boolean;
 }
 
@@ -1009,6 +1011,7 @@ export const RELATIONSHIP_RESOURCE_KEYS: {
                 "drop-down": {
                     "edit-link": string;
                     "result-count": string;
+                    "min-search-length": string;
                 };
                 "table-list": {
                     edit: string;
@@ -1330,6 +1333,7 @@ export interface SingleSelectionProps extends EditDocumentProps<SingleSelectionI
     readonly items: Items<SingleSelectionItem[]>;
     readonly itemsFullCount: number;
     readonly label?: string;
+    readonly minSearchableTokenSize?: number;
     onLoadMore?(): void;
     onSearchItem(searchText?: string): void;
     onSelectItem(item?: SingleSelectionItem): void;

@@ -101,7 +101,6 @@ const config: ReturnType<typeof defineConfig> = defineConfig(({ command, envMode
 		},
 		html: {
 			template: PATH.HTML,
-			favicon: "./resources/public/favicon.gif",
 			templateParameters: ({ entryName }) => entries[entryName as keyof typeof entries]
 		},
 		plugins: [

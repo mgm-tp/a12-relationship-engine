@@ -183,7 +183,7 @@ function VariantSelectionModal(props: VariantSelectionModalProps): React.ReactNo
 	const { localizer } = useContext(LocalizerContext);
 
 	return (
-		<ModalOverlay closeOnEsc onClose={props.onClose}>
+		<ModalOverlay closeOnEsc closeOnOutsideClick onClose={props.onClose}>
 			<ActionContentbox
 				headingElements={
 					<ContentBoxElements.Title

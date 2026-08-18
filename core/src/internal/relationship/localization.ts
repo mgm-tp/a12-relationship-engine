@@ -82,6 +82,18 @@ export function descriptorResultCount(args: LocalizableArgs): Localizable {
 }
 
 /** @internal */
+export function descriptorMinSearchLength(args: LocalizableArgs): Localizable {
+	return {
+		key: RESOURCE_KEYS.extension.relationship.component["drop-down"]["min-search-length"],
+		defaults: {
+			en: en_US.extension.relationship.component["drop-down"]["min-search-length"],
+			de: de_DE.extension.relationship.component["drop-down"]["min-search-length"]
+		},
+		args
+	};
+}
+
+/** @internal */
 export function descriptorLoading(): Localizable {
 	return {
 		key: RESOURCE_KEYS.extension.relationship.component["progress-indicator"].loading,
