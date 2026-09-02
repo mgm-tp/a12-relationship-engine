@@ -1,10 +1,11 @@
 {
 	"name": "root",
+	"version": "3.0.1",
 	"private": true,
 	"type": "module",
 	"author": "mgm technology partners",
-	"a12Version": "2026.06-ext0",
-	"packageManager": "pnpm@10.29.3+sha512.498e1fb4cca5aa06c1dcf2611e6fafc50972ffe7189998c409e90de74566444298ffe43e6cd2acdc775ba1aa7cc5e092a8b7054c811ba8c5770f84693d33d2dc",
+	"a12Version": "2026.06-ext1",
+	"packageManager": "pnpm@11.12.0+sha512.820a6fbd0d9f04c226638002aead1e45340a9139dd5dc077c1d83ef44aa2481c8eb6637b4c9aa696a3c7e35ba818e49cf27213e5f2b91138d09b7a3e26e898ba",
 	"scripts": {
 		"clean": "rimraf -g */lib/** */dist/** */target/** */build/** */**/generated/** *.tsbuildinfo */*.tsbuildinfo */**/*.tsbuildinfo",
 		"precompile": "pnpm -r initialize",
@@ -26,11 +27,6 @@
 		"format": "pnpm \"/format:/\"",
 		"format:eslint": "eslint --quiet --fix",
 		"format:prettier": "prettier . --write"
-	},
-	"pnpm": {
-		"patchedDependencies": {
-			"react-dnd@16.0.1": "patches/react-dnd@16.0.1.patch"
-		}
 	},
 	"devDependencies": {
 		"@com.mgmtp.a12.devtools/build-tools": "catalog:devLibs",

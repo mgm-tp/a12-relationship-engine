@@ -50,17 +50,22 @@ export function ErrorPanel({ activityId }: { activityId: string }): React.ReactN
 
 	if (activityError.errorCode === "INTERNAL_CLIENT_ERROR") {
 		return <MessageBox variant="error" label={activityError.message} icon={<Icon>error</Icon>} />;
-	} else if (
-		activityError.errorCode === "SAVING_FAILED_ERROR" &&
-		Array.isArray(activityError.content) &&
-		activityError.content.every(JsonRpc2Response.error.isInstance)
-	) {
-		return <ServerErrorPanel serverErrors={activityError.content} />;
+	} else if (activityError.errorCode === "SAVING_FAILED_ERROR") {
+		const serverErrors = toServerErrors(activityError.content);
+
+		return serverErrors.length > 0 ? <ServerErrorPanel serverErrors={serverErrors} /> : null;
 	} else if (Relationship.Error.ServerError.isInstance(activityError)) {
 		return <ServerErrorPanel serverErrors={(activityError as Relationship.Error.ServerError).errors} />;
 	} else {
 		return null;
 	}
+}
+
+/** @internal */
+export function toServerErrors(content: unknown): JsonRpc2ResponseError[] {
+	const candidates = Array.isArray(content) ? content : [content];
+
+	return candidates.filter(JsonRpc2Response.error.isInstance);
 }
 
 function ServerErrorPanel({ serverErrors }: { serverErrors: JsonRpc2ResponseError[] }): React.ReactNode {

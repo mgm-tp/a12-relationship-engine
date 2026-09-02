@@ -69,6 +69,7 @@ import type {
 	MergePayload,
 	AddCddLinkPayload,
 	RemoveCddLinkPayload,
+	ReplaceCddLinkPayload,
 	SaveSubActivityPayload,
 	SetSubActivityDataPayload,
 	InitializeAndLoadCandidatesPayload
@@ -341,6 +342,47 @@ export function handleCddAddLinks(
 	};
 
 	const updatedData = addLinksToCdd(data, addLinksArgs);
+
+	const dhResult: ScdmDataHolderShape = {
+		...dataHolder,
+		data: {
+			...dataHolder.data,
+			...updatedData
+		},
+		dirty: setDirty ?? dataHolder.dirty
+	};
+
+	return updateLoadingStateAndBusy(dhResult);
+}
+
+/**
+ * Atomic replace: remove-then-add in one reduction so computations never
+ * observe an empty relationship group in between.
+ * @internal
+ */
+export function handleCddReplaceLink(
+	dataHolder: ScdmDataHolderShape,
+	action: Action<ReplaceCddLinkPayload>
+): ScdmDataHolderShape {
+	const data = dataHolder.data;
+
+	if (data?.cddState === undefined) {
+		return dataHolder;
+	}
+
+	const { linkDescriptor, linkDoc, candidateDoc, targetRole, targetDoc, removeLinkRef, setDirty } = action.payload;
+
+	const dataWithoutOldLink = removeLinkFromCdd(data, removeLinkRef);
+
+	const addLinksArgs: AddLinksToCddArgs = {
+		linkDescriptor,
+		targetRole,
+		linkDoc,
+		targetDoc,
+		candidateDoc
+	};
+
+	const updatedData = addLinksToCdd({ ...data, ...dataWithoutOldLink }, addLinksArgs);
 
 	const dhResult: ScdmDataHolderShape = {
 		...dataHolder,

@@ -50,6 +50,8 @@ import { RESOURCE_KEYS, createLocalizable, pickLocalizedText } from "../../langu
 // eslint-disable-next-line no-restricted-imports
 import { useRelationshipEngineContext } from "../../../internal/context/RelationshipEngineContext.js";
 
+import { resolveDialogContainerStyle } from "./utils.js";
+
 export namespace EditDualPaneDialog {
 	export interface Props {
 		readonly dialog: Dialog.Edit;
@@ -126,11 +128,11 @@ export function EditDualPaneDialog({ dialog }: EditDualPaneDialog.Props): React.
 
 	const containerAttributes = React.useMemo(() => {
 		return {
-			style: {
-				maxWidth: editConfig?.dialogMaxWidth,
-				width: editConfig?.dialogWidth,
-				maxHeight: editConfig?.dialogMaxHeight
-			}
+			style: resolveDialogContainerStyle(
+				editConfig?.dialogWidth,
+				editConfig?.dialogMaxWidth,
+				editConfig?.dialogMaxHeight
+			)
 		};
 	}, [editConfig?.dialogMaxHeight, editConfig?.dialogMaxWidth, editConfig?.dialogWidth]);
 

@@ -38,8 +38,8 @@ import type { Store } from "redux";
 import { Provider } from "react-redux";
 import * as ReactDOM from "react-dom/client";
 
+import { withCRUD } from "@com.mgmtp.a12.crud/crud-core";
 import "@com.mgmtp.a12.widgets/widgets-core/styles/basic.css";
-import { withCRUD, CRUDViews } from "@com.mgmtp.a12.crud/crud-core";
 import { withFormEngine } from "@com.mgmtp.a12.formengine/formengine-core";
 import { addDeepLinkingSagas } from "@com.mgmtp.a12.client/client-core/deepLinking";
 import { withDirtyHandling } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
@@ -55,35 +55,26 @@ import {
 	RelationshipEngineFactories
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
 import {
-	addView,
 	withModel,
-	addLayout,
 	addWrapper,
-	type Module,
 	ModelActions,
 	addCustomSagas,
 	combineFeatures,
 	addDataHandlers,
-	addPlatformSagas,
 	type DataHandler,
-	type ApplicationSaga,
-	type ApplicationModel,
+	withDynamicConfig,
 	ModuleRegistryProvider,
 	type A12ApplicationConfig,
-	createA12ApplicationSetup
+	createA12ApplicationSetup,
+	APPLICATION_MODEL_PLACEHOLDER
 } from "@com.mgmtp.a12.client/client-core";
 
+import { createModules } from "./modules/index.js";
 import { ShowcaseContextProvider } from "./context.js";
-import { SampleAppModules } from "./modules/modules.js";
-import model from "./appmodel.json" with { type: "json" };
+import { createViewNGComponents } from "./viewNGComponents.js";
 import { addChildCategorySaga } from "./saga/add-child-category.js";
-import { ApplicationFrameLayout } from "./views/application-frame-layout.js";
-import OverviewAppModel from "./overview-appmodel.json" with { type: "json" };
 import { handleErrorSaga } from "./views/showcaseOverview/handleErrorSaga.js";
 import { selectRowReadonlySaga } from "./views/showcaseOverview/showcaseOverviewSagas.js";
-import RelationshipUiOnly from "./modules/relationships/standalone/RelationshipUiOnly.js";
-import { standaloneDataProviders } from "./modules/relationships/standalone/standaloneDataProviders.js";
-import { CustomRelationshipFormEngine } from "./modules/relationships/simpleCDM/CustomRelationshipFormEngine.js";
 import {
 	withTheme,
 	fetchModelGraph,
@@ -92,27 +83,15 @@ import {
 	withReduxDevtool
 } from "./config/composable/index.js";
 
-const applicationModules: Module[] = [{ id: "OverviewAppModel", model: () => OverviewAppModel as ApplicationModel }];
-
-SampleAppModules.forEach((m) => ModuleRegistryProvider.getInstance().addModule(m));
-const moduleDataLoaders = SampleAppModules.map((mod) => mod.dataLoaders || []).reduce(
-	(prev, cur) => prev.concat(cur),
-	[]
+createModules(createViewNGComponents("new")).forEach((module) =>
+	ModuleRegistryProvider.getInstance().addModule(module)
 );
 
-applicationModules.forEach((module) => ModuleRegistryProvider.getInstance().addModule(module));
 const dataHandlers: DataHandler[] = [
-	...moduleDataLoaders,
-	...standaloneDataProviders,
 	createEmptyDocumentDataProvider(),
 	platformSingleDocumentDataProvider,
 	...OverviewEngineFactories.createDataProviders()
 ];
-
-const modulePlatformSagas = SampleAppModules.map((mod) => mod.applicationSagas || [])
-	.reduce((prev, cur) => prev.concat(cur), [])
-	.map((saga) => saga(applicationSagaConfig));
-const applicationSagaConfig: ApplicationSaga.Configuration = { dataHandlers };
 
 const withShowcaseContext = <T extends A12ApplicationConfig>(cfg: T) =>
 	addWrapper<T>(ShowcaseContextProvider, "outer")(cfg);
@@ -126,19 +105,11 @@ const initialConfig: A12ApplicationConfig = {
 
 const { store, initialActions, Component } = createA12ApplicationSetup(
 	combineFeatures(
-		combineFeatures(
-			addDataHandlers(...dataHandlers),
-			addPlatformSagas(...modulePlatformSagas),
-			addLayout("ApplicationFrame", { component: ApplicationFrameLayout }),
-			addView("ShowcaseOverview", CRUDViews.OverviewEngineView),
-			addView("RelationshipFormEngine", CRUDViews.FormEngineWithRelationshipEngineView),
-			addView("RelationshipUiOnly", RelationshipUiOnly),
-			addView("SortedRelationshipFormEngine", CustomRelationshipFormEngine),
-			addCustomSagas(selectRowReadonlySaga, handleErrorSaga)
-		),
+		combineFeatures(addDataHandlers(...dataHandlers), addCustomSagas(selectRowReadonlySaga, handleErrorSaga)),
 
 		combineFeatures(
-			withModel(model),
+			withModel(APPLICATION_MODEL_PLACEHOLDER), // not used, DynamicConfiguration provides the model
+			withDynamicConfig(),
 			withDataServicesConfiguration,
 			withFormEngine,
 			withOverviewEngine,

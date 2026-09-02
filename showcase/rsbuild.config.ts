@@ -62,6 +62,7 @@ const config: ReturnType<typeof defineConfig> = defineConfig(({ command, envMode
 	return {
 		server: {
 			port: 17000,
+			strictPort: true,
 			publicDir: [{ name: PATH.PUBLIC }],
 			proxy: [
 				{

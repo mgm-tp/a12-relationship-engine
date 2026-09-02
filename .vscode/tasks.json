@@ -6,7 +6,9 @@
 			"type": "shell",
 			"command": "./gradlew",
 			"args": ["server:bootRun", "-Dspring.devtools.restart.enabled=false"],
-			"options": { "cwd": "${workspaceFolder}" },
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
 			"icon": { "id": "server" },
 			"isBackground": true,
 			"presentation": {
@@ -19,50 +21,18 @@
 			},
 			"problemMatcher": [
 				{
-					"owner": "application-failure",
-					"pattern": {
-						"regexp": "^.*(Application run failed).*$",
-						"message": 1
-					},
-					"severity": "error"
-				},
-				{
 					"owner": "spring-boot",
-					"pattern": {
-						"regexp": "^(\\[.*?\\])?\\s*(ERROR|WARNING)\\s+(.*)$",
-						"message": 3
-					},
+					"pattern": [
+						{
+							"regexp": "^\\S+\\s+(ERROR)\\s+\\d+\\s+---\\s+\\[.*?\\]\\s+\\S+\\s*:\\s*(.*)$",
+							"severity": 1,
+							"message": 2
+						}
+					],
 					"background": {
 						"activeOnStart": true,
 						"beginsPattern": ".*Starting ShowcaseServerApplication.*",
 						"endsPattern": ".*(Started ShowcaseServerApplication|Application run failed).*"
-					}
-				},
-				{
-					"owner": "spring-boot-failure",
-					"pattern": {
-						"regexp": "^.*Application run failed.*$",
-						"message": 0
-					},
-					"background": {
-						"activeOnStart": true,
-						"beginsPattern": ".*Starting ShowcaseServerApplication.*",
-						"endsPattern": ".*Application run failed.*"
-					}
-				},
-				{
-					"owner": "gradle",
-					"fileLocation": ["relative", "${workspaceFolder}"],
-					"pattern": {
-						"regexp": "^(.*):(\\d+):\\s+error:\\s+(.*)$",
-						"file": 1,
-						"line": 2,
-						"message": 3
-					},
-					"background": {
-						"activeOnStart": true,
-						"beginsPattern": ".*Task :server:bootRun.*",
-						"endsPattern": ".*(BUILD SUCCESSFUL|BUILD FAILED).*"
 					}
 				}
 			]
@@ -191,12 +161,12 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Showcase Model - Reupload",
+			"label": "Upload Showcase Models",
 			"type": "shell",
 			"command": "pnpm",
 			"args": ["run", "upload-models"],
 			"options": { "cwd": "${workspaceFolder}/showcase" },
-			"icon": { "id": "check" },
+			"icon": { "id": "book" },
 			"problemMatcher": []
 		}
 	]

@@ -66,6 +66,25 @@ export namespace DocumentUtils {
 
 		return recurse(baseDocument, path, isArrayPerSegment, 0, value);
 	}
+
+	/**
+	 * Writes a multi-select group's instances un-nested at `path`, unlike {@link setField} which would
+	 * write a repeatable group's value into a single array index.
+	 */
+	export function setGroupInstances(
+		baseDocument: object,
+		path: EntityInstancePath,
+		instances: readonly object[],
+		documentModel: DocumentModel
+	): object {
+		if (path.length === 0 || !isObjectLike(baseDocument)) {
+			throw new Error("DocumentUtils.setGroupInstances requires at least one path segment");
+		}
+
+		const isArrayPerSegment = withLastSegmentAsSingleValue(computeArrayFlags(path, documentModel));
+
+		return recurse(baseDocument, path, isArrayPerSegment, 0, instances);
+	}
 }
 
 type ObjectLike = Record<string, unknown>;
@@ -107,6 +126,14 @@ function computeArrayFlags(path: EntityInstancePath, documentModel: DocumentMode
 	}
 
 	return flags;
+}
+
+function withLastSegmentAsSingleValue(flags: readonly boolean[]): boolean[] {
+	const result = [...flags];
+
+	result[result.length - 1] = false;
+
+	return result;
 }
 
 function toArrayIndex(rawIndex: number): number {

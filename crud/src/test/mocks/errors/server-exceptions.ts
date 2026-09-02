@@ -42,7 +42,8 @@ export function createJsonRpc2ResponseError(level: "ERROR" | "WARNING" | "INFO",
 			data: {
 				level,
 				title: { key: `title-${text}`, default: text },
-				description: { key: `description-${text}`, default: text }
+				description: { key: `description-${text}`, default: text },
+				details: { code: "ANY_CODE", time: "2026-07-27T00:00:00Z", subsystem: "test" }
 			}
 		}
 	};

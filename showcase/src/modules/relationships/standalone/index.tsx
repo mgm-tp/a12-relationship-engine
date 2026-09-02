@@ -30,32 +30,58 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import * as React from "react";
+import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
-import { CRUDViews } from "@com.mgmtp.a12.crud/crud-core";
-import type { View, ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { ViewNGComponents } from "../../../viewNGComponents.js";
 
-import type { SampleAppModule } from "../../../utils/SampleAppModule.js";
+const SECTION = "Relationships";
+const FEATURE = "Standalone";
 
-import RelationshipUiOnly from "./RelationshipUiOnly.js";
-import appModel from "./standalone.appmodel.json" with { type: "json" };
-
-const StandaloneModule: SampleAppModule = {
-	id: "relationships.standalone",
-	model: () => appModel as ApplicationModel
-};
-
-export function createRelationshipStandaloneViewProvider(): (
-	componentName: string
-) => React.ComponentType<View> | undefined {
-	const components: { [name: string]: React.ComponentType<View> } = {
-		RelationshipFormEngine: (props) => <CRUDViews.FormEngineView {...props} />,
-		RelationshipUiOnly
-	};
-
-	return function provider(name) {
-		return components[name];
+export function createStandaloneModule({
+	ShowcaseOverview,
+	RelationshipFormEngine
+}: ViewNGComponents): DynamicConfiguration {
+	return {
+		id: "relationships.standalone",
+		flows: [
+			{
+				name: "Relationship Product Standalone",
+				scenes: [
+					{
+						name: "product-overview-standalone",
+						matches: (d) => d.section === SECTION && d.feature === FEATURE && d.model === "Product" && !d.instance,
+						sceneChange: {
+							onEnter: [
+								{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+								{
+									type: "DYNAMIC_ADD_VIEW",
+									region: "/CONTENT",
+									component: ShowcaseOverview,
+									models: [{ modelType: "overview", name: "Product-overview" }]
+								}
+							]
+						}
+					},
+					{
+						name: "product-detail-standalone",
+						matches: (d) => d.section === SECTION && d.feature === FEATURE && !!d.model && !!d.instance,
+						sceneChange: {
+							onEnter: [
+								{
+									type: "DYNAMIC_ADD_VIEW",
+									region: "/CONTENT",
+									component: RelationshipFormEngine,
+									constraints: { type: "MasterDetail", preferredWidth: 8 },
+									models: [
+										{ modelType: "form", name: "ProductBrandStandalone-form", documentModel: "Product-document" },
+										{ modelType: "form", name: "BundleBrandStandalone-form", documentModel: "Bundle-document" }
+									]
+								}
+							]
+						}
+					}
+				]
+			}
+		]
 	};
 }
-
-export default StandaloneModule;

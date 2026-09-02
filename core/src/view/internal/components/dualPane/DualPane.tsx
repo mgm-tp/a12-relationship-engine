@@ -31,13 +31,13 @@
  */
 
 import React from "react";
+import { styled } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import { DefaultComponentMap as OEDefaultComponentMap } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import { OverviewEngineActions, Events as OverviewEvents } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import {
-	addPrefix,
 	LayoutGrid,
 	ContentBox,
 	ButtonGroup,
@@ -66,6 +66,10 @@ import { RelationshipEngineComponentContextProvider } from "../../../internal/co
 
 import { LinkPaneHeading } from "./LinkPaneHeading.js";
 import { useAlreadyLinkedDocRefs } from "./useAlreadyLinkedDocRefs.js";
+
+const DualPaneGrid = styled(LayoutGrid.Grid)`
+	background-color: ${({ theme }) => theme.colors.background.secondaryBackground};
+`;
 
 export namespace DualPane {
 	export interface Props {
@@ -219,7 +223,7 @@ export function DualPane(props: DualPane.Props) {
 	return (
 		<>
 			<InputElements.Label label={label} />
-			<LayoutGrid.Grid noGutter className={addPrefix("-u-background-grey-light")}>
+			<DualPaneGrid noGutter>
 				<LayoutGrid.Row>
 					<LayoutGrid.Column size={defaultColumnSize} height={columnHeight}>
 						<RelationshipEngineComponentContextProvider
@@ -273,7 +277,7 @@ export function DualPane(props: DualPane.Props) {
 						</ButtonGroup>
 					</LayoutGrid.Row>
 				)}
-			</LayoutGrid.Grid>
+			</DualPaneGrid>
 		</>
 	);
 }

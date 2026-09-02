@@ -30,8 +30,23 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { Module } from "@com.mgmtp.a12.client/client-core";
+/**
+ * @internal
+ */
+export const toPixelString = (value?: string) => (value !== undefined && /^\d+$/.test(value) ? `${value}px` : value);
 
-import CRUDModule from "./crud/crud.js";
-
-export const DataHandlingModules: Module[] = [CRUDModule];
+/**
+ * Computes container style properties for the edit dialog.
+ * @internal export for test
+ */
+export function resolveDialogContainerStyle(
+	dialogWidth?: string,
+	dialogMaxWidth?: string,
+	dialogMaxHeight?: string
+): React.CSSProperties {
+	return {
+		maxWidth: toPixelString(dialogMaxWidth ?? dialogWidth),
+		width: toPixelString(dialogWidth),
+		maxHeight: toPixelString(dialogMaxHeight)
+	};
+}

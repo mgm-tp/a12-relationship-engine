@@ -58,7 +58,7 @@ export namespace AdapterLink {
 			al1.linkRef === al2.linkRef &&
 			al1.document === al2.document &&
 			al1.mutation === al2.mutation &&
-			al2.relinked === al2.relinked
+			al1.relinked === al2.relinked
 		);
 	}
 }

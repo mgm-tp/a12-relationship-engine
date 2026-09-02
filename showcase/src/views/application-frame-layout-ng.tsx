@@ -34,18 +34,27 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import { Locale } from "@com.mgmtp.a12.utils/utils-localization";
-import { Model, FrameViews } from "@com.mgmtp.a12.client/client-core";
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { Icon, List, PopUpMenu, HeaderTrigger, GlobalMessageBox } from "@com.mgmtp.a12.widgets/widgets-core";
-
-import { MainMenu } from "../main-menu.js";
+import {
+	Model,
+	type FrameViews,
+	ApplicationFrameLayoutNGComponent,
+	type ApplicationFrameLayoutPropsNG
+} from "@com.mgmtp.a12.client/client-core";
 
 import { THEMES, THEME_KEY, LOCALE_KEY, useShowcaseContext } from "../context.js";
 
 declare const __VERSION__: string;
 const version = typeof __VERSION__ !== "undefined" ? __VERSION__ : "Unknown version";
 
-export const ApplicationFrameLayout: React.FC<FrameViews.LayoutProps> = (props) => {
+/**
+ * NG variant of {@link ApplicationFrameLayout} used by the `DynamicConfiguration` root region.
+ *
+ * Unlike the legacy layout it does not receive a `mainMenuComponent`: the main menu is rendered
+ * by the NG frame from the menu entries contributed by the {@link DynamicConfiguration}s.
+ */
+export const ApplicationFrameLayoutNG: React.FC<ApplicationFrameLayoutPropsNG> = (props) => {
 	const locales = useShowcaseContext((context) => context.locales);
 
 	const settingItem: FrameViews.HeaderItemProps = {
@@ -84,9 +93,8 @@ export const ApplicationFrameLayout: React.FC<FrameViews.LayoutProps> = (props) 
 	}, [errors]);
 
 	return (
-		<FrameViews.ApplicationFrameLayout
+		<ApplicationFrameLayoutNGComponent
 			{...props}
-			mainMenuComponent={MainMenu}
 			additionalHeaderItems={[settingItem]}
 			globalMessageBox={
 				errors && <GlobalMessageBox variant="error" content={`Invalid models found: ${errorModels}.`} />
@@ -99,9 +107,10 @@ const LocaleItem: React.FC<{ locale: Locale }> = ({ locale }) => {
 	const { locale: currentLocale } = React.useContext(LocalizerContext);
 	const setLocale = useShowcaseContext((context) => context.setLocale);
 
-	const isCurrentLocale = React.useMemo(() => {
-		return Locale.toString(locale) === Locale.toString(currentLocale);
-	}, [currentLocale, locale]);
+	const isCurrentLocale = React.useMemo(
+		() => Locale.toString(locale) === Locale.toString(currentLocale),
+		[currentLocale, locale]
+	);
 
 	const onClick = React.useCallback(() => {
 		setLocale(locale);
@@ -117,11 +126,10 @@ const LocaleItem: React.FC<{ locale: Locale }> = ({ locale }) => {
 	);
 };
 
-const ThemeItem: React.FC<{
-	theme: string;
-}> = React.memo(({ theme }) => {
+const ThemeItem: React.FC<{ theme: string }> = React.memo(({ theme }) => {
 	const currentTheme = useShowcaseContext((context) => context.theme);
 	const setTheme = useShowcaseContext((context) => context.setTheme);
+
 	const handleClick = React.useCallback(() => {
 		setTheme(theme);
 		localStorage.setItem(THEME_KEY, theme);
@@ -136,7 +144,7 @@ interface ModelSlice {
 	models: ModelSlice.ModelMap;
 }
 
-export namespace ModelSlice {
+namespace ModelSlice {
 	export function isInstance(slice: unknown): slice is ModelSlice {
 		if (typeof slice !== "object" || slice === null) {
 			return false;
@@ -149,7 +157,7 @@ export namespace ModelSlice {
 		readonly [id: string]: Model.Error | unknown | undefined;
 	}
 
-	export namespace ModelMap {
+	namespace ModelMap {
 		export function isInstance(map: unknown): map is ModelMap {
 			return typeof map === "object";
 		}

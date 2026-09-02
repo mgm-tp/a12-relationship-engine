@@ -39,6 +39,15 @@ type Params = {
 	linkDocumentModel: string;
 };
 
+/**
+ * @internal
+ * Name of the dynamic region the link-form module renders its `FormEngine` view into.
+ *
+ * Shared between this module's own region declaration and every view-layer render site: both sides must use
+ * the exact same string, or the region resolves to an empty layout with no views and nothing renders.
+ */
+export const LINK_FORM_REGION = "RelationshipEngineLinkFormRegion";
+
 export function ensureDynamicLinkFormModule(params: Params): void {
 	const registry = ModuleRegistryProvider.getInstance();
 	const dynamicModule = createDynamicLinkFormModule(params);
@@ -70,7 +79,7 @@ function createDynamicLinkFormModule(params: Params): DynamicConfiguration {
 								{
 									type: "DYNAMIC_ADD_VIEW",
 									component: FormEngineViews.FormEngine,
-									region: "RelationshipEngineLinkFormRegion",
+									region: LINK_FORM_REGION,
 									models: [
 										{
 											modelType: "form",
@@ -86,7 +95,7 @@ function createDynamicLinkFormModule(params: Params): DynamicConfiguration {
 		],
 		regions: [
 			{
-				name: "RelationshipEngineLinkFormRegion",
+				name: LINK_FORM_REGION,
 				layout: NullRegionLayoutNG
 			}
 		]

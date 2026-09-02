@@ -1,7 +1,7 @@
 {
 	"name": "@com.mgmtp.a12.relationship/relationship-server",
 	"private": true,
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"author": "mgm technology partners",
 	"license": "UNLICENSED",
 	"description": "Dev server for Relationship Engine showcase",

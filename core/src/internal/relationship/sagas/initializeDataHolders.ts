@@ -98,17 +98,15 @@ function* initializeDataHoldersAndLoadMissingData(
 
 function* waitForFormModelLoading(activityId: string): SagaGenerator<boolean> {
 	const modelDescriptors = yield* select(ModelSelectors.modelDescriptorsByActivityId(activityId));
+	const formModelDescriptors = modelDescriptors.filter((md) => md.modelType === "form");
 
-	if (modelDescriptors.every((md) => md.modelType === "form")) {
-		// The Form Model has to be loaded before we can access the binding
-		// configuration, because the binding config is embedded inside it.
-
-		for (const modelDescriptor of modelDescriptors) {
-			yield* call(
-				StoreSagas.waitForStateChange,
-				InternalModelSelectors.uiModelAndDocumentModelLoaded(modelDescriptor.name)
-			);
-		}
+	// The Form Model has to be loaded before we can access the binding
+	// configuration, because the binding config is embedded inside it.
+	for (const modelDescriptor of formModelDescriptors) {
+		yield* call(
+			StoreSagas.waitForStateChange,
+			InternalModelSelectors.uiModelAndDocumentModelLoaded(modelDescriptor.name)
+		);
 	}
 
 	const bindings = yield* select(RelationshipSelectors.relationshipBindings({ activityId }));

@@ -38,7 +38,40 @@ import {
 
 const enResourceTree = {
 	application: {
-		title: "Relationship Engine Showcase"
+		title: "Relationship Engine Showcase",
+		menu: {
+			dataHandling: "Data Handling",
+			relationships: "Relationships",
+			overview: {
+				label: "Overview",
+				bundle: "Bundle",
+				infiniteBundle: "Infinite Bundle"
+			},
+			form: {
+				label: "Form",
+				product: "Product",
+				brand: "Brand",
+				bundle: "Bundle",
+				category: "Category"
+			},
+			standalone: "Standalone",
+			scdm: {
+				label: "Simple CDM",
+				contract: "Contract - Custom Sorting",
+				address: "Address",
+				claim: "Claim",
+				coverage: "Coverage",
+				businessPartner: "Business Partner",
+				businessPartnerCdm: "Business Partner CDM",
+				contractCdm: "Contract CDM",
+				personCdm: "Person CDM"
+			},
+			crud: {
+				label: "CRUD",
+				overview: "Overview",
+				form: "CRUD (new form)"
+			}
+		}
 	},
 	server: {
 		connection: {
@@ -60,6 +93,41 @@ const enResourceTree = {
 };
 
 const deResourceTree: LocalizationTree = {
+	application: {
+		menu: {
+			dataHandling: "Datenverarbeitung",
+			relationships: "Relationships",
+			overview: {
+				label: "Übersicht",
+				bundle: "Bundle",
+				infiniteBundle: "Infinite Bundle"
+			},
+			form: {
+				label: "Form",
+				product: "Produkt",
+				brand: "Marke",
+				bundle: "Paket",
+				category: "Kategorie"
+			},
+			standalone: "Standalone",
+			scdm: {
+				label: "Simple CDM",
+				contract: "Vertrag - Custom Sorting",
+				address: "Adresse",
+				claim: "Anspruch",
+				coverage: "Deckung",
+				businessPartner: "Geschäftspartner",
+				businessPartnerCdm: "Geschäftspartner CDM",
+				contractCdm: "Vertrag CDM",
+				personCdm: "Person CDM"
+			},
+			crud: {
+				label: "CRUD",
+				overview: "Übersicht",
+				form: "CRUD (neues Formular)"
+			}
+		}
+	},
 	showcase: {
 		error: {
 			server: {

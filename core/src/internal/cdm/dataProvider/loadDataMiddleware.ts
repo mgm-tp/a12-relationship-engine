@@ -37,9 +37,9 @@
  */
 import { StoreFactories, ActivityActions, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 
-import { addCddLink } from "../cdd/redux/actions.js";
 import { CddSelectors } from "../cdd/redux/selectors.js";
 import type { QueryPath } from "../cdmCommons/queryPath.js";
+import { addCddLink, replacedCddLink } from "../cdd/redux/actions.js";
 
 /**
  * Trigger reloading of missing paths in CDD after a link has been added.
@@ -47,7 +47,7 @@ import type { QueryPath } from "../cdmCommons/queryPath.js";
 const loadDataMiddleware = StoreFactories.createMiddleware((api, next, action) => {
 	const result = next(action);
 
-	if (addCddLink.match(action)) {
+	if (addCddLink.match(action) || replacedCddLink.match(action)) {
 		const activity = ActivitySelectors.activityById(action.payload.activityId)(api.getState());
 
 		if (activity) {

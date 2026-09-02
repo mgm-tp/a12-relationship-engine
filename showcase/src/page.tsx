@@ -33,18 +33,12 @@
 import type { Dispatch } from "redux";
 import { DndProvider } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
+import React, { useMemo, useEffect, useContext } from "react";
 import { ThemeProvider, StyleSheetManager } from "styled-components";
-import React, { useMemo, useEffect, useContext, useCallback } from "react";
 
 import { LocalizerContext } from "@com.mgmtp.a12.utils/utils-localization-react";
 import { DirtyHandlingViews } from "@com.mgmtp.a12.client/client-core/dirtyHandling";
-import {
-	ViewViews,
-	FrameFactories,
-	type FrameViews,
-	NotificationViews,
-	ApplicationSelectors
-} from "@com.mgmtp.a12.client/client-core";
+import { ViewViews, DynamicRegionUi, NotificationViews, ApplicationSelectors } from "@com.mgmtp.a12.client/client-core";
 import {
 	getA11yResource,
 	DragAndDropUtils,
@@ -54,8 +48,6 @@ import {
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { THEMES, useShowcaseContext } from "./context.js";
-import { createViewProvider } from "./containerFactory.js";
-import { ApplicationFrameLayout } from "./views/application-frame-layout.js";
 
 interface PageProps {
 	initialStoreActions(dispatch: Dispatch): Promise<void>;
@@ -66,10 +58,6 @@ export function Page({ initialStoreActions }: PageProps): React.ReactNode {
 	const busyState = useSelector(ApplicationSelectors.busy());
 	const theme = useShowcaseContext((context) => context.theme);
 
-	const rootRegionRef = useMemo(() => [], []);
-	const RegionUi = useMemo(() => FrameFactories.regionUiProvider(rootRegionRef), [rootRegionRef]);
-	const progressComponentProvider = useMemo(() => FrameFactories.createProgressComponentProvider(), []);
-	const viewProvider = useMemo(() => createViewProvider(), []);
 	const a11yResource = useMemo<A11yDefinition>(() => {
 		const SUPPORTED_LANGUAGES = ["en", "de"];
 
@@ -81,16 +69,6 @@ export function Page({ initialStoreActions }: PageProps): React.ReactNode {
 		initialStoreActions(dispatch);
 	}, [dispatch, initialStoreActions]);
 
-	const layoutProvider: FrameViews.LayoutProvider = useCallback((name) => {
-		if (name === "ApplicationFrame") {
-			return {
-				component: ApplicationFrameLayout
-			};
-		}
-
-		return FrameFactories.layoutProvider(name);
-	}, []);
-
 	return (
 		<DndProvider backend={DragAndDropUtils.DefaultDndBackend} options={DragAndDropUtils.DefaultDndBackendOptions}>
 			<A11YLanguageContext.Provider value={a11yResource}>
@@ -98,13 +76,7 @@ export function Page({ initialStoreActions }: PageProps): React.ReactNode {
 					<ThemeProvider theme={THEMES[theme]}>
 						<ViewViews.ProgressIndicator global progress={busyState ? "loading" : "none"}>
 							<NotificationViews.Frame>
-								<RegionUi
-									regionReference={rootRegionRef}
-									layoutProvider={layoutProvider}
-									regionUiProvider={FrameFactories.regionUiProvider}
-									viewProvider={viewProvider}
-									progressComponentProvider={progressComponentProvider}
-								/>
+								<DynamicRegionUi />
 							</NotificationViews.Frame>
 							<DirtyHandlingViews.VetoDialog />
 						</ViewViews.ProgressIndicator>

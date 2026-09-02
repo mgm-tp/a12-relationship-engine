@@ -54,4 +54,43 @@ test.describe("Natural Person CDM", () => {
 		await expect(page.locator("select[id^='a12-GenderPreProcessing']")).toHaveValue("");
 		await expect(page.locator("select[id^='a12-Gender-include']")).toHaveValue("");
 	});
+
+	// Replacing a single-selection link must be atomic, otherwise the
+	// computation pass between remove and add re-creates the placeholder link
+	test("should show the picked postal address immediately on a new person", async ({ page }) => {
+		await expect(page.getByText("Business Partner CDM Overview")).toBeVisible();
+		await page.getByRole("button", { name: "Add" }).click();
+		await page.getByText("Natural Person").click();
+		await expect(page.getByText("Natural Person CDM")).toBeVisible();
+
+		const dropdownInput = page.locator(`[data-role='autocomplete'] input`);
+		await expect(dropdownInput).toHaveValue("");
+
+		await dropdownInput.click();
+		await page
+			.locator(`[data-role='dropdown-item']`)
+			.filter({ has: page.getByText("Taunusstrasse") })
+			.click();
+		await expect(dropdownInput).toHaveValue("Taunusstrasse");
+		await expect(page.locator(`input[id^='a12-city']`)).toHaveValue("Munich");
+
+		await dropdownInput.click();
+		await page
+			.locator(`[data-role='dropdown-item']`)
+			.filter({ has: page.getByText("Markt") })
+			.click();
+		await expect(dropdownInput).toHaveValue("Markt");
+		await expect(page.locator(`input[id^='a12-city']`)).toHaveValue("Aachen");
+
+		// re-selecting the same candidate must be a no-op (no duplicate link)
+		await dropdownInput.click();
+		await page
+			.locator(`[data-role='dropdown-item']`)
+			.filter({ has: page.getByText("Markt") })
+			.click();
+		await expect(dropdownInput).toHaveValue("Markt");
+		await expect(page.locator(`input[id^='a12-city']`)).toHaveValue("Aachen");
+
+		await page.getByRole("button", { name: "Cancel" }).click();
+	});
 });

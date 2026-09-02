@@ -36,6 +36,7 @@
  */
 
 import type React from "react";
+import { styled } from "styled-components";
 import { Component, useContext } from "react";
 
 import type { DocumentModel } from "@com.mgmtp.a12.kernel/kernel-md-facade";
@@ -84,6 +85,10 @@ import { ProgressIndicator } from "./ProgressIndicator.js";
 import type { MultiSelectionItem, MultiSelectionProps } from "./api.js";
 import { type DocumentId, normalizeCssLength, omitActionColumnWidth, type LocalizedLabelConfig } from "./util.js";
 
+const DualPaneSelectionGrid = styled(LayoutGrid.Grid)`
+	background-color: ${({ theme }) => theme.colors.background.secondaryBackground};
+`;
+
 interface DualPaneSelectionItem extends MultiSelectionItem {
 	readonly type: Relationship.LinkMutationState | "existing" | "disabled_candidate" | "candidate";
 }
@@ -125,7 +130,7 @@ export function DualPaneSelection(props: DualPaneSelectionProps): React.ReactNod
 				/>
 			) : undefined}
 			<InputElements.Label label={props.label} />
-			<LayoutGrid.Grid noGutter className={addPrefix("-u-background-grey-light")}>
+			<DualPaneSelectionGrid noGutter>
 				<LayoutGrid.Row>
 					<LayoutGrid.Column size={columnSize} verticalAlignment="top" height={columnHeight}>
 						<CandidateTable {...props} />
@@ -134,7 +139,7 @@ export function DualPaneSelection(props: DualPaneSelectionProps): React.ReactNod
 						<LinkTable {...props} />
 					</LayoutGrid.Column>
 				</LayoutGrid.Row>
-			</LayoutGrid.Grid>
+			</DualPaneSelectionGrid>
 		</>
 	);
 }

@@ -32,12 +32,27 @@
 
 import { test, expect, describe } from "vitest";
 
+import type { Relationship as RelationshipServerApi } from "@com.mgmtp.a12.dataservices/dataservices-access";
+
+import { createDataHolder } from "../../utils/activity.js";
+import { CddActions } from "../../../internal/cdm/cdd/redux/index.js";
 import dg from "../../mocks/scdm/loadDG/dg.json" with { type: "json" };
 import { toCdd } from "../../../internal/cdm/cdd/core/adapter/toCdd.js";
+import { createLinkDescriptor } from "../../mocks/relationships/mocks.js";
 import contractCDM from "../testData/ContractCDM.json" with { type: "json" };
-import type { DocumentGraph } from "../../../internal/documentGraph/core/index.js";
-import { reduceCddState } from "../../../internal/cdm/cdd/core/impl/cddStateImpl.js";
 import { deserializeDocumentModel } from "../../../internal/cdm/commons/modelUtils.js";
+import { newChangeLog } from "../../../internal/documentGraph/core/changeLog/changeLogImpl.js";
+import type { DeepReadonly, DocumentGraph } from "../../../internal/documentGraph/core/index.js";
+import { newCddState, reduceCddState } from "../../../internal/cdm/cdd/core/impl/cddStateImpl.js";
+import {
+	handleCddAddLinks,
+	handleCddRemoveLinks,
+	handleCddReplaceLink,
+	type ScdmDataHolderShape
+} from "../../../internal/cdm/cdd/redux/dhReducersImpl.js";
+
+import cddDocument from "./Contract24CddWithSinceNull.json" with { type: "json" };
+import policeHolderLinkRef from "./PoliceHolderLinkRef.json" with { type: "json" };
 
 describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 	describe("reduceCddState", () => {
@@ -104,6 +119,72 @@ describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 			const newCddState = reduceCddState(dg as DocumentGraph, newChangeCounter, previousCddState, undefined);
 
 			expect(newCddState).to.be.deep.equal(previousCddState);
+		});
+	});
+
+	describe("handleCddReplaceLink", () => {
+		const activityId = "123";
+		const cdm = deserializeDocumentModel(contractCDM);
+		const documentGraph = dg as DeepReadonly<DocumentGraph>;
+		const cdd = toCdd(documentGraph, "Contract-document/24", cdm.content.modelRoot);
+		const cddState = {
+			...newCddState("Contract-document/24", cdm),
+			cdd,
+			cachedCdd: {
+				cdd: cddDocument,
+				snapshotChangeCounter: 5
+			}
+		};
+		const removeLinkRef = policeHolderLinkRef as RelationshipServerApi.LinkRef;
+		const addPayload = {
+			activityId,
+			targetRole: "businessPartner",
+			linkDescriptor: createLinkDescriptor(
+				"PolicyHolder",
+				"Contract-document/24",
+				"contract",
+				"BusinessPartner-document/23",
+				"businessPartner"
+			),
+			setDirty: true as const
+		};
+
+		function createScdmDataHolder(): ScdmDataHolderShape {
+			return createDataHolder({
+				descriptor: {
+					section: "Relationships",
+					model: "ContractCDM",
+					instance: "Contract-document/24"
+				},
+				dirty: false,
+				data: { cddState, documentGraph, changeLog: newChangeLog() }
+			}) as ScdmDataHolderShape;
+		}
+
+		// generated link ids ("<relsh>_NEW_<n>") and ranks come from global counters and differ per call
+		function normalizeGeneratedValues(value: unknown): unknown {
+			return JSON.parse(
+				JSON.stringify(value)
+					.replace(/PolicyHolder_NEW_\d+/g, "PolicyHolder_NEW_X")
+					.replace(/"rank":\d+/g, '"rank":0')
+			);
+		}
+
+		test("replaces atomically with the same result as remove followed by add", () => {
+			const dataHolder = createScdmDataHolder();
+
+			const replaced = handleCddReplaceLink(dataHolder, CddActions.replacedCddLink({ ...addPayload, removeLinkRef }));
+
+			const composed = handleCddAddLinks(
+				handleCddRemoveLinks(
+					dataHolder,
+					CddActions.removedCddLink({ activityId, linkRef: removeLinkRef, setDirty: true })
+				),
+				CddActions.addCddLink(addPayload)
+			);
+
+			expect(normalizeGeneratedValues(replaced)).to.be.deep.equal(normalizeGeneratedValues(composed));
+			expect(replaced.dirty).toBe(true);
 		});
 	});
 });

@@ -39,7 +39,8 @@ When the application uses Composed Document Model (CDM) activities with attachme
 The Relationship Engine delegates anything form-shaped to Form Engine and observes Form Engine actions to keep its own state in sync.
 
 * *Fields* are controlled by Form Engine form components. A dedicated data provider produces Form Engine compatible data holders so this is a regular Form Engine activity scope from Form Engine's point of view.
-* *Field changes inside a form engine* are emitted by Form Engine as field-value changes; a Relationship Engine middleware observes them and appends a `docChanged` entry to the changelog. Form Engine continues processing normally; the Relationship Engine neither blocks nor rewrites the action.
+* *Field changes inside a form engine* are emitted by Form Engine as field-value, attachment, and multi-select value change events; dedicated Relationship Engine middlewares observe them and append a `docChanged` (or `linkDocChanged`) entry to the changelog. Form Engine continues processing normally; the Relationship Engine neither blocks nor rewrites the action.
+* *Multi-select (and other group-shaped) value changes* are currently recorded as a **whole-document** replacement rather than a per-field patch, so the full document state is what reliably survives to save.
 * *CustomScreenElement* referencing to a Relationship UI Models will be rendered by RelationshipEngine. Applications that integrates the Form Engine view directly, without `withCRUD`, must pass this custom `FormModelMap` to their `FormEngineView` (see <<new-arch-getting-started,Getting Started>>).
 
 == Relationship with Overview Engine

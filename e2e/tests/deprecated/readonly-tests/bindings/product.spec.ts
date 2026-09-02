@@ -113,6 +113,38 @@ test.describe("Product bindings", () => {
 				page.locator(`[data-role='dropdown-item']`).filter({ has: page.getByText(itemName) })
 			).toHaveAttribute("aria-selected", "false");
 		});
+
+		test("Typing after selecting an item keeps the typed text (A12-19100)", async ({ page }) => {
+			await openDropdown(page);
+			const itemName = await readItemName(page, THIRD_ITEM_INDEX);
+			await selectItem(page, itemName);
+
+			const input = page.locator(`[data-role='autocomplete'] input`);
+			await expect(input).toHaveValue(itemName);
+
+			// Pre-fix, each keystroke's re-render re-derived the value object, resetting the typed text.
+			await input.click();
+			await input.press("End");
+			await input.pressSequentially("test123");
+			await expect(input).toHaveValue(`${itemName}test123`);
+
+			await deselectItem(page);
+			await expect(input).toHaveValue("");
+			await expect(
+				page.locator(`[data-role='dropdown-item']`).filter({ has: page.getByText(itemName) })
+			).toHaveAttribute("aria-selected", "false");
+
+			await openDropdown(page);
+			const otherItemIndex = THIRD_ITEM_INDEX === 0 ? 1 : 0;
+			const otherItemName = await readItemName(page, otherItemIndex);
+			await selectItem(page, otherItemName);
+
+			await expect(input).toHaveValue(otherItemName);
+			await openDropdown(page);
+			await expect(
+				page.locator(`[data-role='dropdown-item']`).filter({ has: page.getByText(otherItemName) })
+			).toHaveAttribute("aria-selected", "true");
+		});
 	});
 
 	test("Dual Pane", async ({ page }) => {

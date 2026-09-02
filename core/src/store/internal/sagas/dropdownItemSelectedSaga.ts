@@ -169,6 +169,10 @@ function* handleDropdownItemSelected(
 		const targetDocument = selectedItem?.document;
 		const targetDocumentModelName = selectedItem?.documentModelName;
 
+		// No link form is configured: record an empty link document when the relationship requires one
+		const relationshipModel = yield* select(ModelSelectors.relationshipModel(relationshipName));
+		const linkDocument = relationshipModel?.content.linkDocumentModel ? {} : undefined;
+
 		yield* put(
 			RelationshipEngineActions.Commands.addChangeLog({
 				activityId,
@@ -177,7 +181,8 @@ function* handleDropdownItemSelected(
 					linkId: newLinkId,
 					linkRef,
 					targetDocument,
-					targetDocumentModelName
+					targetDocumentModelName,
+					linkDocument
 				}
 			})
 		);

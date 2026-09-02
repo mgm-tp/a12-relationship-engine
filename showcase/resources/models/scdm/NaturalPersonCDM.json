@@ -177,6 +177,40 @@
 									},
 									"transient": true
 								}
+							},
+							{
+								"type": "Field",
+								"id": "field_a12re288r",
+								"name": "t_alwaysComputed",
+								"Field": {
+									"fieldType": {
+										"type": "ConfirmType"
+									},
+									"transient": true
+								}
+							},
+							{
+								"type": "Computation",
+								"id": "computation_a12re288r",
+								"name": "t_alwaysComputed_Computation",
+								"Computation": {
+									"computedFieldRelPath": "../t_alwaysComputed",
+									"computationAlternatives": [
+										{
+											"operation": "True"
+										}
+									],
+									"errorMessage": [
+										{
+											"locale": "en",
+											"text": "error for t_alwaysComputed_Computation"
+										},
+										{
+											"locale": "de",
+											"text": "error for t_alwaysComputed_Computation"
+										}
+									]
+								}
 							}
 						]
 					}

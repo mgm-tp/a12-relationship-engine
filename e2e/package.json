@@ -1,7 +1,7 @@
 {
 	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-e2e",
 	"private": true,
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "module",
 	"description": "E2E Tests",
 	"scripts": {
@@ -10,9 +10,9 @@
 		"dev": "playwright test --ui"
 	},
 	"devDependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
-		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
-		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12",
 		"@com.mgmtp.a12.relationshipengine/relationshipengine-services-utils": "workspace:^",
 		"@playwright/test": "catalog:devLibs",
 		"@types/node": "catalog:devLibs"

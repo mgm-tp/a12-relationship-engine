@@ -24,7 +24,7 @@
 		"annotations": [
 			{
 				"name": "bindingConfiguration",
-				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"54ed21\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":6,\"linkPageSize\":6,\"props\":{\"availableItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Available products\"},{\"locale\":\"de\",\"text\":\"Verfügbare Produkte\"}]},\"selectedItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Selected products\"},{\"locale\":\"de\",\"text\":\"Ausgewählte Produkte\"}]},\"height\":\"50vh\"},\"models\":[{\"name\":\"Product_Brand_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Brand_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"section-d67f5\"},{\"type\":\"relationship\",\"details\":{\"name\":\"Relations\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"a4519f\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"height\":\"40vh\"},\"models\":[{\"name\":\"Product_Brand_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"candidatePageSize\":2,\"linkPageSize\":2,\"models\":[{\"name\":\"ProductBrand_Product_SelectedItems_DualPane_OM\",\"use\":\"link\"},{\"name\":\"Brand_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"section-8ec34\"}]"
+				"value": "[{\"type\":\"relationship\",\"details\":{\"name\":\"Relations1\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"54ed21\",\"name\":\"DualPaneSelection\",\"candidatePageSize\":6,\"linkPageSize\":6,\"props\":{\"availableItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Available products\"},{\"locale\":\"de\",\"text\":\"Verfügbare Produkte\"}]},\"selectedItemsTable\":{\"label\":[{\"locale\":\"en\",\"text\":\"Selected products\"},{\"locale\":\"de\",\"text\":\"Ausgewählte Produkte\"}]},\"height\":\"50vh\"},\"models\":[{\"name\":\"Product_Brand_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Brand_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"section-d67f5\"},{\"type\":\"relationship\",\"details\":{\"name\":\"Relations2\",\"metaInformation\":{\"version\":\"1.0.0\"},\"relationshipName\":\"ProductBrand\",\"targetRole\":\"Product\",\"components\":[{\"id\":\"a4519f\",\"name\":\"TableList\",\"props\":{\"editComponent\":\"1\",\"height\":\"40vh\",\"editDialogWidth\":\"900\"},\"models\":[{\"name\":\"Product_Brand_SelectedItemsOverview\",\"use\":\"link\"}]},{\"name\":\"DualPaneSelection\",\"id\":\"1\",\"candidatePageSize\":2,\"linkPageSize\":2,\"models\":[{\"name\":\"ProductBrand_Product_SelectedItems_DualPane_OM\",\"use\":\"link\"},{\"name\":\"Brand_Product_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]},\"elementId\":\"section-8ec34\"}]"
 			}
 		],
 		"modelReferences": [
@@ -278,7 +278,7 @@
 					{
 						"type": "CustomScreenElement",
 						"id": "section-d67f5",
-						"name": "Relations",
+						"name": "Relations1",
 						"reference": "Brand-form-binding-Relations_RuM"
 					}
 				]
@@ -362,7 +362,7 @@
 					{
 						"type": "CustomScreenElement",
 						"id": "section-8ec34",
-						"name": "Relations",
+						"name": "Relations2",
 						"reference": "Brand-form-binding-Relations-section-8ec34_RuM"
 					}
 				]

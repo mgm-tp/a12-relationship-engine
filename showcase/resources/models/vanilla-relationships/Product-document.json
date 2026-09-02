@@ -438,6 +438,96 @@
 										}
 									]
 								}
+							},
+							{
+								"type": "Group",
+								"id": "group_e19af",
+								"name": "tags",
+								"Group": {
+									"repeatability": 999999,
+									"usageType": "multi-select",
+									"elements": [
+										{
+											"type": "Field",
+											"id": "field_c384b",
+											"name": "value",
+											"Field": {
+												"fieldType": {
+													"type": "EnumerationType",
+													"EnumerationType": {
+														"values": [
+															{
+																"value": "electronics",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Elektronik"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Electronics"
+																	}
+																]
+															},
+															{
+																"value": "furniture",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Möbel"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Furniture"
+																	}
+																]
+															},
+															{
+																"value": "apparel",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Bekleidung"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Apparel"
+																	}
+																]
+															},
+															{
+																"value": "outdoor",
+																"label": [
+																	{
+																		"locale": "de",
+																		"text": "Outdoor"
+																	},
+																	{
+																		"locale": "en",
+																		"text": "Outdoor"
+																	}
+																]
+															}
+														]
+													}
+												},
+												"label": [
+													{
+														"locale": "de",
+														"text": "Tag"
+													},
+													{
+														"locale": "en",
+														"text": "Tag"
+													}
+												],
+												"requirednessConfig": {
+													"mode": "absoluteOrRelativeToNextRepAncestor"
+												}
+											}
+										}
+									]
+								}
 							}
 						]
 					}

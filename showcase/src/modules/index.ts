@@ -30,10 +30,33 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { Module } from "@com.mgmtp.a12.client/client-core";
+import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
-import FormModule from "./form/index.js";
-import SimpleCDMModule from "./simpleCDM/index.js";
-import StandaloneModule from "./standalone/index.js";
+import { MainMenuModule } from "./main-menu.js";
 
-export const RelationshipsModules: Module[] = [FormModule, StandaloneModule, SimpleCDMModule];
+import type { ViewNGComponents } from "../viewNGComponents.js";
+
+import { createOverviewModule } from "./overview/index.js";
+import { ShowcaseConfigModule } from "./showcase-module.js";
+import { createCRUDModule } from "./data_handling/crud/crud.js";
+import { createFormModule } from "./relationships/form/index.js";
+import { createSimpleCDMModule } from "./relationships/simpleCDM/index.js";
+import { createStandaloneModule } from "./relationships/standalone/index.js";
+
+/**
+ * All {@link DynamicConfiguration}s of the showcase application. `ShowcaseConfigModule` contributes
+ * the region tree, `MainMenuModule` the menu tree; the remaining modules contribute the flows that
+ * render the scenes. The flows are parameterized by the view set so the legacy and composable
+ * entries can render with their respective Relationship Engine architectures.
+ */
+export function createModules(views: ViewNGComponents): DynamicConfiguration[] {
+	return [
+		ShowcaseConfigModule,
+		MainMenuModule,
+		createOverviewModule(views),
+		createFormModule(views),
+		createStandaloneModule(views),
+		createSimpleCDMModule(views),
+		createCRUDModule(views)
+	];
+}

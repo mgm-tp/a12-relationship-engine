@@ -145,6 +145,130 @@ describe("convertComponents", () => {
 		expect(result.editConfiguration?.dialogMaxHeight).toBe("90vh");
 	});
 
+	it("should mirror TableList editDialogWidth into dialogMaxWidth when max width is absent", () => {
+		const comp = makeLegacyComponent("TableList", {
+			models: [{ name: "SelectedOverview", use: "link" }],
+			props: {
+				editComponent: "1",
+				editDialogWidth: "80%"
+			}
+		});
+		const dualPane = makeLegacyComponent("DualPaneSelection", {
+			models: [
+				{ name: "CandidateOverview", use: "candidate" },
+				{ name: "SelectedOverview", use: "link" }
+			]
+		});
+		const kind: ComponentKind = {
+			kind: "TableList",
+			component: comp,
+			dualPaneComponent: dualPane
+		};
+		const result = convertComponents(kind, createContext());
+
+		expect(result.editConfiguration?.dialogWidth).toBe("80%");
+		expect(result.editConfiguration?.dialogMaxWidth).toBe("80%");
+	});
+
+	it("should mirror nested DualPane editDialogWidth into dialogMaxWidth when max width is absent", () => {
+		const comp = makeLegacyComponent("TableList", {
+			models: [{ name: "SelectedOverview", use: "link" }],
+			props: { editComponent: "1" }
+		});
+		const dualPane = makeLegacyComponent("DualPaneSelection", {
+			models: [
+				{ name: "CandidateOverview", use: "candidate" },
+				{ name: "SelectedOverview", use: "link" }
+			],
+			props: { editDialogWidth: "900px" }
+		});
+		const kind: ComponentKind = {
+			kind: "TableList",
+			component: comp,
+			dualPaneComponent: dualPane
+		};
+		const result = convertComponents(kind, createContext());
+
+		expect(result.editConfiguration?.dialogWidth).toBe("900px");
+		expect(result.editConfiguration?.dialogMaxWidth).toBe("900px");
+	});
+
+	it("should keep an explicit editDialogMaxWidth instead of mirroring the width", () => {
+		const comp = makeLegacyComponent("TableList", {
+			models: [{ name: "SelectedOverview", use: "link" }],
+			props: {
+				editComponent: "1",
+				editDialogWidth: "80%",
+				editDialogMaxWidth: "1400px"
+			}
+		});
+		const dualPane = makeLegacyComponent("DualPaneSelection", {
+			models: [
+				{ name: "CandidateOverview", use: "candidate" },
+				{ name: "SelectedOverview", use: "link" }
+			]
+		});
+		const kind: ComponentKind = {
+			kind: "TableList",
+			component: comp,
+			dualPaneComponent: dualPane
+		};
+		const result = convertComponents(kind, createContext());
+
+		expect(result.editConfiguration?.dialogMaxWidth).toBe("1400px");
+	});
+
+	it("should not mirror the TableList width over a nested DualPane editDialogMaxWidth", () => {
+		const comp = makeLegacyComponent("TableList", {
+			models: [{ name: "SelectedOverview", use: "link" }],
+			props: {
+				editComponent: "1",
+				editDialogWidth: "80%"
+			}
+		});
+		const dualPane = makeLegacyComponent("DualPaneSelection", {
+			models: [
+				{ name: "CandidateOverview", use: "candidate" },
+				{ name: "SelectedOverview", use: "link" }
+			],
+			props: { editDialogMaxWidth: "1400px" }
+		});
+		const kind: ComponentKind = {
+			kind: "TableList",
+			component: comp,
+			dualPaneComponent: dualPane
+		};
+		const result = convertComponents(kind, createContext());
+
+		expect(result.editConfiguration?.dialogWidth).toBe("80%");
+		expect(result.editConfiguration?.dialogMaxWidth).toBe("1400px");
+	});
+
+	it("should mirror a stringified numeric editDialogWidth into dialogMaxWidth", () => {
+		const comp = makeLegacyComponent("TableList", {
+			models: [{ name: "SelectedOverview", use: "link" }],
+			props: {
+				editComponent: "1",
+				editDialogWidth: 900
+			}
+		});
+		const dualPane = makeLegacyComponent("DualPaneSelection", {
+			models: [
+				{ name: "CandidateOverview", use: "candidate" },
+				{ name: "SelectedOverview", use: "link" }
+			]
+		});
+		const kind: ComponentKind = {
+			kind: "TableList",
+			component: comp,
+			dualPaneComponent: dualPane
+		};
+		const result = convertComponents(kind, createContext());
+
+		expect(result.editConfiguration?.dialogWidth).toBe("900");
+		expect(result.editConfiguration?.dialogMaxWidth).toBe("900");
+	});
+
 	it("should not include dialog dimensions in editConfiguration when props are absent", () => {
 		const comp = makeLegacyComponent("TableList", {
 			models: [{ name: "SelectedOverview", use: "link" }]

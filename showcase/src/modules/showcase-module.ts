@@ -30,9 +30,39 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { SampleAppModule } from "../utils/SampleAppModule.js";
+import {
+	NullRegionLayoutNG,
+	StackRegionLayoutNG,
+	type DynamicConfiguration,
+	MasterDetailRegionLayoutNG
+} from "@com.mgmtp.a12.client/client-core";
 
-import { DataHandlingModules } from "./data_handling/index.js";
-import { RelationshipsModules } from "./relationships/index.js";
+import { ApplicationFrameLayoutNG } from "../views/application-frame-layout-ng.js";
 
-export const SampleAppModules: SampleAppModule[] = [...DataHandlingModules, ...RelationshipsModules];
+/**
+ * Contributes the application's region tree. Replaces the static region definition that
+ * previously lived in the `appmodel.json` files.
+ */
+export const ShowcaseConfigModule: DynamicConfiguration = {
+	id: "ShowcaseConfigModule",
+	regions: [
+		{
+			name: "", // root region has no name
+			layout: { component: ApplicationFrameLayoutNG },
+			subRegions: [
+				{
+					name: "CONTENT",
+					layout: MasterDetailRegionLayoutNG
+				},
+				{
+					name: "SIDEBAR",
+					layout: NullRegionLayoutNG
+				},
+				{
+					name: "MODAL",
+					layout: StackRegionLayoutNG
+				}
+			]
+		}
+	]
+};

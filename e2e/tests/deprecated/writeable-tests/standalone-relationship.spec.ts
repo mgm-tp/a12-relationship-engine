@@ -37,7 +37,7 @@ import { Selector, Showcase } from "../support/utils";
 
 test.describe.configure({ mode: "parallel" });
 
-test.describe("Standalone Relationship UI", () => {
+test.describe("Standalone Relationship Engine", () => {
 	test.beforeAll(seed);
 	test.beforeEach(async ({ page }) => {
 		await page.goto(Showcase.STANDALONE_RELATIONSHIP);
@@ -48,16 +48,15 @@ test.describe("Standalone Relationship UI", () => {
 		await page.getByRole("button", { name: "Add" }).click();
 		await expect(page.getByText("Please select variant")).toBeVisible();
 		await page.locator(`${Selector.MODAL_OVERLAY}`).getByText("Product").click();
-		await expect(page.getByText("Standalone Relationship UI")).toBeVisible();
+		await expect(page.getByText("Standalone Relationship Engine")).toBeVisible();
 		// Note: cannot create by this way because the required fields of the product are not filled
 	});
 
 	test("Add link to existing document should work as the relationship in form", async ({ page }) => {
 		await page.getByText("Bim Kit").click();
-		await expect(page.getByText("Standalone Relationship UI")).toBeVisible();
+		await expect(page.getByText("Standalone Relationship Engine")).toBeVisible();
 
 		const candidates = page.locator(Selector.CONTENT_BOX).filter({ hasText: "Available Elements" }).last();
-		await candidates.locator(Selector.TABLE_HEADER_CELL).filter({ hasText: "Name" }).first().click();
 		const candidate = candidates.locator(Selector.TABLE_BODY_ROW).filter({ hasText: "VF Corporation" });
 		await expect(candidate.getByRole("button")).not.toBeDisabled();
 		await candidate.locator(Selector.BUTTON).click();
@@ -71,12 +70,12 @@ test.describe("Standalone Relationship UI", () => {
 		await expect(link).toBeVisible();
 		await expect(candidate.getByRole("button")).toBeDisabled();
 
-		await page.getByRole("button", { name: "Submit" }).click();
-		await expect(page.getByText("Standalone Relationship UI")).not.toBeVisible();
+		await page.getByRole("button", { name: "Save" }).click();
+		await expect(page.getByText("Standalone Relationship Engine")).not.toBeVisible();
 
 		// reload to see the link is added
 		await page.getByText("Bim Kit").click();
-		await expect(page.getByText("Standalone Relationship UI")).toBeVisible();
+		await expect(page.getByText("Standalone Relationship Engine")).toBeVisible();
 		await expect(candidate.getByRole("button")).toBeDisabled();
 		await expect(link).toBeVisible();
 		await page.getByRole("button", { name: "Cancel" }).click();

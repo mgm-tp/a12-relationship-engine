@@ -111,6 +111,7 @@ export namespace CddSelectors {
 
 	//#region ==== links ====
 
+	// Reference-stable while the underlying document-graph/changeLog slices are unchanged — see cddLinksWithMetadata's per-(relationship, source, target) cache.
 	export function links(
 		activityId: string,
 		relationshipModel: string,

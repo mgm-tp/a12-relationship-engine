@@ -30,8 +30,8 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { render, screen, configure } from "@testing-library/react";
 import { vi, test, expect, describe, beforeAll, type Mock } from "vitest";
+import { render, screen, configure, fireEvent } from "@testing-library/react";
 
 import type { IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import type { OverviewEngineApi } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
@@ -112,6 +112,56 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.TableList", 
 
 				expect(firstRow).toHaveAttribute("tabindex", "-1");
 			});
+		});
+	});
+
+	describe("dialog width", () => {
+		test("falls back to editDialogWidth as maxWidth when editDialogMaxWidth is absent", async () => {
+			render(
+				<TestWrapper>
+					<LinkTableTemplate {...createTestProps({ readonly: false })} editDialogWidth="900px" />
+				</TestWrapper>
+			);
+
+			fireEvent.click(screen.getByText(TEST_EDIT_LABEL));
+
+			const container = await screen.findByTestId("modal-overlay-content");
+
+			expect(container.style.maxWidth).to.equal("900px");
+			expect(container.style.width).to.equal("900px");
+		});
+
+		test("uses editDialogMaxWidth when both are provided", async () => {
+			render(
+				<TestWrapper>
+					<LinkTableTemplate
+						{...createTestProps({ readonly: false })}
+						editDialogWidth="900px"
+						editDialogMaxWidth="1000px"
+					/>
+				</TestWrapper>
+			);
+
+			fireEvent.click(screen.getByText(TEST_EDIT_LABEL));
+
+			const container = await screen.findByTestId("modal-overlay-content");
+
+			expect(container.style.maxWidth).to.equal("1000px");
+			expect(container.style.width).to.equal("900px");
+		});
+
+		test("leaves maxWidth undefined when neither prop is provided", async () => {
+			render(
+				<TestWrapper>
+					<LinkTableTemplate {...createTestProps({ readonly: false })} />
+				</TestWrapper>
+			);
+
+			fireEvent.click(screen.getByText(TEST_EDIT_LABEL));
+
+			const container = await screen.findByTestId("modal-overlay-content");
+
+			expect(container.style.maxWidth).to.equal("");
 		});
 	});
 });

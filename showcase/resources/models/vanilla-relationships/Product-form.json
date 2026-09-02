@@ -477,6 +477,32 @@
 												"elementRef": "field_7e876"
 											}
 										]
+									},
+									{
+										"type": "Row",
+										"id": "row_ac913",
+										"cell": [
+											{
+												"type": "Control",
+												"id": "control_9f2a1",
+												"label": {
+													"type": "Multilingual",
+													"multilingualText": {
+														"text": [
+															{
+																"locale": "de",
+																"text": "Tags"
+															},
+															{
+																"locale": "en",
+																"text": "Tags"
+															}
+														]
+													}
+												},
+												"elementRef": "group_e19af"
+											}
+										]
 									}
 								],
 								"verticalAlignment": "BOTTOM"
@@ -753,6 +779,10 @@
 						]
 					},
 					"elementRef": "field_7e876"
+				},
+				{
+					"exposition": "FULL",
+					"elementRef": "group_e19af"
 				}
 			]
 		},

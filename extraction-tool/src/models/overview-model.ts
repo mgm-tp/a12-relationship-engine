@@ -31,8 +31,8 @@
  */
 
 import type { Header, Annotation } from "@com.mgmtp.a12.base/base-model-api";
-import type { LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
 import type { Query as DSQuery } from "@com.mgmtp.a12.dataservices/dataservices-access";
+import type { LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
 
 export interface OverviewModel {
 	readonly header: Header;

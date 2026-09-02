@@ -176,10 +176,9 @@ export const onAddDocumentMiddleware: Middleware = (store) => (next) => (action)
 	const baseDescriptor: Activity.Descriptor = {
 		model: concreteModelId,
 		instance: newChildInstanceDocRef(state, activityId, concreteModelId),
-		sourceDocRef: sourceEntity.docRef,
-		sourceRole: sourceEntity.role,
-		relationshipName,
-		targetRole
+		parentRelationshipName: relationshipName,
+		parentInstance: sourceEntity.docRef,
+		parentRelationshipRole: sourceEntity.role
 	};
 
 	let activityDescriptor: Activity.Descriptor = baseDescriptor;
@@ -199,7 +198,7 @@ export const onAddDocumentMiddleware: Middleware = (store) => (next) => (action)
 			activityDescriptor,
 			initiatingActivityId: activityId,
 			data: { document: {} },
-			loadingState: "loaded"
+			loadingState: "missing"
 		})
 	);
 

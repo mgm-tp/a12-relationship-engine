@@ -5,73 +5,77 @@ settings:
   excludeLinksFromLockfile: false
 
 catalogs:
-  a12Libs:
+  a12:
     '@com.mgmtp.a12.base/base-model-api':
-      specifier: ^30.0.1
-      version: 30.0.1
+      specifier: ^30.0.2
+      version: 30.0.2
     '@com.mgmtp.a12.client/client-application-model-migration':
-      specifier: ^17.0.0
-      version: 17.0.0
+      specifier: ^17.0.1
+      version: 17.0.1
     '@com.mgmtp.a12.client/client-core':
-      specifier: ^17.0.0
-      version: 17.0.0
+      specifier: ^17.0.1
+      version: 17.0.1
     '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat':
       specifier: ^1.0.2
       version: 1.0.2
     '@com.mgmtp.a12.dataservices/dataservices-access':
-      specifier: ^39.0.1
-      version: 39.0.1
+      specifier: ^39.0.3
+      version: 39.0.3
     '@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration':
+      specifier: ^39.0.3
+      version: 39.0.3
+    '@com.mgmtp.a12.expression/expression-core':
+      specifier: ^3.0.1
+      version: 3.0.1
+    '@com.mgmtp.a12.formengine/formengine-core':
       specifier: ^39.0.1
       version: 39.0.1
-    '@com.mgmtp.a12.expression/expression-core':
-      specifier: ^3.0.0
-      version: 3.0.0
-    '@com.mgmtp.a12.formengine/formengine-core':
-      specifier: ^39.0.0
-      version: 39.0.0
     '@com.mgmtp.a12.formengine/formengine-model-migration':
-      specifier: ^39.0.0
-      version: 39.0.0
+      specifier: ^39.0.1
+      version: 39.0.1
     '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts':
-      specifier: ^31.1.0
-      version: 31.1.0
+      specifier: ^31.1.1
+      version: 31.1.1
     '@com.mgmtp.a12.kernel/kernel-md-facade':
-      specifier: ^31.1.0
-      version: 31.1.0
+      specifier: ^31.1.1
+      version: 31.1.1
     '@com.mgmtp.a12.migrationtool/migrationtool-core':
-      specifier: ^3.0.0
-      version: 3.0.0
+      specifier: ^3.0.1
+      version: 3.0.1
     '@com.mgmtp.a12.migrationtool/migrationtool-utils':
-      specifier: ^3.0.0
-      version: 3.0.0
+      specifier: ^3.0.1
+      version: 3.0.1
     '@com.mgmtp.a12.overviewengine/overviewengine-core':
-      specifier: ^39.0.0
-      version: 39.0.0
+      specifier: ^39.0.2
+      version: 39.0.2
     '@com.mgmtp.a12.overviewengine/overviewengine-model-migration':
-      specifier: ^39.0.0
-      version: 39.0.0
+      specifier: ^39.0.2
+      version: 39.0.2
     '@com.mgmtp.a12.querymodel/querymodel-core':
-      specifier: ^0.2.0
-      version: 0.2.0
+      specifier: ^39.0.2
+      version: 39.0.2
     '@com.mgmtp.a12.utils/utils-collections':
       specifier: ^7.0.1
       version: 7.0.1
     '@com.mgmtp.a12.utils/utils-connector':
-      specifier: ^9.0.1
-      version: 9.0.1
+      specifier: ^9.0.3
+      version: 9.0.3
     '@com.mgmtp.a12.utils/utils-localization':
-      specifier: ^8.0.1
-      version: 8.0.1
+      specifier: ^8.0.2
+      version: 8.0.2
     '@com.mgmtp.a12.utils/utils-localization-react':
-      specifier: ^8.0.1
-      version: 8.0.1
+      specifier: ^8.0.2
+      version: 8.0.2
     '@com.mgmtp.a12.utils/utils-logging':
-      specifier: ^7.0.1
-      version: 7.0.1
+      specifier: ^7.0.2
+      version: 7.0.2
     '@com.mgmtp.a12.widgets/widgets-core':
-      specifier: ^39.0.1
-      version: 39.0.1
+      specifier: ^39.0.3
+      version: 39.0.3
+  a12ranges:
+    '@com.mgmtp.a12.querymodel/querymodel-core':
+      specifier: ^0.2.0 || ^39.0.2
+      version: 39.0.2
   devLibs:
     '@com.mgmtp.a12.devtools/build-tools':
       specifier: ^1.1.2
@@ -126,8 +130,8 @@ catalogs:
       specifier: ^5.0.1
       version: 5.0.1
     redux-saga:
-      specifier: ^1.4.2
-      version: 1.4.2
+      specifier: ^1.5.0
+      version: 1.5.1
     styled-components:
       specifier: ^6.4.3
       version: 6.4.3
@@ -141,9 +145,7 @@ catalogs:
 pnpmfileChecksum: sha256-TCQ6+8CCTMo0SwmvVVTobuDgxRk1hVP1pAKe2IHDHM0=
 
 patchedDependencies:
-  react-dnd@16.0.1:
-    hash: 6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f
-    path: patches/react-dnd@16.0.1.patch
+  react-dnd@16.0.1: 6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f
 
 importers:
 
@@ -202,13 +204,13 @@ importers:
         version: 3.8.1
       redux-saga:
         specifier: catalog:libs
-        version: 1.4.2
+        version: 1.5.1
       rimraf:
         specifier: catalog:devLibs
         version: 6.1.3
       typed-redux-saga:
         specifier: catalog:libs
-        version: 1.5.0(redux-saga@1.4.2)
+        version: 1.5.0(redux-saga@1.5.1)
       typescript:
         specifier: catalog:libs
         version: 6.0.2
@@ -216,8 +218,8 @@ importers:
   core:
     dependencies:
       '@com.mgmtp.a12.querymodel/querymodel-core':
-        specifier: ^0.2.0
-        version: 0.2.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1))
+        specifier: catalog:a12ranges
+        version: 39.0.2(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1))
       fast-deep-equal:
         specifier: ^3.1.3
         version: 3.1.3
@@ -229,50 +231,50 @@ importers:
         version: 5.1.1
     devDependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.client/client-core':
-        specifier: catalog:a12Libs
-        version: 17.0.0(6651b8619e00f2d27a67ebb0ff9fdec8)
+        specifier: catalog:a12
+        version: 17.0.1(57436630ca534ac0ae491ef1426a4da9)
       '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat':
-        specifier: catalog:a12Libs
+        specifier: catalog:a12
         version: 1.0.2(redux@5.0.1)
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.expression/expression-core':
-        specifier: catalog:a12Libs
-        version: 3.0.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1))(@com.mgmtp.a12.utils/utils-localization@8.0.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: catalog:a12
+        version: 3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@com.mgmtp.a12.formengine/formengine-core':
-        specifier: catalog:a12Libs
-        version: 39.0.0(e25c1386dd488ba1e4fcba84c9c7f187)
+        specifier: catalog:a12
+        version: 39.0.1(a74a31de59ad6838f4a5f698ee7c4a18)
       '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts':
-        specifier: catalog:a12Libs
-        version: 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
+        specifier: catalog:a12
+        version: 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
       '@com.mgmtp.a12.kernel/kernel-md-facade':
-        specifier: catalog:a12Libs
-        version: 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
+        specifier: catalog:a12
+        version: 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
       '@com.mgmtp.a12.overviewengine/overviewengine-core':
-        specifier: catalog:a12Libs
-        version: 39.0.0(a106a29871d649746c76e1d1bfafc3f3)
+        specifier: catalog:a12
+        version: 39.0.2(ef0f67ad35d5e8a210174bab3fd5c062)
       '@com.mgmtp.a12.utils/utils-collections':
-        specifier: catalog:a12Libs
+        specifier: catalog:a12
         version: 7.0.1
       '@com.mgmtp.a12.utils/utils-connector':
-        specifier: catalog:a12Libs
-        version: 9.0.1
+        specifier: catalog:a12
+        version: 9.0.3
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       '@com.mgmtp.a12.utils/utils-localization-react':
-        specifier: catalog:a12Libs
-        version: 8.0.1(react@19.2.6)
+        specifier: catalog:a12
+        version: 8.0.2(react@19.2.6)
       '@com.mgmtp.a12.utils/utils-logging':
-        specifier: catalog:a12Libs
-        version: 7.0.1
+        specifier: catalog:a12
+        version: 7.0.2
       '@com.mgmtp.a12.widgets/widgets-core':
-        specifier: catalog:a12Libs
-        version: 39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+        specifier: catalog:a12
+        version: 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1
@@ -329,16 +331,16 @@ importers:
         version: 1.5.5(redux@5.0.1)
       redux-saga:
         specifier: catalog:libs
-        version: 1.4.2
+        version: 1.5.1
       redux-saga-test-plan:
         specifier: ^4.0.6
-        version: 4.0.6(@redux-saga/is@1.2.1)(@redux-saga/symbols@1.2.1)(redux-saga@1.4.2)
+        version: 4.0.6(@redux-saga/is@1.2.1)(@redux-saga/symbols@1.2.1)(redux-saga@1.5.1)
       styled-components:
         specifier: catalog:libs
         version: 6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       typed-redux-saga:
         specifier: catalog:libs
-        version: 1.5.0(redux-saga@1.4.2)
+        version: 1.5.0(redux-saga@1.5.1)
       typedoc:
         specifier: 0.28.2
         version: 0.28.2(typescript@6.0.2)
@@ -362,50 +364,50 @@ importers:
         version: link:../core
     devDependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.client/client-core':
-        specifier: catalog:a12Libs
-        version: 17.0.0(6651b8619e00f2d27a67ebb0ff9fdec8)
+        specifier: catalog:a12
+        version: 17.0.1(57436630ca534ac0ae491ef1426a4da9)
       '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat':
-        specifier: catalog:a12Libs
+        specifier: catalog:a12
         version: 1.0.2(redux@5.0.1)
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.expression/expression-core':
-        specifier: catalog:a12Libs
-        version: 3.0.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1))(@com.mgmtp.a12.utils/utils-localization@8.0.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: catalog:a12
+        version: 3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@com.mgmtp.a12.formengine/formengine-core':
-        specifier: catalog:a12Libs
-        version: 39.0.0(e25c1386dd488ba1e4fcba84c9c7f187)
+        specifier: catalog:a12
+        version: 39.0.1(a74a31de59ad6838f4a5f698ee7c4a18)
       '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts':
-        specifier: catalog:a12Libs
-        version: 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
+        specifier: catalog:a12
+        version: 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
       '@com.mgmtp.a12.kernel/kernel-md-facade':
-        specifier: catalog:a12Libs
-        version: 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
+        specifier: catalog:a12
+        version: 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
       '@com.mgmtp.a12.overviewengine/overviewengine-core':
-        specifier: catalog:a12Libs
-        version: 39.0.0(a106a29871d649746c76e1d1bfafc3f3)
+        specifier: catalog:a12
+        version: 39.0.2(ef0f67ad35d5e8a210174bab3fd5c062)
       '@com.mgmtp.a12.utils/utils-collections':
-        specifier: catalog:a12Libs
+        specifier: catalog:a12
         version: 7.0.1
       '@com.mgmtp.a12.utils/utils-connector':
-        specifier: catalog:a12Libs
-        version: 9.0.1
+        specifier: catalog:a12
+        version: 9.0.3
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       '@com.mgmtp.a12.utils/utils-localization-react':
-        specifier: catalog:a12Libs
-        version: 8.0.1(react@19.2.6)
+        specifier: catalog:a12
+        version: 8.0.2(react@19.2.6)
       '@com.mgmtp.a12.utils/utils-logging':
-        specifier: catalog:a12Libs
-        version: 7.0.1
+        specifier: catalog:a12
+        version: 7.0.2
       '@com.mgmtp.a12.widgets/widgets-core':
-        specifier: catalog:a12Libs
-        version: 39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+        specifier: catalog:a12
+        version: 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1
@@ -456,16 +458,16 @@ importers:
         version: 1.5.5(redux@5.0.1)
       redux-saga:
         specifier: catalog:libs
-        version: 1.4.2
+        version: 1.5.1
       redux-saga-test-plan:
         specifier: ^4.0.6
-        version: 4.0.6(@redux-saga/is@1.2.1)(@redux-saga/symbols@1.2.1)(redux-saga@1.4.2)
+        version: 4.0.6(@redux-saga/is@1.2.1)(@redux-saga/symbols@1.2.1)(redux-saga@1.5.1)
       styled-components:
         specifier: catalog:libs
         version: 6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       typed-redux-saga:
         specifier: catalog:libs
-        version: 1.5.0(redux-saga@1.4.2)
+        version: 1.5.0(redux-saga@1.5.1)
       typedoc:
         specifier: 0.28.2
         version: 0.28.2(typescript@6.0.2)
@@ -485,32 +487,32 @@ importers:
   documentation:
     devDependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.client/client-core':
-        specifier: catalog:a12Libs
-        version: 17.0.0(6651b8619e00f2d27a67ebb0ff9fdec8)
+        specifier: catalog:a12
+        version: 17.0.1(d0ecfe0517573490e937f2bca050ea47)
       '@com.mgmtp.a12.crud/crud-core':
         specifier: workspace:*
         version: link:../crud
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.formengine/formengine-core':
-        specifier: catalog:a12Libs
-        version: 39.0.0(e25c1386dd488ba1e4fcba84c9c7f187)
+        specifier: catalog:a12
+        version: 39.0.1(80c0d64ee861aad7cfe8e496b8412e69)
       '@com.mgmtp.a12.relationshipengine/relationshipengine-core':
         specifier: workspace:*
         version: link:../core
       '@com.mgmtp.a12.utils/utils-connector':
-        specifier: catalog:a12Libs
-        version: 9.0.1
+        specifier: catalog:a12
+        version: 9.0.3
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       '@com.mgmtp.a12.widgets/widgets-core':
-        specifier: catalog:a12Libs
-        version: 39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+        specifier: catalog:a12
+        version: 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
       '@mermaid-js/mermaid-cli':
         specifier: 11.15.0
         version: 11.15.0(@babel/core@7.29.7)(@babel/template@7.29.7)(@types/react@19.2.14)(puppeteer@24.43.1(typescript@6.0.2))(tailwindcss@4.3.1)
@@ -555,7 +557,7 @@ importers:
         version: 5.0.1
       redux-saga:
         specifier: catalog:libs
-        version: 1.4.2
+        version: 1.5.1
       styled-components:
         specifier: catalog:libs
         version: 6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -570,17 +572,17 @@ importers:
   e2e:
     devDependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.relationshipengine/relationshipengine-services-utils':
         specifier: workspace:^
         version: link:../services-utils
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       '@playwright/test':
         specifier: catalog:devLibs
         version: 1.58.2
@@ -591,33 +593,33 @@ importers:
   extraction-tool:
     dependencies:
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.formengine/formengine-model-migration':
-        specifier: catalog:a12Libs
-        version: 39.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 39.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.kernel/kernel-md-facade':
-        specifier: catalog:a12Libs
-        version: 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
+        specifier: catalog:a12
+        version: 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
       '@com.mgmtp.a12.migrationtool/migrationtool-core':
-        specifier: catalog:a12Libs
-        version: 3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.overviewengine/overviewengine-model-migration':
-        specifier: catalog:a12Libs
-        version: 39.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 39.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.querymodel/querymodel-core':
-        specifier: catalog:a12Libs
-        version: 0.2.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1))
+        specifier: catalog:a12
+        version: 39.0.2(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1))
     devDependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.migrationtool/migrationtool-utils':
-        specifier: catalog:a12Libs
-        version: 3.0.0(@types/node@22.19.11)(typescript@6.0.2)
+        specifier: catalog:a12
+        version: 3.0.1(@types/node@22.19.11)(typescript@6.0.2)
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       '@types/node':
         specifier: catalog:devLibs
         version: 22.19.11
@@ -643,21 +645,21 @@ importers:
   migration-tool:
     dependencies:
       '@com.mgmtp.a12.migrationtool/migrationtool-core':
-        specifier: catalog:a12Libs
-        version: 3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
     devDependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.migrationtool/migrationtool-utils':
-        specifier: catalog:a12Libs
-        version: 3.0.0(@types/node@22.19.11)(typescript@6.0.2)
+        specifier: catalog:a12
+        version: 3.0.1(@types/node@22.19.11)(typescript@6.0.2)
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       '@types/node':
         specifier: catalog:devLibs
         version: 22.19.11
@@ -682,17 +684,17 @@ importers:
   services-utils:
     dependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.utils/utils-connector':
-        specifier: catalog:a12Libs
-        version: 9.0.1
+        specifier: catalog:a12
+        version: 9.0.3
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       chance:
         specifier: ^1.1.11
         version: 1.1.13
@@ -737,35 +739,35 @@ importers:
   showcase:
     dependencies:
       '@com.mgmtp.a12.base/base-model-api':
-        specifier: catalog:a12Libs
-        version: 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.client/client-core':
-        specifier: catalog:a12Libs
-        version: 17.0.0(6651b8619e00f2d27a67ebb0ff9fdec8)
+        specifier: catalog:a12
+        version: 17.0.1(57436630ca534ac0ae491ef1426a4da9)
       '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat':
-        specifier: catalog:a12Libs
+        specifier: catalog:a12
         version: 1.0.2(redux@5.0.1)
       '@com.mgmtp.a12.crud/crud-core':
         specifier: workspace:*
         version: link:../crud
       '@com.mgmtp.a12.dataservices/dataservices-access':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
       '@com.mgmtp.a12.expression/expression-core':
-        specifier: catalog:a12Libs
-        version: 3.0.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1))(@com.mgmtp.a12.utils/utils-localization@8.0.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: catalog:a12
+        version: 3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@com.mgmtp.a12.formengine/formengine-core':
-        specifier: catalog:a12Libs
-        version: 39.0.0(e25c1386dd488ba1e4fcba84c9c7f187)
+        specifier: catalog:a12
+        version: 39.0.1(a74a31de59ad6838f4a5f698ee7c4a18)
       '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts':
-        specifier: catalog:a12Libs
-        version: 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
+        specifier: catalog:a12
+        version: 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
       '@com.mgmtp.a12.kernel/kernel-md-facade':
-        specifier: catalog:a12Libs
-        version: 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
+        specifier: catalog:a12
+        version: 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
       '@com.mgmtp.a12.overviewengine/overviewengine-core':
-        specifier: catalog:a12Libs
-        version: 39.0.0(a106a29871d649746c76e1d1bfafc3f3)
+        specifier: catalog:a12
+        version: 39.0.2(ef0f67ad35d5e8a210174bab3fd5c062)
       '@com.mgmtp.a12.relationshipengine/relationshipengine-core':
         specifier: workspace:*
         version: link:../core
@@ -773,23 +775,23 @@ importers:
         specifier: workspace:*
         version: link:../services-utils
       '@com.mgmtp.a12.utils/utils-collections':
-        specifier: catalog:a12Libs
+        specifier: catalog:a12
         version: 7.0.1
       '@com.mgmtp.a12.utils/utils-connector':
-        specifier: catalog:a12Libs
-        version: 9.0.1
+        specifier: catalog:a12
+        version: 9.0.3
       '@com.mgmtp.a12.utils/utils-localization':
-        specifier: catalog:a12Libs
-        version: 8.0.1
+        specifier: catalog:a12
+        version: 8.0.2
       '@com.mgmtp.a12.utils/utils-localization-react':
-        specifier: catalog:a12Libs
-        version: 8.0.1(react@19.2.6)
+        specifier: catalog:a12
+        version: 8.0.2(react@19.2.6)
       '@com.mgmtp.a12.utils/utils-logging':
-        specifier: catalog:a12Libs
-        version: 7.0.1
+        specifier: catalog:a12
+        version: 7.0.2
       '@com.mgmtp.a12.widgets/widgets-core':
-        specifier: catalog:a12Libs
-        version: 39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+        specifier: catalog:a12
+        version: 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
       fast-deep-equal:
         specifier: 3.1.3
         version: 3.1.3
@@ -813,29 +815,29 @@ importers:
         version: 5.0.1
       redux-saga:
         specifier: catalog:libs
-        version: 1.4.2
+        version: 1.5.1
       styled-components:
         specifier: catalog:libs
         version: 6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       typed-redux-saga:
         specifier: catalog:libs
-        version: 1.5.0(redux-saga@1.4.2)
+        version: 1.5.0(redux-saga@1.5.1)
       use-context-selector:
         specifier: ^1.4.1
         version: 1.4.4(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(scheduler@0.27.0)
     devDependencies:
       '@com.mgmtp.a12.client/client-application-model-migration':
-        specifier: catalog:a12Libs
-        version: 17.0.0(@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1))
+        specifier: catalog:a12
+        version: 17.0.1(@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2))
       '@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration':
-        specifier: catalog:a12Libs
-        version: 39.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 39.0.3(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.formengine/formengine-model-migration':
-        specifier: catalog:a12Libs
-        version: 39.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 39.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.overviewengine/overviewengine-model-migration':
-        specifier: catalog:a12Libs
-        version: 39.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+        specifier: catalog:a12
+        version: 39.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.relationshipengine/relationshipengine-model-migration':
         specifier: workspace:^
         version: link:../migration-tool
@@ -1110,19 +1112,19 @@ packages:
   '@chevrotain/types@11.1.2':
     resolution: {integrity: sha512-U+HFai5+zmJCkK86QsaJtoITlboZHBqrVketcO2ROv865xfCMSFpELQoz1GkX5GzME8pTa+3kbKrZHQtI0gdbw==}
 
-  '@com.mgmtp.a12.base/base-model-api@30.0.1':
-    resolution: {integrity: sha512-tcRJ7jy0qtxI6pE3ym/yNOqo/9V68i4p2so9cuUhampOtO4sfc40UWw5oyBRVVJvfqr0bf8m95J8E0bHokJjgQ==}
+  '@com.mgmtp.a12.base/base-model-api@30.0.2':
+    resolution: {integrity: sha512-2gDxcirTHwwLR7ZN84uOnNFGrySgPad2XmGRDggR3QYS7xE/fcujktGF2xroNQaYNPvNVe4npszVcfVEo1/kPQ==}
     peerDependencies:
       '@com.mgmtp.a12.utils/utils-localization': ^8.0.1
 
-  '@com.mgmtp.a12.client/client-application-model-migration@17.0.0':
-    resolution: {integrity: sha512-PCAXG/iSsDXAea0dcibIwHYnmTgjR/onK5pV+bix+miQYwq/XcuRUng1b4ubWv6asmaGKC17kaNDE7s7iu3n/A==}
+  '@com.mgmtp.a12.client/client-application-model-migration@17.0.1':
+    resolution: {integrity: sha512-EeyMWFIsVY3/6KKU42pEF+GoKeqXqSrhlFXxBCzJl3EBg7zp6CbVTvtqk5hGEPy4LrnodyK6qcGpaVmHfWzzHQ==}
     hasBin: true
     peerDependencies:
       '@com.mgmtp.a12.migrationtool/migrationtool-core': ^3.0.0
 
-  '@com.mgmtp.a12.client/client-core@17.0.0':
-    resolution: {integrity: sha512-1u2d2qZfPU99be10/Rq5+RzXPZyVeRNodC0Z/4lqRCgKZMj6WSxfKg27OVUmMNCoVNYOR0fUPAM3ijvRYQqZQw==}
+  '@com.mgmtp.a12.client/client-core@17.0.1':
+    resolution: {integrity: sha512-xi20sLjCin+9B9X9eeRk4k5JKHZnUHQNOpLZuHgPHHYyRNimyf9Iwr4SikTfnS8+etX2gDu5uwSiyeO0XbSnEQ==}
     peerDependencies:
       '@com.mgmtp.a12.base/base-model-api': ^30.0.0
       '@com.mgmtp.a12.dataservices/dataservices-access': ^39.0.0
@@ -1135,9 +1137,9 @@ packages:
       '@com.mgmtp.a12.widgets/widgets-core': ^39.0.1
       react: ^19.2.6
       react-redux: ^9.2.0
-      redux: ^5.0.0
-      redux-saga: ^1.3.0
-      typed-redux-saga: ^1.3.1
+      redux: ^5.0.1
+      redux-saga: ^1.5.0
+      typed-redux-saga: ^1.5.0
 
   '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat@1.0.2':
     resolution: {integrity: sha512-ZEAidfRyFrbBDD/5IxFz6V9rP5rGdCW0vq2Zfo0oisc3fHL/DeI8p+7kBhIOP7QqSDs+vVj9uXbOkJbaCFlSPw==}
@@ -1145,16 +1147,16 @@ packages:
     peerDependencies:
       redux: ^5.0.0
 
-  '@com.mgmtp.a12.dataservices/dataservices-access@39.0.1':
-    resolution: {integrity: sha512-tlYmMt/RfJOA6TkcTFDQMAt9jd7Az6pq8+SVjhIPmtXKoH6NdsCd/Mvl1+vaNNYOjEcCI1Y9HW9Bk6IDwwYfSw==}
+  '@com.mgmtp.a12.dataservices/dataservices-access@39.0.3':
+    resolution: {integrity: sha512-tYG8ZngpydLiCnzPZNnwcSGvwYomYJBoQhIWTHda5V38pte6D4Z7JPQG5STbn0+0imtdNvv8dgGPFekgzp/yRw==}
     peerDependencies:
-      '@com.mgmtp.a12.base/base-model-api': ^30.0.1
-      '@com.mgmtp.a12.utils/utils-connector': ^9.0.0
-      '@com.mgmtp.a12.utils/utils-localization': ^8.0.1
+      '@com.mgmtp.a12.base/base-model-api': ^30.0.2
+      '@com.mgmtp.a12.utils/utils-connector': ^9.0.3
+      '@com.mgmtp.a12.utils/utils-localization': ^8.0.2
       redux: ^5.0.0
 
-  '@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration@39.0.1':
-    resolution: {integrity: sha512-1T5s0fluvqFpMrANrMt8sx0Kdr48/VDvI7pKIV5qap8pTUZBndgJjuYP7ZCvgsC6lzLQvwUDFymmnQTGpZhfXQ==}
+  '@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration@39.0.3':
+    resolution: {integrity: sha512-3bezbydAgHLrE/vyAhud3fecQVdNQGg4ty+W19S9soDo7VFRaVU0ow9+yZnJyJgHfcrJy9pVQMk6GbmroaxDuw==}
     hasBin: true
 
   '@com.mgmtp.a12.devtools/build-tools@1.1.2':
@@ -1174,8 +1176,8 @@ packages:
   '@com.mgmtp.a12.devtools/tsconfig@2.0.1':
     resolution: {integrity: sha512-/s4pj0c4rV4gVxpSJIi1MRZDenyHpg/PLO0wZqD8EL+dEb2Bf1NZNNJdmeGtkvHWQK7JZG0BU2RwxrkUB+CcrA==}
 
-  '@com.mgmtp.a12.expression/expression-core@3.0.0':
-    resolution: {integrity: sha512-PrRwID29zbC2Ozg3r6nkL+3SIMftpRfJ7nCcBVf35gnXBFpFJQTWRrSgV+zJKDELV/T2m+2GA238oV7TbR945A==}
+  '@com.mgmtp.a12.expression/expression-core@3.0.1':
+    resolution: {integrity: sha512-oZyWDFbdKpeQmor2Kb+2ch7OAX9fq6wrW5REFTYU0zDk4gtfNn/ujPJFNQmidJ6a30/NAt0uBCF8YpQf1/GyBA==}
     peerDependencies:
       '@com.mgmtp.a12.base/base-model-api': ^30.0.1
       '@com.mgmtp.a12.kernel/kernel-md-facade': ^31.1.0
@@ -1183,8 +1185,8 @@ packages:
       react: ^19.2.6
       react-dom: ^19.2.6
 
-  '@com.mgmtp.a12.formengine/formengine-core@39.0.0':
-    resolution: {integrity: sha512-Bktt85nl2e1fkVzJ+aZ0rUUhROISp08AoPzvrh3z34vIVQRAVHa5LrKy0I38WZYPQjxdL/fsNP5NDQGKYs1bIQ==}
+  '@com.mgmtp.a12.formengine/formengine-core@39.0.1':
+    resolution: {integrity: sha512-lFgp5ie1RJ4vNHEwS+ASeiRP1S/mxQY4OR2TentJuOXfbzLROaemu8zZVnVkso68Z44xCWn5BUD+8nlRG8uj8w==}
     peerDependencies:
       '@com.mgmtp.a12.base/base-model-api': ^30.0.0
       '@com.mgmtp.a12.client/client-core': ^17.0.0
@@ -1196,44 +1198,44 @@ packages:
       '@com.mgmtp.a12.utils/utils-localization-react': ^8.0.0
       '@com.mgmtp.a12.widgets/widgets-core': ^39.0.1
       react: ^19.2.6
-      redux: ^5.0.0
+      redux: ^5.0.1
 
-  '@com.mgmtp.a12.formengine/formengine-model-migration@39.0.0':
-    resolution: {integrity: sha512-N32OCf3WLGeRHiqM4m9YLjq/VECY6D+vnNXG705EuKMKFHyRpUvp0Jquv6i0aRxOZA1m9sgJ3+hbtp9O59twZA==}
+  '@com.mgmtp.a12.formengine/formengine-model-migration@39.0.1':
+    resolution: {integrity: sha512-hX4SrFC2gyPBrBIK0deRIo/jdRp1jWdMUSeRsqJlWQfdkIJUaRhP6pMVW1cXINmMsSqfHJpVEtlhmFvOPE6BnQ==}
     hasBin: true
 
-  '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts@31.1.0':
-    resolution: {integrity: sha512-gEYluQV5bLP10dbeEcXj8c5fHNY0buntS6kAKpD2FOkcgoWiMRYzo4+beTXoR2Ldr9iFmB8D3hgLnVEjJv7CTA==}
+  '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts@31.1.1':
+    resolution: {integrity: sha512-rcN0VLHEnZqkO58EzbKKYkG8uzQpogc5Z4hL+X7Teh9JX/pmQblkAwRjSfm2iv2pDvhKiATcHA0UvooghcUB3w==}
     peerDependencies:
       '@com.mgmtp.a12.utils/utils-collections': ^7.0.1
       '@com.mgmtp.a12.utils/utils-localization': ^8.0.0
       '@com.mgmtp.a12.utils/utils-logging': ^7.0.0
 
-  '@com.mgmtp.a12.kernel/kernel-core-runtime-ts@31.1.0':
-    resolution: {integrity: sha512-UAKVBDE46cdTlBYiiEBZ0h3l3Kr+f4xqoDUSWr5ckhcaAfD1aW2b+EiJw3lQzIeBV5BfQS5tWwzDB7eYodcjOw==}
+  '@com.mgmtp.a12.kernel/kernel-core-runtime-ts@31.1.1':
+    resolution: {integrity: sha512-H5DLL46WXaxQ5A21uqh1YfvFOD6su67giUQJmOXnRtirE00rG3OaD0IgN6XsniASVhcMSGIaTsuJ4AqmKg/ehA==}
     peerDependencies:
       '@com.mgmtp.a12.utils/utils-collections': ^7.0.1
       '@com.mgmtp.a12.utils/utils-localization': ^8.0.0
       '@com.mgmtp.a12.utils/utils-logging': ^7.0.0
 
-  '@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0':
-    resolution: {integrity: sha512-5qC1WSjcVZgdn/rxN2lHxxbgzuuAXBk6b1XmJWSeW0MyBMnCXhbAf4so8/4s1STBi5Jr+wrNwpPs8IlGYIWziw==}
+  '@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1':
+    resolution: {integrity: sha512-24CbFtveCuuN46/Zk8xq+x3SaaMIZln+aCk7+fzeW99bdwVUA+8fvT48Rbn5S1zKvluI/8J/NJz2syIOj7yThw==}
     peerDependencies:
       '@com.mgmtp.a12.base/base-model-api': ^30.0.0
       '@com.mgmtp.a12.utils/utils-localization': ^8.0.0
       '@com.mgmtp.a12.utils/utils-logging': ^7.0.0
 
-  '@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.0':
-    resolution: {integrity: sha512-xh53r2k1XrKqO7nWM7Ar9GGhK2dq+VmOZIg5xUcu9xg2vi8eo+nt73vYKoX+QJLPDy8hE1YJNKvhrNwuXzeQUg==}
+  '@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.1':
+    resolution: {integrity: sha512-yuJCOSmRzmuCrZ9Va6Bn5hV8I9qed6RlkApqzo6dmfeoa1YWqMlgPxpHzbc015U7xWpn4Z3lk2akEDT1XgdptA==}
 
-  '@com.mgmtp.a12.migrationtool/migrationtool-utils@3.0.0':
-    resolution: {integrity: sha512-DEent8i5Wq8j04o63PyqoiskO5eRYEVBQvLSOL511s/+THaLS3hBqNv1XBqhdtkjR5ygfobmKET65MTMSh2Gvw==}
+  '@com.mgmtp.a12.migrationtool/migrationtool-utils@3.0.1':
+    resolution: {integrity: sha512-6fou1z8ygML8JXliHvwTgEzkNQr2/cnCLvET2Q75P7W5hUix+NDsmkTiPPVovoOR51mqgilb5yNZ0vyREigMSA==}
     hasBin: true
     peerDependencies:
       typescript: ^6
 
-  '@com.mgmtp.a12.overviewengine/overviewengine-core@39.0.0':
-    resolution: {integrity: sha512-q3XwV/2LwOK1ZWlf7Cm1vmBCcehmR/DcHG1UH1mYHv4XGjG39hx8Q7RnvSqbu5pT/yDijNXrlyHlFBcLbY6Lng==}
+  '@com.mgmtp.a12.overviewengine/overviewengine-core@39.0.2':
+    resolution: {integrity: sha512-X+rkEkT6SVzEUHkvekdLiWxzUDh0W37t71lFbCHWpNJe5p02Wv9F0Udl0EDGgnsl7P8mJwgNzKgL3ygsWib2yg==}
     peerDependencies:
       '@com.mgmtp.a12.base/base-model-api': ^30.0.1
       '@com.mgmtp.a12.client/client-core': ^17.0.0
@@ -1246,21 +1248,21 @@ packages:
       '@com.mgmtp.a12.utils/utils-localization': ^8.0.1
       '@com.mgmtp.a12.utils/utils-localization-react': ^8.0.1
       '@com.mgmtp.a12.utils/utils-logging': ^7.0.1
-      '@com.mgmtp.a12.widgets/widgets-core': ^39.0.1
+      '@com.mgmtp.a12.widgets/widgets-core': ^39.0.3
       react: ^19.2.6
       react-dom: ^19.2.6
       react-redux: ^9.2.0
       redux: ^5.0.0
-      redux-saga: ^1.3.0
+      redux-saga: ^1.5.0
       styled-components: ^6.1.18
-      typed-redux-saga: ^1.3.1
+      typed-redux-saga: ^1.5.0
 
-  '@com.mgmtp.a12.overviewengine/overviewengine-model-migration@39.0.0':
-    resolution: {integrity: sha512-qXQsKtWnVLZ8ciSu0YAUAnMI6184AkziG4VEGCPN5BQIWUIzdlirCWQ0WQoF6f1BQIkIj77lVAx4Nf/dnnEANw==}
+  '@com.mgmtp.a12.overviewengine/overviewengine-model-migration@39.0.2':
+    resolution: {integrity: sha512-6AvcV3Aznxsi9zdFGYPL98Bvz0+s3U2Rj+I5wESpl/4WzYPmQ9E8K0oRV7up/LxTowfHX9c+nf2bNjPr9TK0Tg==}
     hasBin: true
 
-  '@com.mgmtp.a12.querymodel/querymodel-core@0.2.0':
-    resolution: {integrity: sha512-uO8JfGiE8ceI6X85c3sjUPgxYDYQ8Mc2+mHfuF7mZWxHpjeOk9YqLlRlDUfA1u7+G5xKc0LWJ2wP+L1iK9o4xQ==}
+  '@com.mgmtp.a12.querymodel/querymodel-core@39.0.2':
+    resolution: {integrity: sha512-ztrf+eX1kUSHvh6PKIRmF9f2L3gJhNjOpmUtGwpxlNyCWi9HtP3vrqkijg8oGnAbq80fOMkJA5DXbd3da97z4g==}
     peerDependencies:
       '@com.mgmtp.a12.base/base-model-api': ^30.0.1
       '@com.mgmtp.a12.dataservices/dataservices-access': ^39.0.0
@@ -1268,22 +1270,30 @@ packages:
   '@com.mgmtp.a12.utils/utils-collections@7.0.1':
     resolution: {integrity: sha512-pJycnsRPFOiiROA6oVmK1YKNsh091Mfbg3o5SoKrDnP/PxBU0S16nl9RrCB9953V8R5JgwtDs+J4N4YMoLomAA==}
 
-  '@com.mgmtp.a12.utils/utils-connector@9.0.1':
-    resolution: {integrity: sha512-+oqKYulh/EQM5/Sqh9cu1PH4IEI5yE5ErknySInXYRa6Z9+ek4AW1j7viaQunFnaKgLHdTCHjXRj+EZsDIwqIg==}
+  '@com.mgmtp.a12.utils/utils-connector@9.0.3':
+    resolution: {integrity: sha512-XTrg9hLd54v2DhRYNxcfGezjOr7NvRwMLi+1E55So7LxWSKuWItwmDx2ohVTdMaYs+akT/QPNdrCw5l1KUrCgg==}
 
-  '@com.mgmtp.a12.utils/utils-localization-react@8.0.1':
-    resolution: {integrity: sha512-QrzD3+xeby7CT0FiebbWo/g8JzSseNPaGCozeyiWmANpAXUBc4xZLgnrBASMRqkxjfFhzm3H/NfA2+32bcgSTw==}
+  '@com.mgmtp.a12.utils/utils-localization-react@8.0.2':
+    resolution: {integrity: sha512-b0KF1HxB3RY44jIkXxn5F/vdXyBDrifyjANvzcZxt637wVj+VNu7oS0nJUoEjBIzYzxvdIRnfYp8QRgzrtwFyw==}
     peerDependencies:
-      react: ^19.0.0
+      react: ^19.2.6
 
-  '@com.mgmtp.a12.utils/utils-localization@8.0.1':
-    resolution: {integrity: sha512-yz8E7TyWJZvy9+g9XAaeA6cy1lyvhTvl/Uzxkl6s7ihko8+CBeoxCpzV5OLE3p+oJqfX+egt0LbgfDUBXLI3sQ==}
+  '@com.mgmtp.a12.utils/utils-localization-react@8.1.0-build.20260813160954.integration':
+    resolution: {integrity: sha512-K+sSZlghv9KgC+gK+1AHBpLJ3twabFsErZQfIYObHskKueK9qsqZ7cS/iJcDmG+6ee9qYWPKue9QwJ4H5rqM5w==}
+    peerDependencies:
+      react: ^19.2.6
 
-  '@com.mgmtp.a12.utils/utils-logging@7.0.1':
-    resolution: {integrity: sha512-b1Fn+BlS/ZTvofb8sskvHKLGuVaTu9ZNb505P/SJhUJZ7Ujs1T2ac0STgAc3gPbXik0L/Xc2sa94f+tyVSVq4Q==}
+  '@com.mgmtp.a12.utils/utils-localization@8.0.2':
+    resolution: {integrity: sha512-ojDHu4QhLRytENBlHzTzua1jQYtT+XUoxOhwHrmr+r5VfZoNeGIk8D6HENbxByAIMFxmUM1YlQf4QGbNouMhIw==}
 
-  '@com.mgmtp.a12.widgets/widgets-core@39.0.1':
-    resolution: {integrity: sha512-8EmTtye2+0JmHPGBV6JxwDo/0QimrnS+R//BLPH2/GuU2gSfY0uQGkSYYNYceqeT2Yn9blW70k9kyiUST/6t6w==}
+  '@com.mgmtp.a12.utils/utils-logging@7.0.2':
+    resolution: {integrity: sha512-lQuy9TFpKxgAOmV8F1nGalJu7YM0PseXj2BiWkB0cv8njMG4xynOvLIFAke+ugTdm4yMg7L8RtPvVosTSOFc0Q==}
+
+  '@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration':
+    resolution: {integrity: sha512-5eserXLM6xv5WOydnI95285DOwqNlCwuFONKF2JmXMzA2kp9EtY1ONT+UHijZlqdLt5cAPrUkFo0ClbmkiSIzQ==}
+
+  '@com.mgmtp.a12.widgets/widgets-core@39.0.3':
+    resolution: {integrity: sha512-L3MoF7tlz62Y7WnTh7XnmW4S0a2OEG6hBkcTgT5FIxanCt0g5iCxnXUgukmm75lcIOWQiyYWLqt+RdbxOQRWlA==}
     peerDependencies:
       react: ^19.2.6
       react-dnd: ^16.0.1
@@ -1317,9 +1327,6 @@ packages:
   '@csstools/css-tokenizer@3.0.4':
     resolution: {integrity: sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==}
     engines: {node: '>=18'}
-
-  '@date-fns/tz@1.4.1':
-    resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
 
   '@date-fns/tz@1.5.0':
     resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
@@ -2069,8 +2076,8 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
-  '@redux-saga/core@1.4.2':
-    resolution: {integrity: sha512-nIMLGKo6jV6Wc1sqtVQs1iqbB3Kq20udB/u9XEaZQisT6YZ0NRB8+4L6WqD/E+YziYutd27NJbG8EWUPkb7c6Q==}
+  '@redux-saga/core@1.5.1':
+    resolution: {integrity: sha512-Yh/eO0YBawlK5qAVXh9vSS0BDMWyFe6qIcVcKa8JtPOo3IFwRly33ZYBrsCwxu7jdSQT9QUJHChAU8fil5dRZQ==}
 
   '@redux-saga/deferred@1.3.1':
     resolution: {integrity: sha512-0YZ4DUivWojXBqLB/TmuRRpDDz7tyq1I0AuDV7qi01XlLhM5m51W7+xYtIckH5U2cMlv9eAuicsfRAi1XHpXIg==}
@@ -2084,8 +2091,8 @@ packages:
   '@redux-saga/symbols@1.2.1':
     resolution: {integrity: sha512-3dh+uDvpBXi7EUp/eO+N7eFM4xKaU4yuGBXc50KnZGzIrR/vlvkTFQsX13zsY8PB6sCFYAgROfPSRUj8331QSA==}
 
-  '@redux-saga/types@1.3.1':
-    resolution: {integrity: sha512-YRCrJdhQLobGIQ8Cj1sta3nn6DrZDTSUnrIYhS2e5V590BmfVDleKoAquclAiKSBKWJwmuXTb+b4BL6rSHnahw==}
+  '@redux-saga/types@1.4.1':
+    resolution: {integrity: sha512-GSOGLWvJIjA63ywISJZr4skTjTnyQdu2WZbUeVguYNMyinEa9yTflBlVOFuBZxmyMR1dQodCE3PiKDu0BvyAHg==}
 
   '@rolldown/binding-android-arm64@1.1.3':
     resolution: {integrity: sha512-DT6Z3PhvioeHMvxo+xHc3KtqggrI7CCTXCmC2h/5zUlp5jVitv7XEy+9q5/7v8IolhlioawpMo8Kg0EEBy7J0g==}
@@ -2681,6 +2688,9 @@ packages:
 
   '@types/redux-mock-store@1.5.0':
     resolution: {integrity: sha512-jcscBazm6j05Hs6xYCca6psTUBbFT2wqMxT7wZEHAYFxHB/I8jYk7d5msrHUlDiSL02HdTqTmkK2oIV8i3C8DA==}
+
+  '@types/scheduler@0.26.0':
+    resolution: {integrity: sha512-WFHp9YUJQ6CKshqoC37iOlHnQSmxNc795UhB26CyBBttrN9svdIrUjl/NjnNmfcwtncN0h/0PPAFWv9ovP8mLA==}
 
   '@types/semver@7.7.1':
     resolution: {integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==}
@@ -3671,8 +3681,8 @@ packages:
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
 
-  dompurify@3.4.11:
-    resolution: {integrity: sha512-zhlUV12GsaRzMsf9q5M254YhA4+VuF0fG+QFqu6aYpoGlKtz+w8//jBcGVYBgQkR5GHjUomejY84AV+/uPbWdw==}
+  dompurify@3.4.13:
+    resolution: {integrity: sha512-2vmYIoqjze2d+kakP8S/nS5shfsl587kzwEjcGlTdiksUVgFHnFCsLYDVj/JNqJVOQZGSYBTmuycv0PodwmnMQ==}
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -4039,8 +4049,8 @@ packages:
   fp-ts@2.16.11:
     resolution: {integrity: sha512-LaI+KaX2NFkfn1ZGHoKCmcfv7yrZsC3b8NtWsTVQeHkq4F27vI5igUuO53sxqDEa2gNQMHFPmpojDw/1zmUK7w==}
 
-  framer-motion@12.25.0:
-    resolution: {integrity: sha512-mlWqd0rApIjeyhTCSNCqPYsUAEhkcUukZxH3ke6KbstBRPcxhEpuIjmiUQvB+1E9xkEm5SpNHBgHCapH/QHTWg==}
+  framer-motion@12.43.0:
+    resolution: {integrity: sha512-1eaL3RvR/kAlbG7UYcpMptEyzPoENO0c6w7ZnB3/hh2vSAz/6uGAFn6fdoqTBguNstf3MsFhJHsD/0DHiclG+g==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -4906,11 +4916,25 @@ packages:
     peerDependencies:
       fp-ts: ^2.5.0
 
-  motion-dom@12.34.3:
-    resolution: {integrity: sha512-sYgFe+pR9aIM7o4fhs2aXtOI+oqlUd33N9Yoxcgo1Fv7M20sRkHtCmzE/VRNIcq7uNJ+qio+Xubt1FXH3pQ+eQ==}
+  motion-dom@12.43.0:
+    resolution: {integrity: sha512-azKON4d9S65PEoFUiQTMTgPheEmzf2QngdRc50AKfJp9Q9mmcBVw22c8eMq9k8kxOFHdL7+WZY7N/5F/lwiDag==}
 
-  motion-utils@12.29.2:
-    resolution: {integrity: sha512-G3kc34H2cX2gI63RqU+cZq+zWRRPSsNIOjpdl9TN4AQwC4sgwYPl/Q/Obf/d53nOm569T0fYK+tcoSV50BWx8A==}
+  motion-utils@12.39.0:
+    resolution: {integrity: sha512-8nadJAJjTtqRkmRF36FoJTrywK9nnFmnPwnSMyxaOCU7GDjN9RTMJIxx9De8ErM+vpPhMccr/6fo5WciyQLnMQ==}
+
+  motion@12.43.0:
+    resolution: {integrity: sha512-BQgQbSa9Hn3/mtbib0MK53y6JSANa+YKUKlaYnWzAVDH424RYQ5LVpV3pNiWH00BA2z4ojsSdMzqT7g2FQwjuQ==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
@@ -5412,8 +5436,8 @@ packages:
       '@redux-saga/symbols': ^1.0.1
       redux-saga: ^1.0.1
 
-  redux-saga@1.4.2:
-    resolution: {integrity: sha512-QLIn/q+7MX/B+MkGJ/K6R3//60eJ4QNy65eqPsJrfGezbxdh1Jx+37VRKE2K4PsJnNET5JufJtgWdT30WBa+6w==}
+  redux-saga@1.5.1:
+    resolution: {integrity: sha512-ZwnV/p+ABHoaDzyBrZshmIG/axRQG6AQJre8p9t1bPI/i6UzE5C9jGG9wgSKi8ojLMVyFLwmiDwFtuaul9c3wQ==}
 
   redux@4.2.1:
     resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
@@ -5938,21 +5962,12 @@ packages:
     resolution: {integrity: sha512-DtRNLb7x8yCTv/KHlwes+NI+aGb4Vl1iPC63Hhtcvk1DpxSAZzKWQv0RQFY0jX2Uqj0SDBNl8Na4e6MV6TNDgw==}
     engines: {node: '>=6.0.0'}
 
-  typescript-compare@0.0.2:
-    resolution: {integrity: sha512-8ja4j7pMHkfLJQO2/8tut7ub+J3Lw2S3061eJLFQcvs3tsmJKp8KG5NtpLn7KcY2w08edF74BSVN7qJS0U6oHA==}
-
   typescript-eslint@8.61.1:
     resolution: {integrity: sha512-V7PayAfJokV3pEHgN7/v03D1SpujhRfQtYLbLIiBfDDncdg4PAiRBfoS4cnCANK4jmAPncczi59QO3afiXUlNw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
       typescript: '>=4.8.4 <6.1.0'
-
-  typescript-logic@0.0.0:
-    resolution: {integrity: sha512-zXFars5LUkI3zP492ls0VskH3TtdeHCqu0i7/duGt60i5IGPIpAHE/DWo5FqJ6EjQ15YKXrt+AETjv60Dat34Q==}
-
-  typescript-tuple@2.2.1:
-    resolution: {integrity: sha512-Zcr0lbt8z5ZdEzERHAMAniTiIKerFCMgd7yjq1fPnDJ43et/k9twIFQMUYff9k5oXcsQ0WpvFcgzK2ZKASoW6Q==}
 
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
@@ -6456,7 +6471,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.7
       '@babel/helper-module-imports': 7.28.6
-      '@babel/helper-validator-identifier': 7.28.5
+      '@babel/helper-validator-identifier': 7.29.7
       '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
@@ -6583,7 +6598,7 @@ snapshots:
 
   '@babel/template@7.28.6':
     dependencies:
-      '@babel/code-frame': 7.29.0
+      '@babel/code-frame': 7.29.7
       '@babel/parser': 7.29.7
       '@babel/types': 7.29.0
 
@@ -6595,7 +6610,7 @@ snapshots:
 
   '@babel/traverse@7.29.0':
     dependencies:
-      '@babel/code-frame': 7.29.0
+      '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.1
       '@babel/helper-globals': 7.28.0
       '@babel/parser': 7.29.7
@@ -6633,53 +6648,75 @@ snapshots:
 
   '@chevrotain/types@11.1.2': {}
 
-  '@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)':
+  '@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)':
     dependencies:
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
 
-  '@com.mgmtp.a12.client/client-application-model-migration@17.0.0(@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1))':
+  '@com.mgmtp.a12.client/client-application-model-migration@17.0.1(@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2))':
     dependencies:
-      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
+      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
 
-  '@com.mgmtp.a12.client/client-core@17.0.0(6651b8619e00f2d27a67ebb0ff9fdec8)':
+  '@com.mgmtp.a12.client/client-core@17.0.1(57436630ca534ac0ae491ef1426a4da9)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat': 1.0.2(redux@5.0.1)
-      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
-      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.utils/utils-connector': 9.0.1
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
-      '@com.mgmtp.a12.utils/utils-localization-react': 8.0.1(react@19.2.6)
-      '@com.mgmtp.a12.utils/utils-logging': 7.0.1
-      '@com.mgmtp.a12.widgets/widgets-core': 39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.utils/utils-connector': 9.0.3
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-localization-react': 8.0.2(react@19.2.6)
+      '@com.mgmtp.a12.utils/utils-logging': 7.0.2
+      '@com.mgmtp.a12.widgets/widgets-core': 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
       fast-deep-equal: 3.1.3
       fp-ts: 2.16.11
       monocle-ts: 2.3.13(fp-ts@2.16.11)
       react: 19.2.6
       react-redux: 9.2.0(@types/react@19.2.14)(react@19.2.6)(redux@5.0.1)
       redux: 5.0.1
-      redux-saga: 1.4.2
+      redux-saga: 1.5.1
       semver: 7.8.5
-      typed-redux-saga: 1.5.0(redux-saga@1.4.2)
+      typed-redux-saga: 1.5.0(redux-saga@1.5.1)
+
+  '@com.mgmtp.a12.client/client-core@17.0.1(d0ecfe0517573490e937f2bca050ea47)':
+    dependencies:
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat': 1.0.2(redux@5.0.1)
+      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
+      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
+      '@com.mgmtp.a12.utils/utils-connector': 9.0.3
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-localization-react': 8.1.0-build.20260813160954.integration(react@19.2.6)
+      '@com.mgmtp.a12.utils/utils-logging': 7.1.0-build.20260813160946.integration
+      '@com.mgmtp.a12.widgets/widgets-core': 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+      fast-deep-equal: 3.1.3
+      fp-ts: 2.16.11
+      monocle-ts: 2.3.13(fp-ts@2.16.11)
+      react: 19.2.6
+      react-redux: 9.2.0(@types/react@19.2.14)(react@19.2.6)(redux@5.0.1)
+      redux: 5.0.1
+      redux-saga: 1.5.1
+      semver: 7.8.5
+      typed-redux-saga: 1.5.0(redux-saga@1.5.1)
 
   '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat@1.0.2(redux@5.0.1)':
     dependencies:
       redux: 5.0.1
 
-  '@com.mgmtp.a12.dataservices/dataservices-access@39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)':
+  '@com.mgmtp.a12.dataservices/dataservices-access@39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat': 1.0.2(redux@5.0.1)
-      '@com.mgmtp.a12.utils/utils-connector': 9.0.1
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
+      '@com.mgmtp.a12.utils/utils-connector': 9.0.3
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
       redux: 5.0.1
 
-  '@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration@39.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)':
+  '@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration@39.0.3(@com.mgmtp.a12.utils/utils-localization@8.0.2)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
-      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
     transitivePeerDependencies:
       - '@com.mgmtp.a12.utils/utils-localization'
 
@@ -6710,68 +6747,121 @@ snapshots:
 
   '@com.mgmtp.a12.devtools/tsconfig@2.0.1': {}
 
-  '@com.mgmtp.a12.expression/expression-core@3.0.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1))(@com.mgmtp.a12.utils/utils-localization@8.0.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@com.mgmtp.a12.expression/expression-core@3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
-      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
       antlr4: 4.13.2
-      dompurify: 3.4.11
+      dompurify: 3.4.13
       marked: 4.3.0
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
-  '@com.mgmtp.a12.formengine/formengine-core@39.0.0(e25c1386dd488ba1e4fcba84c9c7f187)':
+  '@com.mgmtp.a12.expression/expression-core@3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
-      '@com.mgmtp.a12.client/client-core': 17.0.0(6651b8619e00f2d27a67ebb0ff9fdec8)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      antlr4: 4.13.2
+      dompurify: 3.4.13
+      marked: 4.3.0
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
+
+  '@com.mgmtp.a12.formengine/formengine-core@39.0.1(80c0d64ee861aad7cfe8e496b8412e69)':
+    dependencies:
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.client/client-core': 17.0.1(d0ecfe0517573490e937f2bca050ea47)
       '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat': 1.0.2(redux@5.0.1)
-      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
-      '@com.mgmtp.a12.expression/expression-core': 3.0.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1))(@com.mgmtp.a12.utils/utils-localization@8.0.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.utils/utils-connector': 9.0.1
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
-      '@com.mgmtp.a12.utils/utils-localization-react': 8.0.1(react@19.2.6)
-      '@com.mgmtp.a12.widgets/widgets-core': 39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
-      dompurify: 3.4.11
+      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
+      '@com.mgmtp.a12.expression/expression-core': 3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
+      '@com.mgmtp.a12.utils/utils-connector': 9.0.3
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-localization-react': 8.1.0-build.20260813160954.integration(react@19.2.6)
+      '@com.mgmtp.a12.widgets/widgets-core': 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+      dompurify: 3.4.13
       fast-deep-equal: 3.1.3
       fp-ts: 2.16.11
       react: 19.2.6
       redux: 5.0.1
 
-  '@com.mgmtp.a12.formengine/formengine-model-migration@39.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)':
+  '@com.mgmtp.a12.formengine/formengine-core@39.0.1(a74a31de59ad6838f4a5f698ee7c4a18)':
     dependencies:
-      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.client/client-core': 17.0.1(57436630ca534ac0ae491ef1426a4da9)
+      '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat': 1.0.2(redux@5.0.1)
+      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
+      '@com.mgmtp.a12.expression/expression-core': 3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.utils/utils-connector': 9.0.3
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-localization-react': 8.0.2(react@19.2.6)
+      '@com.mgmtp.a12.widgets/widgets-core': 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+      dompurify: 3.4.13
+      fast-deep-equal: 3.1.3
+      fp-ts: 2.16.11
+      react: 19.2.6
+      redux: 5.0.1
+
+  '@com.mgmtp.a12.formengine/formengine-model-migration@39.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)':
+    dependencies:
+      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
     transitivePeerDependencies:
       - '@com.mgmtp.a12.utils/utils-localization'
 
-  '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts@31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)':
+  '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts@31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)':
     dependencies:
       '@com.mgmtp.a12.utils/utils-collections': 7.0.1
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
-      '@com.mgmtp.a12.utils/utils-logging': 7.0.1
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-logging': 7.0.2
 
-  '@com.mgmtp.a12.kernel/kernel-core-runtime-ts@31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)':
+  '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts@31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)':
     dependencies:
-      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
       '@com.mgmtp.a12.utils/utils-collections': 7.0.1
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
-      '@com.mgmtp.a12.utils/utils-logging': 7.0.1
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-logging': 7.1.0-build.20260813160946.integration
+
+  '@com.mgmtp.a12.kernel/kernel-core-runtime-ts@31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)':
+    dependencies:
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.utils/utils-collections': 7.0.1
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-logging': 7.0.2
       big.js: 7.0.1
 
-  '@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)':
+  '@com.mgmtp.a12.kernel/kernel-core-runtime-ts@31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
-      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.kernel/kernel-core-runtime-ts': 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
-      '@com.mgmtp.a12.utils/utils-logging': 7.0.1
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
+      '@com.mgmtp.a12.utils/utils-collections': 7.0.1
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-logging': 7.1.0-build.20260813160946.integration
+      big.js: 7.0.1
+
+  '@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)':
+    dependencies:
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-logging': 7.0.2
     transitivePeerDependencies:
       - '@com.mgmtp.a12.utils/utils-collections'
 
-  '@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)':
+  '@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration)
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-logging': 7.1.0-build.20260813160946.integration
+    transitivePeerDependencies:
+      - '@com.mgmtp.a12.utils/utils-collections'
+
+  '@com.mgmtp.a12.migrationtool/migrationtool-core@3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)':
+    dependencies:
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
       '@noble/hashes': 2.2.0
       ajv: 8.20.0
       babel-plugin-transform-assets-import-to-string: 1.2.0
@@ -6780,12 +6870,12 @@ snapshots:
       glob: 13.0.6
       jiti: 2.6.1
       json5: 2.2.3
-      semver: 7.7.4
-      yargs: 17.7.2
+      semver: 7.8.5
+      yargs: 17.7.3
     transitivePeerDependencies:
       - '@com.mgmtp.a12.utils/utils-localization'
 
-  '@com.mgmtp.a12.migrationtool/migrationtool-utils@3.0.0(@types/node@22.19.11)(typescript@6.0.2)':
+  '@com.mgmtp.a12.migrationtool/migrationtool-utils@3.0.1(@types/node@22.19.11)(typescript@6.0.2)':
     dependencies:
       ajv: 8.20.0
       better-ajv-errors: 1.2.0(ajv@8.20.0)
@@ -6793,29 +6883,29 @@ snapshots:
       inquirer: 12.11.1(@types/node@22.19.11)
       prettier: 3.8.1
       run-parallel-limit: 1.1.0
-      semver: 7.7.4
+      semver: 7.8.5
       ts-json-schema-generator: 2.9.1-next.13
       ts-morph: 27.0.2
       typescript: 6.0.2
-      yargs: 17.7.2
+      yargs: 17.7.3
     transitivePeerDependencies:
       - '@types/node'
 
-  '@com.mgmtp.a12.overviewengine/overviewengine-core@39.0.0(a106a29871d649746c76e1d1bfafc3f3)':
+  '@com.mgmtp.a12.overviewengine/overviewengine-core@39.0.2(ef0f67ad35d5e8a210174bab3fd5c062)':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
-      '@com.mgmtp.a12.client/client-core': 17.0.0(6651b8619e00f2d27a67ebb0ff9fdec8)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.client/client-core': 17.0.1(57436630ca534ac0ae491ef1426a4da9)
       '@com.mgmtp.a12.client/typescript-fsa-redux-5-compat': 1.0.2(redux@5.0.1)
-      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
-      '@com.mgmtp.a12.expression/expression-core': 3.0.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1))(@com.mgmtp.a12.utils/utils-localization@8.0.1)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.0(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(@com.mgmtp.a12.utils/utils-logging@7.0.1)
-      '@com.mgmtp.a12.querymodel/querymodel-core': 0.2.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1))
-      '@com.mgmtp.a12.utils/utils-connector': 9.0.1
-      '@com.mgmtp.a12.utils/utils-localization': 8.0.1
-      '@com.mgmtp.a12.utils/utils-localization-react': 8.0.1(react@19.2.6)
-      '@com.mgmtp.a12.utils/utils-logging': 7.0.1
-      '@com.mgmtp.a12.widgets/widgets-core': 39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
+      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
+      '@com.mgmtp.a12.expression/expression-core': 3.0.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.kernel/kernel-md-facade@31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2))(@com.mgmtp.a12.utils/utils-localization@8.0.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts': 31.1.1(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.kernel/kernel-md-facade': 31.1.1(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-collections@7.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(@com.mgmtp.a12.utils/utils-logging@7.0.2)
+      '@com.mgmtp.a12.querymodel/querymodel-core': 39.0.2(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1))
+      '@com.mgmtp.a12.utils/utils-connector': 9.0.3
+      '@com.mgmtp.a12.utils/utils-localization': 8.0.2
+      '@com.mgmtp.a12.utils/utils-localization-react': 8.0.2(react@19.2.6)
+      '@com.mgmtp.a12.utils/utils-logging': 7.0.2
+      '@com.mgmtp.a12.widgets/widgets-core': 39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)
       '@date-fns/tz': 1.5.0
       date-fns: 4.4.0
       fp-ts: 2.16.11
@@ -6826,46 +6916,52 @@ snapshots:
       react-dom: 19.2.6(react@19.2.6)
       react-redux: 9.2.0(@types/react@19.2.14)(react@19.2.6)(redux@5.0.1)
       redux: 5.0.1
-      redux-saga: 1.4.2
+      redux-saga: 1.5.1
       reselect: 5.1.1
       styled-components: 6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       ts-keycode-enum: 1.0.6
-      typed-redux-saga: 1.5.0(redux-saga@1.4.2)
+      typed-redux-saga: 1.5.0(redux-saga@1.5.1)
 
-  '@com.mgmtp.a12.overviewengine/overviewengine-model-migration@39.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)':
+  '@com.mgmtp.a12.overviewengine/overviewengine-model-migration@39.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)':
     dependencies:
-      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.0(@com.mgmtp.a12.utils/utils-localization@8.0.1)
+      '@com.mgmtp.a12.migrationtool/migrationtool-core': 3.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.2)
     transitivePeerDependencies:
       - '@com.mgmtp.a12.utils/utils-localization'
 
-  '@com.mgmtp.a12.querymodel/querymodel-core@0.2.0(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1))':
+  '@com.mgmtp.a12.querymodel/querymodel-core@39.0.2(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.dataservices/dataservices-access@39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1))':
     dependencies:
-      '@com.mgmtp.a12.base/base-model-api': 30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1)
-      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.1(@com.mgmtp.a12.base/base-model-api@30.0.1(@com.mgmtp.a12.utils/utils-localization@8.0.1))(@com.mgmtp.a12.utils/utils-connector@9.0.1)(@com.mgmtp.a12.utils/utils-localization@8.0.1)(redux@5.0.1)
+      '@com.mgmtp.a12.base/base-model-api': 30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2)
+      '@com.mgmtp.a12.dataservices/dataservices-access': 39.0.3(@com.mgmtp.a12.base/base-model-api@30.0.2(@com.mgmtp.a12.utils/utils-localization@8.0.2))(@com.mgmtp.a12.utils/utils-connector@9.0.3)(@com.mgmtp.a12.utils/utils-localization@8.0.2)(redux@5.0.1)
 
   '@com.mgmtp.a12.utils/utils-collections@7.0.1':
     dependencies:
       bintrees: 1.0.2
 
-  '@com.mgmtp.a12.utils/utils-connector@9.0.1': {}
+  '@com.mgmtp.a12.utils/utils-connector@9.0.3': {}
 
-  '@com.mgmtp.a12.utils/utils-localization-react@8.0.1(react@19.2.6)':
+  '@com.mgmtp.a12.utils/utils-localization-react@8.0.2(react@19.2.6)':
     dependencies:
       react: 19.2.6
 
-  '@com.mgmtp.a12.utils/utils-localization@8.0.1':
+  '@com.mgmtp.a12.utils/utils-localization-react@8.1.0-build.20260813160954.integration(react@19.2.6)':
+    dependencies:
+      react: 19.2.6
+
+  '@com.mgmtp.a12.utils/utils-localization@8.0.2':
     dependencies:
       big.js: 7.0.1
       luxon: 3.7.2
 
-  '@com.mgmtp.a12.utils/utils-logging@7.0.1': {}
+  '@com.mgmtp.a12.utils/utils-logging@7.0.2': {}
 
-  '@com.mgmtp.a12.widgets/widgets-core@39.0.1(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)':
+  '@com.mgmtp.a12.utils/utils-logging@7.1.0-build.20260813160946.integration': {}
+
+  '@com.mgmtp.a12.widgets/widgets-core@39.0.3(react-dnd@16.0.1(patch_hash=6151200d47ab5959ddd1772fe3929688f225cf71f4eeac5d9427a9c1a5fec73f)(@types/hoist-non-react-statics@3.3.7(@types/react@19.2.14))(@types/node@22.19.11)(@types/react@19.2.14)(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(styled-components@6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(yjs@13.6.29)':
     dependencies:
       '@atlaskit/pragmatic-drag-and-drop': 1.8.1
       '@atlaskit/pragmatic-drag-and-drop-auto-scroll': 1.4.0
       '@atlaskit/pragmatic-drag-and-drop-hitbox': 1.2.0
-      '@date-fns/tz': 1.4.1
+      '@date-fns/tz': 1.5.0
       '@emotion/is-prop-valid': 1.4.0
       '@lexical/html': 0.44.0
       '@lexical/link': 0.44.0
@@ -6879,19 +6975,20 @@ snapshots:
       '@tanstack/react-virtual': 3.14.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@types/lodash': 4.17.24
       '@types/react-virtualized': 9.22.3
+      '@types/scheduler': 0.26.0
       date-fns: 4.4.0
       deepmerge: 4.3.1
       detect-it: 4.0.1
       dnd-core: 16.0.1
       dnd-multi-backend: 9.0.1-rc0001(dnd-core@16.0.1)
-      dompurify: 3.4.11
-      framer-motion: 12.25.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      dompurify: 3.4.13
       immer: 11.1.8
       lexical: 0.44.0
       linkify-it: 5.0.1
       lodash-es: 4.18.1
       mini-svg-data-uri: 1.4.4
       mobile-detect: 1.4.5
+      motion: 12.43.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       polished: 4.3.1
       react: 19.2.6
       react-day-picker: 9.14.0(react@19.2.6)
@@ -6907,9 +7004,9 @@ snapshots:
       react-transition-group: 4.4.5(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react-virtualized: 9.22.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       recharts: 2.15.4(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      scheduler: 0.27.0
       styled-components: 6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       ts-key-enum: 2.0.13
-      use-sync-external-store: 1.6.0(react@19.2.6)
     transitivePeerDependencies:
       - yjs
 
@@ -6932,8 +7029,6 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
 
   '@csstools/css-tokenizer@3.0.4': {}
-
-  '@date-fns/tz@1.4.1': {}
 
   '@date-fns/tz@1.5.0': {}
 
@@ -7732,15 +7827,14 @@ snapshots:
     dependencies:
       react: 19.2.6
 
-  '@redux-saga/core@1.4.2':
+  '@redux-saga/core@1.5.1':
     dependencies:
       '@babel/runtime': 7.28.6
       '@redux-saga/deferred': 1.3.1
       '@redux-saga/delay-p': 1.3.1
       '@redux-saga/is': 1.2.1
       '@redux-saga/symbols': 1.2.1
-      '@redux-saga/types': 1.3.1
-      typescript-tuple: 2.2.1
+      '@redux-saga/types': 1.4.1
 
   '@redux-saga/deferred@1.3.1': {}
 
@@ -7751,11 +7845,11 @@ snapshots:
   '@redux-saga/is@1.2.1':
     dependencies:
       '@redux-saga/symbols': 1.2.1
-      '@redux-saga/types': 1.3.1
+      '@redux-saga/types': 1.4.1
 
   '@redux-saga/symbols@1.2.1': {}
 
-  '@redux-saga/types@1.3.1': {}
+  '@redux-saga/types@1.4.1': {}
 
   '@rolldown/binding-android-arm64@1.1.3':
     optional: true
@@ -8108,7 +8202,7 @@ snapshots:
     dependencies:
       minimatch: 10.2.5
       path-browserify: 1.0.1
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.17
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
@@ -8348,6 +8442,8 @@ snapshots:
     dependencies:
       redux: 4.2.1
 
+  '@types/scheduler@0.26.0': {}
+
   '@types/semver@7.7.1': {}
 
   '@types/ssh2@1.15.5':
@@ -8444,9 +8540,9 @@ snapshots:
       '@typescript-eslint/types': 8.61.1
       '@typescript-eslint/visitor-keys': 8.61.1
       debug: 4.4.3
-      minimatch: 10.2.3
-      semver: 7.7.4
-      tinyglobby: 0.2.15
+      minimatch: 10.2.5
+      semver: 7.8.5
+      tinyglobby: 0.2.17
       ts-api-utils: 2.5.0(typescript@6.0.2)
       typescript: 6.0.2
     transitivePeerDependencies:
@@ -8542,7 +8638,7 @@ snapshots:
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       color-string: 2.1.4
-      dompurify: 3.4.11
+      dompurify: 3.4.13
       highlight.js: 11.11.1
       html-to-image: 1.11.13
       jotai: 2.20.1(@babel/core@7.29.7)(@babel/template@7.29.7)(@types/react@19.2.14)(react@19.2.6)
@@ -8827,7 +8923,7 @@ snapshots:
 
   better-ajv-errors@1.2.0(ajv@8.20.0):
     dependencies:
-      '@babel/code-frame': 7.29.0
+      '@babel/code-frame': 7.29.7
       '@humanwhocodes/momoa': 2.0.4
       ajv: 8.20.0
       chalk: 4.1.2
@@ -9442,7 +9538,7 @@ snapshots:
       '@babel/runtime': 7.28.6
       csstype: 3.2.3
 
-  dompurify@3.4.11:
+  dompurify@3.4.13:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -9965,10 +10061,10 @@ snapshots:
 
   fp-ts@2.16.11: {}
 
-  framer-motion@12.25.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  framer-motion@12.43.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
-      motion-dom: 12.34.3
-      motion-utils: 12.29.2
+      motion-dom: 12.43.0
+      motion-utils: 12.39.0
       tslib: 2.8.1
     optionalDependencies:
       '@emotion/is-prop-valid': 1.4.0
@@ -10705,7 +10801,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.5
 
   markdown-it@14.2.0:
     dependencies:
@@ -10740,7 +10836,7 @@ snapshots:
       d3-sankey: 0.12.3
       dagre-d3-es: 7.0.14
       dayjs: 1.11.21
-      dompurify: 3.4.11
+      dompurify: 3.4.13
       es-toolkit: 1.47.1
       katex: 0.16.47
       khroma: 2.1.0
@@ -10803,11 +10899,20 @@ snapshots:
     dependencies:
       fp-ts: 2.16.11
 
-  motion-dom@12.34.3:
+  motion-dom@12.43.0:
     dependencies:
-      motion-utils: 12.29.2
+      motion-utils: 12.39.0
 
-  motion-utils@12.29.2: {}
+  motion-utils@12.39.0: {}
+
+  motion@12.43.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+    dependencies:
+      framer-motion: 12.43.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      tslib: 2.8.1
+    optionalDependencies:
+      '@emotion/is-prop-valid': 1.4.0
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
 
   ms@2.0.0: {}
 
@@ -10969,7 +11074,7 @@ snapshots:
 
   parse-json@5.2.0:
     dependencies:
-      '@babel/code-frame': 7.29.0
+      '@babel/code-frame': 7.29.7
       error-ex: 1.3.4
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
@@ -11165,7 +11270,7 @@ snapshots:
 
   react-day-picker@9.14.0(react@19.2.6):
     dependencies:
-      '@date-fns/tz': 1.4.1
+      '@date-fns/tz': 1.5.0
       '@tabby_ai/hijri-converter': 1.0.5
       date-fns: 4.4.0
       date-fns-jalali: 4.1.0-0
@@ -11340,18 +11445,19 @@ snapshots:
       lodash.isplainobject: 4.0.6
       redux: 5.0.1
 
-  redux-saga-test-plan@4.0.6(@redux-saga/is@1.2.1)(@redux-saga/symbols@1.2.1)(redux-saga@1.4.2):
+  redux-saga-test-plan@4.0.6(@redux-saga/is@1.2.1)(@redux-saga/symbols@1.2.1)(redux-saga@1.5.1):
     dependencies:
       '@redux-saga/is': 1.2.1
       '@redux-saga/symbols': 1.2.1
       fsm-iterator: 1.1.0
       lodash.isequal: 4.5.0
       lodash.ismatch: 4.4.0
-      redux-saga: 1.4.2
+      redux-saga: 1.5.1
 
-  redux-saga@1.4.2:
+  redux-saga@1.5.1:
     dependencies:
-      '@redux-saga/core': 1.4.2
+      '@babel/runtime': 7.28.6
+      '@redux-saga/core': 1.5.1
 
   redux@4.2.1:
     dependencies:
@@ -11990,9 +12096,9 @@ snapshots:
 
   typed-query-selector@2.12.2: {}
 
-  typed-redux-saga@1.5.0(redux-saga@1.4.2):
+  typed-redux-saga@1.5.0(redux-saga@1.5.1):
     dependencies:
-      redux-saga: 1.4.2
+      redux-saga: 1.5.1
     optionalDependencies:
       '@babel/helper-module-imports': 7.28.6
       babel-plugin-macros: 3.1.0
@@ -12014,10 +12120,6 @@ snapshots:
       lodash: 4.18.1
       postinstall-build: 5.0.3
 
-  typescript-compare@0.0.2:
-    dependencies:
-      typescript-logic: 0.0.0
-
   typescript-eslint@8.61.1(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.2):
     dependencies:
       '@typescript-eslint/eslint-plugin': 8.61.1(@typescript-eslint/parser@8.61.1(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.2))(eslint@10.5.0(jiti@2.6.1))(typescript@6.0.2)
@@ -12028,12 +12130,6 @@ snapshots:
       typescript: 6.0.2
     transitivePeerDependencies:
       - supports-color
-
-  typescript-logic@0.0.0: {}
-
-  typescript-tuple@2.2.1:
-    dependencies:
-      typescript-compare: 0.0.2
 
   typescript@5.9.3: {}
 

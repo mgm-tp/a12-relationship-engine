@@ -38,3 +38,4 @@ export * from "./internal/CustomScreenElement.js";
 export * from "./internal/DetachRepeat.js";
 export * from "./internal/FormModelMap.js";
 export * from "./internal/shared.js";
+export * from "./internal/components/dialog/utils.js";

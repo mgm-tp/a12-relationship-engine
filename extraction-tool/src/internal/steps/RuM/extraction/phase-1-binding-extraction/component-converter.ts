@@ -97,6 +97,18 @@ function getDimensionValue(value: string | number | undefined): string | undefin
 }
 
 /**
+ * Legacy modelling often set only `editDialogWidth`. The dialog derives its max-width from
+ * `dialogMaxWidth`, so mirror the width when no explicit max-width was modelled.
+ */
+function withDialogMaxWidthFallback(
+	config: RelationshipUiModel.EditConfiguration
+): RelationshipUiModel.EditConfiguration {
+	return config.dialogMaxWidth === undefined && config.dialogWidth !== undefined
+		? { ...config, dialogMaxWidth: config.dialogWidth }
+		: config;
+}
+
+/**
  * Builds the edit configuration for a TableList with a nested DualPane
  * sub-component.
  */
@@ -181,6 +193,6 @@ export function convertComponents(
 		selectedItemsOverviewModel: resolved.selectedItemsOverviewModel,
 		...(resolvedLinkFormModel !== undefined ? { linkFormModel: resolvedLinkFormModel } : {}),
 		...(height !== undefined ? { height } : {}),
-		...(mergedEditConfig !== undefined ? { editConfiguration: mergedEditConfig } : {})
+		...(mergedEditConfig !== undefined ? { editConfiguration: withDialogMaxWidthFallback(mergedEditConfig) } : {})
 	};
 }

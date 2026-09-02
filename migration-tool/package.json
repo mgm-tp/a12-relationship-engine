@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-model-migration",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "module",
 	"description": "Relationship UI Model (RuM) Migration Tool",
 	"author": "mgm technology partners",
@@ -15,13 +15,13 @@
 		"migrate": "./bin/relationship-ui-model-migration .."
 	},
 	"dependencies": {
-		"@com.mgmtp.a12.migrationtool/migrationtool-core": "catalog:a12Libs"
+		"@com.mgmtp.a12.migrationtool/migrationtool-core": "catalog:a12"
 	},
 	"devDependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
-		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
-		"@com.mgmtp.a12.migrationtool/migrationtool-utils": "catalog:a12Libs",
-		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12",
+		"@com.mgmtp.a12.migrationtool/migrationtool-utils": "catalog:a12",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12",
 		"@types/node": "catalog:devLibs",
 		"@types/semver": "^7.7.1",
 		"@vitest/coverage-v8": "catalog:devLibs",

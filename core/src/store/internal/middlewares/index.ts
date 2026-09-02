@@ -41,6 +41,7 @@ import type { RelationshipEngineMiddlewareOptions } from "./types.js";
 import { onFieldValueChangedMiddleware } from "./onFieldValueChanged.js";
 import { onLinkAddedRequestedMiddleware } from "./onLinkAddedRequested.js";
 import { onAttachmentValueChangedMiddleware } from "./onAttachmentValueChanged.js";
+import { onMultiSelectValueChangedMiddleware } from "./onMultiSelectValueChanged.js";
 import { onLinkDocumentEditRequestedMiddleware } from "./onLinkDocumentEditRequested.js";
 import { onDetachedRepeatTransactionMiddleware } from "./onDetachedRepeatTransaction.js";
 import { onDialogClosedMiddleware, onDialogConfirmedMiddleware } from "./onDialogEvents.js";
@@ -49,6 +50,7 @@ import { onDialogClosedMiddleware, onDialogConfirmedMiddleware } from "./onDialo
 export function createRelationshipEngineMiddlewares(_options?: RelationshipEngineMiddlewareOptions): Middleware[] {
 	return [
 		onFieldValueChangedMiddleware,
+		onMultiSelectValueChangedMiddleware,
 		onAttachmentValueChangedMiddleware,
 		onLinkAddedRequestedMiddleware,
 		onLinkDocumentEditRequestedMiddleware,

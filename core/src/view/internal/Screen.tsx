@@ -31,10 +31,13 @@
  */
 
 import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 
 import type { FormModel } from "@com.mgmtp.a12.formengine/formengine-core";
 import { ViewViews, ModalRegionUiNG } from "@com.mgmtp.a12.client/client-core";
 import { type FormModelMap, DefaultFormModelMap } from "@com.mgmtp.a12.formengine/formengine-core";
+
+import { ModelSelectors, LINK_FORM_REGION } from "../../store/index.js";
 
 import { DialogRenderer } from "./components/dialog/DialogRenderer.js";
 
@@ -43,17 +46,25 @@ import { DialogRenderer } from "./components/dialog/DialogRenderer.js";
  * Custom Screen component that wraps the default Screen and adds the DialogRenderer
  * for relationship engine dialogs (e.g., variant selection).
  *
- * The Screen is rendered once per activity, making it the ideal place to render
- * dialogs without duplication.
+ * Multiple Screens can be mounted concurrently (one per live form activity), so the
+ * link-form region must only be rendered by the Screen whose activity initiated the
+ * link form — otherwise every mounted Screen would render its own copy of the same
+ * dialog. See `ModelSelectors.isLinkFormRegionOwner`.
  */
 export function Screen(props: FormModelMap.FormModelComponentProps<FormModel.Screen>): React.ReactNode {
 	const { activityId } = useContext(ViewViews.ActivityContext) ?? {};
+	// Direct-initiator match only: the link-form activity's own Screen has
+	// activityId === a.id, and an activity is never its own initiator
+	// (a.initiatingActivityId !== a.id), so this excludes self-nesting for free.
+	const ownsLinkFormRegion = useSelector((state: object) =>
+		activityId !== undefined ? ModelSelectors.isLinkFormRegionOwner(activityId)(state) : false
+	);
 
 	return (
 		<>
 			<DefaultFormModelMap.Screen.component {...props} />
 			{activityId && <DialogRenderer activityId={activityId} />}
-			<ModalRegionUiNG regionRef="RelationshipEngineLinkFormRegion" />
+			{ownsLinkFormRegion && <ModalRegionUiNG regionRef={LINK_FORM_REGION} />}
 		</>
 	);
 }

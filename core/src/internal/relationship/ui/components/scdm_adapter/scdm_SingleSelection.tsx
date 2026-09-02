@@ -76,11 +76,22 @@ interface StateProps extends ScdmRelationshipUiAdapter.StateProps {
 interface DispatchProps {
 	onSelectLink(candidate: RelationshipClientApi.Candidate): void;
 	onRemoveLink(link: RelationshipClientApi.LinkWithDocument): void;
+	onReplaceLink(candidate: RelationshipClientApi.Candidate, oldLink: RelationshipClientApi.LinkWithDocument): void;
 	onSearch(value: string | undefined): void;
 	onLoadMore?(): void;
 }
 
 type OwnProps = ScdmRelationshipUiAdapter.OwnProps<SingleSelectionProps, FormModel.Control>;
+
+/** @internal */
+export function areStatePropsEqual(prevProps: StateProps, curProps: StateProps): boolean {
+	return (
+		ScdmRelationshipUiAdapter.areStatePropsEqual(prevProps, curProps) &&
+		prevProps.candidateModels?.loadingState === curProps.candidateModels?.loadingState &&
+		prevProps.candidatesFullCount === curProps.candidatesFullCount &&
+		prevProps.minSearchableTokenSize === curProps.minSearchableTokenSize
+	);
+}
 
 /** @internal */
 export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProps, object>(
@@ -137,6 +148,18 @@ export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, Own
 					})
 				);
 			},
+			onReplaceLink: (candidate, oldLink) => {
+				dispatch(
+					CddActions.replacedCddLink({
+						activityId,
+						linkDescriptor: candidate.linkRef.linkDescriptor,
+						candidateDoc: candidate.document.target as GroupInstance,
+						targetRole,
+						removeLinkRef: oldLink.linkRef as Relationship.LinkRef,
+						setDirty: true
+					})
+				);
+			},
 			onLoadMore: () => {
 				dispatch(
 					RelationshipActions.Events.pageExpanded({
@@ -157,6 +180,10 @@ export const ScdmSingleSelectionAdapter = connect<StateProps, DispatchProps, Own
 				);
 			}
 		};
+	},
+	undefined,
+	{
+		areStatePropsEqual
 	}
 )(SingleSelectionWrapperWrapper);
 

@@ -31,13 +31,13 @@
  */
 
 import type { Selector } from "@com.mgmtp.a12.client/client-core";
-import { Activity, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import { FormEngineSelectors } from "@com.mgmtp.a12.formengine/formengine-core";
 import type { LocalizedModelText } from "@com.mgmtp.a12.utils/utils-localization";
 import { isOverviewModel } from "@com.mgmtp.a12.overviewengine/overviewengine-core";
 import type { ModelPath, Model as BaseModel } from "@com.mgmtp.a12.base/base-model-api";
 import type { RelationshipModel } from "@com.mgmtp.a12.dataservices/dataservices-access";
 import { isQueryModel, type QueryModel } from "@com.mgmtp.a12.querymodel/querymodel-core";
+import { Activity, ActivityMap, ActivitySelectors } from "@com.mgmtp.a12.client/client-core";
 import { Model, ModelSelectors as ClientModelSelectors } from "@com.mgmtp.a12.client/client-core";
 import type { DocumentModel, IGeneratedCodeAccessor } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 import { isFormModel, type FormModel, isFormModelDetachedRepeat } from "@com.mgmtp.a12.formengine/formengine-core";
@@ -586,6 +586,23 @@ export namespace ModelSelectors {
 				(maybeCdmName !== undefined || isParentCdmActivity(initiatingActivity))
 			);
 		}
+	);
+
+	/** Returns `true` when the given activity initiated the currently open dynamic link form. */
+	export function isLinkFormRegionOwner(activityId: string): Selector<boolean> {
+		return (state) => isLinkFormRegionOwnerReselect(state, activityId);
+	}
+
+	const isLinkFormRegionOwnerReselect = createSelector(
+		[
+			(state: object, activityId: string) => activityId,
+			(state: object) => ActivityMap.toList(ActivitySelectors.activities()(state))
+		],
+		// Strict direct-initiator match only: ancestor matching (e.g. via `ActivitySelectors.initiatingPath`)
+		// would also match the parent Screen that is a non-direct ancestor of the link-form activity,
+		// recreating the exact duplication this selector exists to prevent.
+		(activityId, activities): boolean =>
+			activities.some((a) => a.descriptor.dynamicLinkForm === "true" && a.initiatingActivityId === activityId)
 	);
 
 	function resolveCdmName(state: object, activityId: string): string | undefined {

@@ -35,6 +35,7 @@ import type { ModelGraph } from "@com.mgmtp.a12.dataservices/dataservices-access
 import { type FormModel, createEmptyDocument } from "@com.mgmtp.a12.formengine/formengine-core";
 import type { DocumentModel, GroupInstance, EntityInstancePath } from "@com.mgmtp.a12.kernel/kernel-md-facade";
 
+import { CDD_DOC_REF } from "../cdmCommons/cddTechnical.js";
 import * as DgOps from "../../documentGraph/core/impl/dg.js";
 import { applyChanges } from "../../documentGraph/core/changeLog/changeLogImpl.js";
 import type {
@@ -93,6 +94,9 @@ export interface CreateInitialDgClParams {
  * Filling initial values for a cdm with heterogeneous relationships will result
  * in an error.
  *
+ * When merge params are given, the pre-existing cddDocument is dropped: it is
+ * per-activity and belongs to the initiating cdm, not the new one.
+ *
  * @experimental
  * @internal
  */
@@ -115,8 +119,10 @@ export function createInitialDgCl(params: CreateInitialDgClParams): DgSlice & Dg
 	if (mergeParams) {
 		const { existingDocumentGraph, existingChangeLog } = mergeParams;
 
+		// Drop the initiating activity's cddDocument so the new one prevails; keeping
+		// it would clash with a different cdm (e.g. a repeatable group as an object).
 		const [initializedDg] = DgOps.mergeInto({
-			dg: existingDocumentGraph,
+			dg: withoutCddDocument(existingDocumentGraph),
 			partialDg: initializedCdmData.documentGraph
 		});
 
@@ -134,6 +140,22 @@ export function createInitialDgCl(params: CreateInitialDgClParams): DgSlice & Dg
 			changeLog: initializedCdmData.changeLog
 		};
 	}
+}
+
+function withoutCddDocument(dg: DeepReadonly<DocumentGraph>): DeepReadonly<DocumentGraph> {
+	if (dg.documents.byDocRef[CDD_DOC_REF] === undefined) {
+		return dg;
+	}
+
+	const { [CDD_DOC_REF]: _cddDocument, ...remainingDocs } = dg.documents.byDocRef;
+
+	return {
+		...dg,
+		documents: {
+			...dg.documents,
+			byDocRef: remainingDocs
+		}
+	};
 }
 
 function createInitializedCdmData(

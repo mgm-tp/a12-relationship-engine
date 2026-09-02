@@ -407,6 +407,64 @@ describe("com.mgmtp.a12.client.extensions.cdm.cdd", () => {
 				assert.deepStrictEqual(replaceLinkRanksInDg(documentGraph), replaceLinkRanksInDg(expectedDg));
 				assert.deepStrictEqual(changeLog, expectedCl);
 			});
+
+			test(
+				"discards the initiating activity's cddDocument content instead of merging it " +
+					"into the new activity's cddDocument",
+				() => {
+					const rootDocRef = "NaturalPerson-document_NEW_1";
+					// The initiating activity's cddDocument holds cdm-only values keyed by
+					// its own (ContractCDM) group paths. It must not survive into the new
+					// activity, whose cddDocument belongs to NaturalPersonCDM.
+					const existingDocumentGraph: DeepReadonly<DocumentGraph> = {
+						documents: {
+							byDocRef: {
+								"cddDocument/0": {
+									docRef: "cddDocument/0",
+									document: {
+										PolicyHolder: { someInitiatingCdmOnlyField: "leaked" }
+									},
+									documentModelName: "ContractCDM",
+									loadingState: "loaded"
+								},
+								__NEW__: {
+									docRef: "__NEW__",
+									document: {},
+									documentModelName: "Contract-document",
+									loadingState: "loaded"
+								},
+								"NaturalPerson-document_NEW_1": {
+									docRef: "NaturalPerson-document_NEW_1",
+									document: {},
+									documentModelName: "NaturalPerson-document",
+									loadingState: "loaded"
+								}
+							}
+						},
+						links: { byId: {}, linkIdsByDocId: {} }
+					};
+					const mergeParams = {
+						existingDocumentGraph,
+						existingChangeLog: { changes: [], changeCounter: 0 }
+					};
+
+					const { documentGraph } = createInitialDgCl({
+						cdm,
+						formModel,
+						rootDocumentModelName,
+						documentModelsInScene,
+						modelGraph: MOCK_MODEL_GRAPH,
+						rootDocRef,
+						mergeParams
+					});
+
+					const cddDocument = documentGraph.documents.byDocRef["cddDocument/0"];
+					assert(cddDocument.loadingState === "loaded");
+					// the new activity's fresh cddDocument prevails: correct cdm, no leaked content
+					assert.strictEqual(cddDocument.documentModelName, "NaturalPersonCDM");
+					assert.notProperty(cddDocument.document, "PolicyHolder");
+				}
+			);
 		});
 	});
 });

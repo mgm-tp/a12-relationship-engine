@@ -85,6 +85,7 @@ export function* loadDocument(
 		throw new Error(`Document model ${modelName} not found.`);
 	}
 
+	const initializedChangelog = yield* select(ChangelogSelectors.changelog(params.activityId));
 	const seedChanges = yield* resolveSeedChangesFromParent(
 		params.activityId,
 		docRef,
@@ -99,7 +100,7 @@ export function* loadDocument(
 					id: docRef,
 					modelId: modelName
 				}),
-				...(seedChanges ? [createChangelogDataHolder(undefined, seedChanges)] : [])
+				...(seedChanges ? [createChangelogDataHolder(initializedChangelog?.changes, seedChanges)] : [])
 			],
 			thumbnails: {}
 		};
@@ -123,7 +124,7 @@ export function* loadDocument(
 				id: docRef,
 				modelId: modelName
 			}),
-			...(seedChanges ? [createChangelogDataHolder(undefined, seedChanges)] : [])
+			...(seedChanges ? [createChangelogDataHolder(initializedChangelog?.changes, seedChanges)] : [])
 		],
 		thumbnails: convertThumbnailResponse(thumbnailResponse)
 	};

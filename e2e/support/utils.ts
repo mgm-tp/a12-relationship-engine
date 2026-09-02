@@ -65,6 +65,8 @@ export namespace Selector {
 
 	export const PROGRESS_INDICATOR = dataRole("progress-indicator-outer-overlay");
 
+	export const SCREEN = dataRole("screen");
+
 	export const TABLE_BODY_CELL = dataRole("table-body-cell");
 	export const TABLE_BODY_ROW = dataRole("table-body-row");
 	export const TABLE_HEADER_CELL = dataRole("table-header-cell");
@@ -88,6 +90,7 @@ function dataRole(role: string) {
 export enum Showcase {
 	PRODUCT_BINDINGS = "#section:Relationships,feature:Form,model:Product",
 	BRAND_BINDINGS = "#section:Relationships,feature:Form,model:Brand",
+	BUNDLE_BINDINGS = "#section:Relationships,feature:Form,model:Bundle",
 	CATEGORY_BINDINGS = "#section:Relationships,feature:Form,model:Category",
 	CONTRACT_CDM = "#section:Relationships,model:ContractCDM,module:ContractCDM",
 	BUSINESS_PARTNER = "#section:Relationships,model:BusinessPartner-document,module:BusinessPartner",

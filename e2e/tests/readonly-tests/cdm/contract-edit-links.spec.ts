@@ -143,6 +143,35 @@ test.describe("Contract CDM - Edit CoInsurer Links", () => {
 		await expect(coInsuredTable.getByText("Sundar Pichai")).toBeVisible();
 	});
 
+	test("restoring a removed co-insurer preserves link document data (Co-insured since date)", async ({ page }) => {
+		await openMgmContract(page);
+		await openEditCoInsurerModal(page);
+
+		const sundarRow = selectedTableInModal(page).getByRole("row").filter({ hasText: "Sundar Pichai" });
+		await expect(sundarRow).toBeVisible();
+
+		// Open the nested link form for an existing co-insurer link to set a date
+		await sundarRow.getByRole("button", { name: "Edit additional properties" }).click();
+		await page.getByRole("textbox", { name: "Co-insured since" }).fill("05/10/2024");
+		await page.getByRole("dialog").getByRole("button", { name: "Save" }).click();
+
+		// Date should appear in the row after saving within the modal session
+		await expect(sundarRow).toContainText("05/10/2024");
+
+		// Remove the link — CDM hides link-document data in the pending-removal row
+		await sundarRow.locator("button").filter({ hasText: "remove_circle" }).click();
+		await expect(sundarRow.locator("button").filter({ hasText: "add_circle" })).toBeVisible();
+		await expect(sundarRow).not.toContainText("05/10/2024");
+
+		// Restore — date reappears (link-document data is preserved)
+		await sundarRow.locator("button").filter({ hasText: "add_circle" }).click();
+		await expect(sundarRow).toContainText("05/10/2024");
+
+		// Cancel to avoid backend persistence (readonly test)
+		await page.getByRole("button", { name: "Cancel" }).click();
+		await expect(page.getByRole("heading", { name: "Edit relationship" })).not.toBeVisible();
+	});
+
 	test("adds and removes links in a single edit session", async ({ page }) => {
 		await openMgmContract(page);
 

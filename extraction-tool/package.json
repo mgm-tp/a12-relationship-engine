@@ -1,6 +1,6 @@
 {
 	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-binding-extraction",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"type": "module",
 	"description": "Relationship Binding Extraction Tool",
 	"author": "mgm technology partners",
@@ -14,17 +14,17 @@
 		"update": "pnpm test:unit --update"
 	},
 	"dependencies": {
-		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
-		"@com.mgmtp.a12.formengine/formengine-model-migration": "catalog:a12Libs",
-		"@com.mgmtp.a12.kernel/kernel-md-facade": "catalog:a12Libs",
-		"@com.mgmtp.a12.migrationtool/migrationtool-core": "catalog:a12Libs",
-		"@com.mgmtp.a12.overviewengine/overviewengine-model-migration": "catalog:a12Libs",
-		"@com.mgmtp.a12.querymodel/querymodel-core": "catalog:a12Libs"
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12",
+		"@com.mgmtp.a12.formengine/formengine-model-migration": "catalog:a12",
+		"@com.mgmtp.a12.kernel/kernel-md-facade": "catalog:a12",
+		"@com.mgmtp.a12.migrationtool/migrationtool-core": "catalog:a12",
+		"@com.mgmtp.a12.overviewengine/overviewengine-model-migration": "catalog:a12",
+		"@com.mgmtp.a12.querymodel/querymodel-core": "catalog:a12"
 	},
 	"devDependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
-		"@com.mgmtp.a12.migrationtool/migrationtool-utils": "catalog:a12Libs",
-		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12",
+		"@com.mgmtp.a12.migrationtool/migrationtool-utils": "catalog:a12",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12",
 		"@types/node": "catalog:devLibs",
 		"@types/semver": "^7.7.1",
 		"rimraf": "catalog:devLibs",

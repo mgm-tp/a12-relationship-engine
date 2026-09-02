@@ -30,9 +30,30 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { Module, DataLoader, ApplicationSaga } from "@com.mgmtp.a12.client/client-core";
+import { it, expect, describe } from "vitest";
 
-export interface SampleAppModule extends Module {
-	readonly dataLoaders?: DataLoader[];
-	readonly applicationSagas?: ((config: ApplicationSaga.Configuration) => ApplicationSaga.Descriptor)[];
-}
+import { resolveDialogContainerStyle } from "../../../view/internal/components/dialog/utils.js";
+
+describe("resolveDialogContainerStyle", () => {
+	it("falls back to dialogWidth as maxWidth when dialogMaxWidth is absent", () => {
+		const result = resolveDialogContainerStyle("900px");
+
+		// Bug: currently returns undefined because dialogMaxWidth is undefined.
+		// After the fix (dialogMaxWidth ?? dialogWidth), this should equal "900px".
+		expect(result.maxWidth).toBe("900px");
+		expect(result.width).toBe("900px");
+	});
+
+	it("uses dialogMaxWidth when both are provided", () => {
+		const result = resolveDialogContainerStyle("900px", "1000px");
+
+		expect(result.maxWidth).toBe("1000px");
+		expect(result.width).toBe("900px");
+	});
+
+	it("leaves maxWidth undefined when neither prop is provided", () => {
+		const result = resolveDialogContainerStyle();
+
+		expect(result.maxWidth).toBeUndefined();
+	});
+});

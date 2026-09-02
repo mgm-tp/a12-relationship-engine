@@ -2,7 +2,7 @@
 	"extends": "../tsconfig",
 	"exclude": ["src/test"],
 	"compilerOptions": {
-		"types": ["node"],
+		"types": ["node", "@com.mgmtp.a12.widgets/widgets-core/types/styled-components"],
 		"paths": {
 			"test-utils": ["./src/test/utils/rtl/test-utils.ts"]
 		}

@@ -49,6 +49,7 @@ export * from "./internal/selectors/model.js";
 export * from "./internal/selectors/sourceEntity.js";
 export * from "./internal/selectors/thumbnail.js";
 export * from "./internal/selectors/uiState.js";
+export { LINK_FORM_REGION } from "./internal/utils/dynamicLinkFormModule.js";
 export * from "./internal/utils/linkIdAndDocRef.js";
 export * from "./internal/utils/openLinkFormActivity.js";
 export * from "./internal/utils/formModelLookup.js";

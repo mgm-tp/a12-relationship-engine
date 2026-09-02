@@ -30,15 +30,67 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
-import type { SampleAppModule } from "../../../utils/SampleAppModule.js";
+import type { ViewNGComponents } from "../../../viewNGComponents.js";
 
-import appmodel from "./crud.appmodel.json" with { type: "json" };
+const SECTION = "DataHandling";
 
-const CRUDModule: SampleAppModule = {
-	id: "data_handling.crud",
-	model: () => appmodel as ApplicationModel
-};
-
-export default CRUDModule;
+export function createCRUDModule({ ShowcaseOverview, RelationshipFormEngine }: ViewNGComponents): DynamicConfiguration {
+	return {
+		id: "data_handling.crud",
+		flows: [
+			{
+				name: "data_handling.crud",
+				scenes: [
+					{
+						name: "CRUDOverview",
+						matches: (d) => d.section === SECTION && d.feature === "CRUD" && d.model === "CRUDExample" && !d.instance,
+						sceneChange: {
+							onEnter: [
+								{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+								{
+									type: "DYNAMIC_ADD_VIEW",
+									region: "/CONTENT",
+									component: ShowcaseOverview,
+									constraints: { type: "MasterDetail" },
+									models: [{ modelType: "overview", name: "CRUD-overview" }]
+								}
+							]
+						}
+					},
+					{
+						name: "CRUDForm",
+						matches: (d) =>
+							d.section === SECTION && d.feature === "CRUD" && d.model === "CRUD-document" && !!d.instance,
+						sceneChange: {
+							onEnter: [
+								{
+									type: "DYNAMIC_ADD_VIEW",
+									region: "/CONTENT",
+									component: RelationshipFormEngine,
+									models: [{ modelType: "form", name: "CRUD-form" }]
+								}
+							]
+						}
+					},
+					{
+						name: "CRUDNewForm",
+						matches: (d) =>
+							d.section === SECTION && d.feature === "CRUDNEW" && d.model === "CRUDExample" && !!d.instance,
+						sceneChange: {
+							onEnter: [
+								{
+									type: "DYNAMIC_ADD_VIEW",
+									region: "/CONTENT",
+									component: RelationshipFormEngine,
+									models: [{ modelType: "form", name: "CRUD-form" }]
+								}
+							]
+						}
+					}
+				]
+			}
+		]
+	};
+}

@@ -43,6 +43,7 @@ import {
 	merge,
 	addCddLink,
 	removedCddLink,
+	replacedCddLink,
 	saveSubActivity,
 	changeCddDocument,
 	setSubActivityData,
@@ -53,6 +54,7 @@ import {
 	handleCddAddLinks,
 	handleInitCandidates,
 	handleCddRemoveLinks,
+	handleCddReplaceLink,
 	handleSaveSubActivity,
 	type ScdmDataHolderShape,
 	handleSetSubActivityData
@@ -105,6 +107,16 @@ export const dhReducers: ActivityReducers.DataReducer[] = [
 			return removedCddLink.match(action)
 				? dataHolders?.map((dh) =>
 						dh === defaultDataHolder ? handleCddRemoveLinks(dh as ScdmDataHolderShape, action) : dh
+					)
+				: dataHolders;
+		}
+	},
+	{
+		// REPLACE_LINK
+		reduce(dataHolders, action, defaultDataHolder) {
+			return replacedCddLink.match(action)
+				? dataHolders?.map((dh) =>
+						dh === defaultDataHolder ? handleCddReplaceLink(dh as ScdmDataHolderShape, action) : dh
 					)
 				: dataHolders;
 		}

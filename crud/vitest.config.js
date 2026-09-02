@@ -41,9 +41,9 @@ export default defineConfig({
 		environment: "jsdom",
 		include: ["src/**/*.spec.ts", "src/**/*.spec.tsx", "src/**/*.test.tsx", "src/**/*.test.ts"],
 		deps: { optimizer: { web: { enabled: true } }, web: { transformAssets: true } },
-		maxWorkers: process.env.CI ? 4 : "50%",
+		maxWorkers: process.env.CI ? 2 : "50%",
 		environmentOptions: { jsdom: { userAgent: "node.js" } },
-		pool: "vmForks",
+		pool: "forks",
 		clearMocks: true,
 		testTimeout: 60000,
 		hookTimeout: 60000

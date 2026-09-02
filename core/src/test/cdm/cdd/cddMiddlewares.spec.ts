@@ -470,5 +470,39 @@ describe("com.mgmtp.a12.relationshipengine-core.extensions.cdm.cdd", () => {
 			});
 			expect(dispatchedAction.type).to.be.deep.equal(CddActions.changeCddDocument.type);
 		});
+
+		test("runs computations exactly once and dispatches CddActions.changeCddDocument on CddActions.replacedCddLink", () => {
+			const store = createStoreWithMiddleware(middleware);
+			const replaceLinkAction = CddActions.replacedCddLink({
+				targetRole: "test",
+				activityId: testActivityId,
+				linkDescriptor: createLinkDescriptor(
+					"CoInsurer",
+					"Contract-document/24",
+					"contract",
+					"BusinessPartner-document/23",
+					"businessPartner"
+				),
+				removeLinkRef: createLinkRef({
+					id: "1",
+					docRef1: "Contract-document/24",
+					docRef2: "BusinessPartner-document/21",
+					role1: "contract",
+					role2: "businessPartner",
+					relationshipModel: "PolicyHolder"
+				}),
+				setDirty: true
+			});
+
+			store.dispatch(replaceLinkAction);
+			const actions = store.getActions();
+			const changeActions = actions.filter((a) => a.type === CddActions.changeCddDocument.type);
+
+			expect(changeActions).to.have.length(1);
+			expect(changeActions[0].payload).to.containSubset({
+				activityId: testActivityId,
+				document: cddDocument
+			});
+		});
 	});
 });

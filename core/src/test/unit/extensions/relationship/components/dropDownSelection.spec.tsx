@@ -30,8 +30,12 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import { test, expect, describe } from "vitest";
+import React from "react";
+import { vi, test, expect, describe } from "vitest";
 import { render, screen, within, configure } from "@testing-library/react";
+
+import type * as WidgetsCore from "@com.mgmtp.a12.widgets/widgets-core";
+import type { DropDownItem, Autocomplete as AutocompleteType } from "@com.mgmtp.a12.widgets/widgets-core";
 
 import { TestWrapper } from "../../../../utils/rtl/testWrapper.js";
 import { DropDownSelection, type Relationship } from "../../../../../internal/relationship/index.js";
@@ -42,6 +46,20 @@ import type {
 } from "../../../../../internal/relationship/ui/components/api.js";
 
 configure({ testIdAttribute: "data-role" });
+
+const capturedAutocompleteValues: (DropDownItem | undefined)[] = [];
+
+vi.mock("@com.mgmtp.a12.widgets/widgets-core", async (importOriginal: () => Promise<typeof WidgetsCore>) => {
+	const actual = await importOriginal();
+
+	function CapturingAutocomplete(props: React.ComponentProps<typeof AutocompleteType>) {
+		capturedAutocompleteValues.push(props.value);
+
+		return React.createElement(actual.Autocomplete, props);
+	}
+
+	return { ...actual, Autocomplete: CapturingAutocomplete };
+});
 
 const TEST_LABEL = "test component";
 const TEST_ITEMS_FULL_COUNT = 10;
@@ -88,21 +106,150 @@ describe("com.mgmtp.a12.relationshipengine-core.relationship-engine.DropDownSele
 			});
 		});
 	});
+
+	describe("selected/edit item value identity", () => {
+		test("passes the same converted value reference to Autocomplete across renders with an unchanged selectedItem.data reference", () => {
+			capturedAutocompleteValues.length = 0;
+
+			const selectedItem = createTestSelectedItem();
+			const { rerender } = render(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, selectedItemOverride: selectedItem })} />
+				</TestWrapper>
+			);
+
+			rerender(
+				<TestWrapper>
+					<DropDownSelection
+						{...createTestProps({ readonly: false, label: "rerendered", selectedItemOverride: selectedItem })}
+					/>
+				</TestWrapper>
+			);
+
+			expect(capturedAutocompleteValues).toHaveLength(2);
+			expect(capturedAutocompleteValues[1]).toBe(capturedAutocompleteValues[0]);
+		});
+
+		test("produces a newly converted value with correct content when selectedItem.data reference changes", () => {
+			capturedAutocompleteValues.length = 0;
+
+			const firstSelectedItem = createTestSelectedItem();
+			const secondSelectedItem: Items<SingleSelectionItem | undefined> = {
+				loadingState: "loaded",
+				data: { label: "test item 2", docRef: "item/2" }
+			};
+
+			const { rerender } = render(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, selectedItemOverride: firstSelectedItem })} />
+				</TestWrapper>
+			);
+
+			rerender(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, selectedItemOverride: secondSelectedItem })} />
+				</TestWrapper>
+			);
+
+			expect(capturedAutocompleteValues).toHaveLength(2);
+			expect(capturedAutocompleteValues[1]).not.toBe(capturedAutocompleteValues[0]);
+			expect(capturedAutocompleteValues[1]).toMatchObject({ label: "test item 2", value: "item/2" });
+		});
+
+		test("clears the cache across an unload-then-reload cycle instead of leaking a stale converted value", () => {
+			capturedAutocompleteValues.length = 0;
+
+			const firstSelectedItem = createTestSelectedItem();
+			const reloadedSelectedItem: Items<SingleSelectionItem | undefined> = {
+				loadingState: "loaded",
+				data: { label: "test item 1", docRef: "item/1" }
+			};
+
+			const { rerender } = render(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, selectedItemOverride: firstSelectedItem })} />
+				</TestWrapper>
+			);
+
+			rerender(
+				<TestWrapper>
+					<DropDownSelection
+						{...createTestProps({ readonly: false, selectedItemOverride: { loadingState: "missing" } })}
+					/>
+				</TestWrapper>
+			);
+
+			rerender(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, selectedItemOverride: reloadedSelectedItem })} />
+				</TestWrapper>
+			);
+
+			expect(capturedAutocompleteValues).toHaveLength(3);
+			expect(capturedAutocompleteValues[1]).toBeUndefined();
+			expect(capturedAutocompleteValues[2]).not.toBe(capturedAutocompleteValues[0]);
+			expect(capturedAutocompleteValues[2]).toMatchObject({ label: "test item 1", value: "item/1" });
+		});
+
+		test("passes the same converted editItem reference to Autocomplete across renders with an unchanged editItem reference", () => {
+			capturedAutocompleteValues.length = 0;
+
+			const editItem: SingleSelectionItem = { label: "edited item", docRef: "item/3" };
+			const { rerender } = render(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, editItem })} />
+				</TestWrapper>
+			);
+
+			rerender(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, label: "rerendered", editItem })} />
+				</TestWrapper>
+			);
+
+			expect(capturedAutocompleteValues).toHaveLength(2);
+			expect(capturedAutocompleteValues[1]).toBe(capturedAutocompleteValues[0]);
+		});
+
+		test("clears the editItem cache once editItem becomes undefined", () => {
+			capturedAutocompleteValues.length = 0;
+
+			const editItem: SingleSelectionItem = { label: "edited item", docRef: "item/3" };
+			const { rerender } = render(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false, editItem })} />
+				</TestWrapper>
+			);
+
+			rerender(
+				<TestWrapper>
+					<DropDownSelection {...createTestProps({ readonly: false })} />
+				</TestWrapper>
+			);
+
+			expect(capturedAutocompleteValues).toHaveLength(2);
+			expect(capturedAutocompleteValues[1]).toBeUndefined();
+		});
+	});
 });
 
 function createTestProps(params: {
 	readonly: boolean;
 	itemSelected?: boolean;
 	editItemFormModelsPresent?: boolean;
+	selectedItemOverride?: Items<SingleSelectionItem | undefined>;
+	editItem?: SingleSelectionItem;
+	label?: string;
 }): SingleSelectionProps {
-	const { readonly, itemSelected, editItemFormModelsPresent } = params ?? {};
+	const { readonly, itemSelected, editItemFormModelsPresent, selectedItemOverride, editItem, label } = params ?? {};
 
 	return {
-		label: TEST_LABEL,
+		label: label ?? TEST_LABEL,
 		items: createTestItems(),
 		itemsFullCount: TEST_ITEMS_FULL_COUNT,
 		localizableKeyPrefix: TEST_LOCALIZABLE_KEY_PREFIX,
-		selectedItem: itemSelected ? createTestSelectedItem() : { loadingState: "missing" },
+		selectedItem: selectedItemOverride ?? (itemSelected ? createTestSelectedItem() : { loadingState: "missing" }),
+		editItem,
 		readonly,
 		onSelectItem() {
 			/* noop */

@@ -123,6 +123,16 @@ export interface RemoveCddLinkPayload {
 	readonly setDirty?: true;
 }
 
+export const replacedCddLink = acf<ReplaceCddLinkPayload>("REPLACE_LINK");
+
+/**
+ * Atomic replace in one reduction: computations never observe the
+ * removed-but-not-yet-added intermediate state.
+ */
+export interface ReplaceCddLinkPayload extends AddCddLinkPayload {
+	readonly removeLinkRef: RelationshipServerApi.LinkRef;
+}
+
 //#endregion
 
 //#region ===== changeDocument =====

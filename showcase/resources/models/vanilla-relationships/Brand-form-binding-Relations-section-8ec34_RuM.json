@@ -3,6 +3,7 @@
 		"id": "Brand-form-binding-Relations-section-8ec34_RuM",
 		"modelType": "relationship-ui",
 		"modelVersion": "2.0.0",
+		"annotations": [],
 		"modelReferences": [
 			{
 				"purpose": "selectedItems",
@@ -24,21 +25,14 @@
 				"modelType": "overview",
 				"reference": "ProductBrand_Product_SelectedItems_DualPane_OM-edit"
 			}
-		],
-		"annotations": []
+		]
 	},
 	"content": {
-		"relationshipName": "ProductBrand",
-		"targetRole": "Product",
 		"component": {
 			"componentType": "TableList",
 			"selectedItemsOverviewModel": "Product_Brand_SelectedItemsOverview-tableList",
 			"linkFormModel": "ProductBrand-LinkForm",
 			"height": "40vh",
-			"editConfiguration": {
-				"availableItemsOverviewModel": "Brand_Product_AvailableItemsOverview--ProductBrand",
-				"selectedItemsOverviewModel": "ProductBrand_Product_SelectedItems_DualPane_OM-edit"
-			},
 			"buttons": [
 				{
 					"event": "event_open_edit_modal",
@@ -68,6 +62,7 @@
 				},
 				{
 					"event": "event_cancel_edit_modal",
+					"destructive": true,
 					"label": [
 						{
 							"locale": "en",
@@ -77,11 +72,11 @@
 							"locale": "de",
 							"text": "Abbrechen"
 						}
-					],
-					"destructive": true
+					]
 				},
 				{
 					"event": "event_submit_edit_modal",
+					"primary": true,
 					"label": [
 						{
 							"locale": "en",
@@ -91,10 +86,16 @@
 							"locale": "de",
 							"text": "OK"
 						}
-					],
-					"primary": true
+					]
 				}
-			]
-		}
+			],
+			"editConfiguration": {
+				"availableItemsOverviewModel": "Brand_Product_AvailableItemsOverview--ProductBrand",
+				"selectedItemsOverviewModel": "ProductBrand_Product_SelectedItems_DualPane_OM-edit",
+				"dialogWidth": "900"
+			}
+		},
+		"relationshipName": "ProductBrand",
+		"targetRole": "Product"
 	}
 }

@@ -40,12 +40,43 @@ import { linksWithMetaData } from "../effectiveChanges/linksWithMetaData.js";
 import { T_DOC_REF, TARGET_GROUPNAME, LINKDOC_GROUPNAME } from "../../../cdmCommons/cddTechnical.js";
 import type { DgChangeLog, DeepReadonly, DocumentGraph } from "../../../../documentGraph/core/index.js";
 
+interface LinksWithMetadataCacheEntry {
+	readonly changeLog: DgChangeLog;
+	readonly result: Relationship.LinkWithMutationMetadata[];
+}
+
+// WeakMap on dg, keyed by (relshName, sourceDocRef, targetRole); result is a pure function of dg+changeLog so activities sharing a dg safely share entries.
+const linksWithMetadataCache = new WeakMap<DeepReadonly<DocumentGraph>, Map<string, LinksWithMetadataCacheEntry>>();
+
 /**
  * @internal
  *
- * Builds a list of links with mutation.
+ * Builds a list of links with mutation. Reference-stable per (relshName, sourceDocRef, targetRole) while `dg`/`changeLog` are unchanged.
  */
 export function cddLinksWithMetadata(
+	relshName: string,
+	sourceDocRef: string,
+	targetRole: string,
+	dg: DeepReadonly<DocumentGraph>,
+	changeLog: DgChangeLog
+): Relationship.LinkWithMutationMetadata[] {
+	const cacheKey = `${relshName}|${sourceDocRef}|${targetRole}`;
+	const cacheForGraph = linksWithMetadataCache.get(dg);
+	const cached = cacheForGraph?.get(cacheKey);
+
+	if (cached && cached.changeLog === changeLog) {
+		return cached.result;
+	}
+
+	const result = computeLinksWithMetadata(relshName, sourceDocRef, targetRole, dg, changeLog);
+	const nextCacheForGraph = cacheForGraph ?? new Map<string, LinksWithMetadataCacheEntry>();
+	nextCacheForGraph.set(cacheKey, { changeLog, result });
+	linksWithMetadataCache.set(dg, nextCacheForGraph);
+
+	return result;
+}
+
+function computeLinksWithMetadata(
 	relshName: string,
 	sourceDocRef: string,
 	targetRole: string,

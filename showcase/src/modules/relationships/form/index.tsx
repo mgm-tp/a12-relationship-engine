@@ -30,15 +30,73 @@
  * LEGALLY INVALID. SEE THE RESPECTIVE LICENSE TEXT FOR DETAILS.
  */
 
-import type { ApplicationModel } from "@com.mgmtp.a12.client/client-core";
+import type { DynamicConfiguration } from "@com.mgmtp.a12.client/client-core";
 
-import type { SampleAppModule } from "../../../utils/SampleAppModule.js";
+import type { ViewNGComponents } from "../../../viewNGComponents.js";
 
-import appModel from "./form.appmodel.json" with { type: "json" };
+const SECTION = "Relationships";
+const FEATURE = "Form";
 
-const FormModule: SampleAppModule = {
-	id: "relationships.form",
-	model: () => appModel as ApplicationModel
-};
+const DETAIL_CONSTRAINTS = { type: "MasterDetail", preferredWidth: 8 };
 
-export default FormModule;
+interface Entity {
+	readonly menu: string;
+	readonly overviewModel: string;
+	readonly detailModel: string;
+	readonly formModels: readonly string[];
+}
+
+const ENTITIES: readonly Entity[] = [
+	{
+		menu: "product",
+		overviewModel: "Product",
+		detailModel: "Product-document",
+		formModels: ["Product-form", "Bundle-form"]
+	},
+	{ menu: "brand", overviewModel: "Brand", detailModel: "Brand-document", formModels: ["Brand-form"] },
+	{ menu: "bundle", overviewModel: "Bundle", detailModel: "Bundle-document", formModels: ["Bundle-form"] },
+	{ menu: "category", overviewModel: "Category", detailModel: "Category-document", formModels: ["Category-form"] }
+];
+
+export function createFormModule({ ShowcaseOverview, RelationshipFormEngine }: ViewNGComponents): DynamicConfiguration {
+	return {
+		id: "relationships.form",
+		flows: ENTITIES.map((entity) => ({
+			name: `Relationship ${entity.overviewModel}`,
+			scenes: [
+				{
+					name: `${entity.menu}-overview`,
+					matches: (d) =>
+						d.section === SECTION && d.feature === FEATURE && d.model === entity.overviewModel && !d.instance,
+					sceneChange: {
+						onEnter: [
+							{ type: "DYNAMIC_CLEAR_REGION", region: "/CONTENT" },
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: ShowcaseOverview,
+								models: [{ modelType: "overview", name: `${entity.overviewModel}-overview` }]
+							}
+						]
+					}
+				},
+				{
+					name: `${entity.menu}-detail`,
+					matches: (d) =>
+						d.section === SECTION && d.feature === FEATURE && d.model === entity.detailModel && !!d.instance,
+					sceneChange: {
+						onEnter: [
+							{
+								type: "DYNAMIC_ADD_VIEW",
+								region: "/CONTENT",
+								component: RelationshipFormEngine,
+								constraints: DETAIL_CONSTRAINTS,
+								models: entity.formModels.map((name) => ({ modelType: "form", name }))
+							}
+						]
+					}
+				}
+			]
+		}))
+	};
+}

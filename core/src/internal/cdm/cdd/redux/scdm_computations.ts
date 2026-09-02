@@ -166,9 +166,13 @@ export const createScdmComputationMiddleware = (middlewareOptions?: CdmMiddlewar
 
 function isRelevantAction(action: UnknownAction): boolean {
 	return (
-		[CddActions.merge, CddActions.addCddLink, CddActions.saveSubActivity, CddActions.removedCddLink].some((a) =>
-			a.match(action)
-		) || isChangeCddDocActionWithGroupAdded(action)
+		[
+			CddActions.merge,
+			CddActions.addCddLink,
+			CddActions.saveSubActivity,
+			CddActions.removedCddLink,
+			CddActions.replacedCddLink
+		].some((a) => a.match(action)) || isChangeCddDocActionWithGroupAdded(action)
 	);
 }
 

@@ -1,0 +1,130 @@
+{
+	"header": {
+		"id": "ProductBrandStandalone-form",
+		"modelType": "form",
+		"modelVersion": "39.0.0",
+		"locales": [
+			{
+				"code": "en"
+			}
+		],
+		"labels": [
+			{
+				"locale": "en",
+				"text": "Standalone Relationship Engine"
+			}
+		],
+		"annotations": [
+			{
+				"name": "bindingConfiguration",
+				"value": "[{\"type\":\"relationship\",\"elementId\":\"section-prbrd\",\"details\":{\"name\":\"standalone\",\"relationshipName\":\"ProductBrand\",\"metaInformation\":{\"version\":\"1.0.0\"},\"targetRole\":\"Brand\",\"components\":[{\"id\":\"dual-pane-product-brand\",\"name\":\"DualPaneSelection\",\"models\":[{\"name\":\"Brand_Product_SelectedItemsOverview\",\"use\":\"link\"},{\"name\":\"Product_Brand_AvailableItemsOverview\",\"use\":\"candidate\"},{\"name\":\"ProductBrand-LinkForm\",\"use\":\"link\"}]}]}}]"
+			}
+		],
+		"modelReferences": [
+			{
+				"alias": "DM",
+				"modelType": "document",
+				"purpose": "data binding",
+				"reference": "Product-document"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Brand_Product_SelectedItemsOverview"
+			},
+			{
+				"modelType": "form",
+				"purpose": "bindingReference",
+				"reference": "ProductBrand-LinkForm"
+			},
+			{
+				"modelType": "overview",
+				"purpose": "bindingReference",
+				"reference": "Product_Brand_AvailableItemsOverview"
+			},
+			{
+				"purpose": "relationship-ui",
+				"modelType": "relationship-ui",
+				"reference": "ProductBrandStandalone-form-binding-ProductBrand_RuM"
+			}
+		]
+	},
+	"content": {
+		"subHeaderBox": {
+			"id": "subHeaderBox"
+		},
+		"footerBox": {
+			"id": "footerBox1",
+			"majorButtons": {
+				"button": [
+					{
+						"type": "EVENT",
+						"id": "button-50ad0",
+						"name": "Cancel",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Cancel"
+										}
+									]
+								}
+							},
+							"priority": "SECONDARY",
+							"destructive": true
+						},
+						"event": "event_cancel",
+						"scope": "ALWAYS"
+					},
+					{
+						"type": "EVENT",
+						"id": "button-dab0e",
+						"name": "Save",
+						"buttonStyling": {
+							"label": {
+								"type": "Multilingual",
+								"multilingualText": {
+									"text": [
+										{
+											"locale": "en",
+											"text": "Save"
+										}
+									]
+								}
+							},
+							"priority": "PRIMARY"
+						},
+						"event": "event_save",
+						"validation": "full",
+						"scope": "HIDDEN_IN_READONLY_MODE"
+					}
+				]
+			}
+		},
+		"screens": [
+			{
+				"id": "screen1",
+				"name": "standalone",
+				"screenElements": [
+					{
+						"type": "CustomScreenElement",
+						"id": "section-prbrd",
+						"name": "ProductBrand",
+						"annotations": [
+							{
+								"name": "relationship"
+							}
+						],
+						"reference": "ProductBrandStandalone-form-binding-ProductBrand_RuM"
+					}
+				]
+			}
+		],
+		"fieldConfiguration": {},
+		"groupConfiguration": {},
+		"defaults": {}
+	}
+}

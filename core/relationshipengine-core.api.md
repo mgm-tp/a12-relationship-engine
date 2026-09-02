@@ -155,6 +155,8 @@ declare namespace CddActions {
         AddCddLinkPayload,
         removedCddLink,
         RemoveCddLinkPayload,
+        replacedCddLink,
+        ReplaceCddLinkPayload,
         changeCddDocument,
         ChangeCddDocumentPayload,
         saveSubActivity,
@@ -1297,6 +1299,15 @@ interface RemoveLinkPayload extends AbstractPayload {
     // (undocumented)
     readonly setDirty?: true;
 }
+
+// @public
+interface ReplaceCddLinkPayload extends AddCddLinkPayload {
+    // (undocumented)
+    readonly removeLinkRef: Relationship_2.LinkRef;
+}
+
+// @public (undocumented)
+const replacedCddLink: ActionCreator<ReplaceCddLinkPayload>;
 
 // @public
 export interface RequestSelectorMap {

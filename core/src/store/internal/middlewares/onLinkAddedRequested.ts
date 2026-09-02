@@ -111,6 +111,10 @@ export const onLinkAddedRequestedMiddleware: Middleware = (store) => (next) => (
 		const targetDocument = excludeMode ? document : undefined;
 		const targetDocumentModelName = excludeMode ? document.modelId : undefined;
 
+		// No link form is configured: record an empty link document when the relationship requires one
+		const relationshipModel = ModelSelectors.relationshipModel(relationshipName)(store.getState());
+		const linkDocument = relationshipModel?.content.linkDocumentModel ? {} : undefined;
+
 		store.dispatch(
 			RelationshipEngineActions.Events.linkAdded({
 				activityId,
@@ -127,7 +131,8 @@ export const onLinkAddedRequestedMiddleware: Middleware = (store) => (next) => (
 				groupPath,
 				docRef: documentId,
 				targetDocument,
-				targetDocumentModelName
+				targetDocumentModelName,
+				linkDocument
 			})
 		);
 	}

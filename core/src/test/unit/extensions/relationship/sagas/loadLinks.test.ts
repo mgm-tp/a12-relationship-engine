@@ -32,11 +32,20 @@
 
 import { Mock, type IMock } from "typemoq";
 import { expectSaga } from "redux-saga-test-plan";
+import * as matchers from "redux-saga-test-plan/matchers.js";
 import { vi, test, expect, describe, beforeAll } from "vitest";
 
-import { type Activity, ActivityActions, type ApplicationSaga } from "@com.mgmtp.a12.client/client-core";
+import {
+	StoreSagas,
+	type Activity,
+	ModelSelectors,
+	ActivityActions,
+	ActivitySelectors,
+	type ApplicationSaga
+} from "@com.mgmtp.a12.client/client-core";
 
 import { CddSelectors } from "../../../../../internal/cdm/cdd/redux/index.js";
+import { RelationshipSelectors } from "../../../../../internal/relationship/selectors.js";
 import { initializeDataHoldersSaga } from "../../../../../internal/relationship/sagas/initializeDataHolders.js";
 
 describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.sagas", () => {
@@ -73,6 +82,87 @@ describe("com.mgmtp.a12.relationshipengine-core.lib.extensions.relationship.saga
 					.silentRun();
 
 				expect(effects.fork.length).to.be.greaterThan(0);
+			});
+		});
+
+		describe("waitForFormModelLoading", () => {
+			function makeDescriptor(modelType: string, name: string) {
+				return { modelType, name };
+			}
+
+			function makeBinding(elementId: string) {
+				return {
+					type: "relationship" as const,
+					elementId,
+					details: {
+						metaInformation: { version: "1.0.0" as const },
+						name: "TestBinding",
+						relationshipName: "TestRelationship",
+						targetRole: "target",
+						components: []
+					}
+				};
+			}
+
+			function makeLoadedResult() {
+				return { stateChanged: true, returnValue: {} };
+			}
+
+			test("waits for form models when scene has mixed model types (form + document)", async () => {
+				vi.spyOn(ModelSelectors, "modelDescriptorsByActivityId").mockReturnValue(() => [
+					makeDescriptor("form", "SomeFormModel"),
+					makeDescriptor("document", "SomeOtherModel")
+				]);
+				vi.spyOn(RelationshipSelectors, "relationshipBindings").mockReturnValue(() => [makeBinding("b1")]);
+				vi.spyOn(ActivitySelectors, "activityById").mockReturnValue(
+					() =>
+						({
+							id: "a",
+							descriptor: { instance: "Product/1" }
+						}) as Activity
+				);
+
+				const { effects } = await expectSaga(initializeDataHoldersSaga, configMock.object)
+					.provide([[matchers.call.fn(StoreSagas.waitForStateChange), makeLoadedResult()]])
+					.dispatch(ActivityActions.push(pushPayloadMock.object))
+					.silentRun();
+
+				expect(effects.call.filter((c) => c.payload.fn === StoreSagas.waitForStateChange)).toHaveLength(1);
+			});
+
+			test("waits for all form models when scene has only form models", async () => {
+				vi.spyOn(ModelSelectors, "modelDescriptorsByActivityId").mockReturnValue(() => [
+					makeDescriptor("form", "FormModel1"),
+					makeDescriptor("form", "FormModel2")
+				]);
+				vi.spyOn(RelationshipSelectors, "relationshipBindings").mockReturnValue(() => [makeBinding("b1")]);
+				vi.spyOn(ActivitySelectors, "activityById").mockReturnValue(
+					() =>
+						({
+							id: "a",
+							descriptor: { instance: "Product/1" }
+						}) as Activity
+				);
+
+				const { effects } = await expectSaga(initializeDataHoldersSaga, configMock.object)
+					.provide([[matchers.call.fn(StoreSagas.waitForStateChange), makeLoadedResult()]])
+					.dispatch(ActivityActions.push(pushPayloadMock.object))
+					.silentRun();
+
+				expect(effects.call.filter((c) => c.payload.fn === StoreSagas.waitForStateChange)).toHaveLength(2);
+			});
+
+			test("does not wait when scene has no form models", async () => {
+				vi.spyOn(ModelSelectors, "modelDescriptorsByActivityId").mockReturnValue(() => [
+					makeDescriptor("overview", "SomeOverviewModel")
+				]);
+				vi.spyOn(RelationshipSelectors, "relationshipBindings").mockReturnValue(() => []);
+
+				const { effects } = await expectSaga(initializeDataHoldersSaga, configMock.object)
+					.dispatch(ActivityActions.push(pushPayloadMock.object))
+					.silentRun();
+
+				expect(effects.call.filter((c) => c.payload.fn === StoreSagas.waitForStateChange)).toHaveLength(0);
 			});
 		});
 	});

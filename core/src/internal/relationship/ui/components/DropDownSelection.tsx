@@ -70,6 +70,8 @@ export class DropDownSelection extends Component<DropDownSelectionProps, DropDow
 	static contextType: React.Context<any> = LocalizerContext;
 	declare context: React.ContextType<typeof LocalizerContext> | undefined;
 	private lastSearchValue: string | undefined;
+	private cachedSelectedItem?: { data: SingleSelectionItem; result: SingleSelectionDropDownItem };
+	private cachedEditItem?: { data: SingleSelectionItem; result: SingleSelectionDropDownItem };
 
 	constructor(props: SingleSelectionProps) {
 		super(props);
@@ -115,9 +117,35 @@ export class DropDownSelection extends Component<DropDownSelectionProps, DropDow
 	};
 
 	private getSelectedItem() {
-		return this.props.selectedItem.loadingState === "loaded" && this.props.selectedItem.data
-			? convertSingleSelectionToDropDownItem(this.props.selectedItem.data, true)
-			: undefined;
+		if (this.props.selectedItem.loadingState !== "loaded" || !this.props.selectedItem.data) {
+			this.cachedSelectedItem = undefined;
+
+			return undefined;
+		}
+
+		const data = this.props.selectedItem.data;
+
+		if (this.cachedSelectedItem?.data !== data) {
+			this.cachedSelectedItem = { data, result: convertSingleSelectionToDropDownItem(data, true) };
+		}
+
+		return this.cachedSelectedItem.result;
+	}
+
+	private getEditItem() {
+		const data = this.props.editItem;
+
+		if (!data) {
+			this.cachedEditItem = undefined;
+
+			return undefined;
+		}
+
+		if (this.cachedEditItem?.data !== data) {
+			this.cachedEditItem = { data, result: convertSingleSelectionToDropDownItem(data) };
+		}
+
+		return this.cachedEditItem.result;
 	}
 
 	private getAutocompleteCandidates(selectedItem: SingleSelectionDropDownItem | undefined) {
@@ -161,7 +189,7 @@ export class DropDownSelection extends Component<DropDownSelectionProps, DropDow
 		const selectedItem = this.getSelectedItem();
 		const autocompleteItems = belowMinSearchLength ? [] : this.getAutocompleteCandidates(selectedItem);
 
-		const editItem = this.props.editItem && convertSingleSelectionToDropDownItem(this.props.editItem);
+		const editItem = this.getEditItem();
 		const hasMoreItems = !belowMinSearchLength && autocompleteItems.length < itemsFullCount;
 
 		return (

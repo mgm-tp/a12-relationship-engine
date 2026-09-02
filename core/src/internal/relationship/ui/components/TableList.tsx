@@ -57,6 +57,7 @@ import {
 	ContentBoxElements
 } from "@com.mgmtp.a12.widgets/widgets-core";
 
+import { toPixelString } from "../../../../view/index.js";
 import {
 	descriptorTableListAdd,
 	descriptorTableListEdit,
@@ -319,9 +320,9 @@ function EditDialog(props: EditDialogProps) {
 			closeOnOutsideClick
 			containerAttributes={{
 				style: {
-					width: props.editDialogWidth,
-					maxWidth: props.editDialogMaxWidth,
-					maxHeight: props.editDialogMaxHeight
+					width: toPixelString(props.editDialogWidth),
+					maxWidth: toPixelString(props.editDialogMaxWidth ?? props.editDialogWidth),
+					maxHeight: toPixelString(props.editDialogMaxHeight)
 				}
 			}}>
 			<ActionContentbox padding="24px" headingElements={header} footer={footer}>

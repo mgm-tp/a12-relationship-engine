@@ -1,7 +1,7 @@
 {
 	"name": "@com.mgmtp.a12.relationshipengine/relationshipengine-services-utils",
 	"private": true,
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"author": "mgm technology partners",
 	"license": "UNLICENSED",
 	"type": "module",
@@ -12,10 +12,10 @@
 		"pretty-binding:merge": "./bin/services-utils.js pretty-binding merge"
 	},
 	"dependencies": {
-		"@com.mgmtp.a12.base/base-model-api": "catalog:a12Libs",
-		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12Libs",
-		"@com.mgmtp.a12.utils/utils-connector": "catalog:a12Libs",
-		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12Libs",
+		"@com.mgmtp.a12.base/base-model-api": "catalog:a12",
+		"@com.mgmtp.a12.dataservices/dataservices-access": "catalog:a12",
+		"@com.mgmtp.a12.utils/utils-connector": "catalog:a12",
+		"@com.mgmtp.a12.utils/utils-localization": "catalog:a12",
 		"chance": "^1.1.11",
 		"glob": "^13.0.6",
 		"jszip": "^3.10.1",

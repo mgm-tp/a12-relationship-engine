@@ -24,6 +24,10 @@ TIP: For migrating from the current architecture to the new architecture, see th
 CAUTION: Please have a look at link:/docs/OVERALL/migration_guide/index.html[Migration to latest A12] chapter
 for an explanation of general steps.
 
+=== 3.0.1
+
+No breaking changes in 3.0.1. No action required.
+
 === 3.0.0
 
 ==== React peer dependency raised to 19.2

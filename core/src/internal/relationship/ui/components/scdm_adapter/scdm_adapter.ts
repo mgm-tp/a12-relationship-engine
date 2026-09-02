@@ -36,6 +36,8 @@
  * @experimental
  */
 
+import deepEqual from "fast-deep-equal";
+
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { THUMBNAIL_SLICE } from "@com.mgmtp.a12.client/client-core/a12internal";
 import type { Action } from "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat";
@@ -60,9 +62,9 @@ import { Relationship } from "../../../relationship.js";
 import { DUAL_PANE_SELECTION } from "../../../constants.js";
 import { PaginationUtils } from "../../../paginationUtils.js";
 import { RelationshipSelectors } from "../../../selectors.js";
+import { AdapterLink } from "../adapter/adapterLinkSelectors.js";
 import { CddSelectors } from "../../../../cdm/cdd/redux/index.js";
 import { newDocRef } from "../../../../cdm/cdd/redux/newDocRef.js";
-import type { AdapterLink } from "../adapter/adapterLinkSelectors.js";
 import { assertObject, assertCondition } from "../../../../shared/assertion.js";
 import { otherEntity } from "../../../../cdm/commons/relationshipModelUtils.js";
 import { isScdmDataHolderShape } from "../../../../cdm/cdd/redux/dhReducersImpl.js";
@@ -128,6 +130,99 @@ export interface StateProps {
 
 	createActivityForNewEntity?(modelName: string): Action<ActivityActions.PushPayload>;
 	createActivityForExistingEntity?(docRef: string, linkId?: string): Action<ActivityActions.PushPayload>;
+}
+
+/** @internal Compares by value, not reference, since `mapStateToAdapterProps` allocates fresh containers on every call. */
+export function areStatePropsEqual(prevProps: StateProps, curProps: StateProps): boolean {
+	return (
+		prevProps.localizableKeyPrefix === curProps.localizableKeyPrefix &&
+		deepEqual(prevProps.label, curProps.label) &&
+		prevProps.locale === curProps.locale &&
+		prevProps.disabled === curProps.disabled &&
+		prevProps.targetRole === curProps.targetRole &&
+		prevProps.relationship === curProps.relationship &&
+		prevProps.maxNumberOfLinks === curProps.maxNumberOfLinks &&
+		deepEqual(prevProps.modificationConfiguration, curProps.modificationConfiguration) &&
+		(prevProps.createActivityForNewEntity === undefined) === (curProps.createActivityForNewEntity === undefined) &&
+		(prevProps.createActivityForExistingEntity === undefined) ===
+			(curProps.createActivityForExistingEntity === undefined) &&
+		prevProps.linkModels.loadingState === curProps.linkModels.loadingState &&
+		areLinksEqual(prevProps.links, curProps.links) &&
+		areCandidatesEqual(prevProps.candidates, curProps.candidates)
+	);
+}
+
+function areLinksEqual(prev: Items<AdapterLink[]>, cur: Items<AdapterLink[]>): boolean {
+	return prev.loadingState === "loaded" && cur.loadingState === "loaded"
+		? prev.data.length === cur.data.length && prev.data.every((link, i) => AdapterLink.equal(link, cur.data[i]))
+		: prev.loadingState === cur.loadingState;
+}
+
+function areCandidatesEqual(prev: Items<AdapterCandidate[]>, cur: Items<AdapterCandidate[]>): boolean {
+	return prev.loadingState === "loaded" && cur.loadingState === "loaded"
+		? prev.data.length === cur.data.length &&
+				prev.data.every((candidate, i) => isCandidateEqual(candidate, cur.data[i]))
+		: prev.loadingState === cur.loadingState;
+}
+
+function isCandidateEqual(a: AdapterCandidate, b: AdapterCandidate): boolean {
+	// `document` is reallocated on every call by CddSelectors.cddCandidates, so compare by value.
+	return (
+		deepEqual(a.document, b.document) &&
+		a.addLinkAllowed === b.addLinkAllowed &&
+		a.linkRef.id === b.linkRef.id &&
+		Relationship.isLinkDescriptorEqual(a.linkRef.linkDescriptor, b.linkRef.linkDescriptor)
+	);
+}
+
+interface InstanceCacheKey {
+	readonly activityId: string;
+	readonly instanceId: string;
+	readonly componentId: string;
+}
+
+function toCacheKey({ activityId, instanceId, componentId }: InstanceCacheKey): string {
+	return `${activityId} ${instanceId} ${componentId}`;
+}
+
+// Keyed per adapter instance so concurrent instances don't invalidate each other's cached output; evicted when loadingState leaves "loaded".
+const stableLinksByInstance = new Map<string, Items<AdapterLink[]>>();
+
+function stabilizeLinks(cacheKey: InstanceCacheKey, links: Items<AdapterLink[]>): Items<AdapterLink[]> {
+	const key = toCacheKey(cacheKey);
+
+	if (links.loadingState !== "loaded") {
+		stableLinksByInstance.delete(key);
+
+		return links;
+	}
+
+	const cached = stableLinksByInstance.get(key);
+	const stable = cached && areLinksEqual(cached, links) ? cached : links;
+	stableLinksByInstance.set(key, stable);
+
+	return stable;
+}
+
+const stableCandidatesByInstance = new Map<string, Items<AdapterCandidate[]>>();
+
+function stabilizeCandidates(
+	cacheKey: InstanceCacheKey,
+	candidates: Items<AdapterCandidate[]>
+): Items<AdapterCandidate[]> {
+	const key = toCacheKey(cacheKey);
+
+	if (candidates.loadingState !== "loaded") {
+		stableCandidatesByInstance.delete(key);
+
+		return candidates;
+	}
+
+	const cached = stableCandidatesByInstance.get(key);
+	const stable = cached && areCandidatesEqual(cached, candidates) ? cached : candidates;
+	stableCandidatesByInstance.set(key, stable);
+
+	return stable;
 }
 
 /** @internal */
@@ -328,9 +423,15 @@ export function mapStateToAdapterProps<T>(state: {}, ownProps: OwnProps<T>): Sta
 
 	const disabled = ownProps.disabled || [candidates, links].some((e) => e.loadingState !== "loaded");
 
+	const instanceCacheKey: InstanceCacheKey = {
+		activityId,
+		instanceId,
+		componentId: ownProps.componentConfiguration.id
+	};
+
 	return {
-		links,
-		candidates,
+		links: stabilizeLinks(instanceCacheKey, links),
+		candidates: stabilizeCandidates(instanceCacheKey, candidates),
 		linkModels,
 		maxNumberOfLinks,
 		locale,

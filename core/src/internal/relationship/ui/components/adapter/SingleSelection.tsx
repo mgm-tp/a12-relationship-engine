@@ -36,7 +36,7 @@
  */
 
 import { connect } from "react-redux";
-import React, { useContext } from "react";
+import React, { useRef, useContext } from "react";
 
 import type { ModelPath } from "@com.mgmtp.a12.base/base-model-api";
 import { defaultValueParser } from "@com.mgmtp.a12.formengine/formengine-core";
@@ -74,6 +74,8 @@ interface StateProps extends RelationshipUiAdapter.StateProps {
 interface DispatchProps {
 	onSelectLink(candidate: RelationshipClientApi.Candidate): void;
 	onRemoveLink(link: RelationshipClientApi.LinkWithDocument): void;
+	// Atomic replace (cdm case); falls back to onRemoveLink + onSelectLink when absent
+	onReplaceLink?(candidate: RelationshipClientApi.Candidate, oldLink: RelationshipClientApi.LinkWithDocument): void;
 
 	onSearch(value: string | undefined): void;
 
@@ -84,11 +86,59 @@ interface DispatchProps {
 	onSubmitEditExistingLink(link: RelationshipClientApi.LinkWithDocument): void;
 }
 
+/** @internal */
+export function areStatePropsEqual(prevProps: StateProps, curProps: StateProps): boolean {
+	return (
+		RelationshipUiAdapter.areStatePropsEqual(prevProps, curProps) &&
+		prevProps.linkModels?.loadingState === curProps.linkModels?.loadingState &&
+		prevProps.candidateModels?.loadingState === curProps.candidateModels?.loadingState &&
+		prevProps.editLinkModels?.loadingState === curProps.editLinkModels?.loadingState &&
+		prevProps.candidatesFullCount === curProps.candidatesFullCount &&
+		prevProps.minSearchableTokenSize === curProps.minSearchableTokenSize
+	);
+}
+
 type OwnProps = RelationshipUiAdapter.OwnProps<SingleSelectionProps>;
 
 /** @internal */
 export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnProps): React.ReactNode {
 	const localizerContext = useContext(LocalizerContext);
+
+	const links =
+		props.links.loadingState === "loaded"
+			? props.links.data.filter((link) => link.mutation !== "removed" && link.mutation !== "withdrawn")
+			: [];
+
+	const linkValueProvider = resolveLinkValueProvider(
+		props.linkModels,
+		localizerContext.localizer,
+		localizerContext.conversion
+	);
+
+	// Key on link content signals (id + document reference), not the links array, which is rebuilt by unmemoized selectors on every store notification.
+	const selectedItemLabel = links.length > 0 ? linkValueProvider(links[0].document) : undefined;
+	const selectedItem = useValueKeyedMemo(
+		[props.links.loadingState, links[0]?.linkRef.id, links[0]?.document, props.targetRole, selectedItemLabel] as const,
+		() =>
+			RelationshipUiAdapter.retypeItemsData(props.links, () =>
+				links.length > 0 ? convertLinkToSingleSelectionItem(links[0], linkValueProvider, props.targetRole) : undefined
+			)
+	);
+
+	const editAssignmentLabel = props.editLink ? linkValueProvider(props.editLink.document) : undefined;
+	const editAssignmentItem = useValueKeyedMemo(
+		[props.editLink?.linkRef.id, props.editLink?.document, props.targetRole, editAssignmentLabel] as const,
+		(): SingleSelectionItem | undefined => {
+			if (props.editLink === undefined || editAssignmentLabel === undefined) {
+				return undefined;
+			}
+
+			return {
+				label: editAssignmentLabel,
+				docRef: getTargetDocRef(props.editLink.linkRef.linkDescriptor.entities, props.targetRole)
+			};
+		}
+	);
 
 	if (props.linkModels === undefined || props.candidateModels === undefined) {
 		return null;
@@ -98,21 +148,6 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 		props.candidateModels,
 		localizerContext.localizer,
 		localizerContext.conversion
-	);
-
-	const linkValueProvider = createDisplayValueProvider(
-		props.linkModels,
-		localizerContext.localizer,
-		localizerContext.conversion
-	);
-
-	const links =
-		props.links.loadingState === "loaded"
-			? props.links.data.filter((link) => link.mutation !== "removed" && link.mutation !== "withdrawn")
-			: [];
-
-	const selectedItem = RelationshipUiAdapter.retypeItemsData(props.links, () =>
-		links.length > 0 ? convertLinkToSingleSelectionItem(links[0], linkValueProvider, props.targetRole) : undefined
 	);
 
 	const availableItems = RelationshipUiAdapter.retypeItemsData(props.candidates, (data) =>
@@ -136,10 +171,16 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 		}
 
 		if (isCandidateSingleSelectionItem(item)) {
-			// Adding the new link before removing the existing one to prevent
-			// additional link creations by computations triggered by removeLink
-			// in the cdm case
+			// Replace must be atomic in the cdm case: a computation pass between
+			// remove and add would either see both links or an empty
+			// group re-creating initial-value instances
 			if (props.editLinkModels === undefined && selectedItem.data) {
+				if (props.onReplaceLink) {
+					props.onReplaceLink(item.candidate as RelationshipClientApi.Candidate, selectedItem.data.link);
+
+					return;
+				}
+
 				props.onRemoveLink(selectedItem.data.link);
 			}
 
@@ -177,11 +218,6 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 		}
 	}
 
-	const editAssignmentItem: SingleSelectionItem | undefined = props.editLink && {
-		label: linkValueProvider(props.editLink.document),
-		docRef: getTargetDocRef(props.editLink.linkRef.linkDescriptor.entities, props.targetRole)
-	};
-
 	return (
 		<props.TemplateComponent
 			label={props.label ? localizerContext.localizer(props.label) : undefined}
@@ -204,6 +240,29 @@ export function SingleSelectionWrapper(props: StateProps & DispatchProps & OwnPr
 			{...props.templateComponentProps}
 		/>
 	);
+}
+
+// useMemo-alike keyed by shallow value equality, immune to upstream reference churn.
+function useValueKeyedMemo<TKey extends readonly unknown[], TValue>(key: TKey, computeValue: () => TValue): TValue {
+	const cache = useRef<{ readonly key: TKey; readonly value: TValue } | undefined>(undefined);
+
+	if (cache.current === undefined || !sameShallowKey(cache.current.key, key)) {
+		cache.current = { key, value: computeValue() };
+	}
+
+	return cache.current.value;
+}
+
+function sameShallowKey(previous: readonly unknown[], current: readonly unknown[]): boolean {
+	return previous.length === current.length && previous.every((value, index) => value === current[index]);
+}
+
+function resolveLinkValueProvider(
+	linkModels: RelationshipClientApi.OverviewModels | undefined,
+	localizer: Localizer,
+	conversion: ValueConversion
+): DisplayValueProvider {
+	return linkModels === undefined ? () => "" : createDisplayValueProvider(linkModels, localizer, conversion);
 }
 
 /** @internal */
@@ -518,6 +577,10 @@ export const SingleSelectionAdapter = connect<StateProps, DispatchProps, OwnProp
 				);
 			}
 		};
+	},
+	undefined,
+	{
+		areStatePropsEqual
 	}
 )(SingleSelectionWrapper);
 

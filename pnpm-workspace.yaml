@@ -12,26 +12,52 @@ packages:
   - ./*
   - ./documentation/*
 
+patchedDependencies:
+  react-dnd@16.0.1: patches/react-dnd@16.0.1.patch
+
+peerDependencyRules:
+  allowedVersions:
+    eslint-plugin-import>eslint: "10"
+    eslint-plugin-react>eslint: "10"
+    typedoc>typescript: "6"
+
 catalogs:
-  a12Libs:
+  a12:
+    "@com.mgmtp.a12.base/base-model-api": "^30.0.2"
+    "@com.mgmtp.a12.client/client-application-model-migration": "^17.0.1"
+    "@com.mgmtp.a12.client/client-core": "^17.0.1"
+    "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat": "^1.0.2"
+    "@com.mgmtp.a12.dataservices/dataservices-access": "^39.0.3"
+    "@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration": "^39.0.3"
+    "@com.mgmtp.a12.expression/expression-core": "^3.0.1"
+    "@com.mgmtp.a12.formengine/formengine-core": "^39.0.1"
+    "@com.mgmtp.a12.formengine/formengine-model-migration": "^39.0.1"
+    "@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts": "^31.1.1"
+    "@com.mgmtp.a12.kernel/kernel-md-facade": "^31.1.1"
+    "@com.mgmtp.a12.migrationtool/migrationtool-utils": "^3.0.1"
+    "@com.mgmtp.a12.migrationtool/migrationtool-core": "^3.0.1"
+    "@com.mgmtp.a12.overviewengine/overviewengine-core": "^39.0.2"
+    "@com.mgmtp.a12.overviewengine/overviewengine-model-migration": "^39.0.2"
+    "@com.mgmtp.a12.utils/utils-collections": "^7.0.1"
+    "@com.mgmtp.a12.utils/utils-connector": "^9.0.3"
+    "@com.mgmtp.a12.querymodel/querymodel-core": "^39.0.2"
+    "@com.mgmtp.a12.utils/utils-localization": "^8.0.2"
+    "@com.mgmtp.a12.utils/utils-localization-react": "^8.0.2"
+    "@com.mgmtp.a12.utils/utils-logging": "^7.0.2"
+    "@com.mgmtp.a12.widgets/widgets-core": "^39.0.3"
+
+  a12ranges:
     "@com.mgmtp.a12.base/base-model-api": "^30.0.1"
-    "@com.mgmtp.a12.client/client-application-model-migration": "^17.0.0"
     "@com.mgmtp.a12.client/client-core": "^17.0.0"
     "@com.mgmtp.a12.client/typescript-fsa-redux-5-compat": "^1.0.2"
     "@com.mgmtp.a12.dataservices/dataservices-access": "^39.0.1"
-    "@com.mgmtp.a12.dataservices/dataservices-relationship-model-migration": "^39.0.1"
     "@com.mgmtp.a12.expression/expression-core": "^3.0.0"
     "@com.mgmtp.a12.formengine/formengine-core": "^39.0.0"
-    "@com.mgmtp.a12.formengine/formengine-model-migration": "^39.0.0"
     "@com.mgmtp.a12.kernel/kernel-core-runtime-api-ts": "^31.1.0"
     "@com.mgmtp.a12.kernel/kernel-md-facade": "^31.1.0"
-    "@com.mgmtp.a12.migrationtool/migrationtool-utils": "^3.0.0"
-    "@com.mgmtp.a12.migrationtool/migrationtool-core": "^3.0.0"
     "@com.mgmtp.a12.overviewengine/overviewengine-core": "^39.0.0"
-    "@com.mgmtp.a12.overviewengine/overviewengine-model-migration": "^39.0.0"
-    "@com.mgmtp.a12.utils/utils-collections": "^7.0.1"
+    "@com.mgmtp.a12.querymodel/querymodel-core": "^0.2.0 || ^39.0.2"
     "@com.mgmtp.a12.utils/utils-connector": "^9.0.1"
-    "@com.mgmtp.a12.querymodel/querymodel-core": "^0.2.0"
     "@com.mgmtp.a12.utils/utils-localization": "^8.0.1"
     "@com.mgmtp.a12.utils/utils-localization-react": "^8.0.1"
     "@com.mgmtp.a12.utils/utils-logging": "^7.0.1"
@@ -42,7 +68,7 @@ catalogs:
     "react-dom": "^19.2.6"
     "react-redux": "^9.2.0"
     "redux": "^5.0.1"
-    "redux-saga": "^1.4.2"
+    "redux-saga": "^1.5.0"
     "typed-redux-saga": "^1.5.0"
     "styled-components": "^6.4.3"
     "react-dnd": "^16.0.1"
@@ -61,3 +87,9 @@ catalogs:
     "rimraf": "^6.0.1"
     "vite": "^8.1.0"
     "vitest": "^4.1.8"
+
+allowBuilds:
+  core-js: true
+  esbuild: true
+  puppeteer: true
+  typemoq: true

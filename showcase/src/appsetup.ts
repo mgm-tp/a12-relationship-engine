@@ -47,6 +47,18 @@ import {
 	platformSingleDocumentDataProvider
 } from "@com.mgmtp.a12.formengine/formengine-core";
 import {
+	ModelActions,
+	type DataHandler,
+	ActivitySelectors,
+	ApplicationActions,
+	NotificationActions,
+	ApplicationFactories,
+	type ComposeEnhancer,
+	type ApplicationSetup,
+	ModuleRegistryProvider,
+	APPLICATION_MODEL_PLACEHOLDER
+} from "@com.mgmtp.a12.client/client-core";
+import {
 	cdmSagas,
 	cddReducers,
 	dgReducerFactory,
@@ -58,30 +70,12 @@ import {
 	DefaultRequestSelectorMap,
 	cddDataHolderReducerExtension
 } from "@com.mgmtp.a12.relationshipengine/relationshipengine-core";
-import {
-	type Module,
-	ModelActions,
-	type DataHandler,
-	ActivitySelectors,
-	ApplicationActions,
-	NotificationActions,
-	ApplicationFactories,
-	type ApplicationSaga,
-	type ComposeEnhancer,
-	type ApplicationSetup,
-	type ApplicationModel,
-	ModuleRegistryProvider
-} from "@com.mgmtp.a12.client/client-core";
 
-import { SampleAppModules } from "./modules/modules.js";
-import model from "./appmodel.json" with { type: "json" };
-import OverviewAppModel from "./overview-appmodel.json" with { type: "json" };
+import { createModules } from "./modules/index.js";
+import { createViewNGComponents } from "./viewNGComponents.js";
 import { handleErrorSaga } from "./views/showcaseOverview/handleErrorSaga.js";
 import { CustomFormEngineSelectors } from "./modules/examples/dynamic-models/selector.js";
 import { selectRowReadonlySaga } from "./views/showcaseOverview/showcaseOverviewSagas.js";
-import { standaloneDataProviders } from "./modules/relationships/standalone/standaloneDataProviders.js";
-
-const applicationModules: Module[] = [{ id: "OverviewAppModel", model: () => OverviewAppModel as ApplicationModel }];
 
 function getServerURL(): string {
 	return window.location.pathname + "api";
@@ -96,12 +90,9 @@ export function setup(): {
 	store: Store;
 	initialStoreActions(dispatch: Dispatch): Promise<void>;
 } {
-	SampleAppModules.forEach((m) => ModuleRegistryProvider.getInstance().addModule(m));
-	const moduleDataLoaders = SampleAppModules.map((mod) => mod.dataLoaders || []).reduce(
-		(prev, cur) => prev.concat(cur),
-		[]
+	createModules(createViewNGComponents("legacy")).forEach((module) =>
+		ModuleRegistryProvider.getInstance().addModule(module)
 	);
-	applicationModules.forEach((module) => ModuleRegistryProvider.getInstance().addModule(module));
 
 	const reRequestSelectorMap: RequestSelectorMap = {
 		...DefaultRequestSelectorMap,
@@ -112,8 +103,6 @@ export function setup(): {
 		}
 	};
 	const dataHandlers: DataHandler[] = [
-		...moduleDataLoaders,
-		...standaloneDataProviders,
 		createCddDataProvider({ requestSelectorMap: reRequestSelectorMap }),
 		createEmptyDocumentDataProvider(),
 		RelationshipFactories.createRelationshipDataProvider({ requestSelectorMap: reRequestSelectorMap }),
@@ -121,21 +110,13 @@ export function setup(): {
 		...OverviewEngineFactories.createDataProviders()
 	];
 
-	const modulePlatformSagas = SampleAppModules.map((mod) => mod.applicationSagas || [])
-		.reduce((prev, cur) => prev.concat(cur), [])
-		.map((saga) => saga(applicationSagaConfig));
-	const applicationSagaConfig: ApplicationSaga.Configuration = {
-		dataHandlers: dataHandlers
-	};
-
 	const dgReducers = dgReducerFactory(cddDataHolderReducerExtension);
 	config = ApplicationFactories.createApplicationSetup({
-		model,
+		model: APPLICATION_MODEL_PLACEHOLDER, // not used, DynamicConfiguration provides the model
 		modelLoader: createPlatformServerModelLoader({ modelProcessors: [FormModelProcessor] }),
 		dataHandlers: dataHandlers,
 		overridePlatformSagas: [
 			...OverviewEngineFactories.createApplicationSagas(),
-			...modulePlatformSagas,
 			...DirtyHandlingFactories.createSagas()
 		],
 		additionalMiddlewares: [

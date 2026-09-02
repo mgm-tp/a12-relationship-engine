@@ -83,7 +83,7 @@ When an activity saves, the save handler reads the deduplicated effective change
 * *Merge*: the parent activity has its own Relationship Engine changelog; the child's local changes are folded into the parent's changelog. SCDM and the Document Graph are recomputed synchronously by replaying the merged changes.
 * *Persist*: there is no Relationship Engine parent (or no parent at all); the changes are translated into DataServices RPCs (`addDocument`, `addLink`, `updateDocument` and similar) and dispatched in a single batched call.
 
-If any pending `linkAdded` requires a link document but does not yet have one, the save handler prompts the user to fill it in before continuing. Cancelling the prompt aborts the save without losing the changelog.
+If any pending `linkAdded` requires a link document but does not yet have one, the save handler prompts the user to fill it in before continuing. Cancelling the prompt aborts the save without losing the changelog. For a relationship whose Relationship Model requires a link document, when a link is added through a Relationship UI Model that configures no link form, the engine records an empty link document (`{}`) on the `linkAdded` entry at creation time, so no prompt is needed and the `addLink` request still carries the required document.
 
 == Parent Link Descriptor
 
